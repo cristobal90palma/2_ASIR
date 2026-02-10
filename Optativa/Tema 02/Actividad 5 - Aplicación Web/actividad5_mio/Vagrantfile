@@ -1,0 +1,93 @@
+Vagrant.configure("2") do |config|
+  # Configuración base del sistema operativo
+  config.vm.box = "ubuntu/focal64" # Ubuntu 20.04 LTS
+
+  # --------------------------
+  # MÁQUINA: DB01 (MySQL)
+  # --------------------------
+  config.vm.define "db01" do |db|
+    db.vm.hostname = "db01"
+    db.vm.network "private_network", ip: "192.168.56.10"
+
+    # Comienza el aprovisionado de "db01".
+    db.vm.provision "shell", inline: <<-SHELL
+      echo "--- Aprovisionando DB01 ---"
+      apt-get update
+      apt-get install -y mariadb-server
+
+	  # Permitir conexiones desde app01. Lo que hacemos es que se puedan conectar desde cualquier direccion IP.
+      sed -i 's/bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
+      systemctl restart mariadb
+	  
+      # Comprobamos que esta el archivo ".sql" con la base de datos y ejecutamos. Obra de Andrés.    
+      if [ -f "/vagrant/bbdd.sql" ]; then
+        sudo mysql < /vagrant/bbdd.sql
+        echo "Base de datos importada."
+      else
+        echo "ERROR: bbdd.sql no encontrado."
+      fi
+	  
+      # Crear un usuario en app01 y darle permisos sobre la tabla. Pon la IP que usara "app01", porque es desde ahi donde se conecta.
+      mysql -e "CREATE USER 'appuser'@'192.168.56.20' IDENTIFIED BY 'app123';"
+      mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'appuser'@'192.168.56.20';"
+      mysql -e "FLUSH PRIVILEGES;"
+      echo "Configurado usuario appuser".
+    SHELL
+  end
+  
+  # --------------------------
+  # MÁQUINA: APP01 (Backend Flask)
+  # --------------------------
+  config.vm.define "app01" do |app|
+    app.vm.hostname = "app01"
+    app.vm.network "private_network", ip: "192.168.56.20"
+
+    # Comienza el aprovisionado de "app01".
+    app.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt-get install -y python3 python3-pip
+
+      # Instalar dependencias de Python
+      pip3 install Flask mysql-connector-python Flask-Cors
+
+      # Copiar API al servidor
+      cp /vagrant/api_alumnos.py /home/vagrant/api_alumnos.py
+      #chmod +x /home/vagrant/api_alumnos.py
+	  #chown vagrant:vagrant /home/vagrant/api_alumnos.py
+	  
+	  # Asegurar que Flask escucha en todas las IPs
+      # sed -i "s/app.run().*/app.run(host='0.0.0.0', port=5000, debug=True)/" /home/vagrant/api_alumnos.py
+
+      # ESTO ES OBRA DE Andrés.
+      # Ejecutar en segundo plano (nohup) para que no muera al terminar el script
+      # Redirigimos logs a api.log para depurar si falla
+      nohup python3 /home/vagrant/api_alumnos.py > /home/vagrant/api.log 2>&1 &
+      echo "Backend levantado en segundo plano."
+    SHELL
+  end
+  
+  
+  # --------------------------
+  # MÁQUINA: WEB01 (Nginx)
+  # --------------------------
+  config.vm.define "web01" do |web|
+    web.vm.hostname = "web01"
+    web.vm.network "private_network", ip: "192.168.56.30"
+
+    # Port forwarding para acceso desde el host. Usa: http://localhost:8080/ 
+    web.vm.network "forwarded_port", guest: 80, host: 8080
+
+    web.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt-get install -y nginx
+
+      # Copiar index.html como frontend
+      cp /vagrant/index.html /var/www/html/index.html
+
+      systemctl enable nginx
+      systemctl restart nginx
+    SHELL
+  end
+
+end
+ 

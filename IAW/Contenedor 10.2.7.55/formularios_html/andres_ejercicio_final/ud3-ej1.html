@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1: Currículum Vitae</title>
+    <!-- Usamos Tailwind CSS para un diseño rápido y limpio -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para inputs radio */
+        .radio-group label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen py-10 px-4">
+
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        
+        <!-- Cabecera -->
+        <div class="bg-blue-600 p-6">
+            <h1 class="text-2xl font-bold text-white text-center">Formulario de Currículum Vitae</h1>
+            <p class="text-blue-100 text-center mt-2">Ejercicio 1 - Recogida de datos</p>
+        </div>
+
+        <!-- 
+           NOTA IMPORTANTE PARA EL ALUMNO:
+           Para que el ejercicio funcione con PHP posteriormente:
+           1. action: Debe apuntar a tu archivo PHP (ej. procesar.php). Aquí lo dejo vacío o con # para la demo.
+           2. method: Debe ser "POST".
+           3. enctype: OBLIGATORIO ser "multipart/form-data" para poder subir archivos.
+        -->
+        <form action="ud3-ej1-basic.php" method="POST" enctype="multipart/form-data" class="p-8 space-y-8">
+
+            <!-- SECCIÓN 1: SOLICITUD DE EMPLEO -->
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-500 pb-2 mb-4">
+                    Solicitud de Empleo
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Puesto de trabajo -->
+                    <div>
+                        <label for="puesto" class="block text-sm font-medium text-gray-700 mb-1">Puesto Solicitado</label>
+                        <select id="puesto" name="puesto" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            <option value="" disabled selected>-- Selecciona un puesto --</option>
+                            <option value="programador_jr">Programador Junior</option>
+                            <option value="programador_sr">Programador Senior</option>
+                            <option value="analista">Analista de Sistemas</option>
+                            <option value="disenador">Diseñador Web</option>
+                            <option value="sysadmin">Administrador de Sistemas</option>
+                        </select>
+                    </div>
+
+                    <!-- Fecha de envío -->
+                    <div>
+                        <label for="fecha_solicitud" class="block text-sm font-medium text-gray-700 mb-1">Fecha de solicitud</label>
+                        <!-- Se puede poner value="<?php echo date('Y-m-d'); ?>" si fuera PHP, aquí usamos JS simple para poner la fecha de hoy por defecto -->
+                        <input type="date" id="fecha_solicitud" name="fecha_solicitud" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: DATOS PERSONALES -->
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-500 pb-2 mb-4">
+                    Datos Personales
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Nombre -->
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Apellidos -->
+                    <div>
+                        <label for="apellidos" class="block text-sm font-medium text-gray-700 mb-1">Apellidos</label>
+                        <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Pérez García" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Edad -->
+                    <div>
+                        <label for="edad" class="block text-sm font-medium text-gray-700 mb-1">Edad</label>
+                        <input type="number" id="edad" name="edad" min="16" max="99" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Fecha de Nacimiento -->
+                    <div>
+                        <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Nacimiento</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Nacionalidad -->
+                    <div>
+                        <label for="nacionalidad" class="block text-sm font-medium text-gray-700 mb-1">Nacionalidad</label>
+                        <select id="nacionalidad" name="nacionalidad" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            <option value="Espanola">Española</option>
+                            <option value="Otra">Otra</option>
+                        </select>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div>
+                        <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" placeholder="999999999" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Género (Radio) -->
+                    <div class="md:col-span-2">
+                        <span class="block text-sm font-medium text-gray-700 mb-2">Género</span>
+                        <div class="flex gap-4 radio-group">
+                            <label class="flex items-center">
+                                <input type="radio" name="genero" value="hombre" class="mr-2 text-blue-600 focus:ring-blue-500" required>
+                                Hombre
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="genero" value="mujer" class="mr-2 text-blue-600 focus:ring-blue-500">
+                                Mujer
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="genero" value="otro" class="mr-2 text-blue-600 focus:ring-blue-500">
+                                Otro
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dirección: Calle -->
+                    <div class="md:col-span-2">
+                        <label for="calle" class="block text-sm font-medium text-gray-700 mb-1">Calle / Dirección</label>
+                        <input type="text" id="calle" name="calle" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Municipio -->
+                    <div>
+                        <label for="municipio" class="block text-sm font-medium text-gray-700 mb-1">Municipio</label>
+                        <input type="text" id="municipio" name="municipio" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Provincia (Solo Andaluzas) -->
+                    <div>
+                        <label for="provincia" class="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
+                        <select id="provincia" name="provincia" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            <option value="" disabled selected>-- Selecciona --</option>
+                            <option value="Almería">Almería</option>
+                            <option value="Cádiz">Cádiz</option>
+                            <option value="Córdoba">Córdoba</option>
+                            <option value="Granada">Granada</option>
+                            <option value="Huelva">Huelva</option>
+                            <option value="Jaén">Jaén</option>
+                            <option value="Málaga">Málaga</option>
+                            <option value="Sevilla">Sevilla</option>
+                        </select>
+                    </div>
+
+                    <!-- Correo Electrónico -->
+                    <div class="md:col-span-2">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Estado Civil (Radio) -->
+                    <div class="md:col-span-2">
+                        <span class="block text-sm font-medium text-gray-700 mb-2">Estado Civil</span>
+                        <div class="flex flex-wrap gap-4 radio-group">
+                            <label class="flex items-center">
+                                <input type="radio" name="estado_civil" value="soltero" class="mr-2 text-blue-600 focus:ring-blue-500" required>
+                                Soltero/a
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="estado_civil" value="casado" class="mr-2 text-blue-600 focus:ring-blue-500">
+                                Casado/a
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="estado_civil" value="divorciado" class="mr-2 text-blue-600 focus:ring-blue-500">
+                                Divorciado/a
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="estado_civil" value="viudo" class="mr-2 text-blue-600 focus:ring-blue-500">
+                                Viudo/a
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Algo sobre el estudiante (Textarea) -->
+                    <div class="md:col-span-2">
+                        <label for="sobre_mi" class="block text-sm font-medium text-gray-700 mb-1">Algo sobre el estudiante</label>
+                        <textarea id="sobre_mi" name="sobre_mi" rows="4" placeholder="Breve descripción personal..."
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ADJUNTAR ARCHIVO -->
+            <section class="bg-blue-50 p-6 rounded-md border border-blue-200">
+                <h3 class="text-lg font-medium text-blue-800 mb-2">Adjuntar Archivo (Foto o PDF)</h3>
+                <label class="block mb-2 text-sm text-gray-600">Sube tu CV en formato PDF o una foto reciente.</label>
+                <!-- input type="file" es crucial para el ejercicio -->
+                <input type="file" id="archivo" name="archivo" required
+                    class="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-blue-500 file:text-white
+                    hover:file:bg-blue-600
+                    cursor-pointer">
+            </section>
+
+            <!-- BOTÓN DE ENVÍO -->
+            <div class="text-center pt-4">
+                <button type="submit" 
+                    class="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                    Enviar Currículum
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <footer class="text-center mt-10 text-gray-500 text-sm pb-10">
+        &copy; Ejercicio 1 - Desarrollo Web en Entorno Servidor
+    </footer>
+
+    <script>
+        // Pequeño script solo para pre-rellenar la fecha de hoy, mejora la UX
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const dateInput = document.getElementById('fecha_solicitud');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+        });
+    </script>
+</body>
+</html>

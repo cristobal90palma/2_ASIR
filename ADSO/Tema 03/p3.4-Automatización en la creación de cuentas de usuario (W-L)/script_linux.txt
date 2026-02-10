@@ -1,0 +1,69 @@
+#!/bin/bash
+
+CSV="/opt/user_mgmt/users.csv"
+LOG="/var/log/user_mgmt/user_mgmt.log"
+DATE_NOW=$(date +%F)
+ERROR=0
+
+exec >> "$LOG" 2>&1
+
+echo "[$(date)] Inicio ejecución"
+
+# Seguridad básica
+if [[ $EUID -ne 0 ]]; then
+  echo "ERROR: Debe ejecutarse como root"
+  exit 1
+fi
+
+# Validar CSV
+EXPECTED_FIELDS=6
+cut -d',' -f1 "$CSV" | tail -n +2 | sort | uniq -d | grep . && {
+  echo "ERROR: Usuarios duplicados en CSV"
+  exit 1
+}
+
+while IFS=',' read -r username nombre apellido dept rol fecha_fin; do
+    [[ "$username" == "username" ]] && continue
+
+    # Validar campos
+    [[ -z "$username" || -z "$rol" || -z "$fecha_fin" ]] && ERROR=1
+
+    # Bloqueo de admins
+    if [[ "$rol" == "admin" && "$dept" != "IT" ]]; then
+        echo "ALERTA: Intento de admin no autorizado ($username)"
+        exit 1
+    fi
+done < "$CSV"
+
+[[ $ERROR -eq 1 ]] && {
+  echo "ERROR: CSV mal formado"
+  exit 1
+}
+
+# Procesar usuarios
+while IFS=',' read -r username nombre apellido dept rol fecha_fin; do
+    [[ "$username" == "username" ]] && continue
+
+    if ! id "$username" &>/dev/null; then
+        useradd -m -c "$nombre $apellido" "$username"
+        passwd -e "$username"
+
+        if [[ "$rol" == "admin" ]]; then
+            usermod -aG sudo "$username"
+        else
+            usermod -aG users "$username"
+        fi
+
+        chage -E "$fecha_fin" "$username"
+        echo "Usuario creado: $username"
+    fi
+
+    # Deshabilitar si procede
+    if [[ "$fecha_fin" < "$DATE_NOW" ]]; then
+        usermod -L "$username"
+        echo "Usuario deshabilitado: $username"
+    fi
+
+done < "$CSV"
+
+echo "[$(date)] Fin ejecución"

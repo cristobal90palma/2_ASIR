@@ -1,0 +1,44 @@
+https://somebooks.es/anadir-un-nuevo-controlador-de-dominio-para-un-dominio-existente-en-windows-server-2019-parte-1/
+
+Qué significa
+
+Ruta local (C:...): solo sirve en el servidor, no para los clientes.
+
+Ruta UNC (\\Servidor\CarpetaCompartida...): accesible desde toda la red.
+
+
+https://community.spiceworks.com/t/folder-redirection-gpo-not-updating-to-new-location/764266
+
+
+https://old.reddit.com/r/sysadmin/comments/v4v5q2/roaming_profilefolder_redirection_best_practices/
+
+Best practice? Don't :)
+
+Realistically, folder redirection isn't an awful option, but it is a pain in the ass when it breaks and requires higher level IT people to deal with it. I'd highly recommend OneDrive with a SaaS backup option such as Veeam or Backupify.
+
+
+https://somebooks.es/crear-carpetas-personales-para-los-usuarios-en-windows-server-2019/
+https://somebooks.es/crear-carpetas-compartidas-para-un-grupo-de-usuarios-en-windows-server-2019/
+
+
+https://community.spiceworks.com/t/unable-to-get-the-correct-ntfs-permissions-for-new-roaming-profile-folder/771602
+
+There are 2 parts to this…permissions & ownership.
+
+To copy or read, the Domain admin needs to take ownership first. Then give the respective persons read or full rights to the folder and files including the user to have full rights.
+
+To set back after reading or copying…that Domain user must be given back ownership to the folder and files (it can have more read or full permissions as above line).
+
+
+There are 2 permissions you need to look at, share permissions and NTFS file/folder permissions.
+
+I usually set share permissions to full and use NTFS permissions to lock things down.
+
+
+https://somebooks.es/crear-un-perfil-de-usuario-movil-en-active-directory-sobre-windows-server-2019/
+
+https://somebooks.es/relaciones-de-confianza-con-dominios-de-otros-bosques-en-windows-server-2019-parte-2/
+
+https://somebooks.es/capitulo-7-relaciones-entre-dominios/4/
+
+https://somebooks.es/redirigir-carpetas-de-usuario-a-una-ubicacion-de-red-en-windows-server-2019/

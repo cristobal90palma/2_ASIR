@@ -1,0 +1,92 @@
+Tema 05
+
+PHP y acceso a base de datos
+
+La máquina debe tener Apache+PHP  + MySQL(Server)
+
+
+apt install mysql-server
+
+
+Comproba parametros básicos de configuración de MySQL
+
+mysql_secure_installation
+
+
+Después
+
+sudo mysql -u root -p
+
+show databases;
+
+use mysql;
+
+show tables;
+
+select * from user;
+
+select user from user;
+
+mysql> select user from user;
++------------------+
+| user             |
++------------------+
+| debian-sys-maint |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| root             |
++------------------+
+5 rows in set (0.00 sec)
+
+
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345';
+
+FLUSH PRIVILEGES;
+
+Sal de mysql y vuelve a entrar para probar que te pide una password de verdad.
+
+
+Libreria para conectar php y mysql (MUY IMPORTANTE).
+apt install php-mysql
+
+Después: systemctl restart apache2
+
+Ahora phpmyadmin
+
+apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl
+
+Marcas Apache2
+
+
+Habilitar mbstring: phpenmod mbstring
+
+systemctl restart apache2
+
+
+Probar acceso: http://10.2.7.55/phpmyadmin/
+
+
+root
+12345
+
+
+Creamos base de datos en la interfaz de phpmyadmin
+
+utf8mb3_general_ci
+
+
+
+
+Crear relacion tablas foreign key
+
+En ambas tablas debe haber ya datos que coincidan en las columnas Primary y Foreign Key
+
+Ambas deben ser "unique" (El primary key no hace falta, ya lo es).
+
+Después en la parte de la base de datos nos vamos al Designer y nos vamos al panel izquierda
+a "Create relationship"
+
+

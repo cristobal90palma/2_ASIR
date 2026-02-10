@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .contenedor {
+            width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        h2 {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <h2>Datos del cliente</h2>
+
+    <form action="procesarPedido.php" method="POST">
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre"><br><br>
+
+        <label>Teléfono:</label><br>
+        <input type="text" name="telefono"><br><br>
+
+        <label>Dirección:</label><br>
+        <input type="text" name="direccion"><br><br>
+
+        <h2>Entrantes</h2>
+        <table>
+            <tr><th>Producto</th><th>Precio</th><th>Seleccionar</th></tr>
+            <tr><td>Nachos clásicos</td><td>8,95 €</td><td><input type="checkbox" name="productos[]" value="1"></td></tr>
+            <tr><td>Ensalada Cesar</td><td>10 €</td><td><input type="checkbox" name="productos[]" value="2"></td></tr>
+            <tr><td>Combo de alitas</td><td>15 €</td><td><input type="checkbox" name="productos[]" value="3"></td></tr>
+        </table>
+
+        <h2>Pizzas</h2>
+        <table>
+            <tr><th>Producto</th><th>Precio</th><th>Seleccionar</th></tr>
+            <tr><td>Pizza carbonara</td><td>11 €</td><td><input type="checkbox" name="productos[]" value="4"></td></tr>
+            <tr><td>Pizza ranchera</td><td>8 €</td><td><input type="checkbox" name="productos[]" value="5"></td></tr>
+            <tr><td>Pizza taco</td><td>15 €</td><td><input type="checkbox" name="productos[]" value="6"></td></tr>
+        </table>
+
+        <h2>Postres</h2>
+        <table>
+            <tr><th>Producto</th><th>Precio</th><th>Seleccionar</th></tr>
+            <tr><td>Tarta trufa</td><td>4 €</td><td><input type="checkbox" name="productos[]" value="7"></td></tr>
+            <tr><td>Helados variados</td><td>3 €</td><td><input type="checkbox" name="productos[]" value="8"></td></tr>
+        </table>
+
+        <br>
+        <input type="submit" class="btn" value="Realizar pedido">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+# ==============================
+# CONFIGURACIÓN
+# ==============================
+$CSV = "C:\scripts\users.csv"
+$LOG = "C:\scripts\user_mgmt.log"
+$BaseDN = "DC=empresa,DC=local"
+$Today = Get-Date
+
+# ==============================
+# LOGGING
+# ==============================
+function Write-Log {
+    param ([string]$Message)
+    Add-Content -Path $LOG -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $Message"
+}
+
+Write-Log "===== INICIO EJECUCIÓN ====="
+
+# ==============================
+# COMPROBACIONES INICIALES
+# ==============================
+if (-not (Get-Module -ListAvailable -Name ActiveDirectory)) {
+    Write-Log "ERROR CRÍTICO: Módulo ActiveDirectory no disponible"
+    exit 1
+}
+
+Import-Module ActiveDirectory
+
+if (-not (Test-Path $CSV)) {
+    Write-Log "ERROR CRÍTICO: CSV no encontrado"
+    exit 1
+}
+
+# ==============================
+# CARGA Y VALIDACIÓN DEL CSV
+# ==============================
+$users = Import-Csv $CSV
+
+if ($users.Count -eq 0) {
+    Write-Log "ERROR CRÍTICO: CSV vacío"
+    exit 1
+}
+
+# Duplicados
+$duplicates = $users | Group-Object username | Where-Object { $_.Count -gt 1 }
+if ($duplicates) {
+    Write-Log "ERROR CRÍTICO: Usuarios duplicados en CSV"
+    exit 1
+}
+
+# Validación de campos
+foreach ($u in $users) {
+    if (-not $u.username -or -not $u.nombre -or -not $u.apellido `
+        -or -not $u.departamento -or -not $u.rol -or -not $u.fecha_fin) {
+        Write-Log "ERROR CRÍTICO: CSV mal formado"
+        exit 1
+    }
+
+    if ($u.rol -eq "admin" -and $u.departamento -ne "IT") {
+        Write-Log "ALERTA DE SEGURIDAD: Intento de admin no autorizado ($($u.username))"
+        exit 1
+    }
+}
+
+# ==============================
+# CREACIÓN DE OUs AUTOMÁTICA
+# ==============================
+$departamentos = $users.departamento | Sort-Object -Unique
+
+foreach ($dept in $departamentos) {
+    if (-not (Get-ADOrganizationalUnit -Filter "Name -eq '$dept'" -ErrorAction SilentlyContinue)) {
+        New-ADOrganizationalUnit -Name $dept -Path $BaseDN
+        Write-Log "OU creada automáticamente: $dept"
+    }
+}
+
+# ==============================
+# CREACIÓN DE GRUPOS (SI NO EXISTEN)
+# ==============================
+if (-not (Get-ADGroup -Filter "Name -eq 'GRP-Admins'" -ErrorAction SilentlyContinue)) {
+    New-ADGroup -Name "GRP-Admins" -GroupScope Global -Path $BaseDN
+    Write-Log "Grupo creado: GRP-Admins"
+}
+
+if (-not (Get-ADGroup -Filter "Name -eq 'GRP-Usuarios'" -ErrorAction SilentlyContinue)) {
+    New-ADGroup -Name "GRP-Usuarios" -GroupScope Global -Path $BaseDN
+    Write-Log "Grupo creado: GRP-Usuarios"
+}
+
+# ==============================
+# PROCESAMIENTO DE USUARIOS
+# ==============================
+foreach ($u in $users) {
+
+    $ouPath = "OU=$($u.departamento),$BaseDN"
+    $fechaFin = [datetime]::ParseExact($u.fecha_fin, 'yyyy-MM-dd', $null)
+
+    $existingUser = Get-ADUser -Filter "SamAccountName -eq '$($u.username)'" -ErrorAction SilentlyContinue
+
+    if (-not $existingUser) {
+
+        New-ADUser `
+            -SamAccountName $u.username `
+            -Name "$($u.nombre) $($u.apellido)" `
+            -GivenName $u.nombre `
+            -Surname $u.apellido `
+            -Enabled $true `
+            -AccountPassword (ConvertTo-SecureString "Temporal123!" -AsPlainText -Force) `
+            -ChangePasswordAtLogon $true `
+            -Path $ouPath
+
+        Write-Log "Usuario creado: $($u.username)"
+    }
+
+    # Grupos
+    if ($u.rol -eq "admin") {
+        Add-ADGroupMember -Identity "GRP-Admins" -Members $u.username -ErrorAction SilentlyContinue
+    }
+    else {
+        Add-ADGroupMember -Identity "GRP-Usuarios" -Members $u.username -ErrorAction SilentlyContinue
+    }
+
+    # Deshabilitar si está expirado
+    if ($fechaFin -lt $Today) {
+        Disable-ADAccount -Identity $u.username
+        Write-Log "Usuario deshabilitado por fecha_fin: $($u.username)"
+    }
+}
+
+Write-Log "===== FIN EJECUCIÓN ====="

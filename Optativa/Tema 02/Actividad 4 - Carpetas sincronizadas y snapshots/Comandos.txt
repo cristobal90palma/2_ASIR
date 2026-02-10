@@ -1,0 +1,64 @@
+https://gemini.google.com/app/b0809873a483bf5f
+
+Actividad 4 - Carpetas sincronizadas y snapshots
+
+Crea un nuevo proyecto con Vagrant con un entorno de Ubuntu:
+
+vagrant init
+
+Vagrantfile
+
+  config.vm.box = "ubuntu/bionic64"
+
+Carpeta sincronizada
+    Añade una carpeta sincronizada 
+	
+Creamos la carpeta en el host y luego en el Vagrantfile:
+config.vm.synced_folder "gimnasia_sincronizada", "/home/vagrant/gimnasia_sincronizada"
+
+vagrant up
+
+	default: D:/Vagrant/actividad_4 => /vagrant
+    default: D:/Vagrant/actividad_4/gimnasia_sincronizada => /home/vagrant/gimnasia_sincronizada
+	
+    Comprueba que la carpeta se sincroniza al iniciar la VM
+	
+	default: D:/Vagrant/actividad_4 => /vagrant
+    default: D:/Vagrant/actividad_4/gimnasia_sincronizada => /home/vagrant/gimnasia_sincronizada
+	
+    Dentro de la máquina virtual, crea un archivo dentro de la carpeta sincronizada
+	
+	vagrant@ubuntu-bionic:~$ ls -l
+total 0
+drwxrwxrwx 1 vagrant vagrant 0 Nov 15 18:13 gimnasia_sincronizada
+vagrant@ubuntu-bionic:~$ cd gimnasia_sincronizada/
+vagrant@ubuntu-bionic:~/gimnasia_sincronizada$ echo "Buenos días nos de Dios" > buenodias.txt
+vagrant@ubuntu-bionic:~/gimnasia_sincronizada$ cat buenodias.txt
+Buenos días nos de Dios
+vagrant@ubuntu-bionic:~/gimnasia_sincronizada$
+	
+    Comprueba desde el host que se ha sincronizado la carpeta.
+	
+	FOTO
+	
+    Ahora crea un archivo desde el host y comprueba que se sincroniza en la VM
+	
+	FOTO
+	
+	
+\\\\\\\\\\\\\\\\\\
+Snapshots
+
+    Crea un snapshot llamado estado1
+	
+	Hay que salir de la maquina, esta aún activa
+	
+	vagrant snapshot save estado1
+	
+    Crea un archivo nuevo dentro de la máquina virtual
+	
+	FOTO
+	
+    Restaura el snapshot anterior y comprueba que se ha realizado correctamente
+
+	vagrant snapshot restore estado1

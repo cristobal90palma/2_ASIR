@@ -1,0 +1,25 @@
+dn: cn=ASIR1,ou=grupos,dc=SUAREZ1,dc=abad2
+changetype: modify
+add: memberUid
+memberUid: cn=suarez,ou=usuarios,dc=SUAREZ1,dc=abad2
+memberUid: cn=abad,ou=usuarios,dc=SUAREZ1,dc=abad2
+
+ESTA NO ES LA MANERA
+
+\\\\\\\\\\\\\\\
+ldapmodify -x -D cn=admin,dc=SUAREZ1,dc=abad2 -W -f modificacion.ldif
+
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 uid=santi
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 cn=ASIR1
+
+\\\\\\\\\\\\\\\
+
+dn: cn=ASIR2,ou=grupos,dc=SUAREZ1,dc=abad2
+changetype: modify
+add: memberUid
+memberUid: cn=cristobal,ou=usuarios,dc=SUAREZ1,dc=abad2
+memberUid: cn=csa,ou=usuarios,dc=SUAREZ1,dc=abad2
+
+ESTA NO ES LA MANERA

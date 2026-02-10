@@ -1,0 +1,3 @@
+---
+log_path: /tmp/info.txt
+dev_team: [dev1, dev2, dev3]

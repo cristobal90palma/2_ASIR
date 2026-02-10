@@ -1,0 +1,230 @@
+#########Configuración DNS Maestro
+
+((/etc/bind/named.conf.local))
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+// Archivo para busquedas directas
+zone "suarez.c" {
+        type master;
+        file "bd.suarez.c"; // Debe estar en /var/cache/bind/
+        allow-transfer { 10.2.7.3; };
+        also-notify { 10.2.7.3; };
+};
+
+zone "s.suarez.c" {
+        type slave;
+        file "bd.s.suarez.c";
+        masters { 10.2.7.6; };
+        allow-notify { 10.2.7.6; };
+};
+
+// Archivo para busquedas inversas
+zone "7.2.10.in-addr.arpa" {
+        type master;
+        file "10.2.7.rev";
+        allow-transfer { 10.2.7.3; };
+        also-notify { 10.2.7.3; };
+};
+
+
+
+((/var/cache/bind/bd.suarez.c))
+
+; Archivo bd.suarez.c
+;
+; BIND data file for bd.suarez.c
+;
+$TTL 1D
+@ IN SOA dnscsa.suarez.c. root.suarez.c. (
+        2025102303 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN NS   dnscsa.suarez.c.
+        IN NS   dnscsa07.suarez.c.
+; Correo
+
+        IN MX 10 mx1.suarez.c.
+        IN MX 20 mx2.suarez.c.
+
+; Directas
+
+dnscsa IN A 10.2.7.5
+dnscsa07 IN A 10.2.7.3
+www IN A 10.2.7.10
+mx1 IN A 10.2.7.11
+mx2 IN A 10.2.7.12
+ldap IN A 10.2.7.13
+
+; Alias o sinonimo
+dns01 IN CNAME dnscsa
+dns02 IN CNAME dnscsa07
+web IN CNAME www
+correo1 IN CNAME mx1
+correo2 IN CNAME mx2
+
+$ORIGIN s.suarez.c.
+@       IN      NS dnscsadelegado.s.suarez.c.
+        IN      NS dnscsa.suarez.c.
+dnscsadelegado.s.suarez.c.      IN      A       10.2.7.6
+
+
+############################ DNS Delegado
+
+
+((/etc/bind/named.conf.options))
+
+options {
+        max-cache-size 256m;
+        allow-query-cache { any; };
+        allow-query { any; };
+        recursion yes;
+        directory "/var/cache/bind";
+        // If there is a firewall between you and nameservers you want
+        // to talk to, you may need to fix the firewall to allow multip>
+        // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+        // If your ISP provided one or more IP addresses for stable
+        // nameservers, you probably want to use them as forwarders.
+        // Uncomment the following block, and insert the addresses repl>
+        // the all-0's placeholder.
+
+        // forwarders {
+        //      0.0.0.0;
+        // };
+
+        //=============================================================>
+        // If BIND logs error messages about the root key being expired,
+        // you will need to update your keys.  See https://www.isc.org/>
+        //=============================================================>
+        dnssec-validation auto;
+        listen-on port 53 { any; };
+        listen-on { any; };
+        listen-on-v6 { any; };
+};
+
+
+
+((/etc/bind/named.conf.local))
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+zone "s.suarez.c" {
+        type master;
+        file "bd.s.suarez.c";
+        allow-transfer { 10.2.7.5; };
+        also-notify { 10.2.7.5; };
+};
+
+
+
+((/var/cache/bind/bd.s.suarez.c))
+
+; Archivo bd.suarez.c
+;
+; BIND data file for bd.s.suarez.c
+;
+$TTL 1D
+@ IN SOA dnscsadelegado.s.suarez.c. root.s.suarez.c. (
+        2025102303 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN NS   dnscsadelegado.s.suarez.c.
+        IN NS   dnscsa.suarez.c.
+
+; Correo
+
+        IN MX 10 mx100.s.suarez.c.
+        IN MX 20 mx200.s.suarez.c.
+
+; Directas
+
+dnscsadelegado IN A 10.2.7.6
+www IN A 10.2.7.30
+mx100 IN A 10.2.7.31
+mx200 IN A 10.2.7.32
+ldap IN A 10.2.7.33
+
+; Alias o sinonimo
+dns IN CNAME dnscsadelegado
+web IN CNAME www
+mensajero IN CNAME mx100
+cartero IN CNAME mx200
+
+
+\\\\\\\\\\\\
+
+Delegado, no puede definir direcciones o dominios de la zona del master: Quita en Directas "dnscsa"
+
+
+
+\\\\\\\\\\\\Comprobaciones:
+
+Esta no la usó Diego: dig s.suarez.c. @10.2.7.5
+
+nslookup -type=ANY s.suarez.c 10.2.7.6
+nslookup -type=ANY s.suarez.c 10.2.7.5
+nslookup -type=ANY mensajero.s.suarez.c 10.2.7.6
+nslookup -type=ANY cartero.s.suarez.c 10.2.7.6
+
+nslookup -type=A cartero.s.suarez.c 10.2.7.6
+nslookup -type=A mensajero.s.suarez.c 10.2.7.6
+
+nslookup mail1.retry07.net 10.2.17.110
+
+Se puede hacer las consultas desde tu PC
+Hazselas también a 10.2.7.5
+
+
+Desde DNS-cliente
+
+host -t ANY s.suarez.c.
+
+root@dns-cliente:~# host -t ANY www.s.suarez.c.
+www.s.suarez.c has address 10.2.7.30
+
+root@dns-cliente:~# host -t ANY mensajero.s.suarez.c.
+mensajero.s.suarez.c is an alias for mx100.s.suarez.c.
+
+En un cliente cuyo DNS es el maestro y el esclavo:
+
+dig mensajero.s.suarez.c.         
+
+; <<>> DiG 9.18.24-0ubuntu5-Ubuntu <<>> mensajero.s.suarez.c.
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 62622
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: a8e2d93073f5e3980100000068fb6399bc8e4988ddabef51 (good)
+;; QUESTION SECTION:
+;mensajero.s.suarez.c.          IN      A
+
+;; ANSWER SECTION:
+mensajero.s.suarez.c.   86400   IN      CNAME   mx100.s.suarez.c.
+mx100.s.suarez.c.       86400   IN      A       10.2.7.31
+
+;; Query time: 0 msec
+;; SERVER: 10.2.7.5#53(10.2.7.5) (UDP)
+;; WHEN: Fri Oct 24 11:31:37 UTC 2025
+;; MSG SIZE  rcvd: 113

@@ -1,0 +1,62 @@
+TAREA 1 Active Directory con GUI
+
+
+Actividad 0: Instalación de un Windows Sever 2019
+
+    Crear una máquina virtual con las siguientes características:
+            2 CPU (mínimo)
+            4 GB de RAM (mínimo)
+            60 GB de disco duro (mínimo)
+            Tarjeta de red configurada en Adaptador Puente
+    Instalar Windows Server 2019 con las siguientes opciones:
+                Elegir la opción "Windows Server 2019 Standard (Desktop Experience)".
+                Definir la contraseña del usuario Administrador tras la instalación.
+
+    Configurar el nombre del equipo: Cambiar el nombre del equipo a un identificador claro.
+
+    Configurar la red: Asignar una IP fija dentro del rango de la red.
+
+    Activar Escritorio Remoto: Habilitar la conexión remota para administrar el servidor más adelante.
+
+    Configurar la fecha y zona horaria: Ajustar la zona horaria según la ubicación.
+    Actualizaciones del sistema: Actualizar por completo el sistema.
+    Desactivar IPv6 (opcional): Si no se usará, deshabilitar IPv6 en las propiedades de la tarjeta de red
+
+     
+
+(A partir de aquí recomiendo que dejéis una máquina virtual clonada de la que acabáis de crear, por si en futuras ocasiones la necesitais)
+
+Actividad 1: Instalar un dominio básico desde la interfaz gráfica
+
+    Crea una instantánea de tu máquina virtual con Windows Server 2019 para poder volver al estado actual si ocurriera algún incidente inesperado.
+    Instala el rol Servicios de dominio de Active Directory y todas las características relacionadas.
+    A continuación, promociona el servidor como controlador de dominio teniendo en cuenta lo siguiente:
+        El equipo actuará como primer controlador de dominio de un nuevo bosque.
+        El nombre del domino estará formado por tus iniciales seguidas del texto «.local«.
+        El nivel de funcionalidad del bosque será el equivalente a tu versión de Windows Server.
+        El equipo será también un servidor DNS.
+        El nombre NetBIOS del dominio y la ubicación de los datos del directorio serán los que predetermine el asistente.
+        Además, se recomienda exportar el script de PowerShell para automatizar futuras instalaciones.
+
+Actividad 2: Degradar un controlador de dominio desde la interfaz gráfica
+
+Partiendo de la máquina virtual de la actividad anterior, realiza las siguientes operaciones:
+
+    Crea una instantánea de la máquina virtual que te permita volver al estado actual en cualquier momento.
+    Realiza las tareas necesarias para degradar el controlador de dominio, de modo que la máquina virtual deje de actuar como tal.
+    Además, se recomienda exportar el script de PowerShell para automatizar futuras degradaciones.
+    Una vez reiniciada la máquina, desinstala también el rol Servicios de dominio de Active Directory.
+    Realiza las comprobaciones que consideres necesarias para asegurarte de que el proceso ha sido correcto.
+    Recupera el estado inicial de la máquina virtual (el de la instantánea que creaste en el punto 1).
+
+Actividad 3: Agrupar las herramientas más usadas
+
+Utiliza la herramienta Microsoft Management Console (MMC), para crear una consola con las herramientas que usaremos con más frecuencia. En particular, deberemos incluir, como mínimo, las siguientes:
+
+    Usuarios y equipos de Active Directory.
+    Copias de seguridad.
+    Visor de eventos.
+    Dominios y confianzas de Active Directory.
+    Sitios y servicios de Active Directory.
+
+La consola deberá llamarse Herramientas frecuentes TuNombre y estará almacenada en el escritorio. Una vez concluida la tarea, comprueba que funciona de forma correcta.

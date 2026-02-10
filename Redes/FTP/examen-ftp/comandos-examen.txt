@@ -1,0 +1,96 @@
+sudo useradd -m -s /bin/false suarez
+sudo passwd suarez
+
+mkdir /srv/xmen
+ftpasswd --group --file=/etc/proftpd/ftpd.group --name=xmen --home=/srv/xmen --gid=2500
+
+
+ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd --name=lobezno --uid=1999 --gid=2500 --home=/srv/xmen --shell=/usr/sbin/nologin
+
+
+ftpasswd --group --file=/etc/proftpd/ftpd.group --name=villanos --gid=2600
+
+mkdir /srv/villanos
+ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd --name=magneto  --uid=2010 --gid=2600 --home=/srv/villanos --shell=/usr/sbin/nologin
+ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd --name=mistica --uid=2011 --gid=2600 --home=/srv/villanos --shell=/usr/sbin/nologin
+
+
+
+<Limit LOGIN>
+	DenyUser magneto
+	DenyUser mistica
+	DenyGroup villanos
+</Limit>
+
+
+<Limit EPRT PORT>
+DenyAll
+</Limit>
+
+
+<Directory /srv/px/secrets>
+<Limit READ DIRS CWD>
+DenyAll
+</Limit>
+</Directory>
+
+
+
+
+sudo useradd -m -s /bin/false tormenta
+sudo passwd tormenta
+
+
+
+ftpquota --create-table --type=limit --table-path=/etc/proftpd/ftpquota.limittab
+ftpquota --create-table --type=tally --table-path=/etc/proftpd/ftpquota.tallytab
+
+
+ftpquota --add-record --type=limit --name=tormenta --quota-type=user --table-path /etc/proftpd/ftpquota.limittab --files-upload=50 --files-download=1000 --bytes-upload=50 --bytes-download=1000 --units=Gb
+
+
+-	Para leer el contenido del archivo ftpquota.limittab
+ftpquota --show-records --type=limit --table-path /etc/proftpd/ftpquota.limittab
+-	Leer tabla tally:
+ftpquota --show-records --type=tally --table-path /etc/proftpd/ftpquota.tallytab
+-	Para quitar a un usuario del archivo de cuota:
+ftpquota --delete-record --type=limit --name=bob --quota-type=user --table-path /etc/proftpd/ftpquota.limittab
+
+
+<IfModule mod_quotatab.c>
+QuotaEngine on
+QuotaLog /var/log/proftpd/quota.log
+# For more information on using files for storing the limit and tally
+# table quota data, please see the mod_quotatab_file documentation.
+<IfModule mod_quotatab_file.c>
+
+					 /etc/proftpd/ftpquota.limittab
+QuotaLimitTable file:/etc/proftpd/ftpquota.limittab
+					 /etc/proftpd/ftpquota.tallytab
+QuotaTallyTable file:/etc/proftpd/ftpquota.tallytab
+ </IfModule>
+</IfModule>
+
+
+
+<Directory /srv/abismo/uploads>
+    <Limit ALL>
+      DenyAll
+    </Limit>
+
+    <Limit CDUP CWD PWD XCWD XCUP>
+      AllowAll
+    </Limit>
+
+    <Limit STOR STOU>
+      AllowAll
+    </Limit>
+  </Directory>
+  
+  
+  
+sudo useradd -m -s /bin/false gandalf
+sudo passwd gandalf
+
+sudo useradd -m -s /bin/false balrog
+sudo passwd balrog

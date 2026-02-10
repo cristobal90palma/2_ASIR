@@ -1,0 +1,59 @@
+openssl req -new -key ../private/prueba.initiald.ssl.key -x509 -days 365 -out /etc/ssl/certs/prueba.initiald.ssl.pem
+
+
+		ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/dance
+        DirectoryIndex 07csa.html
+        ServerName www.dance.com
+		
+		
+		/etc/ssl/certs/dance.pem
+		/etc/ssl/private/dance.key
+		
+		
+		echo "<h1>Sitio PRIVADO</h1>" | sudo tee /var/www/dance/private/index.html
+		
+		
+		sudo htdigest -c .dance.htdigest "letsdance" duato
+		sudo htdigest .dance.htdigest "letsdance" lacarra
+		
+		
+	<Directory "/var/wwww/dance/private/">
+		AuthType Digest
+		AuthName "letsdance"
+		AuthUserFile /etc/apache2/.dance.htdigest
+		Require user duato lacarra
+	</Directory>
+	
+	
+	
+	
+	
+cp /etc/webalizer/webalizer.conf.sample /etc/webalizer/webalizer.code.conf
+
+
+/var/log/apache2/code_access.log
+
+http://www.dance.com/private/
+
+Alias /stats/ "/var/www/code/estads/"
+
+<Directory "/var/www/code/estads/">
+Options Indexes FollowSymLinks
+AllowOverride None
+Require all granted
+</Directory>
+
+
+for i in {1..10}; do curl -s http://www.code.com > /dev/null; done
+
+sudo webalizer -c /etc/webalizer/webalizer.code.conf
+
+
+http://www.code.com:9080/estads
+
+http://www.code.com/estads
+
+
+
+nano /var/www/dance/private/.htaccess

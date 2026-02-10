@@ -1,0 +1,425 @@
+Detalles de los servidores utilizados:
+
+    Servidor primario: nombre — mongodb01, IP 10.2.17.80
+    Servidor secundario: nombre — mongodb02, IP 10.2.17.85
+    Servidor secundario: nombre — mongodb03, IP 10.2.17.90
+
+# This is the network config written by 'subiquity'
+network:
+  version: 2
+  ethernets:
+    ens18:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 10.2.17.80/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 10.2.17.1
+      nameservers:
+        addresses:
+          - 172.16.200.1
+          - 8.8.8.8
+
+hostnamectl set-hostname mongodb01
+
+
+
+127.0.0.1 localhost
+127.0.1.1 mongodb01
+10.2.17.80 mongodb01.suarez.abad mongodb01
+10.2.17.85 mongodb02.suarez.abad mongodb02
+10.2.17.90 mongodb03.suarez.abad mongodb03
+
+
+https://www.swhosting.com/en/comunidad/manual/how-to-install-mongodb-on-your-linux-server
+
+Para instalar mongo
+
+sudo apt update
+sudo apt install -y gnupg curl
+curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
+sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] \
+https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
+sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+sudo apt update
+sudo apt install -y mongodb-org
+
+
+
+\\\\\\\\\\\\\
+
+En el paso 1 de configuración del cluster sustituyelo por esto
+
+Añade estas líneas en /etc/mongod.conf en todos los nodos.
+
+replication:
+  replSetName: "rs0"
+
+net:
+  bindIp: localhost, domainname (en mi caso "suarez.abad")
+  
+OOO
+
+
+replication:
+  replSetName: "rs0"
+
+net:
+  port: 27017
+  bindIp: 127.0.0.1, 10.2.17.80
+  
+
+\\\\\\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rs.initiate({
+  _id: "rs0",
+  members: [
+    { _id: 0, host: "10.2.17.80:27017" },
+    { _id: 1, host: "10.2.17.85:27017" },
+    { _id: 2, host: "10.2.17.90:27017" }
+  ]
+})
+
+
+
+
+
+
+
+
+\\\\\\\\\
+
+test> rs.initiate({
+...   _id: "rs0",
+...   members: [
+...     { _id: 0, host: "10.2.17.80:27017" },
+...     { _id: 1, host: "10.2.17.85:27017" },
+...     { _id: 2, host: "10.2.17.90:27017"}
+... ]
+... })
+{
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1762377823, i: 1 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1762377823, i: 1 })
+}
+rs0 [direct: other] test> rs.conf()
+{
+  _id: 'rs0',
+  version: 1,
+  term: 1,
+  members: [
+    {
+      _id: 0,
+      host: '10.2.17.80:27017',
+      arbiterOnly: false,
+      buildIndexes: true,
+      hidden: false,
+      priority: 1,
+      tags: {},
+      secondaryDelaySecs: Long('0'),
+      votes: 1
+    },
+    {
+      _id: 1,
+      host: '10.2.17.85:27017',
+      arbiterOnly: false,
+      buildIndexes: true,
+      hidden: false,
+      priority: 1,
+      tags: {},
+      secondaryDelaySecs: Long('0'),
+      votes: 1
+    },
+    {
+      _id: 2,
+      host: '10.2.17.90:27017',
+      arbiterOnly: false,
+      buildIndexes: true,
+      hidden: false,
+      priority: 1,
+      tags: {},
+      secondaryDelaySecs: Long('0'),
+      votes: 1
+    }
+  ],
+  protocolVersion: Long('1'),
+  writeConcernMajorityJournalDefault: true,
+  settings: {
+    chainingAllowed: true,
+    heartbeatIntervalMillis: 2000,
+    heartbeatTimeoutSecs: 10,
+    electionTimeoutMillis: 10000,
+    catchUpTimeoutMillis: -1,
+    catchUpTakeoverDelayMillis: 30000,
+    getLastErrorModes: {},
+    getLastErrorDefaults: { w: 1, wtimeout: 0 },
+    replicaSetId: ObjectId('690bc05f6c9d73aad19d0e07')
+  }
+}
+rs0 [direct: primary] test>
+
+
+
+\\\\\\\\\\\\\ Cambiar prioridad
+
+// 1. Obtener la configuración actual
+conf = rs.conf()
+
+// 2. Modificar las prioridades
+//    - Mayor prioridad = más probable de ser PRIMARY
+//    - Rango: 0 (nunca primary) a 1000 (máximo)
+conf.members[0].priority = 1   // 10.2.17.80 → baja prioridad
+conf.members[1].priority = 2   // 10.2.17.85 → prioridad media
+conf.members[2].priority = 3   // 10.2.17.90 → mayor prioridad (será el preferido)
+
+
+// 3. Aplicar la reconfiguración
+rs.reconfig(conf)
+
+
+
+\\\\\\\\\\
+
+rs0 [direct: primary] test> conf = rs.conf()
+{
+  _id: 'rs0',
+  version: 2,
+  term: 2,
+  members: [
+    {
+      _id: 0,
+      host: '10.2.17.80:27017',
+      arbiterOnly: false,
+      buildIndexes: true,
+      hidden: false,
+      priority: 1,
+      tags: {},
+      secondaryDelaySecs: Long('0'),
+      votes: 1
+    },
+    {
+      _id: 1,
+      host: '10.2.17.85:27017',
+      arbiterOnly: false,
+      buildIndexes: true,
+      hidden: false,
+      priority: 2,
+      tags: {},
+      secondaryDelaySecs: Long('0'),
+      votes: 1
+    },
+    {
+      _id: 2,
+      host: '10.2.17.90:27017',
+      arbiterOnly: false,
+      buildIndexes: true,
+      hidden: false,
+      priority: 3,
+      tags: {},
+      secondaryDelaySecs: Long('0'),
+      votes: 1
+    }
+  ],
+  protocolVersion: Long('1'),
+  writeConcernMajorityJournalDefault: true,
+  settings: {
+    chainingAllowed: true,
+    heartbeatIntervalMillis: 2000,
+    heartbeatTimeoutSecs: 10,
+    electionTimeoutMillis: 10000,
+    catchUpTimeoutMillis: -1,
+    catchUpTakeoverDelayMillis: 30000,
+    getLastErrorModes: {},
+    getLastErrorDefaults: { w: 1, wtimeout: 0 },
+    replicaSetId: ObjectId('690bc05f6c9d73aad19d0e07')
+  }
+}
+rs0 [direct: secondary] test>
+
+
+
+
+
+\\\\\\\\\\\\\\\\Verifique el estado de la replicación con el comando “rs.status()”. 
+
+
+rs.status()
+{
+  set: 'rs0',
+  date: ISODate('2025-11-05T21:48:14.817Z'),
+  myState: 2,
+  term: Long('2'),
+  syncSourceHost: '10.2.17.90:27017',
+  syncSourceId: 2,
+  heartbeatIntervalMillis: Long('2000'),
+  majorityVoteCount: 2,
+  writeMajorityCount: 2,
+  votingMembersCount: 3,
+  writableVotingMembersCount: 3,
+  optimes: {
+    lastCommittedOpTime: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+    lastCommittedWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+    readConcernMajorityOpTime: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+    appliedOpTime: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+    durableOpTime: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+    lastAppliedWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+    lastDurableWallTime: ISODate('2025-11-05T21:48:08.157Z')
+  },
+  lastStableRecoveryTimestamp: Timestamp({ t: 1762379258, i: 1 }),
+  electionParticipantMetrics: {
+    votedForCandidate: true,
+    electionTerm: Long('2'),
+    lastVoteDate: ISODate('2025-11-05T21:43:38.123Z'),
+    electionCandidateMemberId: 2,
+    voteReason: '',
+    lastAppliedOpTimeAtElection: { ts: Timestamp({ t: 1762379007, i: 1 }), t: Long('1') },
+    maxAppliedOpTimeInSet: { ts: Timestamp({ t: 1762379007, i: 1 }), t: Long('1') },
+    priorityAtElection: 1,
+    newTermStartDate: ISODate('2025-11-05T21:43:38.141Z'),
+    newTermAppliedDate: ISODate('2025-11-05T21:43:38.148Z')
+  },
+  members: [
+    {
+      _id: 0,
+      name: '10.2.17.80:27017',
+      health: 1,
+      state: 2,
+      stateStr: 'SECONDARY',
+      uptime: 1732,
+      optime: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+      optimeDate: ISODate('2025-11-05T21:48:08.000Z'),
+      lastAppliedWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+      lastDurableWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+      syncSourceHost: '10.2.17.90:27017',
+      syncSourceId: 2,
+      infoMessage: '',
+      configVersion: 2,
+      configTerm: 2,
+      self: true,
+      lastHeartbeatMessage: ''
+    },
+    {
+      _id: 1,
+      name: '10.2.17.85:27017',
+      health: 1,
+      state: 2,
+      stateStr: 'SECONDARY',
+      uptime: 1471,
+      optime: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+      optimeDurable: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+      optimeDate: ISODate('2025-11-05T21:48:08.000Z'),
+      optimeDurableDate: ISODate('2025-11-05T21:48:08.000Z'),
+      lastAppliedWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+      lastDurableWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+      lastHeartbeat: ISODate('2025-11-05T21:48:14.805Z'),
+      lastHeartbeatRecv: ISODate('2025-11-05T21:48:14.231Z'),
+      pingMs: Long('0'),
+      lastHeartbeatMessage: '',
+      syncSourceHost: '10.2.17.80:27017',
+      syncSourceId: 0,
+      infoMessage: '',
+      configVersion: 2,
+      configTerm: 2
+    },
+    {
+      _id: 2,
+      name: '10.2.17.90:27017',
+      health: 1,
+      state: 1,
+      stateStr: 'PRIMARY',
+      uptime: 1471,
+      optime: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+      optimeDurable: { ts: Timestamp({ t: 1762379288, i: 1 }), t: Long('2') },
+      optimeDate: ISODate('2025-11-05T21:48:08.000Z'),
+      optimeDurableDate: ISODate('2025-11-05T21:48:08.000Z'),
+      lastAppliedWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+      lastDurableWallTime: ISODate('2025-11-05T21:48:08.157Z'),
+      lastHeartbeat: ISODate('2025-11-05T21:48:14.806Z'),
+      lastHeartbeatRecv: ISODate('2025-11-05T21:48:14.271Z'),
+      pingMs: Long('0'),
+      lastHeartbeatMessage: '',
+      syncSourceHost: '',
+      syncSourceId: -1,
+      infoMessage: '',
+      electionTime: Timestamp({ t: 1762379018, i: 1 }),
+      electionDate: ISODate('2025-11-05T21:43:38.000Z'),
+      configVersion: 2,
+      configTerm: 2
+    }
+  ],
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1762379288, i: 1 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1762379288, i: 1 })
+}
+
+
+
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\
+
+Una vez realizado esto
+
+    Instala un cliente en tu equipo local y conéctate a la base de datos de mongo
+	
+	https://www.mongodb.com/docs/compass/install/?operating-system=windows
+	https://www.mongodb.com/try/download/compass
+	
+	
+	No hay que hacer apenas nada
+	
+	
+	
+	
+	
+	
+	
+    Crea una nueva colección e inserta datos de prueba
+	
+	
+	
+    Apaga el nodo primario y comprueba que algunos de los nodos secundario se ha transformado en primario.

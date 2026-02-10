@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # NODO 1: Actúa como punto de entrada inicial y consola web
+  roach1:
+    image: cockroachdb/cockroach:v23.1.10
+    container_name: roach1
+    hostname: roach1
+    ports:
+      - "26257:26257" # Puerto SQL
+      - "8080:8080"   # Puerto Consola Web (UI)
+    command: start --insecure --join=roach1,roach2,roach3 --listen-addr=0.0.0.0:26257 --advertise-addr=roach1:26257 --http-addr=roach1:8080
+    networks:
+      - roachnet
+
+  # NODO 2: Un nodo más del clúster
+  roach2:
+    image: cockroachdb/cockroach:v23.1.10
+    container_name: roach2
+    hostname: roach2
+    # No hace falta exponer puertos al host, se comunican por la red interna
+    command: start --insecure --join=roach1,roach2,roach3 --listen-addr=0.0.0.0:26257 --advertise-addr=roach2:26257 --http-addr=roach2:8080
+    networks:
+      - roachnet
+
+  # NODO 3: Un nodo más del clúster
+  roach3:
+    image: cockroachdb/cockroach:v23.1.10
+    container_name: roach3
+    hostname: roach3
+    command: start --insecure --join=roach1,roach2,roach3 --listen-addr=0.0.0.0:26257 --advertise-addr=roach3:26257 --http-addr=roach3:8080
+    networks:
+      - roachnet
+
+networks:
+  roachnet:
+    driver: bridge

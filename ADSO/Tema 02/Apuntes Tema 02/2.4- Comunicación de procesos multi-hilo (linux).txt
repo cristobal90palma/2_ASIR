@@ -1,0 +1,90 @@
+2.4- Comunicación de procesos multi-hilo (linux)
+
+ Crea un script sencillo llamado hilos.sh que lance
+ varios hilos concurrentes.
+Cada hilo debe imprimir su número y hacer un pequeño
+ cálculo o retardo (sleep $((RANDOM % 5 + 1))). 
+ Observa que todos los hilos pertenecen al mismo
+ proceso (mismo PID) pero tienen TIDs distintos.
+ (ps -eLf o htop)
+ 
+ 
+ 
+ 
+ En Bash no existen hilos reales, pero sí subprocesos concurrentes, cada uno con su propio TID (LWP en Linux).
+Basta con lanzar funciones en background (&).
+
+#!/bin/bash
+
+NUM_PROCESOS=5
+SCRIPT_PID=$$
+
+echo "Script principal (PID: $SCRIPT_PID) iniciando."
+echo "Lanzando $NUM_PROCESOS sub-procesos..."
+
+# Esta función simula el trabajo
+trabajo_hilo() {
+    i=$1
+    MI_PID=$$
+    
+    # Genera un retardo aleatorio entre 1 y 5 segundos
+    RETARDO=$((RANDOM % 5 + 1))
+    
+    echo "[HILO $i] ¡Iniciado! (Mi PID: $MI_PID / Padre: $PPID). Voy a dormir $RETARDO seg."
+    
+    sleep $RETARDO
+    
+    # Un cálculo tonto como ejemplo
+    CALCULO=$(echo "2^$i" | bc)
+    
+    echo "[HILO $i] ¡Terminé! (PID: $MI_PID). Mi cálculo (2^$i) es = $CALCULO"
+}
+
+# Lanzamos todos los procesos en segundo plano (concurrentes)
+for i in $(seq 1 $NUM_PROCESOS); do
+    trabajo_hilo $i &
+done
+
+echo "Script principal (PID $SCRIPT_PID) esperando a que terminen los hijos..."
+
+# 'wait' es crucial. El script principal se detiene aquí
+# hasta que todos los trabajos en segundo plano (&) hayan
+# finalizado.
+wait
+
+echo "Todos los sub-procesos terminaron. Script principal (PID $SCRIPT_PID) finaliza."
+
+\\\\\
+Da permisos de ejecución: Abre tu terminal y haz que el archivo sea ejecutable:
+chmod +x hilos.sh
+
+
+Verás cómo los diferentes procesos ([HILO 1], [HILO 2], etc.) se inician y terminan en un orden no determinístico (concurrentemente) gracias al uso del & y el comando wait.
+
+
+
+
+
+
+\\\\\\\\\\\\\
+
+Crea dos scripts o programas: uno que envíe mensajes (productor) y otro que los reciba (consumidor).
+
+Utilizaremos una tubería con nombre (mkfifo), que permite a dos procesos no relacionados comunicarse como si fuera una cola FIFO (First-In, First-Out).
+
+productor.sh
+
+# Nombre de la tubería FIFO
+FIFO_PIPE="/tmp/comunicacion_fifo"
+# Archivos de log
+LOG_PROD="productor.log"
+LOG_CONS="consumidor.log"
+
+# Crear la tubería si no existe
+if [ ! -p $FIFO_PIPE ]; then
+    mkfifo $FIFO_PIPE
+fi
+
+# Limpiar logs anteriores
+> $LOG_PROD
+> $LOG_CONS

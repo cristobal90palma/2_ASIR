@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Nodo de Control (Donde ejecutas comandos)
+  control:
+    build: ./control
+    hostname: control
+    container_name: ansible-control
+    volumes:
+       - ./ansible_portable:/ansible
+       #- ansible_workspace:/ansible
+    networks:
+      - ansible-net
+
+  # Nodos Gestionados
+  node1:
+    build: ./node
+    hostname: node1
+    container_name: ansible-node1
+    networks:
+      - ansible-net
+
+  node2:
+    build: ./node
+    hostname: node2
+    container_name: ansible-node2
+    networks:
+      - ansible-net
+
+  node3:
+    build: ./node
+    hostname: node3
+    container_name: ansible-node3
+    networks:
+      - ansible-net
+
+networks:
+  ansible-net:
+    driver: bridge
+    
+#volumes:
+#  ansible_workspace:
+#    driver: local

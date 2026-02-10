@@ -1,0 +1,47 @@
+ANEXO AYUDA DNS
+
+
+
+Named.conf.local
+// Archivo para busquedas directas
+zone "initiald.com" {
+  type master;
+  file "db.initiald.com";     // Debe estar en /var/cache/bind/
+  allow-update { none; };
+};
+
+
+
+
+
+
+
+
+
+
+
+Bind data file
+; PLANTILLA DE AYUDA PARA DNS
+; GUARDAR COMO db.initiald.com
+; BIND data file for initiald.com
+;
+$TTL    1D
+@ IN SOA dnsdjfr.institutodh.net. root.institutodh.net. (
+        2025112701 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN      NS              dnsdjfr.institutodh.net.
+
+; Correo
+        IN      MX 10   mail.initiald.com.
+
+; Directas
+mail IN A 10.2.7.25
+
+; Alias o sinonimo
+mx IN CNAME mail
+smtp IN CNAME mail

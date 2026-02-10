@@ -1,0 +1,7 @@
+server_host = 127.0.0.1
+search_base = ou=usuarios,dc=SUAREZ1,dc=abad2
+query_filter = (mail=%s)
+result_attribute = mail
+bind = yes
+bind_dn = cn=admin,dc=SUAREZ1,dc=abad2
+bind_pw = usuario.12345

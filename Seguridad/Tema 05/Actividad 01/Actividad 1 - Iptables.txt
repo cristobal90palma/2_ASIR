@@ -1,0 +1,53 @@
+IPTABLES
+Usando una máquina con cualquier distribución de Linux. 
+
+1.	Lista todas las reglas o cadenas introducidas en el cortafuegos.
+iptables -L 
+
+
+• La política por defecto es no dejar entrar ningún paquete al equipo.
+• Se permite el acceso al servidor web desde el exterior.
+• Se permite acceder al servidor FTP.
+• Se permite acceder al servidor SSH desde el exterior.
+
+
+
+
+script
+
+
+# !/bin/bash
+
+# Servidor Web
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Servidor FTP
+sudo iptables -A INPUT -p tcp --dport 21 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 56123 -j ACCEPT
+
+# Servicio SSH
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Permitir tráfico local (loopback)
+iptables -A INPUT -i lo -j ACCEPT
+
+# Permitir conexiones ya establecidas o relacionadas
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Se debe poner el último porque lo bloquea todo.
+iptables -A INPUT -j DROP 
+
+
+
+
+#!/bin/sh -e
+# rc.local
+/etc/iptables_custom_rules
+exit 0
+
+
+
+
+
+

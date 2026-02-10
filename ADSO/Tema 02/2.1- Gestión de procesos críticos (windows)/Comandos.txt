@@ -1,0 +1,198 @@
+1) Muestra la lista de procesos en ejecución e identifica los principales procesos del sistema. (desde el PowerShell como administrador)
+
+Genérico:
+
+Get-Process
+
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+
+Principales procesos del sistema (siempre presentes y críticos):
+
+System → Controla operaciones del kernel (no se puede detener).
+
+smss.exe → Gestor de sesiones del sistema.
+
+wininit.exe → Inicializa procesos del sistema durante el arranque.
+
+services.exe → Administra los servicios del sistema.
+
+lsass.exe → Autenticación de usuarios (Local Security Authority).
+
+explorer.exe → Interfaz gráfica del usuario (escritorio, menú inicio).
+
+
+
+
+
+
+2)    Realiza un filtrado de procesos por usuario, nombre o identificador, registrando los resultados más relevantes..
+
+
+Get-Process -IncludeUserName | Where-Object {$_.UserName -like "*Administrador*"}
+
+Get-Process | Where-Object {$_.ProcessName -like "*vbox*"}
+
+Get-Process -Id 5544
+
+
+3)  Observa qué procesos consumen más CPU o memoria y describe posibles causas.
+
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+
+PS C:\Users\Administrador> Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1848       0      192        152      38,41      4   0 System
+    894     223   291932     235688      20,66   3104   0 MsMpEng
+   1162      71    83392     152084      13,66   4104   1 SearchUI
+    619      39   108356      47588      11,05   4024   1 ServerManager
+    483      23    21296      39480       9,45   2724   1 RuntimeBroker
+    679      75    21012      32240       9,19   2792   0 svchost
+   1443      55    20324      25520       9,11   3188   1 explorer
+    587      14     5324      12836       7,38    596   0 services
+    272      15     2128       5292       6,41    468   1 csrss
+    522      21    17476      31688       6,36   2348   0 svchost
+
+Get-Process | Sort-Object WS -Descending | Select-Object -First 10
+
+
+PS C:\Users\Administrador> Get-Process | Sort-Object WS -Descending | Select-Object -First 10
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    893     223   291932     249124      20,70   3104   0 MsMpEng
+   1162      71    83392     152084      13,66   4104   1 SearchUI
+      0       7     2180      70496       2,81     88   0 Registry
+   5374    3688    68508      69252       0,48   2296   0 dns
+    775      30    22592      65536       1,30   2200   1 ShellExperienceHost
+   1700     123    52488      54976       4,31    616   0 lsass
+    614      31    24668      52040       4,58    316   1 dwm
+    619      39   108356      47440      11,05   4024   1 ServerManager
+    480      32    35908      46332       1,22   2060   0 Microsoft.ActiveDirectory.WebServices
+    790      30    68500      41572       3,09   5544   1 powershell
+	
+	
+4) Seleccionar 3 procesos del sistema y documentar (services.exe, System, wininit.exe):
+
+    PID
+    Usuario propietario
+    Estado aproximado (activo, en espera)
+    Memoria y CPU utilizada
+
+Verifica la existencia de estos 3 procesos usando el administrador de tareas. ¿pueden finalizarse? ¿qué consecuencias tendría?
+
+
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    587      14     5428      12880       9,08    596   0 services	0
+	
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1856       0      192        144      45,64      4   0 System
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    172      11     1392       7124       0,23    460   0 wininit
+	
+¿Pueden finalizarse?
+
+    No.
+    Terminar System, services.exe o wininit.exe puede provocar pantallazo azul (BSOD), cierre del sistema o inestabilidad severa.
+
+
+| Proceso          | PID | Usuario propietario | Estado | CPU (%) | Memoria (MB) | ¿Finalizable? | Consecuencias                                               |
+| ---------------- | --- | ------------------- | ------ | ------- | ------------ | ------------- | ----------------------------------------------------------- |
+| **services.exe** | 700 | SYSTEM              | Activo | 0–2     | 10–20        | ❌ No          | El sistema perdería todos los servicios (red, sonido, etc.) |
+| **System**       | 4   | SYSTEM              | Activo | 1–5     | <1           | ❌ No          | Kernel se detiene → Pantallazo azul                         |
+| **wininit.exe**  | 480 | SYSTEM              | Activo | 0       | 1–2          | ❌ No          | Fin del proceso de inicio → reinicio forzado                |
+
+
+
+5)Vamos a filtrar procesos desde el powerShell:
+
+        lista todos los procesos de tu usuario (tenfras que usar IncludeUserName y las variables de entorno de powershell).
+        obtener todos los datos disponibles sobre los procesos que comienza por "Sear" y "MsM"
+        obtener todos los módulos cargados por tu navegador.
+
+
+a. Listar procesos de tu usuario:
+Get-Process -IncludeUserName | Where-Object {$_.UserName -eq "$env:UserDomain\$env:UserName"}
+
+b. Obtener procesos que empiezan por “Sear” o “MsM”:
+Get-Process | Where-Object {$_.ProcessName -like "Sear*" -or $_.ProcessName -like "MsM*"}
+
+c. Mostrar módulos cargados por tu navegador (por ejemplo, Chrome o Edge):
+(Get-Process iexplore).Modules | Select-Object ModuleName, FileName
+(Get-Process chrome).Modules | Select-Object ModuleName, FileName
+
+
+6) Lanza un proceso manualmente, analiza su prioridad y cámbiala para comprobar el efecto
+ en el rendimiento (Inicia la compresión de un archivo grande con 7-zip). 
+ Para ello cambia la prioridad a “Alta”
+
+
+Ejecuta la compresión de un archivo grande con 7-Zip:
+Start-Process "C:\Program Files\7-Zip\7z.exe" -ArgumentList "a Debian.7z C:\Users\Administrador\Downloads\Debian"
+
+Ver prioridad:
+Get-Process 7z* | Select-Object ProcessName, Id, PriorityClass
+
+Cambiar prioridad a “Alta”:
+(Get-Process 7z*).PriorityClass = "High"
+
+
+Efecto: el proceso tendrá más acceso a CPU, puede hacer que el sistema se vuelva menos fluido si es muy exigente.
+
+
+7)     Finaliza el proceso de forma controlada y observa la mejora en el rendimiento.
+
+Stop-Process -Name "7z" -Confirm
+
+
+8)   Lanza un proceso manualmente, analiza su prioridad y cámbiala (ejecutando notepad.exe desde PowerShell). Realiza cambios de prioridad y finalízalo documentando los efectos.
+
+Start-Process notepad.exe
+
+Ver prioridad:
+
+Get-Process notepad | Select-Object Id, PriorityClass
+
+Cambiarla:
+
+(Get-Process notepad).PriorityClass = "High"
+
+Finalizarlo:
+
+Stop-Process -Name notepad -Force
+
+🔹 Efectos: con prioridad alta apenas notarás cambios, pero si el sistema está cargado, el Bloc de notas tendrá prioridad sobre otros procesos más lentos.
+
+
+9) Documentar el ciclo de vida completo de un proceso
+
+Creación: se lanza mediante Start-Process o por el sistema.
+
+Inicialización: se asignan recursos (PID, memoria, hilos).
+
+Ejecución: el proceso realiza sus tareas.
+
+Espera o suspensión: puede detenerse temporalmente esperando recursos.
+
+Finalización: termina normalmente o se detiene manualmente (Stop-Process o al cerrar el programa).
+
+Liberación: el sistema libera memoria, desasigna PID y recursos.
+
+
+
+10)   ¿Qué es svchost.exe?, buscalo en el administrador de tareas. ¿Para que sirve? ¿Qué relación guarda con los virus?
+
+Nombre completo: Service Host Process
+
+Función: carga y gestiona servicios de Windows (.dll) agrupados por tipo (red, sistema, etc.).
+
+Ubicación legítima: C:\Windows\System32\svchost.exe
+
+Relación con virus: muchos malware se disfrazan con este nombre, pero si se encuentran fuera de System32, pueden ser maliciosos.

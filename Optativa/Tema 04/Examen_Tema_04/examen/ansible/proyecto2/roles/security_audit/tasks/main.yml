@@ -1,0 +1,9 @@
+---
+- name: Registrar uptime del sistema
+  command: uptime
+  register: variable_uptime
+
+- name: Generar informe de auditoría desde plantilla
+  template:
+    src: server_info.j2
+    dest: "{{ log_path }}"

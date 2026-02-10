@@ -1,0 +1,30 @@
+---
+- name: Configuración avanzada de servidores
+  hosts: web_servers
+  become: yes
+
+  tasks:
+    - name: Instalar varios paquetes (BUCLE)
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - git
+        - ufw
+
+    - name: Verificar si existe un archivo de seguridad (REGISTRO)
+      ansible.builtin.stat:
+        path: /etc/security_token
+      register: token_file
+
+    - name: Configurar firewall solo si el token existe (CONDICIONAL)
+      ansible.builtin.command: ufw allow 80/tcp
+      when: token_file.stat.exists == true
+      notify: Reiniciar Firewall  # (CONTROLADOR)
+
+  handlers:
+    - name: Reiniciar Firewall
+      ansible.builtin.service:
+        name: ufw
+        state: restarted

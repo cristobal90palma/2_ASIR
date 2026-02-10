@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Web of Cristóbal Suárez Abad</title>
+  </head>
+  <body bgcolor="#d3d3d3">
+    <center>
+      <p>Web of <b>Cristóbal Suárez Abad</b></p>
+      <p><a href="documentos/">Documents</a></p>
+      <p><a href="capturas/">Screenshots</a></p>
+      <p><a href="webalumno.conf">Configuration File</a></p>
+      <p><a href="/buscador">Search</a></p>
+      <p><a href="privada/">Private Zone</a></p>
+    </center>
+  </body>
+</html>

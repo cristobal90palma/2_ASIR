@@ -1,0 +1,118 @@
+{
+    "family": "prosody-v1",
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "dnsSearchDomains": [
+                "institutodh.net"
+            ],
+            "dnsServers": [
+                "1.1.1.1"
+            ],
+            "environment": [
+                {
+                    "name": "PROSODY_DOMAIN",
+                    "value": "im07.institutodh.net"
+                }
+            ],
+            "essential": true,
+            "hostname": "im07",
+            "image": "prosodyim/prosody:13.0",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/prosody-v1",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [
+                {
+                    "containerPath": "/etc/prosody",
+                    "readOnly": false,
+                    "sourceVolume": "prosody-conf"
+                },
+                {
+                    "containerPath": "/var/lib/prosody",
+                    "readOnly": false,
+                    "sourceVolume": "prosody-data"
+                }
+            ],
+            "name": "prosody-ct",
+            "portMappings": [
+                {
+                    "containerPort": 5000,
+                    "hostPort": 5000,
+                    "name": "file-transfer-proxy",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5222,
+                    "hostPort": 5222,
+                    "name": "client-connections",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5269,
+                    "hostPort": 5269,
+                    "name": "s2s-connections",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5280,
+                    "hostPort": 5280,
+                    "name": "http-private",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5281,
+                    "hostPort": 5281,
+                    "name": "https-public",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5347,
+                    "hostPort": 5347,
+                    "name": "external-components",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5582,
+                    "hostPort": 5582,
+                    "name": "telnet-console",
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::905418476068:role/LabRole",
+    "executionRoleArn": "arn:aws:iam::905418476068:role/LabRole",
+    "networkMode": "bridge",
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "/home/ubuntu/prosody/conf"
+            },
+            "name": "prosody-conf"
+        },
+        {
+            "host": {
+                "sourcePath": "/home/ubuntu/prosody/data"
+            },
+            "name": "prosody-data"
+        }
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "1600",
+    "memory": "1600",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "enableFaultInjection": false
+}

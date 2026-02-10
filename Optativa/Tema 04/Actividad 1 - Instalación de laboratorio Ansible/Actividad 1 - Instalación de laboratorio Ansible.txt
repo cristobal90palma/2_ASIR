@@ -1,0 +1,47 @@
+docker exec -it ansible-control bash
+
+cd /ansible/proyecto2
+ls -l
+
+
+root@control:/ansible/proyecto2# cat ansible.cfg
+[defaults]
+inventory = inventory
+host_key_checking = False
+
+
+
+remote_user = ansibleroot@control:/ansible/proyecto2# cat inventory
+[webservers]
+node1
+node2
+node3
+
+[webservers:vars]
+ansible_password=password
+
+
+
+
+ ansible all -m ping
+node3 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+node1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+node2 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}

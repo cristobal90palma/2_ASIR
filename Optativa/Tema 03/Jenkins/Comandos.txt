@@ -1,0 +1,72 @@
+https://www.youtube.com/playlist?list=PLDbrnXa6SAzVC6ZgVQlQOUa1CPl6KB8zZ
+
+1) Instalación
+Para no tener problemas de versiones (Windows, Linux, MacOS) Lo instalamos en un contenedor de Docker
+
+TIENES QUE TENER ENCENDIDO Docker DESKTOP (SI NO TIENES SOLO EL ENGINE)
+
+docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk17
+
+
+navegador web:
+
+http://localhost:8080
+
+Nos indicará que debemos usar una contraseña generada dentro del contenedor.
+
+cat /var/jenkins_home/secrets/initialAdminPassword
+Ponemos cat + ruta en la terminal.
+
+b4b5684ca9e846ed8b29169b845378aa
+
+Elegimos "Install Suggested Plugins".
+
+
+usuario: admin
+pass: 12345
+
+Full Name: admin
+Email: cristobal2590@gmail.com
+
+
+Nos da a elegir para poner en otro puerto:
+
+http://localhost:8080/
+
+
+
+04. Curso de Jenkins - Administrar Jenkins
+
+
+Icono Derecha Engranaje: Administrar Jenkins
+
+
+
+
+05. Curso de Jenkins - Usuarios y Permisos en Jenkins
+
+
+Se recomienda instalar recursos a través de "plugins", es mucho más fácil replicar 
+jenkins de un servidor a otro con los plugins. Si fuese con los recursos del servidor, es más dificil.
+
+Users ==> Crear usuarios, etc.
+
+usuario: test
+pass: 12345
+
+
+Evitar que otros usuarios puedan Acceso Total a la Administración de Jenkins
+
+
+Seguridad ==> Autorización
+
+Configuración de Seguridad
+
+
+
+\\\\\\\\\\\\\\\\\\\\
+
+06. Curso de Jenkins - Job Free Style
+
+"Nueva tarea"
+

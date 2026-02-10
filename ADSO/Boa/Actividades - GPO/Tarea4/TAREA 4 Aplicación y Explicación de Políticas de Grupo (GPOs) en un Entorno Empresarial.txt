@@ -1,0 +1,97 @@
+TAREA 4 Aplicación y Explicación de Políticas de Grupo (GPOs) en un Entorno Empresarial
+
+
+Instrucciones:
+
+    La tarea se realizará de forma individual.
+
+    Asignación de GPOs (entre hoy y el lunes en clase):
+
+        Cada uno elegirá en clase una GPO que va a trabajar.
+
+        No se permitirá repetir GPOs.
+
+    Investigación:
+
+        Investigar qué hace la GPO seleccionada, por qué es útil y en qué escenarios se aplicaría en una empresa real.
+
+    Implementación práctica:
+
+        Preparar un entorno virtual (Windows Server con AD + cliente Windows).
+
+        Crear y aplicar la GPO seleccionadas.
+
+        Comprobar que funcionan correctamente.
+
+    Video tutorial:
+
+        Graba un video-tutorial mostrando:
+
+            Explicación teórica de cada GPO.
+
+            Proceso de aplicación paso a paso.
+
+            Verificación del resultado.
+
+    Exposición en clase:
+
+        El día de la exposición, se reproducirá el video.
+
+        Durante la proyección, se debe comentar y resolver dudas del resto de la clase y del profesor.
+
+Entrega
+
+    Solo necesito un enlace al video en Google Drive (con acceso al profesor).
+    Exposición del video y defensa oral: Se decidirá tras la entrega de los vídeos.
+
+Evaluación:
+
+    GPOs útiles, bien investigadas y bien elegidas – 2 puntos 
+    Se valorará que las políticas elegidas tengan una aplicación real en entornos empresariales y que el alumno haya investigado adecuadamente su utilidad.
+
+    Aplicación correcta en el entorno de Active Directory – 3 puntos
+    Se evaluará que las GPOs hayan sido implementadas correctamente en un entorno con dominio, unidades organizativas y equipos/usuarios, y que los resultados se apliquen tal como se espera.
+
+    Claridad técnica del video – 2 puntos
+    El video debe mostrar una demostración comprensible y técnica de las GPOs, así como el proceso completo de configuración y los efectos que produce.
+
+    Defensa oral en clase: comprensión y resolución de dudas – 3 puntos cada una
+    Durante la exposición del video en clase, se valorará la capacidad del alumno para explicar su trabajo y responder a las preguntas del profesor y compañeros.
+
+Listado de alumnados con sus GPOs:
+
+José Javier Cepeda:
+
+    Deshabilitar ejecución de archivos .bat .ps1 .exe (seguridad)
+
+Mario Reig:
+
+    Acceso WinRM.
+
+Sergio:
+
+    No se puedan incluir extensiones en Microsoft Edge.
+
+Cristóbal:
+
+    Cuotas de disco.
+
+Pablo Espina:
+
+    Implementar AppLocker
+
+Andrés:
+
+    Bloquear Pantalla tras cierto tiempo.
+
+Armando:
+
+    Configurar plantilla de algún navegador.
+
+Álvaro:
+
+    Denegar acceso escritura a unidades no protegidas por BitLocker.
+
+Juan Rojas:
+
+     

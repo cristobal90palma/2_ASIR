@@ -1,0 +1,25 @@
+Started by user Administrador ASIR Examen
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/Backend_Deploy
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Verificación del entorno)
+[Pipeline] echo
+Iniciando despliegue de la versión 
+[Pipeline] echo
+Solicitado por 
+[Pipeline] sleep
+Sleeping for 2 sec
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Despliegue Exitoso)
+[Pipeline] echo
+La aplicación ha sido desplegada correctamente en el puerto 8080.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

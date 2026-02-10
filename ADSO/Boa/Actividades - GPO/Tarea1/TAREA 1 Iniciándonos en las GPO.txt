@@ -1,0 +1,9 @@
+TAREA 1 Iniciándonos en las GPO
+
+Replica las GPO implementadas (6 puntos) en el siguiente enlace: https://blog.ragasys.es/administracion-de-directivas-de-grupo-gpo-sobre-ms-windows-server-2016
+
+Si consideras oportuno algún cambio en las GPO, indícalo en el documento y justifícalo.
+
+Finalmente, comprueba el funcionamiento de 2 de las GPO en algunos clientes o incluso desde el propio servidor. (3 puntos)
+
+(1 punto) --> Presentación y documentación de la tarea -- En esta tarea no hace falta mucha documentación, simplemente id haciendo capturas de pantalla de cada GPO que vayáis creando y de sus características. Finalmente probad como os indico 2 de ellas y documentadlo.

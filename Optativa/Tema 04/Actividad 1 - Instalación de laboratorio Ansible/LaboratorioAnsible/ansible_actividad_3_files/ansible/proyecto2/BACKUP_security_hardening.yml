@@ -1,0 +1,82 @@
+---
+- name: Despliegue de Seguridad y Auditoría en TechCorp
+  hosts: all
+  # No activamos 'become' a nivel global para evitar el error inicial
+  become: no 
+
+  tasks:
+    # 1. Instalación de sudo usando 'raw' (se ejecuta como el usuario actual)
+    - name: Asegurar que sudo esté instalado (Opción B)
+      raw: apt-get update && apt-get install -y sudo
+      become: yes
+      # Nota: Si el usuario 'ansible' no puede hacer sudo, esta tarea fallará.
+      # Si falla, deberás entrar al contenedor y darle permisos de sudo al usuario 'ansible'
+      # o ejecutar el comando 'apt-get install sudo' desde el host docker.
+      ignore_errors: yes
+
+    # 2. Registro estado del host
+    - name: Ejecutar comando uptime
+      command: uptime
+      register: uptime_result
+      changed_when: false
+
+    # 3. Creación de usuarios (Aquí sí usamos become)
+    - name: Crear usuarios del equipo de auditoría
+      user:
+        name: "{{ item }}"
+        groups: sudo
+        append: yes
+        state: present
+      loop: "{{ audit_team }}"
+      become: yes
+
+    # 4. Verificar existencia de sshd_config
+    - name: Verificar existencia de sshd_config
+      stat:
+        path: /etc/ssh/sshd_config
+      register: ssh_config_stat
+
+    # 5. SSH Hardening (Condicional y Handler)
+    - name: Deshabilitar login de root en SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin no'
+        state: present
+      when: ssh_config_stat.stat.exists
+      notify: Reiniciar SSH
+      become: yes
+
+    # 6. Lógica de Grupos: Fail2ban en Producción
+    - name: Instalar fail2ban en servidores de produccion
+      apt:
+        name: fail2ban
+        state: present
+        update_cache: yes
+      when: "'prod' in group_names"
+      become: yes
+
+    # 7. Lógica de Grupos: Detener Nginx en DB Servers
+    - name: Asegurar que nginx este detenido en db_servers
+      service:
+        name: nginx
+        state: stopped
+        enabled: no
+      when: "'db_servers' in group_names"
+      ignore_errors: yes
+      become: yes
+
+    # 8. Registro en Log
+    - name: Escribir resultado de uptime en log
+      copy:
+        content: "{{ uptime_result.stdout }}"
+        dest: "{{ log_path }}"
+      when: uptime_result.rc == 0
+      become: yes
+
+  handlers:
+    - name: Reiniciar SSH
+      service:
+        name: ssh
+        state: restarted
+      become: yes

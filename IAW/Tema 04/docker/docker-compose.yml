@@ -1,0 +1,21 @@
+services:
+  servidor-php:
+    image: php:8.2-apache
+    container_name: mi_entorno_php
+    networks:
+      red_fisica:
+        ipv4_address: 192.168.1.50 # La IP que quieres que tenga el contenedor
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+
+networks:
+  red_fisica:
+    driver: macvlan
+    driver_config:
+      parent: eth0 # CAMBIA ESTO por el nombre de tu tarjeta de red
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1 # La IP de tu router

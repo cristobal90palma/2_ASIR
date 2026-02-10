@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'VERSION', description: 'Versión de la aplicación')
+        string(name: 'AUTOR', description: 'Persona que solicita el despliegue')
+    }
+
+    stages {
+
+        stage('Verificación del entorno') {
+            steps {
+                echo "Iniciando despliegue de la versión ${params.VERSION}"
+                echo "Solicitado por ${params.AUTOR}"
+
+                // Esperar 2 segundos
+                sleep(time: 2, unit: 'SECONDS')
+            }
+        }
+
+        stage('Despliegue Exitoso') {
+            steps {
+                echo "La aplicación ha sido desplegada correctamente en el puerto 8080."
+            }
+        }
+    }
+}

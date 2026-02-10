@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------
+  # ACTIVIDAD 1 y 3: EL NODO MAESTRO (MASTER)
+  # -------------------------------------------------------
+  redis-master:
+    image: redis:7-alpine
+    container_name: redis-master
+    ports:
+      - "6379:6379"
+    networks:
+      - redis-net
+    command: redis-server --appendonly yes
+
+  # -------------------------------------------------------
+  # ACTIVIDAD 1: EL PRIMER ESCLAVO (REPLICA DIRECTA)
+  # -------------------------------------------------------
+  redis-replica:
+    image: redis:7-alpine
+    container_name: redis-replica
+    ports:
+      - "6380:6379"
+    networks:
+      - redis-net
+    depends_on:
+      - redis-master
+    # Le decimos explícitamente que su maestro es 'redis-master'
+    command: redis-server --replicaof redis-master 6379
+
+  # -------------------------------------------------------
+  # ACTIVIDAD 2: Topología en cascada: MAESTRO -> ESCLAVO 1 -> ESCLAVO 2
+  # -------------------------------------------------------
+  redis-replica-chained:
+    image: redis:7-alpine
+    container_name: redis-replica-chained
+    ports:
+      - "6381:6379"
+    networks:
+      - redis-net
+    depends_on:
+      - redis-replica
+    # Le decimos explícitamente que su maestro es 'redis-master'
+    command: redis-server --replicaof redis-replica 6379
+
+
+networks:
+  redis-net:
+    driver: bridge

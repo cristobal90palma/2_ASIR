@@ -1,0 +1,4 @@
+dn: cn=administrativos,ou=grupos,dc=sistemas,dc=edu
+objectClass: posixGroup
+gidNumber: 10002
+cn: administrativos

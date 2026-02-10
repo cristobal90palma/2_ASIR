@@ -1,0 +1,169 @@
+
+1) Instalar BIND 9
+
+apt -y update && apt -y install bind9 && apt install dnsutils
+systemctl status bind9
+ls -l /etc/bind
+
+2) Reiniciar servicios:
+
+systemctl reload named
+systemctl reload bind9
+systemctl status named
+systemctl status bind9
+
+
+3) Comprobar logs:
+
+# Si tus logs de bind9 están en /var/log/syslog
+# Muestra las últimas líneas del archivo
+sudo tail /var/log/syslog | grep named
+
+# Para ver las últimas líneas en tiempo real
+sudo tail -f /var/log/syslog | grep named
+
+#Demasiado largo
+sudo cat /var/log/syslog | grep named
+
+journalctl -u named | grep errors
+
+#
+journalctl -u bind9 --no-pager | tail -n 20
+
+
+4) Comprueba que la zona resuelve correctamente, tanto de 
+forma inversa como directa desde el servidor. Comprueba todos
+ los registros DNS implicados.
+ 
+ 
+ 
+1.1. Registros de Autoridad (NS y SOA)
+
+Esto comprueba la información de la zona.
+
+NS (Servidor de Nombres): dig @10.2.17.5 retry07.net NS
+SOA (Autoridad): dig @10.2.17.5 retry07.net SOA
+
+
+
+1.2. Registros A (Direcciones)
+
+Comprobamos la resolución de los nombres principales a sus IPs.
+
+
+DNS (dnsIniciales01): dig @10.2.17.5 dnscsa01.retry07.net A
+Web (www)	dig @10.2.17.5 www.retry07.net A	
+Correo 1 (smtp1)	dig @10.2.17.5 smtp1.retry07.net A	
+Correo 2 (smtp2)	dig @10.2.17.5 smtp2.retry07.net A	
+Minecraft (mc)	dig @10.2.17.5 mc.retry07.net A	
+
+
+1.3. Registros CNAME (Alias)
+
+Comprobamos que los alias apuntan correctamente a sus nombres canónicos.
+
+dig mail1.retry07.net
+dig mail2.retry07.net
+dig mc.retry07.net
+dig web.retry07.net
+
+
+INVERSA:
+
+dig -x 10.2.17.5
+dig -x 172.16.111.200
+dig -x 172.16.111.201
+dig -x 172.16.111.202
+dig -x 172.16.111.203
+
+
+
+En el CMD de tu PC, en Windows:
+
+nslookup www.sz.retry07.net
+
+En el Contenedor Cliente:
+
+
+host "nombre del servidor"
+host "nombre dominio"
+
+host google.com
+host www.google.com
+host roa.es
+host roa.es 12
+host -t PTR 10.2.7.11
+
+dig "nombre del servidor"
+dig "nombre dominio"
+dig -t MX suarez.c + (IP: solo si no es público).
+dig -x 10.2.7.11
+
+nslookup + nombres o IPs de la zona que conozca
+nslookup -type=MX google.es + (IP: solo si no es público).
+nslookup -type=any google.es + (IP: solo si no es público).
+nslookup 10.2.7.11
+
+
+La prueba más importante para BIND9 es asegurarte de que está respondiendo directamente. Usa estas variantes, sustituyendo miweb.com por un registro de tu propia zona y especificando la IP de tu servidor BIND9 (típicamente 127.0.0.1 si lo pruebas desde el mismo servidor):
+
+    dig @127.0.0.1 registro.mi_zona.com A
+
+    host registro.mi_zona.com 127.0.0.1
+
+    nslookup registro.mi_zona.com 127.0.0.1
+	
+	
+
+\\\\\\\\\\\\Comprobaciones:
+
+Esta no la usó Diego: dig s.suarez.c. @10.2.7.5
+
+nslookup -type=ANY s.suarez.c 10.2.7.6
+nslookup -type=ANY s.suarez.c 10.2.7.5
+nslookup -type=ANY mensajero.s.suarez.c 10.2.7.6
+nslookup -type=ANY cartero.s.suarez.c 10.2.7.6
+
+nslookup -type=A cartero.s.suarez.c 10.2.7.6
+nslookup -type=A mensajero.s.suarez.c 10.2.7.6
+
+nslookup mail1.retry07.net 10.2.17.110
+
+Se puede hacer las consultas desde tu PC
+Hazselas también a 10.2.7.5
+
+
+Desde DNS-cliente
+
+host -t ANY s.suarez.c.
+
+root@dns-cliente:~# host -t ANY www.s.suarez.c.
+www.s.suarez.c has address 10.2.7.30
+
+root@dns-cliente:~# host -t ANY mensajero.s.suarez.c.
+mensajero.s.suarez.c is an alias for mx100.s.suarez.c.
+
+En un cliente cuyo DNS es el maestro y el esclavo:
+
+dig mensajero.s.suarez.c.         
+
+; <<>> DiG 9.18.24-0ubuntu5-Ubuntu <<>> mensajero.s.suarez.c.
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 62622
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: a8e2d93073f5e3980100000068fb6399bc8e4988ddabef51 (good)
+;; QUESTION SECTION:
+;mensajero.s.suarez.c.          IN      A
+
+;; ANSWER SECTION:
+mensajero.s.suarez.c.   86400   IN      CNAME   mx100.s.suarez.c.
+mx100.s.suarez.c.       86400   IN      A       10.2.7.31
+
+;; Query time: 0 msec
+;; SERVER: 10.2.7.5#53(10.2.7.5) (UDP)
+;; WHEN: Fri Oct 24 11:31:37 UTC 2025
+;; MSG SIZE  rcvd: 113

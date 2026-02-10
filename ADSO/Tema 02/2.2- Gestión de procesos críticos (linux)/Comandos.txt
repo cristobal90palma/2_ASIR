@@ -1,0 +1,190 @@
+
+1) Identifica los procesos activos en el sistema y registra al menos cinco con su información más relevante. (systemd, bash, NetworkManager, sshd, udevd)
+        PID
+        Usuario propietario
+        Estado aproximado (en ejecución, en espera, detenido)
+        Porcentaje de CPU y memoria utilizada
+
+verifica si son procesos del sistema o de usuario y describe brevemente su función principal.
+
+
+ps aux: https://unix.stackexchange.com/questions/106847/what-does-aux-mean-in-ps-aux
+
+a = show processes for all users
+u = display the process's user/owner
+x = also show processes not attached to a terminal
+
+Miestra los 5 primeros (se pone un 6 porque cuenta la cabecera como una línea
+
+ps aux | head -n 6
+
+
+https://gemini.google.com/app/7b99405fd0c1ee87 
+USER,PID,COMMAND,Tipo de Proceso,Función Principal
+root,1,/sbin/init,Sistema,Es el primer proceso que se inicia (PID 1). Gestiona el arranque del sistema y es el padre de todos los demás procesos. Es crucial para la inicialización y gestión de servicios del sistema (sistema init o systemd).
+root,2,[kthreadd],Sistema,Es el proceso del kernel responsable de la gestión y creación de otros hilos del kernel (kernel threads). Se ejecuta en el espacio del kernel.
+root,3,[pool_workqueue_release],Sistema,"Un hilo del kernel asociado a la gestión de colas de trabajo (workqueues), que son mecanismos para ejecutar tareas en el contexto del kernel de forma asíncrona."
+root,4,[kworker/R-rcu_g],Sistema,"Un hilo de trabajo del kernel (kworker) dedicado a tareas específicas, en este caso, relacionado con el mecanismo RCU (Read-Copy-Update), que es una técnica de sincronización del kernel."
+root,5,[kworker/R-rcu_p],Sistema,"Otro hilo de trabajo del kernel (kworker) asociado al mecanismo RCU, posiblemente una parte del proceso de poda (RCU grace period)."
+
+
+
+
+2) Filtra la lista de procesos para mostrar solo los pertenecientes a un usuario concreto, a un nombre determinado o a un PID específico.
+
+
+Se utilizan los comandos ps junto con grep o herramientas específicas como pgrep
+
+ps aux | grep [s]shd
+ps aux | grep sshd
+
+Resultado: Muestra la línea completa del proceso sshd. (Se usan corchetes [s] para evitar que el grep se muestre a sí mismo).
+
+Filtro por usuario:
+
+ps -u root
+ps -u cristobal
+
+
+Filtro por PID Específico (PID 1, que es systemd):
+
+ps -p 1
+
+
+
+3) Analiza qué procesos consumen más recursos y determina si pertenecen al sistema o al usuario. Registra los tres procesos más exigentes y describe su comportamiento.
+
+usamos htop para monitorizar el uso.
+
+https://gemini.google.com/app/7b99405fd0c1ee87
+PID,USER,PRI,NI,VIRT,RES,SHR,S,CPU%,MEM%,TIME+,Command
+1524,cristobal,20,0,8504,4864,3712,R,2.6,0.1,0:00.28,htop
+891,mysql,20,0,1744M,384M,36480,S,0.7,9.8,0:05.36,/usr/sbin/mysqld
+1252,cristobal,20,0,15884,6988,5120,S,0.7,0.2,0:00.73,sshd: cristobal@pts/0
+1,root,20,0,22884,13016,9384,S,0.0,0.3,0:02.23,/sbin/init
+310,root,19,-1,66760,16992,15968,S,0.0,0.4,0:00.38,/usr/lib/systemd/systemd-journald
+365,root,RT,0,282M,27264,8784,S,0.0,0.7,0:00.10,/sbin/multipathd -d -s
+379,root,20,0,282M,27264,8784,S,0.0,0.7,0:00.00,/sbin/multipathd -d -s
+
+
+
+4) Crea dos procesos que te permitan observar diferencias en el consumo de recursos:
+
+    Proceso ligero: por ejemplo, abrir un editor de texto o ejecutar una orden simple.
+    Proceso intensivo: lanzar una tarea de cálculo o compresión que mantenga el procesador ocupado.
+
+
+
+nano ligero.txt &
+
+wget https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.1.0-amd64-netinst.iso
+
+gzip -9 debian-13.1.0-amd64-netinst.iso comprimido/debiancito.gzip
+
+
+
+Observa:
+
+    Qué PID se les asigna.
+    Cómo varía el consumo de CPU y memoria entre ambos.
+    Cómo afecta el cambio de prioridad del proceso intensivo al rendimiento general del sistema.
+
+
+Para cambiar la prioridad
+https://didweb.gitbooks.io/comandos-linux/content/chapter1/procesos/nice-y-renice.html
+
+sudo renice 19 -p 1790 
+
+
+6) Documenta las fases del ciclo de vida de uno de los procesos
+
+
+Ciclo de Vida del Proceso y Finalización
+
+Documentaremos el ciclo de vida del proceso intensivo (gzip, PID 4578).
+
+Fases del Ciclo de Vida:
+
+    Nacimiento/Creación (fork/exec): El shell (bash) crea un nuevo proceso (gzip) y el sistema le asigna el PID 4578. (Estado: R - Running).
+
+    Ejecución (Running): El proceso está utilizando la CPU para comprimir el archivo. (Estado: R en top, %CPU ~100%).
+
+    Espera/Bloqueado (I/O Wait): Si la compresión tuviera que esperar a que el disco duro leyera o escribiera datos, pasaría brevemente a este estado. (Estado: D - Disk Sleep).
+
+    Finalización (Termination): La compresión finaliza por sí misma. El proceso sale de ejecución.
+
+        Si la compresión fallara o tuviéramos que abortarla: Enviaríamos el comando: kill 4578
+		
+		
+	
+		El proceso recibiría la señal SIGTERM (terminación normal), liberaría sus recursos y saldría.
+
+Muerte/Zombi (Zombie): Una vez finalizado, el proceso queda en un estado Z (Zombie) hasta que su proceso padre (bash en este caso) lee su código de salida. Una vez leído, el kernel elimina por completo el proceso.
+
+
+7) Finaliza los procesos y documenta las fases que ha atravesado durante su ciclo de vida.
+		
+
+8) Clasifica los procesos observados en tres grupos: del sistema, de usuario y demonios.
+
+Del Sistema	Esenciales para el kernel y la inicialización. Creados por root o el kernel.	systemd (PID 1), kworker, Xorg/Wayland.
+De Usuario	Ejecutados bajo la cuenta del usuario para tareas interactivas o específicas.	bash, nano (ligero), gzip (intensivo), firefox/chrome.
+Demonios (Daemons)	Procesos del sistema que se ejecutan en segundo plano, sin interfaz interactiva, y ofrecen servicios.	NetworkManager, sshd, udevd.
+
+
+
+9) Desde GNOME, abre el monitor del sistema. Captura una vista general de la pestaña de procesos e 
+identifica visualmente los de mayor consumo.
+
+
+
+
+10) Añade a GNOME la extensión System-monitor, busca el paquete, instalalo y muestra su funcionamiento.
+
+https://vitux.com/how-to-install-and-use-gnome-system-monitor-and-task-manager-in-debian-10/
+
+sudo apt-get update
+sudo apt-get install gnome-system-monitor
+
+Para lanzarlo:
+gnome-system-monitor
+
+para desinstalarlo:
+sudo apt-get remove gnome-system-monitor
+
+11) Accede a la herramienta de administración web Webmin (WebAdmin) y localiza el apartado de gestión de procesos.
+
+Instalación de Webmin:
+https://webmin.com/download/
+
+curl -o webmin-setup-repo.sh https://raw.githubusercontent.com/webmin/webmin/master/webmin-setup-repo.sh
+sudo sh webmin-setup-repo.sh
+
+apt update
+sudo apt-get install webmin --install-recommends
+
+
+curl -o webmin-setup-repo.sh https://raw.githubusercontent.com/webmin/webmin/master/webmin-setup-repo.sh
+sudo sh webmin-setup-repo.sh 
+sudo apt-get install webmin --install-recommends
+
+    Observa cómo se listan los procesos activos y qué información adicional 
+	muestra respecto a la terminal.
+	
+	FOTOS Y COMENTARIO DE LAS CARACTERISTICAS. COMPARA CON LA TERMINAL.
+	
+    Comprueba si puedes detener, reiniciar o cambiar la prioridad desde 
+	la interfaz.
+	
+	SI SE PUEDE. HAY QUE PULSAR EN LA PID DEL PROCESO Y TE SALE
+	UNA NUEVA VENTANA. TE DA OPCIONES
+	
+    Comenta las ventajas e inconvenientes de usar una herramienta web 
+	frente al uso directo de la línea de comandos.
+
+	La herramienta web ofrece más información.
+	No necesitas saberte los comandos.
+	
+	Inconvenientes:
+	Si cae la conexión te quedas a oscuras.
+	Hay siempre una pequeña "tardanza" a la hora de ejecutar los comandos.

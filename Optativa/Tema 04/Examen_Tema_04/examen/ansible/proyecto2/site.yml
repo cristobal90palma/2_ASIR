@@ -1,0 +1,12 @@
+---
+- name: Configuracion Global de Seguridad
+  hosts: all
+  become: yes
+  roles:
+    - security_audit
+
+- name: Despliegue de Servidores Web
+  hosts: web_servers
+  become: yes
+  roles:
+    - geerlingguy.apache

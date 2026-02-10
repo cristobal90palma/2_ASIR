@@ -1,0 +1,31 @@
+https://github.com/cristobal90palma/prosody.git
+
+
+echo "# prosody" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/cristobal90palma/prosody.git
+git push -u origin main
+
+
+
+
+git remote add origin https://github.com/cristobal90palma/prosody.git
+git branch -M main
+git push -u origin main
+
+
+token:
+
+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
+
+
+https://chatgpt.com/c/696ab100-5900-8333-a31a-27d118178486
+
+
+
+cp -r /var/lib/prosody/* var/lib/prosody/
+cp -r /etc/prosody/* etc/prosody/
+cp -r /usr/lib/prosody/* usr/lib/prosody/

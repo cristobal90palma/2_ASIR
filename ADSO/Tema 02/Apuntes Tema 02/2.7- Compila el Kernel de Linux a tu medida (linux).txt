@@ -1,0 +1,355 @@
+PON LA CPU DE LA VM DE PROXMOX EN MODO "HOSTS".
+
+
+[root@server2asir usuario]$uname -r
+5.15.0-161-generic
+
+
+       1)  Instala el paquete correspondiente al núcleo que estás utilizando 
+	   (sudo apt install linux-source) o puedes descargarlo 
+	   (https://www.kernel.org)
+	   
+	   sudo apt update && sudo apt upgrade -y
+	   
+sudo apt install build-essential bc bison flex libssl-dev libncurses-dev libelf-dev dwarves fakeroot ccache rsync git wget curl
+
+sudo apt install linux-source
+	   
+	   2) Crea un directorio para trabajar con el código fuente donde 
+	   descomprimas linux-source.
+
+
+cd /usr/src
+# El archivo fuente será algo como linux-source-5.15.0.tar.bz2
+sudo tar -xf linux-source-5.15.0.tar.bz2 
+
+# Crear un enlace simbólico a la carpeta descomprimida para facilitar el acceso
+# Puede que no haga falta
+sudo ln -s linux-source-5.15.0 linux
+
+# Entrar al directorio de trabajo
+cd linux
+o
+
+cd linux-source-5.15.0/
+
+Al final, debes estar situado en el directorio donde está el archivo Makefile
+
+
+
+
+3.       Carga la configuración del kernel actual (make oldconfig)
+
+
+Copia la configuración del kernel que estás usando actualmente como punto de partida.
+
+IMPORTANTE: ACUERDATE DE DESCOMPRIMIR EL ARCHIVO
+
+sudo tar -xf linux-source-5.15.0.tar.bz2
+
+Y LUEGO POSICIONARTE EN EL DIRECTORIO QUE CREA.
+
+
+# Copia el archivo de configuración actual
+sudo cp /boot/config-$(uname -r) .config
+
+Comprueba: ls -la | grep .config
+
+# Carga la configuración, aplicando valores por defecto a nuevas opciones
+# Presiona Enter o 'y' para aceptar los valores por defecto si te pregunta.
+sudo make oldconfig
+
+conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+2796
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+5818
+echo "Total: $(grep -c '^[^#].*=' .config)"
+8813
+
+
+
+4)  Cuenta el número de componentes seleccionados para incluir 
+directamente en el kernel (vmlinuz) o como módulos.
+
+grep -E 'CONFIG_.*=(y|m)' .config | wc -l
+
+8614
+
+5) Ejecuta make localmodconfig esto ajustará la configuración 
+solo a los módulos actualmente cargados en tu sistema 
+(los que realmente usas).
+
+actualiza las opciones nuevas: yes "" | make oldconfig
+sudo make localmodconfig
+
+
+La primera pregunta tiene "no" por defecto
+La segunda pregunta usa "N".
+
+
+6) Vuelve a contar el número de componentes configurados.
+
+grep -E 'CONFIG_.*=(y|m)' .config | wc -l
+
+2003
+
+Volver a contar componentes
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+1927
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+76
+echo "Total: $(grep -c '^[^#].*=' .config)"
+2124
+
+7) Realiza la primera compilación 
+(make -j <número de hilos> bindeb-pkg) -- Sustituye <número de hilos> 
+por el número de núcleos de tu CPU (consulta con nproc).
+
+
+nproc
+4
+
+make -j 4 bindeb-pkg
+
+
+
+https://gitlab.com/CalcProgrammer1/OpenRGB/-/issues/950
+
+nano en el archivo .config
+
+Asegurate que estos dos están así:
+
+CONFIG_SYSTEM_TRUSTED_KEYS = ""
+CONFIG_SYSTEM_REVOCATION_KEYS=""
+
+
+
+NO SE SI EL ERROR ES POR LA CPU DE LA VM.
+LA HE CAMBIADO A HOSTS. DESPUÉS PRUEBO.
+
+https://gemini.google.com/app/9c796c6ea147e8e6
+
+
+
+
+ERROR:
+
+  AR      drivers/interconnect/built-in.a
+  AR      drivers/built-in.a
+  CC [M]  drivers/hid/hid-debug.o
+  CC [M]  drivers/hid/hidraw.o
+  CC [M]  drivers/hid/hid-generic.o
+  LD [M]  drivers/hid/hid.o
+  GEN     .version
+  CHK     include/generated/compile.h
+  LD      vmlinux.o
+  MODPOST vmlinux.symvers
+WARNING: modpost: vmlinux.o(.text+0x9f24e7): Section mismatch in reference from the function i8042_probe() to the variable .init.rodata:i8042_quirks
+The function i8042_probe() references
+the variable __initconst i8042_quirks.
+This is often because i8042_probe lacks a __initconst
+annotation or the annotation of i8042_quirks is wrong.
+
+  MODINFO modules.builtin.modinfo
+  GEN     modules.builtin
+  LD      .tmp_vmlinux.btf
+ld: final link failed: No space left on device
+  BTF     .btf.vmlinux.bin.o
+pahole: .tmp_vmlinux.btf: Invalid argument
+  LD      .tmp_vmlinux.kallsyms1
+.btf.vmlinux.bin.o: file not recognized: file format not recognized
+make[3]: *** [Makefile:1249: vmlinux] Error 1
+make[2]: *** [debian/rules:7: build-arch] Error 2
+dpkg-buildpackage: error: debian/rules binary subprocess returned exit status 2
+make[1]: *** [scripts/Makefile.package:83: bindeb-pkg] Error 2
+make: *** [Makefile:1642: bindeb-pkg] Error 2
+
+¿QUE NO HABÍA HUECO EN EL HDD???????????????
+
+
+
+
+
+
+  MODPOST vmlinux.symvers
+WARNING: modpost: vmlinux.o(.text+0x9f24f7): Section mismatch in reference from the function i8042_probe() to the variable .init.rodata:i8042_quirks
+The function i8042_probe() references
+the variable __initconst i8042_quirks.
+This is often because i8042_probe lacks a __initconst
+annotation or the annotation of i8042_quirks is wrong.
+
+  MODINFO modules.builtin.modinfo
+  GEN     modules.builtin
+  LD      .tmp_vmlinux.btf
+  BTF     .btf.vmlinux.bin.o
+Killed
+  LD      .tmp_vmlinux.kallsyms1
+  KSYMS   .tmp_vmlinux.kallsyms1.S
+  AS      .tmp_vmlinux.kallsyms1.o
+  LD      .tmp_vmlinux.kallsyms2
+  KSYMS   .tmp_vmlinux.kallsyms2.S
+  AS      .tmp_vmlinux.kallsyms2.o
+  LD      vmlinux
+  BTFIDS  vmlinux
+FAILED: load BTF from vmlinux: No such file or directory
+make[3]: *** [Makefile:1249: vmlinux] Error 255
+make[3]: *** Deleting file 'vmlinux'
+make[2]: *** [debian/rules:7: build-arch] Error 2
+dpkg-buildpackage: error: debian/rules binary subprocess returned exit status 2
+make[1]: *** [scripts/Makefile.package:83: bindeb-pkg] Error 2
+make: *** [Makefile:1642: bindeb-pkg] Error 2
+
+¿¿¿¿¿Que no tienes suficiente RAM o a petao el archivo SWAP????
+
+SI TIENES ALGÚN ERROR:
+
+Limpiar la Compilación Anterior
+
+# Limpia todos los archivos de objetos, módulos y temporales
+sudo make clean
+
+
+
+Al final funciona. Recuerda. Metele los comandos para que te detecete toda
+la capacidad del Disk (en plantillas de Antonio Carlos).
+Y metele más RAM (Yo le he puesto 6GB).
+
+Te debe salir algo así:
+  INSTALL debian/linux-libc-dev/usr/include
+dpkg-deb: construyendo el paquete `linux-libc-dev' en `../linux-libc-dev_5.15.189-2_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189' en `../linux-image-5.15.189_5.15.189-2_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189-dbg' en `../linux-image-5.15.189-dbg_5.15.189-2_amd64.deb'.
+ dpkg-genbuildinfo --build=binary -O../linux-upstream_5.15.189-2_amd64.buildinfo
+ dpkg-genchanges --build=binary -O../linux-upstream_5.15.189-2_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+
+
+
+SE CREAN EN EL DIRECTORIO SUPERIOR
+EN MI CASO SON TODOS LOS DEL 2 DE DICIEMBRE
+
+[root@server2asir linux-source-5.15.0]$ls -l
+total 337380
+drwxr-xr-x 15 root root      4096 nov 28 11:27 debian
+drwxr-xr-x  7 root root      4096 nov 28 11:27 debian.master
+-rw-r--r--  1 root root   8562536 dic  2 10:31 linux-headers-5.15.189_5.15.189-2_amd64.deb
+-rw-r--r--  1 root root  14731918 dic  2 10:31 linux-image-5.15.189_5.15.189-2_amd64.deb
+-rw-r--r--  1 root root 167401870 dic  2 10:40 linux-image-5.15.189-dbg_5.15.189-2_amd64.deb
+-rw-r--r--  1 root root   1246370 dic  2 10:31 linux-libc-dev_5.15.189-2_amd64.deb
+drwxr-xr-x 27 root root      4096 dic  2 10:30 linux-source-5.15.0
+-rw-r--r--  1 root root 153495669 oct 10 18:13 linux-source-5.15.0.tar.bz2
+-rw-r--r--  1 root root      6352 dic  2 10:40 linux-upstream_5.15.189-2_amd64.buildinfo
+-rw-r--r--  1 root root      2283 dic  2 10:40 linux-upstream_5.15.189-2_amd64.changes
+
+
+
+////////////////////////////////////////////
+
+8.       Instala el núcleo resultando (paquete .deb) de la compilación, reinicia el equipo y comprueba que funciona adecuadamente.
+
+
+cd ..
+sudo dpkg -i linux-image-5.15.189_5.15.189-2_amd64.deb linux-headers-5.15.189_5.15.189-2_amd64.deb
+sudo update-grub
+sudo reboot
+En GRUB selecciona tu nuevo kernel y comprueba que arranca bien.
+
+
+FUNCIONA.
+
+9. Si ha funcionado adecuadamente, utilizamos la configuración del paso anterior como punto de partida y 
+vamos a reducir el tamaño del mismo, para ello vamos a seleccionar elemento a elemento.
+
+cp /boot/config-... .config     #copia la configuración anterior
+
+Nos vamos al directorio:
+cd /usr/src/linux-source-5.15.0/linux-source-5.15.0
+cp /boot/config-5.15.189 .config
+ls -la
+
+
+
+make clean                        #limpia los archivos temporales
+
+
+Usa mejor la segunda opción:
+
+Instalamos:
+sudo apt install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+make xconfig                    #interfaz grafica de configuracion
+
+sudo apt install libncurses-dev
+make menuconfig
+
+
+
+He quitado:
+
+Mitigations for CPU vulnerabilities
+Virtualization
+Enable de block layer
+
+
+Módulos antes:
+Volver a contar componentes
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+1927
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+76
+echo "Total: $(grep -c '^[^#].*=' .config)"
+2124
+
+
+Módulos ahora:
+Volver a contar componentes
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+1757
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+51
+echo "Total: $(grep -c '^[^#].*=' .config)"
+1922
+
+
+
+
+Ahora solo tienes que ejecutar de nuevo:
+
+make -j 4 bindeb-pkg
+
+
+
+Y reiniciar la máquina y rezar para que no pete.
+
+
+Esto sigue funcionando.
+
+
+dpkg-deb: construyendo el paquete `linux-libc-dev' en `../linux-libc-dev_5.15.189-3_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189' en `../linux-image-5.15.189_5.15.189-3_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189-dbg' en `../linux-image-5.15.189-dbg_5.15.189-3_amd64.deb'.
+
+
+Instalación principal (la que necesitas para arrancar):
+sudo dpkg -i linux-image-5.15.189_5.15.189-3_amd64.deb
+
+# Si existe, también ejecuta este (ejemplo)
+# sudo dpkg -i linux-headers-5.15.189_5.15.189-3_amd64.deb
+
+
+Instalación de paquetes adicionales (opcional pero recomendado):
+sudo dpkg -i linux-libc-dev_5.15.189-3_amd64.deb
+
+
+
+
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+echo "Total: $(grep -c '^[^#].*=' .config)"

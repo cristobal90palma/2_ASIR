@@ -1,0 +1,25 @@
+
+//nano /etc/bind/named.conf.local
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Archivo para busquedas directas
+zone "sz.retry07.net" {
+        type master;
+        file "bd.sz.retry07.net"; // Debe estar en /var/cache/bind/
+		allow-update { none; };
+};
+
+// Archivo para busquedas inversas
+zone "100.168.192.in-addr.arpa" {
+        type master;
+        file "192.168.100.rev";
+		allow-update { none; };
+};
+
+//named-checkconf /etc/bind/named.conf.local

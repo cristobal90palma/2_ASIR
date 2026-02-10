@@ -1,0 +1,1069 @@
+2.1- Gestión de procesos críticos (windows) - Cristóbal Suárez Abad
+
+
+1) Muestra la lista de procesos en ejecución e identifica los principales procesos del sistema. (desde el PowerShell como administrador)
+
+Genérico:
+
+Get-Process
+
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+
+Principales procesos del sistema (siempre presentes y críticos):
+
+System → Controla operaciones del kernel (no se puede detener).
+
+smss.exe → Gestor de sesiones del sistema.
+
+wininit.exe → Inicializa procesos del sistema durante el arranque.
+
+services.exe → Administra los servicios del sistema.
+
+lsass.exe → Autenticación de usuarios (Local Security Authority).
+
+explorer.exe → Interfaz gráfica del usuario (escritorio, menú inicio).
+
+
+
+
+
+
+2)    Realiza un filtrado de procesos por usuario, nombre o identificador, registrando los resultados más relevantes..
+
+
+Get-Process -IncludeUserName | Where-Object {$_.UserName -like "*Administrador*"}
+
+Get-Process | Where-Object {$_.ProcessName -like "*vbox*"}
+
+Get-Process -Id 5544
+
+
+3)  Observa qué procesos consumen más CPU o memoria y describe posibles causas.
+
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+
+PS C:\Users\Administrador> Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1848       0      192        152      38,41      4   0 System
+    894     223   291932     235688      20,66   3104   0 MsMpEng
+   1162      71    83392     152084      13,66   4104   1 SearchUI
+    619      39   108356      47588      11,05   4024   1 ServerManager
+    483      23    21296      39480       9,45   2724   1 RuntimeBroker
+    679      75    21012      32240       9,19   2792   0 svchost
+   1443      55    20324      25520       9,11   3188   1 explorer
+    587      14     5324      12836       7,38    596   0 services
+    272      15     2128       5292       6,41    468   1 csrss
+    522      21    17476      31688       6,36   2348   0 svchost
+
+Get-Process | Sort-Object WS -Descending | Select-Object -First 10
+
+
+PS C:\Users\Administrador> Get-Process | Sort-Object WS -Descending | Select-Object -First 10
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    893     223   291932     249124      20,70   3104   0 MsMpEng
+   1162      71    83392     152084      13,66   4104   1 SearchUI
+      0       7     2180      70496       2,81     88   0 Registry
+   5374    3688    68508      69252       0,48   2296   0 dns
+    775      30    22592      65536       1,30   2200   1 ShellExperienceHost
+   1700     123    52488      54976       4,31    616   0 lsass
+    614      31    24668      52040       4,58    316   1 dwm
+    619      39   108356      47440      11,05   4024   1 ServerManager
+    480      32    35908      46332       1,22   2060   0 Microsoft.ActiveDirectory.WebServices
+    790      30    68500      41572       3,09   5544   1 powershell
+	
+	
+4) Seleccionar 3 procesos del sistema y documentar (services.exe, System, wininit.exe):
+
+    PID
+    Usuario propietario
+    Estado aproximado (activo, en espera)
+    Memoria y CPU utilizada
+
+Verifica la existencia de estos 3 procesos usando el administrador de tareas. ¿pueden finalizarse? ¿qué consecuencias tendría?
+
+
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    587      14     5428      12880       9,08    596   0 services	0
+	
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1856       0      192        144      45,64      4   0 System
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    172      11     1392       7124       0,23    460   0 wininit
+	
+¿Pueden finalizarse?
+
+    No.
+    Terminar System, services.exe o wininit.exe puede provocar pantallazo azul (BSOD), cierre del sistema o inestabilidad severa.
+
+
+| Proceso          | PID | Usuario propietario | Estado | CPU (%) | Memoria (MB) | ¿Finalizable? | Consecuencias                                               |
+| ---------------- | --- | ------------------- | ------ | ------- | ------------ | ------------- | ----------------------------------------------------------- |
+| **services.exe** | 700 | SYSTEM              | Activo | 0–2     | 10–20        | ❌ No          | El sistema perdería todos los servicios (red, sonido, etc.) |
+| **System**       | 4   | SYSTEM              | Activo | 1–5     | <1           | ❌ No          | Kernel se detiene → Pantallazo azul                         |
+| **wininit.exe**  | 480 | SYSTEM              | Activo | 0       | 1–2          | ❌ No          | Fin del proceso de inicio → reinicio forzado                |
+
+
+
+5)Vamos a filtrar procesos desde el powerShell:
+
+        lista todos los procesos de tu usuario (tenfras que usar IncludeUserName y las variables de entorno de powershell).
+        obtener todos los datos disponibles sobre los procesos que comienza por "Sear" y "MsM"
+        obtener todos los módulos cargados por tu navegador.
+
+
+a. Listar procesos de tu usuario:
+Get-Process -IncludeUserName | Where-Object {$_.UserName -eq "$env:UserDomain\$env:UserName"}
+
+b. Obtener procesos que empiezan por “Sear” o “MsM”:
+Get-Process | Where-Object {$_.ProcessName -like "Sear*" -or $_.ProcessName -like "MsM*"}
+
+c. Mostrar módulos cargados por tu navegador (por ejemplo, Chrome o Edge):
+(Get-Process iexplore).Modules | Select-Object ModuleName, FileName
+(Get-Process chrome).Modules | Select-Object ModuleName, FileName
+
+
+6) Lanza un proceso manualmente, analiza su prioridad y cámbiala para comprobar el efecto
+ en el rendimiento (Inicia la compresión de un archivo grande con 7-zip). 
+ Para ello cambia la prioridad a “Alta”
+
+
+Ejecuta la compresión de un archivo grande con 7-Zip:
+Start-Process "C:\Program Files\7-Zip\7z.exe" -ArgumentList "a Debian.7z C:\Users\Administrador\Downloads\Debian"
+
+Ver prioridad:
+Get-Process 7z* | Select-Object ProcessName, Id, PriorityClass
+
+Cambiar prioridad a “Alta”:
+(Get-Process 7z*).PriorityClass = "High"
+
+
+Efecto: el proceso tendrá más acceso a CPU, puede hacer que el sistema se vuelva menos fluido si es muy exigente.
+
+
+7)     Finaliza el proceso de forma controlada y observa la mejora en el rendimiento.
+
+Stop-Process -Name "7z" -Confirm
+
+
+8)   Lanza un proceso manualmente, analiza su prioridad y cámbiala (ejecutando notepad.exe desde PowerShell). Realiza cambios de prioridad y finalízalo documentando los efectos.
+
+Start-Process notepad.exe
+
+Ver prioridad:
+
+Get-Process notepad | Select-Object Id, PriorityClass
+
+Cambiarla:
+
+(Get-Process notepad).PriorityClass = "High"
+
+Finalizarlo:
+
+Stop-Process -Name notepad -Force
+
+🔹 Efectos: con prioridad alta apenas notarás cambios, pero si el sistema está cargado, el Bloc de notas tendrá prioridad sobre otros procesos más lentos.
+
+
+9) Documentar el ciclo de vida completo de un proceso
+
+Creación: se lanza mediante Start-Process o por el sistema.
+
+Inicialización: se asignan recursos (PID, memoria, hilos).
+
+Ejecución: el proceso realiza sus tareas.
+
+Espera o suspensión: puede detenerse temporalmente esperando recursos.
+
+Finalización: termina normalmente o se detiene manualmente (Stop-Process o al cerrar el programa).
+
+Liberación: el sistema libera memoria, desasigna PID y recursos.
+
+
+
+10)   ¿Qué es svchost.exe?, buscalo en el administrador de tareas. ¿Para que sirve? ¿Qué relación guarda con los virus?
+
+Nombre completo: Service Host Process
+
+Función: carga y gestiona servicios de Windows (.dll) agrupados por tipo (red, sistema, etc.).
+
+Ubicación legítima: C:\Windows\System32\svchost.exe
+
+Relación con virus: muchos malware se disfrazan con este nombre, pero si se encuentran fuera de System32, pueden ser maliciosos.
+
+
+
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\
+
+
+
+2.2- Gestión de procesos críticos (linux) - Cristóbal Suárez Abad
+
+
+
+
+1) Identifica los procesos activos en el sistema y registra al menos cinco con su información más relevante. (systemd, bash, NetworkManager, sshd, udevd)
+        PID
+        Usuario propietario
+        Estado aproximado (en ejecución, en espera, detenido)
+        Porcentaje de CPU y memoria utilizada
+
+verifica si son procesos del sistema o de usuario y describe brevemente su función principal.
+
+
+ps aux: https://unix.stackexchange.com/questions/106847/what-does-aux-mean-in-ps-aux
+
+a = show processes for all users
+u = display the process's user/owner
+x = also show processes not attached to a terminal
+
+Miestra los 5 primeros (se pone un 6 porque cuenta la cabecera como una línea
+
+ps aux | head -n 6
+
+
+https://gemini.google.com/app/7b99405fd0c1ee87 
+USER,PID,COMMAND,Tipo de Proceso,Función Principal
+root,1,/sbin/init,Sistema,Es el primer proceso que se inicia (PID 1). Gestiona el arranque del sistema y es el padre de todos los demás procesos. Es crucial para la inicialización y gestión de servicios del sistema (sistema init o systemd).
+root,2,[kthreadd],Sistema,Es el proceso del kernel responsable de la gestión y creación de otros hilos del kernel (kernel threads). Se ejecuta en el espacio del kernel.
+root,3,[pool_workqueue_release],Sistema,"Un hilo del kernel asociado a la gestión de colas de trabajo (workqueues), que son mecanismos para ejecutar tareas en el contexto del kernel de forma asíncrona."
+root,4,[kworker/R-rcu_g],Sistema,"Un hilo de trabajo del kernel (kworker) dedicado a tareas específicas, en este caso, relacionado con el mecanismo RCU (Read-Copy-Update), que es una técnica de sincronización del kernel."
+root,5,[kworker/R-rcu_p],Sistema,"Otro hilo de trabajo del kernel (kworker) asociado al mecanismo RCU, posiblemente una parte del proceso de poda (RCU grace period)."
+
+
+
+
+2) Filtra la lista de procesos para mostrar solo los pertenecientes a un usuario concreto, a un nombre determinado o a un PID específico.
+
+
+Se utilizan los comandos ps junto con grep o herramientas específicas como pgrep
+
+ps aux | grep [s]shd
+ps aux | grep sshd
+
+Resultado: Muestra la línea completa del proceso sshd. (Se usan corchetes [s] para evitar que el grep se muestre a sí mismo).
+
+Filtro por usuario:
+
+ps -u root
+ps -u cristobal
+
+
+Filtro por PID Específico (PID 1, que es systemd):
+
+ps -p 1
+
+
+
+3) Analiza qué procesos consumen más recursos y determina si pertenecen al sistema o al usuario. Registra los tres procesos más exigentes y describe su comportamiento.
+
+usamos htop para monitorizar el uso.
+
+https://gemini.google.com/app/7b99405fd0c1ee87
+PID,USER,PRI,NI,VIRT,RES,SHR,S,CPU%,MEM%,TIME+,Command
+1524,cristobal,20,0,8504,4864,3712,R,2.6,0.1,0:00.28,htop
+891,mysql,20,0,1744M,384M,36480,S,0.7,9.8,0:05.36,/usr/sbin/mysqld
+1252,cristobal,20,0,15884,6988,5120,S,0.7,0.2,0:00.73,sshd: cristobal@pts/0
+1,root,20,0,22884,13016,9384,S,0.0,0.3,0:02.23,/sbin/init
+310,root,19,-1,66760,16992,15968,S,0.0,0.4,0:00.38,/usr/lib/systemd/systemd-journald
+365,root,RT,0,282M,27264,8784,S,0.0,0.7,0:00.10,/sbin/multipathd -d -s
+379,root,20,0,282M,27264,8784,S,0.0,0.7,0:00.00,/sbin/multipathd -d -s
+
+
+
+4) Crea dos procesos que te permitan observar diferencias en el consumo de recursos:
+
+    Proceso ligero: por ejemplo, abrir un editor de texto o ejecutar una orden simple.
+    Proceso intensivo: lanzar una tarea de cálculo o compresión que mantenga el procesador ocupado.
+
+
+
+nano ligero.txt &
+
+wget https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.1.0-amd64-netinst.iso
+
+gzip -9 debian-13.1.0-amd64-netinst.iso comprimido/debiancito.gzip
+
+
+
+Observa:
+
+    Qué PID se les asigna.
+    Cómo varía el consumo de CPU y memoria entre ambos.
+    Cómo afecta el cambio de prioridad del proceso intensivo al rendimiento general del sistema.
+
+
+Para cambiar la prioridad
+https://didweb.gitbooks.io/comandos-linux/content/chapter1/procesos/nice-y-renice.html
+
+sudo renice 19 -p 1790 
+
+
+6) Documenta las fases del ciclo de vida de uno de los procesos
+
+
+Ciclo de Vida del Proceso y Finalización
+
+Documentaremos el ciclo de vida del proceso intensivo (gzip, PID 4578).
+
+Fases del Ciclo de Vida:
+
+    Nacimiento/Creación (fork/exec): El shell (bash) crea un nuevo proceso (gzip) y el sistema le asigna el PID 4578. (Estado: R - Running).
+
+    Ejecución (Running): El proceso está utilizando la CPU para comprimir el archivo. (Estado: R en top, %CPU ~100%).
+
+    Espera/Bloqueado (I/O Wait): Si la compresión tuviera que esperar a que el disco duro leyera o escribiera datos, pasaría brevemente a este estado. (Estado: D - Disk Sleep).
+
+    Finalización (Termination): La compresión finaliza por sí misma. El proceso sale de ejecución.
+
+        Si la compresión fallara o tuviéramos que abortarla: Enviaríamos el comando: kill 4578
+		
+		
+	
+		El proceso recibiría la señal SIGTERM (terminación normal), liberaría sus recursos y saldría.
+
+Muerte/Zombi (Zombie): Una vez finalizado, el proceso queda en un estado Z (Zombie) hasta que su proceso padre (bash en este caso) lee su código de salida. Una vez leído, el kernel elimina por completo el proceso.
+
+
+7) Finaliza los procesos y documenta las fases que ha atravesado durante su ciclo de vida.
+		
+
+8) Clasifica los procesos observados en tres grupos: del sistema, de usuario y demonios.
+
+Del Sistema	Esenciales para el kernel y la inicialización. Creados por root o el kernel.	systemd (PID 1), kworker, Xorg/Wayland.
+De Usuario	Ejecutados bajo la cuenta del usuario para tareas interactivas o específicas.	bash, nano (ligero), gzip (intensivo), firefox/chrome.
+Demonios (Daemons)	Procesos del sistema que se ejecutan en segundo plano, sin interfaz interactiva, y ofrecen servicios.	NetworkManager, sshd, udevd.
+
+
+
+9) Desde GNOME, abre el monitor del sistema. Captura una vista general de la pestaña de procesos e 
+identifica visualmente los de mayor consumo.
+
+
+
+
+10) Añade a GNOME la extensión System-monitor, busca el paquete, instalalo y muestra su funcionamiento.
+
+https://vitux.com/how-to-install-and-use-gnome-system-monitor-and-task-manager-in-debian-10/
+
+sudo apt-get update
+sudo apt-get install gnome-system-monitor
+
+Para lanzarlo:
+gnome-system-monitor
+
+para desinstalarlo:
+sudo apt-get remove gnome-system-monitor
+
+11) Accede a la herramienta de administración web Webmin (WebAdmin) y localiza el apartado de gestión de procesos.
+
+Instalación de Webmin:
+https://webmin.com/download/
+
+curl -o webmin-setup-repo.sh https://raw.githubusercontent.com/webmin/webmin/master/webmin-setup-repo.sh
+sudo sh webmin-setup-repo.sh
+
+apt update
+sudo apt-get install webmin --install-recommends
+
+
+curl -o webmin-setup-repo.sh https://raw.githubusercontent.com/webmin/webmin/master/webmin-setup-repo.sh
+sudo sh webmin-setup-repo.sh 
+sudo apt-get install webmin --install-recommends
+
+    Observa cómo se listan los procesos activos y qué información adicional 
+	muestra respecto a la terminal.
+	
+	FOTOS Y COMENTARIO DE LAS CARACTERISTICAS. COMPARA CON LA TERMINAL.
+	
+    Comprueba si puedes detener, reiniciar o cambiar la prioridad desde 
+	la interfaz.
+	
+	SI SE PUEDE. HAY QUE PULSAR EN LA PID DEL PROCESO Y TE SALE
+	UNA NUEVA VENTANA. TE DA OPCIONES
+	
+    Comenta las ventajas e inconvenientes de usar una herramienta web 
+	frente al uso directo de la línea de comandos.
+
+	La herramienta web ofrece más información.
+	No necesitas saberte los comandos.
+	
+	Inconvenientes:
+	Si cae la conexión te quedas a oscuras.
+	Hay siempre una pequeña "tardanza" a la hora de ejecutar los comandos.
+	
+	
+	
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+2.3- Optimización de procesos multi-hilo (Windows)
+
+
+1)Identificación inicial:
+
+    Utiliza PowerShell para identificar los procesos que ejecuta la aplicación de 
+	ofimática (Excel) y sus hilos asociados. 
+	Documenta cuántos hilos están activos 
+	por cada proceso y qué consumo de CPU y memoria tienen. (Get-Process | Select Name,Id,Threads)
+
+Get-Process -Name Excel | Select-Object Name, Id, @{Name="Hilos_Activos";Expression={$_.Threads.Count}}, CPU, WorkingSet | Format-Table -AutoSize
+
+
+Resultado: https://gemini.google.com/app/fa41aedc31b3680c
+Name    Id Hilos_Activos      CPU WorkingSet
+----    -- -------------      --- ----------
+EXCEL 1480            40 5,078125  177041408
+
+
+\\\\\\\\\\\\\\\\
+
+Creación de carga controlada:
+
+    Crea dos scripts del powerShell para ejecutar dos procesos intensivos al mismo tiempo:
+        Uno con cálculo (por ejemplo, un script de PowerShell que calcule el factorial de un numero).
+		
+		# Script de cálculo intensivo (Factorial)
+function Get-Factorial($n) {
+    $result = [System.Numerics.BigInteger] 1
+    for ($i = 2; $i -le $n; $i++) {
+        $result = $result * $i
+    }
+    return $result
+}
+
+$start_time = Get-Date
+Write-Host "Iniciando cálculo intensivo..."
+# Aumentamos el número a un valor que debería forzar un tiempo de ejecución mayor
+# (El tiempo exacto variará por sistema)
+Get-Factorial 80000 | Out-Null
+$end_time = Get-Date
+$duration = $end_time - $start_time
+Write-Host "Cálculo completado en: $($duration.TotalSeconds) segundos."
+
+
+
+		
+		
+		
+        Otro con lectura/escritura en disco (por ejemplo, copiar varios archivos grandes, una copia de seguridad).
+		
+		# Script de I/O intensivo (Copia de archivos)
+$sourceFile = "Z:\debian-13.0.0-amd64-netinst.iso" # ¡Asegúrate de que este archivo exista!
+$destinationDir = "Z:\prueba_proceso" # ¡Asegúrate de que esta carpeta exista!
+$copyCount = 3 # Número de copias
+
+Write-Host "Iniciando operación I/O intensiva..."
+
+Measure-Command {
+    for ($i = 1; $i -le $copyCount; $i++) {
+        $destinationPath = Join-Path -Path $destinationDir -ChildPath "Copia_$i_$(Get-Date -Format 'HHmmss').dat"
+        Copy-Item -Path $sourceFile -Destination $destinationPath -Force
+        Write-Host "Copia $i completada."
+    }
+} | ForEach-Object {
+    Write-Host "Operación de copia completada en: $($_.TotalSeconds) segundos."
+}
+		
+    Observa cómo Windows distribuye los recursos entre ambos.
+	
+	FOTO A Administrador de Tareas
+	
+    Ve cambiando las prioridades de los proceso para ver como afecta al rendimiento del sistema.
+	
+	
+	Identifica los IDs de los procesos (PID) mientras se ejecutan.
+	Get-Process -Name powershell
+
+Priorizar I/O: Cambia la prioridad del proceso de cálculo a Baja (Low) para ver si el proceso de I/O termina más rápido o si la interfaz de usuario del sistema se vuelve más ágil.
+
+$pid_calculo = (Get-Process -Name powershell -Id 4700).Id # Reemplaza <PID_calculo>
+[System.Diagnostics.Process]::GetProcessById($pid_calculo).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::Idle
+
+
+O puedes usar: 
+
+(Get-Process -Id 4700).PriorityClass = "Idle"         # prioridad mínima
+(Get-Process -Id 4700).PriorityClass = "BelowNormal"  # ligeramente baja
+(Get-Process -Id 4700).PriorityClass = "Normal"
+(Get-Process -Id 4700).PriorityClass = "AboveNormal"
+(Get-Process -Id 4700).PriorityClass = "High"
+
+
+
+
+
+\\\\\\\\\\\\\\
+Trabajo (Job Object):
+
+    Agrupa varios procesos bajo un mismo “Job” utilizando PowerShell (New-Job).
+    Limita su uso de CPU o memoria y analiza el resultado.
+    Explica qué ventajas tiene gestionar un grupo de procesos como un único trabajo.
+
+(El control centralizado sobre grupos de procesos relacionados es ideal para servidores o entornos multiusuario).
+
+
+
+
+
+Crear un Job que agrupe varios procesos
+
+Por ejemplo, lanzamos notepad, calc y mspaint bajo un mismo Job:
+
+# Crear un Job que lanza varios procesos
+$job = Start-Job -ScriptBlock {
+    # Guardamos los procesos en variables para control
+    $proc1 = Start-Process notepad -PassThru
+    $proc2 = Start-Process calc -PassThru
+    $proc3 = Start-Process mspaint -PassThru
+
+    # Mantener el Job activo para poder monitorizarlo
+    Start-Sleep -Seconds 60
+}
+
+
+-PassThru devuelve el objeto del proceso para poder acceder a sus propiedades.
+
+Start-Sleep mantiene el Job activo para poder monitorear recursos.
+
+
+
+Limitar uso de CPU/memoria
+
+PowerShell no puede limitar directamente la CPU de un proceso, pero podemos usar Job Objects de Windows o asignar afinidad de CPU y prioridad:
+
+# Obtener procesos lanzados por el Job
+$jobProcesses = Get-Process | Where-Object { $_.ProcessName -in "notepad","calc","mspaint" }
+
+foreach ($p in $jobProcesses) {
+    # Limitar afinidad a 1 CPU
+    $p.ProcessorAffinity = 1
+
+    # Cambiar prioridad (Reduce consumo de CPU)
+    $p.PriorityClass = "BelowNormal"
+}
+
+
+
+ProcessorAffinity limita en qué núcleo de CPU puede ejecutarse.
+
+PriorityClass reduce el impacto sobre el resto del sistema.
+
+Para memoria, se puede monitorizar y alertar si excede cierto valor, aunque PowerShell no restringe memoria directamente.
+
+
+
+# Ver el estado del Job
+Get-Job
+
+# Recibir salida del Job (si hay)
+Receive-Job -Id $job.Id
+
+# Analizar uso de CPU y memoria de los procesos del Job
+$jobProcesses | Select-Object Name, Id, CPU, WS
+
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\
+Registro y monitorización:
+
+    Activa el Monitor de recursos y 
+	Process Explorer para registrar los valores
+	de CPU, memoria e hilos de ambos procesos.
+	
+	Monitor de recursos: resmon.exe
+	
+	Process Explorer: https://learn.microsoft.com/es-es/sysinternals/downloads/process-explorer
+	
+	
+    Guarda un log con la evolución de cada proceso (inicio, consumo, prioridad, fin). Este archivo te permitirá comprobar los consumos antes y después de cambiar las prioridades.
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+2.4- Comunicación de procesos multi-hilo (linux)
+
+
+2.4- Comunicación de procesos multi-hilo (linux)
+
+ Crea un script sencillo llamado hilos.sh que lance
+ varios hilos concurrentes.
+Cada hilo debe imprimir su número y hacer un pequeño
+ cálculo o retardo (sleep $((RANDOM % 5 + 1))). 
+ Observa que todos los hilos pertenecen al mismo
+ proceso (mismo PID) pero tienen TIDs distintos.
+ (ps -eLf o htop)
+ 
+ 
+ 
+ 
+ En Bash no existen hilos reales, pero sí subprocesos concurrentes, cada uno con su propio TID (LWP en Linux).
+Basta con lanzar funciones en background (&).
+
+#!/bin/bash
+
+NUM_PROCESOS=5
+SCRIPT_PID=$$
+
+echo "Script principal (PID: $SCRIPT_PID) iniciando."
+echo "Lanzando $NUM_PROCESOS sub-procesos..."
+
+# Esta función simula el trabajo
+trabajo_hilo() {
+    i=$1
+    MI_PID=$$
+    
+    # Genera un retardo aleatorio entre 1 y 5 segundos
+    RETARDO=$((RANDOM % 5 + 1))
+    
+    echo "[HILO $i] ¡Iniciado! (Mi PID: $MI_PID / Padre: $PPID). Voy a dormir $RETARDO seg."
+    
+    sleep $RETARDO
+    
+    # Un cálculo tonto como ejemplo
+    CALCULO=$(echo "2^$i" | bc)
+    
+    echo "[HILO $i] ¡Terminé! (PID: $MI_PID). Mi cálculo (2^$i) es = $CALCULO"
+}
+
+# Lanzamos todos los procesos en segundo plano (concurrentes)
+for i in $(seq 1 $NUM_PROCESOS); do
+    trabajo_hilo $i &
+done
+
+echo "Script principal (PID $SCRIPT_PID) esperando a que terminen los hijos..."
+
+# 'wait' es crucial. El script principal se detiene aquí
+# hasta que todos los trabajos en segundo plano (&) hayan
+# finalizado.
+wait
+
+echo "Todos los sub-procesos terminaron. Script principal (PID $SCRIPT_PID) finaliza."
+
+\\\\\
+Da permisos de ejecución: Abre tu terminal y haz que el archivo sea ejecutable:
+chmod +x hilos.sh
+
+
+Verás cómo los diferentes procesos ([HILO 1], [HILO 2], etc.) se inician y terminan en un orden no determinístico (concurrentemente) gracias al uso del & y el comando wait.
+
+
+
+
+
+
+\\\\\\\\\\\\\
+
+Crea dos scripts o programas: uno que envíe mensajes (productor) y otro que los reciba (consumidor).
+
+Utilizaremos una tubería con nombre (mkfifo), que permite a dos procesos no relacionados comunicarse como si fuera una cola FIFO (First-In, First-Out).
+
+productor.sh
+
+# Nombre de la tubería FIFO
+FIFO_PIPE="/tmp/comunicacion_fifo"
+# Archivos de log
+LOG_PROD="productor.log"
+LOG_CONS="consumidor.log"
+
+# Crear la tubería si no existe
+if [ ! -p $FIFO_PIPE ]; then
+    mkfifo $FIFO_PIPE
+fi
+
+# Limpiar logs anteriores
+> $LOG_PROD
+> $LOG_CONS
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+2.7- Compila el Kernel de Linux a tu medida (linux)
+
+
+
+PON LA CPU DE LA VM DE PROXMOX EN MODO "HOSTS".
+
+
+[root@server2asir usuario]$uname -r
+5.15.0-161-generic
+
+
+       1)  Instala el paquete correspondiente al núcleo que estás utilizando 
+	   (sudo apt install linux-source) o puedes descargarlo 
+	   (https://www.kernel.org)
+	   
+	   sudo apt update && sudo apt upgrade -y
+	   
+sudo apt install build-essential bc bison flex libssl-dev libncurses-dev libelf-dev dwarves fakeroot ccache rsync git wget curl
+
+sudo apt install linux-source
+	   
+	   2) Crea un directorio para trabajar con el código fuente donde 
+	   descomprimas linux-source.
+
+
+cd /usr/src
+# El archivo fuente será algo como linux-source-5.15.0.tar.bz2
+sudo tar -xf linux-source-5.15.0.tar.bz2 
+
+# Crear un enlace simbólico a la carpeta descomprimida para facilitar el acceso
+# Puede que no haga falta
+sudo ln -s linux-source-5.15.0 linux
+
+# Entrar al directorio de trabajo
+cd linux
+o
+
+cd linux-source-5.15.0/
+
+Al final, debes estar situado en el directorio donde está el archivo Makefile
+
+
+
+
+3.       Carga la configuración del kernel actual (make oldconfig)
+
+
+Copia la configuración del kernel que estás usando actualmente como punto de partida.
+
+IMPORTANTE: ACUERDATE DE DESCOMPRIMIR EL ARCHIVO
+
+sudo tar -xf linux-source-5.15.0.tar.bz2
+
+Y LUEGO POSICIONARTE EN EL DIRECTORIO QUE CREA.
+
+
+# Copia el archivo de configuración actual
+sudo cp /boot/config-$(uname -r) .config
+
+Comprueba: ls -la | grep .config
+
+# Carga la configuración, aplicando valores por defecto a nuevas opciones
+# Presiona Enter o 'y' para aceptar los valores por defecto si te pregunta.
+sudo make oldconfig
+
+conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+2796
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+5818
+echo "Total: $(grep -c '^[^#].*=' .config)"
+8813
+
+
+
+4)  Cuenta el número de componentes seleccionados para incluir 
+directamente en el kernel (vmlinuz) o como módulos.
+
+grep -E 'CONFIG_.*=(y|m)' .config | wc -l
+
+8614
+
+5) Ejecuta make localmodconfig esto ajustará la configuración 
+solo a los módulos actualmente cargados en tu sistema 
+(los que realmente usas).
+
+actualiza las opciones nuevas: yes "" | make oldconfig
+sudo make localmodconfig
+
+
+La primera pregunta tiene "no" por defecto
+La segunda pregunta usa "N".
+
+
+6) Vuelve a contar el número de componentes configurados.
+
+grep -E 'CONFIG_.*=(y|m)' .config | wc -l
+
+2003
+
+Volver a contar componentes
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+1927
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+76
+echo "Total: $(grep -c '^[^#].*=' .config)"
+2124
+
+7) Realiza la primera compilación 
+(make -j <número de hilos> bindeb-pkg) -- Sustituye <número de hilos> 
+por el número de núcleos de tu CPU (consulta con nproc).
+
+
+nproc
+4
+
+make -j 4 bindeb-pkg
+
+
+
+https://gitlab.com/CalcProgrammer1/OpenRGB/-/issues/950
+
+nano en el archivo .config
+
+Asegurate que estos dos están así:
+
+CONFIG_SYSTEM_TRUSTED_KEYS = ""
+CONFIG_SYSTEM_REVOCATION_KEYS=""
+
+
+
+NO SE SI EL ERROR ES POR LA CPU DE LA VM.
+LA HE CAMBIADO A HOSTS. DESPUÉS PRUEBO.
+
+https://gemini.google.com/app/9c796c6ea147e8e6
+
+
+
+
+ERROR:
+
+  AR      drivers/interconnect/built-in.a
+  AR      drivers/built-in.a
+  CC [M]  drivers/hid/hid-debug.o
+  CC [M]  drivers/hid/hidraw.o
+  CC [M]  drivers/hid/hid-generic.o
+  LD [M]  drivers/hid/hid.o
+  GEN     .version
+  CHK     include/generated/compile.h
+  LD      vmlinux.o
+  MODPOST vmlinux.symvers
+WARNING: modpost: vmlinux.o(.text+0x9f24e7): Section mismatch in reference from the function i8042_probe() to the variable .init.rodata:i8042_quirks
+The function i8042_probe() references
+the variable __initconst i8042_quirks.
+This is often because i8042_probe lacks a __initconst
+annotation or the annotation of i8042_quirks is wrong.
+
+  MODINFO modules.builtin.modinfo
+  GEN     modules.builtin
+  LD      .tmp_vmlinux.btf
+ld: final link failed: No space left on device
+  BTF     .btf.vmlinux.bin.o
+pahole: .tmp_vmlinux.btf: Invalid argument
+  LD      .tmp_vmlinux.kallsyms1
+.btf.vmlinux.bin.o: file not recognized: file format not recognized
+make[3]: *** [Makefile:1249: vmlinux] Error 1
+make[2]: *** [debian/rules:7: build-arch] Error 2
+dpkg-buildpackage: error: debian/rules binary subprocess returned exit status 2
+make[1]: *** [scripts/Makefile.package:83: bindeb-pkg] Error 2
+make: *** [Makefile:1642: bindeb-pkg] Error 2
+
+¿QUE NO HABÍA HUECO EN EL HDD???????????????
+
+
+
+
+
+
+  MODPOST vmlinux.symvers
+WARNING: modpost: vmlinux.o(.text+0x9f24f7): Section mismatch in reference from the function i8042_probe() to the variable .init.rodata:i8042_quirks
+The function i8042_probe() references
+the variable __initconst i8042_quirks.
+This is often because i8042_probe lacks a __initconst
+annotation or the annotation of i8042_quirks is wrong.
+
+  MODINFO modules.builtin.modinfo
+  GEN     modules.builtin
+  LD      .tmp_vmlinux.btf
+  BTF     .btf.vmlinux.bin.o
+Killed
+  LD      .tmp_vmlinux.kallsyms1
+  KSYMS   .tmp_vmlinux.kallsyms1.S
+  AS      .tmp_vmlinux.kallsyms1.o
+  LD      .tmp_vmlinux.kallsyms2
+  KSYMS   .tmp_vmlinux.kallsyms2.S
+  AS      .tmp_vmlinux.kallsyms2.o
+  LD      vmlinux
+  BTFIDS  vmlinux
+FAILED: load BTF from vmlinux: No such file or directory
+make[3]: *** [Makefile:1249: vmlinux] Error 255
+make[3]: *** Deleting file 'vmlinux'
+make[2]: *** [debian/rules:7: build-arch] Error 2
+dpkg-buildpackage: error: debian/rules binary subprocess returned exit status 2
+make[1]: *** [scripts/Makefile.package:83: bindeb-pkg] Error 2
+make: *** [Makefile:1642: bindeb-pkg] Error 2
+
+¿¿¿¿¿Que no tienes suficiente RAM o a petao el archivo SWAP????
+
+SI TIENES ALGÚN ERROR:
+
+Limpiar la Compilación Anterior
+
+# Limpia todos los archivos de objetos, módulos y temporales
+sudo make clean
+
+
+
+Al final funciona. Recuerda. Metele los comandos para que te detecete toda
+la capacidad del Disk (en plantillas de Antonio Carlos).
+Y metele más RAM (Yo le he puesto 6GB).
+
+Te debe salir algo así:
+  INSTALL debian/linux-libc-dev/usr/include
+dpkg-deb: construyendo el paquete `linux-libc-dev' en `../linux-libc-dev_5.15.189-2_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189' en `../linux-image-5.15.189_5.15.189-2_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189-dbg' en `../linux-image-5.15.189-dbg_5.15.189-2_amd64.deb'.
+ dpkg-genbuildinfo --build=binary -O../linux-upstream_5.15.189-2_amd64.buildinfo
+ dpkg-genchanges --build=binary -O../linux-upstream_5.15.189-2_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+
+
+
+SE CREAN EN EL DIRECTORIO SUPERIOR
+EN MI CASO SON TODOS LOS DEL 2 DE DICIEMBRE
+
+[root@server2asir linux-source-5.15.0]$ls -l
+total 337380
+drwxr-xr-x 15 root root      4096 nov 28 11:27 debian
+drwxr-xr-x  7 root root      4096 nov 28 11:27 debian.master
+-rw-r--r--  1 root root   8562536 dic  2 10:31 linux-headers-5.15.189_5.15.189-2_amd64.deb
+-rw-r--r--  1 root root  14731918 dic  2 10:31 linux-image-5.15.189_5.15.189-2_amd64.deb
+-rw-r--r--  1 root root 167401870 dic  2 10:40 linux-image-5.15.189-dbg_5.15.189-2_amd64.deb
+-rw-r--r--  1 root root   1246370 dic  2 10:31 linux-libc-dev_5.15.189-2_amd64.deb
+drwxr-xr-x 27 root root      4096 dic  2 10:30 linux-source-5.15.0
+-rw-r--r--  1 root root 153495669 oct 10 18:13 linux-source-5.15.0.tar.bz2
+-rw-r--r--  1 root root      6352 dic  2 10:40 linux-upstream_5.15.189-2_amd64.buildinfo
+-rw-r--r--  1 root root      2283 dic  2 10:40 linux-upstream_5.15.189-2_amd64.changes
+
+
+
+////////////////////////////////////////////
+
+8.       Instala el núcleo resultando (paquete .deb) de la compilación, reinicia el equipo y comprueba que funciona adecuadamente.
+
+
+cd ..
+sudo dpkg -i linux-image-5.15.189_5.15.189-2_amd64.deb linux-headers-5.15.189_5.15.189-2_amd64.deb
+sudo update-grub
+sudo reboot
+En GRUB selecciona tu nuevo kernel y comprueba que arranca bien.
+
+
+FUNCIONA.
+
+9. Si ha funcionado adecuadamente, utilizamos la configuración del paso anterior como punto de partida y 
+vamos a reducir el tamaño del mismo, para ello vamos a seleccionar elemento a elemento.
+
+cp /boot/config-... .config     #copia la configuración anterior
+
+Nos vamos al directorio:
+cd /usr/src/linux-source-5.15.0/linux-source-5.15.0
+cp /boot/config-5.15.189 .config
+ls -la
+
+
+
+make clean                        #limpia los archivos temporales
+
+
+Usa mejor la segunda opción:
+
+Instalamos:
+sudo apt install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+make xconfig                    #interfaz grafica de configuracion
+
+sudo apt install libncurses-dev
+make menuconfig
+
+
+
+He quitado:
+
+Mitigations for CPU vulnerabilities
+Virtualization
+Enable de block layer
+
+
+Módulos antes:
+Volver a contar componentes
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+1927
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+76
+echo "Total: $(grep -c '^[^#].*=' .config)"
+2124
+
+
+Módulos ahora:
+Volver a contar componentes
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+1757
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+51
+echo "Total: $(grep -c '^[^#].*=' .config)"
+1922
+
+
+
+
+Ahora solo tienes que ejecutar de nuevo:
+
+make -j 4 bindeb-pkg
+
+
+
+Y reiniciar la máquina y rezar para que no pete.
+
+
+Esto sigue funcionando.
+
+
+dpkg-deb: construyendo el paquete `linux-libc-dev' en `../linux-libc-dev_5.15.189-3_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189' en `../linux-image-5.15.189_5.15.189-3_amd64.deb'.
+dpkg-deb: construyendo el paquete `linux-image-5.15.189-dbg' en `../linux-image-5.15.189-dbg_5.15.189-3_amd64.deb'.
+
+
+Instalación principal (la que necesitas para arrancar):
+sudo dpkg -i linux-image-5.15.189_5.15.189-3_amd64.deb
+
+# Si existe, también ejecuta este (ejemplo)
+# sudo dpkg -i linux-headers-5.15.189_5.15.189-3_amd64.deb
+
+
+Instalación de paquetes adicionales (opcional pero recomendado):
+sudo dpkg -i linux-libc-dev_5.15.189-3_amd64.deb
+
+
+
+
+Repite el conteo:
+echo "Integrado (=y): $(grep -c '^[^#].*=y' .config)"
+echo "Módulos (=m): $(grep -c '^[^#].*=m' .config)"
+echo "Total: $(grep -c '^[^#].*=' .config)"
+
+

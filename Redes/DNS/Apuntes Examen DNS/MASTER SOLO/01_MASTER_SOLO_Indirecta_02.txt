@@ -1,0 +1,22 @@
+;DIRECTORIO: /var/cache/bind/10.2.17.rev
+
+
+;ARCHIVO DE ZONA INVERSA
+$TTL 1D
+@   IN  SOA 17.2.10.in-addr.arp. root.retry07.net. (
+        2025102401 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+       IN  NS  dnscsa01.retry07.net.
+
+; Registros PTR
+5     	IN  PTR dnscsa01.retry07.net.
+
+
+
+
+
+;named-checkzone 17.2.10.in-addr.arp. /var/cache/bind/10.2.17.rev

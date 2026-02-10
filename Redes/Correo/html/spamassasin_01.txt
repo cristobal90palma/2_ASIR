@@ -1,0 +1,9 @@
+# --- Configuración para bloquear 'CSA' en el Asunto ---
+# 1. Definición de la Regla (Pattern Match):
+# Busca 'CSA' (insensible a mayúsculas/minúsculas) en el campo Subject.
+header      SUBJECT_HAS_MY_INITIALS       Subject =~ /CSA/i
+# 2. Descripción:
+describe    SUBJECT_HAS_MY_INITIALS       Asunto contiene mis iniciales (CSA)
+# 3. Puntuación (Score):
+# Una puntuación de 10.0 es suficiente para marcar el correo como spam
+score       SUBJECT_HAS_MY_INITIALS       10.0

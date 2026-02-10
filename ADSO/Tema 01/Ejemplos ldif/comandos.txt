@@ -1,0 +1,18 @@
+COMANDOS:
+
+Para cargar los ficheros:
+   ldapadd -x -D cn=admin,dc=sistemas,dc=edu -W -f unidades_organizativas.ldif
+
+Para borrar una entrada:
+   ldapdelete -x -W -D cn=admin,dc=sistemas,dc=edu "ou=sevilla,dc=sistemas,dc=edu"
+
+Para hacer una busqueda de una entrada:
+   ldapsearch -xLLL -b dc=sistemas,dc=edu uid=santi
+o también
+   ldapsearch -xLLL -b dc=sistemas,dc=edu cn=profesores
+
+Para realizar modificaciones:
+   ldapmodify -x -D cn=admin,dc=sistemas,dc=edu -W -f modificacion.ldif
+
+Para generar las claves para los usuarios
+   slappasswd

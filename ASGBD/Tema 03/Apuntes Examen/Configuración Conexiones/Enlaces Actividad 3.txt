@@ -1,0 +1,113 @@
+https://www.postgresql.org/docs/current/app-createuser.html
+
+Sobre opciones a la hora de crear un usuario en PostgreSQL
+
+CREATE ROLE segurisimo WITH LOGIN PASSWORD '12345' SUPERUSER CREATEDB CREATEROLE REPLICATION BYPASSRLS;
+
+# Conectar a la base de datos 'postgres' como el usuario 'segurisimo'
+psql -U segurisimo -h 127.0.0.1 -d postgres
+
+Dentro de postgresql
+
+SELECT CURRENT_USER;
+Muestra el usuario actual
+
+SET ROLE nombre_usuario;
+Cambia al usuario especificado
+
+\l
+
+Lista base de datos
+
+\du
+
+Lista usuarios
+
+
+https://gemini.google.com/app/6d4ea51a6765b403
+
+
+Creación de bases de datos:
+https://www.postgresql.org/docs/current/sql-createdatabase.html
+
+
+CREATE DATABASE CIA OWNER segurisimo ENCODING 'UTF8' LC_COLLATE 'es_ES.UTF-8' LC_CTYPE 'es_ES.UTF-8' TEMPLATE template0;
+
+
+
+nano /etc/postgresql/16/main/postgresql.conf
+
+
+
+2)))
+
+-- CIA ya creada en 2.1
+CREATE DATABASE CNI OWNER segurisimo;
+CREATE DATABASE PÚBLICO OWNER segurisimo;
+
+
+CREATE USER donald WITH PASSWORD 'buildawall';
+CREATE USER pedro WITH PASSWORD 'perro';
+CREATE USER paco WITH PASSWORD 'generalisimo';
+
+
+host    cia             donald          192.168.1.70/32         md5
+
+
+GRANT ALL PRIVILEGES ON SCHEMA public TO donald;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO donald;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO donald;
+
+
+
+B. Acceso a PÚBLICO (todos los usuarios desde cualquier localización)
+
+# Todos los usuarios a BD PÚBLICO desde cualquier lugar
+host    PÚBLICO         all             0.0.0.0/0               md5
+
+
+C.●	El usuario podrá acceder a todas las base de datos desde cualquier
+ localización de tu red..
+ 
+ host    all             paco           10.8.3.0/24          md5
+
+
+
+
+
+3. Configuración de parámetros de conexión (Criterio g)
+Establece la siguiente configuración:
+●	Máximo 2 conexiones 
+
+
+nano /etc/postgresql/16/main/postgresql.conf
+
+max_connections	2
+
+●	Una conexión exclusivamente para los superusuarios
+
+superuser_reserved_connections	1
+
+
+●	Tiempo máximo de ejecución de una query 2 segundos
+
+
+statement_timeout	2000
+
+●	Tiempo máximo que una sesión puede permanecer inactiva 60s
+
+
+
+
+
+psql -U datasol_admin -h 127.0.0.1 -W
+SHOW max_connections;
+SHOW superuser_reserved_connections;
+SHOW statement_timeout;
+SHOW idle_in_transaction_session_timeout;
+\q
+
+
+
+
+

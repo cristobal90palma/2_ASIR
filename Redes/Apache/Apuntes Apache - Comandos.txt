@@ -1,0 +1,295 @@
+1) Configurar la IP estática del servidor.
+
+nano /etc/netplan/00-installer-config.yaml
+
+\\\\\\\\\\\\\\\\\\\\\\
+
+# This is the network config written by 'subiquity'
+network:
+  version: 2
+  ethernets:
+    ens18:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 10.2.17.69/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 10.2.17.1
+      nameservers:
+        addresses:
+          - 172.16.200.1
+          - 8.8.8.8
+		  
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+netplan apply
+
+
+2) Instalamos Apache:
+
+apt update
+apt install apache2 -y
+systemctl status apache2 
+ss -ltnp | grep 80
+ss -ltnp | grep apache
+apache2 -v
+
+3) Crea los sitios virtuales prueba.tudominio, test.tutominio, try.tudominio y desactiva la web por defecto.
+
+ls -l sites-enabled/
+a2dissite 000-default.conf
+systemctl reload apache2
+
+
+4) Configura dichos sitios web para que su página índice por defecto sea prueba.html, test.htm y try.php respectivamente.
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/prueba.initiald
+        DirectoryIndex prueba.html
+        ServerName www.prueba.initiald.com
+		
+echo "<h1>Sitio prueba</h1>" | sudo tee /var/www/prueba.initiald/prueba.html
+echo "<h1>Sitio test</h1>" | sudo tee /var/www/test.initiald/test.htm
+echo "<?php echo '<h1>Sitio try</h1>'; ?>" | sudo tee /var/www/try.initiald/try.php
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\
+<!DOCTYPE html>
+<html>
+<head>
+  <title>prueba.initiald</title>
+</head>
+<body>
+  <h1>Bienvenido a la pagina de prueba de InitialD.</h1>
+</body>
+</html>
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.initiald</title>
+</head>
+<body>
+  <h1>Esta es la pagina de test de InitialD.</h1>
+</body>
+</html>
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+<?php
+    echo "página try de InitialD.";
+?>
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+Activamos las páginas:
+a2ensite prueba.initiald.conf
+a2ensite test.initiald.conf
+a2ensite try.initiald.conf
+
+Y recargamos las configuración
+systemctl reload apache2
+systemctl status apache2
+
+
+
+NOTA: para que se vea la PHP necesitas instalar un módulo.
+apt install php libapache2-mod-php -y
+
+
+
+
+5) Crea una redirección de /music a simpmusic.org en el tercer sitio web.
+
+nano try.initiald.conf
+Redirect /music "https://www.simpmusic.org/"
+
+
+systemctl reload apache2
+
+http://www.try.initiald.com/music
+
+6) Indica los módulos estáticos que se han incluido al compilar el servidor Apache2 e Indica los módulos dinámicos que hay habilitados. 
+
+apache2 -l
+apachectl -l
+
+apachectl -M
+
+
+7) Habilita los sitios web de usuarios, crea el usuario prueba, personaliza que la carpeta donde alojar las webs sea webRoot; créale una página personal llamada home.html, y  configura en el módulo que home.html sea el índice en las web de usuario y accede a ella para probar que funciona.
+
+adduser prueba
+sudo a2enmod userdir
+sudo systemctl restart apache2
+
+PARA BORRAR USUARIO: userdel
+sudo userdel -f username
+
+
+sudo mkdir /home/prueba/webRoot
+sudo chown -R prueba:prueba /home/prueba/webRoot
+
+
+ <!DOCTYPE html>
+<HTML>
+  <head>
+    <title>Web del usuario Prueba</title>
+  </head>
+  <body>
+    <div id="una capa">
+      <h1>Hola mundo, soy Prueba!</h1>
+      <p>Este es un ejemplo del uso de HTML para crear un documento web que nuestro navegador es capaz de interpretar.<>    </div>
+  </body>
+</HTML>
+
+
+
+nano mods-available/userdir.conf
+
+
+<IfModule mod_userdir.c>
+#       UserDir public_html
+        UserDir webRoot
+        UserDir disabled root
+
+#       <Directory /home/*/public_html>
+        <Directory /home/*/webRoot>
+                DirectoryIndex home.html
+                AllowOverride FileInfo AuthConfig Limit Indexes
+                Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+                Require method GET POST OPTIONS
+        </Directory>
+</IfModule>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+
+
+
+chmod o+x /home/prueba/
+chmod o+x /home/prueba/webRoot/
+
+
+http://www.try.initiald.com/~prueba/ 
+
+
+8) Cambia el tercer sitio virtual para que se inicie sólo cuando se visita el servidor desde el puerto 88. Compruébalo.
+
+nano sites-available/try.initiald.conf
+
+nano ports.conf
+
+
+systemctl restart apache2
+Abrir puerto 88:
+sudo ufw allow 88/tcp
+
+9) Realiza 10 visitas a las webs creadas. Instala webalizer y analiza los logs del segundo sitio. Hazlos accesibles desde /stats  . Aporta captura.
+
+apt -y install webalizer
+
+cp /etc/webalizer/webalizer.conf.sample /etc/webalizer/webalizer.test.initiald.conf
+nano /etc/webalizer/webalizer.test.initiald.conf
+
+
+LogFile        /var/log/apache2/test.initiald-access.log
+OutputDir      /var/www/test.initiald/stats
+ReportTitle    Webalizer para www.test.initiald.com
+HostName        www.test.initiald.com
+
+
+Alias /stats/ "/var/www/test.initiald/stats/"
+
+        <Directory "/var/www/test.initiald/stats/">
+                Options Indexes FollowSymLinks
+                AllowOverride None
+                Require all granted
+        </Directory>
+		
+		
+systemctl restart apache2
+mkdir /var/www/test.initiald/stats 
+
+
+crontab -e
+
+0 6 * * * /usr/bin/webalizer -c /etc/webalizer/webalizer.test.initiald.conf </dev/null 2<&1
+
+
+Comando para hacer 10 visitas en la página web.
+for i in {1..10}; do curl -s http://www.test.initiald.com > /dev/null; done
+Forzar a webalizer a que analice los blogs.
+sudo webalizer -c /etc/webalizer/webalizer.test.initiald.conf
+
+
+http://www.test.initiald.com/stats/
+
+
+
+
+10) Configura y activa una versión segura del primer sitio con certificados  Let’s Encrypt obtenidos para tal fin. Aporta captura del acceso mediante https a mismo y de los detalles del certificado mostrados por el navegador Web.
+
+cd mods-available/
+Ejecutamos: a2enmod ssl
+systemctl restart apache2
+
+
+openssl genrsa 2048 > prueba.initiald.ssl.key
+
+openssl req -new -key ../private/prueba.initiald.ssl.key -x509 -days 365 -out /etc/ssl/certs/prueba.initiald.ssl.pem
+
+Para .pem
+chown root:root /etc/ssl/certs/NOMBRE_ARCHIVO.pem
+chmod 644 /etc/ssl/certs/NOMBRE_ARCHIVO.pem
+
+Para .key
+chown root:ssl-cert /etc/ssl/private/NOMBRE_ARCHIVO.key
+chmod 640 /etc/ssl/private/NOMBRE_ARCHIVO.key
+
+
+Configurar VirtualHost SSL
+
+cp sites-available/default-ssl.conf sites-available/prueba.initiald-ssl.conf
+nano sites-available/prueba.initiald-ssl.conf
+
+a2ensite
+
+https://www.prueba.initiald.com/ 
+
+
+11) En el primer sitio, versión NO segura, haz una redirección permanente al sitio seguro.
+
+Redirect permanent / https://www.prueba.initiald.com/
+systemctl reload apache2
+
+
+12) Realiza lo necesario en el segundo sitio web para que el recurso /marineford ({siteroot}/marineford) sólo sea accesible para los usuarios luffy y zoro, con contraseñas a tu elección. Para ello usa el método de autenticación Digest. Es obligatorio usar el fichero .htaccess.  Comprueba que se solicita contraseña al acceder vía Web al dicho recurso.
+
+sudo a2enmod auth_digest
+systemctl restart apache2
+
+sudo mkdir /var/www/test.initiald/marineford
+
+
+sudo htdigest -c .test.initiald "Thousand Sunny" luffy 
+sudo htdigest .test.initiald "Thousand Sunny" zoro
+
+
+nano /var/www/test.initiald/marineford/.htaccess
+
+AuthType Digest
+AuthName "Thousand Sunny"
+AuthUserFile /etc/apache2/.test.initiald
+Require user luffy zoro
+
+
+<Directory "/var/www/test.initiald/marineford/">
+    AllowOverride All
+</Directory>

@@ -1,0 +1,57 @@
+---
+- name: Examen Tema 04
+  hosts: all
+  become: yes  # Activado globalmente porque ya configuraste sudoers
+
+  tasks:
+    # 1.	Auditoría Inicial: 
+    - name: Ejecutar comando uptime
+      command: uptime
+      register: uptime_result
+      changed_when: false
+
+    # 2. Gestión de usuarios masiva (Loop)
+    - name: Crear usuarios del equipo de desarrollo
+      user:
+        name: "{{ item }}"
+        groups: sudo
+        append: yes
+        state: present
+      loop: "{{ dev_team }}"
+
+
+
+    # 4. Lógica de Grupos (Solo Producción)
+    - name: Instalar ufw en servidores de produccion
+      apt:
+        name: ufw
+        state: present
+        update_cache: yes
+      when: "'production' in group_names"
+
+    # 5. Lógica de Grupos (Solo DB - Asegurar limpieza)
+    - name: Asegurar que apache2 este detenido en grupo databases
+      service:
+        name: apache2
+        state: stopped
+        enabled: no
+      when: "'databases' in group_names"
+      ignore_errors: yes
+
+    # 6. Registro de Log con variable dinámica
+    - name: Escribir resultado de uptime en log
+      copy:
+        content: "{{ uptime_result.stdout }}"
+        dest: "{{ log_path }}"
+      when: uptime_result.rc == 0
+      
+    # 3. Notificación de Cambio
+    - name: Usar lineinfile para comprobación de cambio con Handler
+      lineinfile:
+        path: /etc/motd
+        line: 'Saludos'
+      notify: Comprobacion Cambio Handler
+
+  handlers:
+    - name: Comprobacion Cambio Handler
+      ansible.builtin.command: echo "Configuración actualizada"

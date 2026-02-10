@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    environment {
+        CSA_INSTAGRAM="@csa_insta"
+    }
+    stages {
+        stage ("Saludo 1") {
+            steps {
+                echo "Hola desde Saludo 1"
+            }
+        }
+        stage ("Saludo 2") {
+            steps {
+                echo "Hola desde Saludo 2, paso 1"
+                echo "Hola desde Saludo 2, paso 2"
+            }
+        }
+        stage ("Imprimir variable de entorno") {
+            steps {
+                echo "${env.CSA_INSTAGRAM}"
+                echo "${CSA_INSTAGRAM}"
+                echo "$CSA_INSTAGRAM"
+                
+                sh "echo 'hola mundo'"
+                sh "echo '${env.CSA_INSTAGRAM}'"
+                sh "echo '${CSA_INSTAGRAM}'"
+                sh "echo '$CSA_INSTAGRAM'"
+              
+            }
+        }
+        stage ("Imprimir variable de entorno definida en System") {
+            steps {
+                sh "echo '${env.JAMON}'"
+                sh "echo '${JAMON}'"
+                sh "echo '$JAMON'"
+            }
+        }
+    }
+}

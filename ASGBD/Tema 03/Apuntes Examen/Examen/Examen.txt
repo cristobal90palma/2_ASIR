@@ -1,0 +1,127 @@
+CREAR USUARIOS:
+
+1) 
+
+CREATE USER supervisor_ventas
+WITH PASSWORD 'Sup3r#2025'
+     CREATEROLE
+     NOCREATEDB
+     INHERIT;
+	 
+2) 
+
+CREATE USER asistente_ventas
+WITH PASSWORD 'Asist$2025'
+	 CONNECTION LIMIT 2
+     NOCREATEDB
+     NOCREATEROLE;
+	 
+3) 
+
+CREATE USER inspector
+WITH PASSWORD 'Inspect#2025'
+	 NOINHERIT
+	 CONNECTION LIMIT 1;
+	 
+	 
+	 
+\\\\\\\ CREAR ROLES:
+
+CREATE ROLE ventas_equipo 
+WITH NOLOGIN
+     INHERIT
+     NOCREATEDB
+     NOCREATEROLE
+     NOREPLICATION
+     NOSUPERUSER
+     NOBYPASSRLS;
+	 
+	 
+\\\\\\\\ ASOCIAR ROLE y Usuarios
+
+GRANT ventas_equipo TO supervisor_ventas WITH ADMIN OPTION;
+
+GRANT ventas_equipo TO asistente_ventas;
+
+
+ELIMINAR asistente_ventas
+
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM asistente_ventas;
+REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM asistente_ventas;
+REVOKE ALL ON ALL FUNCTIONS IN SCHEMA public FROM asistente_ventas;
+REVOKE ALL ON SCHEMA public FROM asistente_ventas;
+
+
+\\\\\\\\\CREAR TABLAS
+
+CREATE TABLE clientes (
+	id SERIAL PRIMARY KEY,
+	nombre VARCHAR(100),
+	telefono VARCHAR(20),
+	email VARCHAR(100),
+	saldo NUMERIC(10, 2) DEFAULT 0.00,
+	vip BOOLEAN DEFAULT FALSE
+);
+
+
+CREATE TABLE ventas (
+	id SERIAL PRIMARY KEY,
+	id_cliente INTEGER REFERENCES clientes(id),
+	fecha DATE DEFAULT CURRENT_DATE,
+	total NUMERIC(10, 2),
+	estado VARCHAR(50)
+);
+
+
+\\\\\\\INSERTAR DATOS
+
+INSERT INTO clientes (id, nombre, telefono, email, saldo, vip) VALUES
+('12345677', 'Perro Sanchez', '600111222', 'perrete@psoe.com', -9999999.00, TRUE),
+('12345678', 'Donaldinho Trompino', '600333444', 'trump@usa.com', 5000000.00, FALSE),
+('12345679', 'Vladimiro Putinesco', '600555666', 'ervladi@ruski.com', 1.00, FALSE);
+
+
+INSERT INTO ventas (id, id_cliente, total, estado) VALUES
+ (1, 12345677, 300.00, 'Entregado'),
+ (2, 12345678, 50.50, 'Pendiente'),
+ (3, 12345677, 150.00, 'Entregado'),
+ (4, 12345679, 400.00, 'Entregado');
+ 
+ 
+ 
+ 
+\\\\\ CREAR VISTAS
+
+CREATE VIEW vista_admin_clientes AS
+ SELECT c.*,
+ COALESCE(SUM(v.total),0.00) 
+ AS total_gastado FROM clientes c LEFT JOIN ventas v ON c.id = v.id_cliente
+ GROUP BY c.id 
+ ORDER BY c.id;
+ 
+ 
+CREATE VIEW vista_asistente_clientes AS 
+	SELECT nombre,
+	telefono, 
+	saldo, 
+	vip FROM clientes;
+	
+	
+CREATE VIEW vista_inspector_anonima AS
+	SELECT id_cliente,
+	SUM(total) AS total_compras FROM ventas GROUP BY id_cliente;
+	
+	
+	
+GRANT SELECT ON vista_admin_clientes TO supervisor_ventas;
+GRANT SELECT ON vista_asistente_clientes TO asistente_ventas;
+GRANT SELECT ON vista_inspector_anonima TO inspector;
+
+
+CREATE ROLE solo_lectura_global NOLOGIN;
+
+
+
+
+REVOKE DELETE ON public.clientes TO asistente_ventas;
+REVOKE DELETE ON public.clientes TO asistente_ventas;

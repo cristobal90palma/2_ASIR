@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 - Sesiones</title>
+</head>
+<body>
+    <form action="login.php" method="POST">
+        <label for=usuario>Usuario: </label>
+        <input type="text" name="usuario"/>
+        <br></br>
+        <label for=password>Contraseña: </label>
+        <input type="password" name="password"/>
+        <br></br>
+        <input type="submit" value="Enviar"/>
+        <br></br>
+        <?php
+        
+            // ¿Para que está esto aquí? Para que un usuario que ya ha iniciado sesión NO pueda volver al formulario. Debe pasar primero por el logout.php
+            if (isset($_COOKIE['usuario']) && $_COOKIE['usuario']!="") {
+                header("Location: secreta.php");
+            }
+            if (isset($_COOKIE['error']) && $_COOKIE['error']==true) {
+                echo "<span>Usuario y/o contraseña incorrectos</span>";
+            }
+
+
+        ?>
+
+    </form>
+</body>
+</html>

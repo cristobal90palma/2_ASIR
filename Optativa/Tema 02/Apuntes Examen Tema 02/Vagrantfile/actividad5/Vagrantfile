@@ -1,0 +1,88 @@
+Vagrant.configure("2") do |config|
+  # Configuración base del sistema operativo
+  config.vm.box = "ubuntu/focal64" # Ubuntu 20.04 LTS
+
+  # ---------------------------------------------------------
+  # MÁQUINA 1: db01 (Capa de Datos - MySQL/MariaDB)
+  # ---------------------------------------------------------
+  config.vm.define "db01" do |db|
+    db.vm.hostname = "db01"
+    db.vm.network "private_network", ip: "192.168.56.10"
+	
+    
+    db.vm.provision "shell", inline: <<-SHELL
+      echo "--- Aprovisionando DB01 ---"
+      apt-get update
+      apt-get install -y mariadb-server
+      
+      # Configurar MariaDB para escuchar en todas las interfaces (no solo localhost)
+      sed -i 's/bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
+      systemctl restart mariadb
+
+      # Ejecutar script SQL (asumiendo que está en la carpeta compartida /vagrant)
+      if [ -f "/vagrant/bbdd.sql" ]; then
+        sudo mysql < /vagrant/bbdd.sql
+        echo "Base de datos importada."
+      else
+        echo "ERROR: bbdd.sql no encontrado."
+      fi
+
+      # Crear usuario y dar permisos SOLO desde la IP de app01 (Restricción de seguridad)
+      sudo mysql -e "CREATE USER IF NOT EXISTS 'appuser'@'192.168.56.20' IDENTIFIED BY 'app123';"
+      sudo mysql -e "GRANT ALL PRIVILEGES ON asir_db.* TO 'appuser'@'192.168.56.20';"
+      sudo mysql -e "FLUSH PRIVILEGES;"
+      echo "Usuario appuser configurado."
+    SHELL
+  end
+
+  # ---------------------------------------------------------
+  # MÁQUINA 2: app01 (Capa de Aplicación - Python/Flask)
+  # ---------------------------------------------------------
+  config.vm.define "app01" do |app|
+    app.vm.hostname = "app01"
+    app.vm.network "private_network", ip: "192.168.56.20"
+	
+
+    app.vm.provision "shell", inline: <<-SHELL
+      echo "--- Aprovisionando APP01 ---"
+      apt-get update
+      apt-get install -y python3-pip
+      
+      # Instalar dependencias de Python
+      pip3 install Flask mysql-connector-python Flask-Cors
+
+      # Copiar el script a una ruta de trabajo y ejecutarlo
+      cp /vagrant/api_alumnos.py /home/vagrant/api_alumnos.py
+      
+      # Ejecutar en segundo plano (nohup) para que no muera al terminar el script
+      # Redirigimos logs a api.log para depurar si falla
+      nohup python3 /home/vagrant/api_alumnos.py > /home/vagrant/api.log 2>&1 &
+      echo "Backend levantado en segundo plano."
+    SHELL
+  end
+
+  # ---------------------------------------------------------
+  # MÁQUINA 3: web01 (Capa Web - Nginx)
+  # ---------------------------------------------------------
+  config.vm.define "web01" do |web|
+    web.vm.hostname = "web01"
+    web.vm.network "private_network", ip: "192.168.56.30"
+    # Port Forwarding: Puerto 8080 de tu PC -> Puerto 80 de la VM
+    web.vm.network "forwarded_port", guest: 80, host: 8080
+	
+
+    web.vm.provision "shell", inline: <<-SHELL
+      echo "--- Aprovisionando WEB01 ---"
+      apt-get update
+      apt-get install -y nginx
+
+      # Copiar el index.html proporcionado
+      if [ -f "/vagrant/index.html" ]; then
+        cp /vagrant/index.html /var/www/html/index.html
+        echo "Index.html desplegado."
+      fi
+
+      systemctl restart nginx
+    SHELL
+  end
+end

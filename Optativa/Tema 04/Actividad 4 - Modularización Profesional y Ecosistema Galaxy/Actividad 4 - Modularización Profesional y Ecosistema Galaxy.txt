@@ -1,0 +1,40 @@
+https://gemini.google.com/app/5de4635e9284e5ca
+Usa gemini
+
+https://chatgpt.com/c/696deced-dba0-832b-9c1d-a293970270dc
+/ansible/proyecto2/
+├── ansible.cfg
+├── hosts.yml
+├── site.yml             # El que coordina todo
+└── roles/
+    ├── security_hardening/
+    │   ├── tasks/main.yml
+    │   ├── handlers/main.yml
+    │   ├── defaults/main.yml
+    │   └── templates/audit_report.j2
+    └── geerlingguy.apache/  # Ahora está aquí dentro
+	
+	
+
+Requerimientos Técnicos
+1. Uso de Ansible Galaxy
+•	Instala un rol verificado para gestionar el servidor web.
+●	Cambia el puerto por defecto usando variables en el playbook maestro.
+2. Creación del Rol security_hardening
+Crea un role nuevo llamado security_hardening
+●	Tasks: Migrar la creación de usuarios y la configuración de SSH de la Actividad 3.
+●	Handlers: Migrar el reinicio de SSH a roles/security_hardening/handlers/main.yml.
+●	Defaults: Definir el log_path en defaults/main.yml para que pueda ser sobrescrito fácilmente.
+3. Uso de Plantillas Jinja2
+En lugar de usar el módulo copy para el log, deben usar un Template.
+●	Tarea: Crear un archivo roles/security_hardening/templates/audit_report.j2.
+●	Contenido: El archivo debe decir: "Informe generado por Ansible para el host {{ inventory_hostname }}. El uptime actual es: {{ resultado_uptime.stdout }}".
+●	Acción: Usar el módulo template en las tareas del rol para generar el archivo en los nodos.
+4. Playbook Maestro site.yml
+●	Crear un único punto de entrada que configure todo el centro de datos.
+●	Realizar ejecución del playbook y explicar la salida
+
+
+
+
+docker cp ./ansible_4\ansible\proyecto2 ansible-control:/ansible

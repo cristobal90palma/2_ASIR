@@ -1,0 +1,239 @@
+F:\2º_ASIR\Redes\Mensajeria Instantanea\Pem de AWS>ssh -i .\labuser.pem ubuntu@im07.institutodh.net
+Load key ".\\labuser.pem": Permission denied
+ubuntu@im07.institutodh.net: Permission denied (publickey).
+
+
+
+Ese error es muy típico en Windows cuando la clave privada .pem no tiene permisos correctos o no es accesible por tu usuario. Vamos paso a paso 👇
+
+🔴 Error que tienes
+Load key ".\labuser.pem": Permission denied
+ubuntu@im07.institutodh.net: Permission denied (publickey).
+
+
+Esto significa que SSH no puede leer la clave privada, por lo que el servidor rechaza la autenticación.
+
+✅ Solución 1 (RECOMENDADA): corregir permisos del .pem en Windows
+
+En Windows, OpenSSH es muy estricto con los permisos, igual que en Linux.
+
+1️⃣ Asegúrate de que el archivo existe
+dir labuser.pem
+
+2️⃣ Quita herencia de permisos y deja SOLO tu usuario
+
+Ejecuta PowerShell como tu usuario normal (no administrador):
+
+icacls labuser.pem /inheritance:r
+icacls labuser.pem /grant:r "$($env:USERNAME):R"
+
+
+📌 Esto hace:
+
+❌ Quita permisos heredados
+
+✅ Deja solo lectura a tu usuario
+
+3️⃣ Comprueba permisos
+icacls labuser.pem
+
+
+Debe salir algo parecido a:
+
+labuser.pem TUUSUARIO:(R)
+
+
+Si aparece Everyone, Users, Administrators → está mal
+
+4️⃣ Conecta de nuevo
+ssh -i labuser.pem ubuntu@im07.institutodh.net
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Solución 2 (alternativa): usar WSL (Linux en Windows)
+
+Si tienes WSL (Ubuntu) instalado, es aún más sencillo:
+
+Copia la clave a WSL
+cp /mnt/f/2º_ASIR/Redes/Mensajeria\ Instantanea/Pem\ de\ AWS/labuser.pem ~/
+
+Ajusta permisos (OBLIGATORIO)
+chmod 600 ~/labuser.pem
+
+Conecta
+ssh -i ~/labuser.pem ubuntu@im07.institutodh.net
+
+🔍 Si sigue fallando: comprobar con debug
+
+Ejecuta:
+
+ssh -vvv -i labuser.pem ubuntu@im07.institutodh.net
+
+
+Si ves algo como:
+
+Permissions 0644 for 'labuser.pem' are too open
+
+
+→ es 100% problema de permisos
+
+⚠️ Otras comprobaciones rápidas
+
+✔ Usuario correcto → ubuntu (en AWS suele ser)
+✔ Clave correcta → la que descargaste al crear la instancia
+✔ La instancia permite SSH (puerto 22 abierto en Security Group)
+
+✅ Resumen rápido
+Paso	Acción
+❌ Error	SSH no puede leer la clave
+✅ Solución	Corregir permisos del .pem
+⭐ Mejor opción	icacls o WSL
+🔎 Debug	ssh -vvv
+
+
+
+
+
+
+
+
+https://chatgpt.com/c/69712639-16dc-832b-ae43-fdcce693211f
+
+
+
+Aunque seas admin, Windows NO te deja cambiar ACLs si no eres el propietario.
+
+✅ SOLUCIÓN (OBLIGATORIA)
+
+Primero toma posesión del archivo.
+
+En CMD como Administrador, ejecuta exactamente esto:
+
+takeown /f labuser.pem
+
+
+Debe salir algo como:
+
+SUCCESS: The file is now owned by user "PC\TuUsuario"
+
+
+Ahora SÍ: permisos correctos para AWS
+
+Ejecuta en este orden:
+
+icacls labuser.pem /inheritance:r
+icacls labuser.pem /grant:r "%USERNAME%:R"
+
+🔍 Comprueba el resultado
+icacls labuser.pem
+
+
+Debe quedar solo tu usuario (y SYSTEM):
+
+labuser.pem NT AUTHORITY\SYSTEM:(F)
+            TUUSUARIO:(R)
+
+
+Si ves:
+
+Everyone
+
+Users
+
+Authenticated Users
+
+➡️ AWS rechazará la clave
+
+🔴 CAUSA 2 (muy frecuente en institutos)
+
+📁 El archivo está en una carpeta problemática:
+
+OneDrive
+
+Carpeta sincronizada
+
+USB FAT32
+
+Carpeta compartida en red
+
+📌 Tu ruta:
+
+D:\2º_ASIR\Redes\Mensajeria Instantanea\Pem de AWS
+
+
+⚠️ Si D: es:
+
+un USB
+
+una unidad de red
+
+un disco no NTFS
+
+👉 NO se pueden aplicar ACLs correctamente
+
+✅ SOLUCIÓN RÁPIDA
+
+Copia el .pem a una ruta local NTFS, por ejemplo:
+
+C:\Users\%USERNAME%\aws\
+
+
+Y repite todo el proceso ahí.
+
+🟢 Método infalible (el que nunca falla)
+
+1️⃣ Copia el archivo:
+
+mkdir C:\aws
+copy labuser.pem C:\aws\
+cd C:\aws
+
+
+2️⃣ Ejecuta:
+
+takeown /f labuser.pem
+icacls labuser.pem /inheritance:r
+icacls labuser.pem /grant:r "%USERNAME%:R"
+
+🧠 Contexto ASIR (examen / práctica)
+
+Esto entra muchísimo en:
+
+SSH
+
+AWS EC2
+
+Seguridad de claves
+
+Administración Windows
+
+Si te preguntan “¿por qué SSH no acepta la clave?”
+👉 Permisos inseguros en el archivo PEM
+
+Si quieres, mándame la salida exacta de:
+
+icacls labuser.pem
+
+
+y dime:
+
+¿D: es disco local o USB?
+
+¿usas OneDrive?
+
+Y lo dejamos perfecto en 1 mensaje más 💪

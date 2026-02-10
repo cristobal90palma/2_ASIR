@@ -1,0 +1,30 @@
+1)
+
+docker run -it --name sinred --network none alpine sh
+
+
+2)
+
+docker run -d --name nginx02 -p 8080:80 nginx
+
+QUE NO TIENE "PING" INSTALADO:
+
+apt-get update -y
+apt-get install -y iputils-ping
+
+docker port nginx02
+o
+docker container ls --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}" -a
+
+docker network ls
+
+
+
+PARA LEVANTAR UN CONTENEDOR APAGADO
+
+docker start -ai alpinecliente03
+
+
+
+
+docker run -d --name nginxip04 --network mired03 --ip 172.20.0.10 nginx

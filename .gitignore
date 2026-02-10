@@ -1,0 +1,10 @@
+# Binarios e instaladores
+*.exe
+*.msi
+*.iso
+*.zip
+*.rar
+
+# Temporales de Windows
+Thumbs.db
+desktop.ini

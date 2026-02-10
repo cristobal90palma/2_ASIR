@@ -1,0 +1,125 @@
+{
+    "compatibilities": [
+        "EC2"
+    ],
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "dnsSearchDomains": [
+                "institutodh.net"
+            ],
+            "dnsServers": [
+                "1.1.1.1"
+            ],
+            "environment": [
+                {
+                    "name": "CTL_ON_CREATE",
+                    "value": "register admin im07.institutodh.net usuario"
+                }
+            ],
+            "essential": true,
+            "hostname": "im07",
+            "image": "prosodyim/prosody:13.0",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/prosody-01",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [
+                {
+                    "containerPath": "/opt/ejabberd/conf/ejabberd.yml",
+                    "readOnly": false,
+                    "sourceVolume": "yml"
+                },
+                {
+                    "containerPath": "/opt/ejabberd/database",
+                    "readOnly": false,
+                    "sourceVolume": "database"
+                }
+            ],
+            "name": "ejabberd-ct",
+            "portMappings": [
+                {
+                    "appProtocol": "http",
+                    "containerPort": 5280,
+                    "hostPort": 5280,
+                    "name": "bosh",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5222,
+                    "hostPort": 5222,
+                    "name": "xmpp",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5443,
+                    "hostPort": 5443,
+                    "name": "https5",
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        }
+    ],
+    "cpu": "1600",
+    "enableFaultInjection": false,
+    "executionRoleArn": "arn:aws:iam::034434236872:role/LabRole",
+    "family": "ejabberd-v1",
+    "memory": "1600",
+    "networkMode": "bridge",
+    "placementConstraints": [],
+    "registeredAt": "2025-12-12T12:34:02.593Z",
+    "registeredBy": "arn:aws:sts::034434236872:assumed-role/voclabs/user4496594=_Student_View__Diego_Jes__s_Fern__ndez_Raposo",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "revision": 6,
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "status": "ACTIVE",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:034434236872:task-definition/ejabberd-v1:6",
+    "taskRoleArn": "arn:aws:iam::034434236872:role/LabRole",
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "/home/ubuntu/ejabberd.yml"
+            },
+            "name": "yml"
+        },
+        {
+            "host": {
+                "sourcePath": "/home/ubuntu/database"
+            },
+            "name": "database"
+        }
+    ],
+    "tags": []
+}

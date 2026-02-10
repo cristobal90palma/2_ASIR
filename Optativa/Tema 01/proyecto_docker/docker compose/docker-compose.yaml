@@ -1,0 +1,47 @@
+services:
+#SERVICIO DE MySQL
+  mysql:
+    image: mysql:latest
+    container_name: mysql_server
+    restart: always  # ESTO HACE QUE LA MÁQUINA SE REINICIE CUANDO SI POR ALGÚN MOTIVO SE DETIENE.
+    ports:
+      - "3307:3306"  # PUERTO EN EL HOST -> PUERTO DEL CONTENEDOR
+    expose:
+      - "3306"  # ES EL PUERTO VISIBLE PARA LOS OTROS CONTENEDORES
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_USER: cristobal
+      MYSQL_PASSWORD: 12345
+      MYSQL_DATABASE: optativadb01
+    volumes:
+      - mysql_data:/var/lib/mysql  # VOLUMEN PARA PERSISTENCIA
+    networks:
+      - red_bd  # SE HA PUESTO A AMBOS EN UNA RED COMÚN.
+
+#SERVICIO DE postgresql
+  postgres:
+    image: postgres:latest
+    container_name: postgres_server
+    restart: always
+    depends_on:
+      - mysql  # DEPENDS_ON HACE QUE SE ESPERE A QUE ARRANQUE PRIMERO EL CONTENEDOR ESPECIFICADO. ES DECIR, SE ESPERA A QUE "MYSQL" EMPIECE.
+    ports:
+      - "5433:5432"
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: cristobal
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: optativadb02
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - red_bd
+
+networks:
+  red_bd:
+    driver: bridge  # SE PUSIERON A AMBOS EN UNA RED TIPO BRIDGE
+
+volumes:
+  mysql_data:
+  postgres_data:

@@ -1,0 +1,60 @@
+Actividad 1 - Comando pg_ctl
+Requisitos de finalización
+
+Utilizando el comando pg_ctl, realiza las siguientes opciones en postgresql
+
+    Detener PostgreSQL y verifica el estado
+    Iniciar nuevamente el servicio y verifica el estado 
+    Haz el paso 1 y 2 con un solo comando.
+    ¿Cuál es la diferencia entre restart y reload Intenta demostrarlo de forma práctica.
+    Prueba los diferentes modos de parada y observa el comportamiento. Intenta demostrarlo de forma práctica.
+
+############CONSEGUIR QUE FUNCIONE EL COMANDO "pg_ctl"
+
+"pg_ctl" no se encuentra fácilmente. Si le das a ejecutar te dice que "eso que es?"
+
+Crear PATH:
+1) Encontrar directorio donde está el comando:
+
+find / -name pg_ctl 2>/dev/null
+
+Resultado:
+/usr/lib/postgresql/14/bin/pg_ctl
+
+Ahora, este comando no lo puedes usar con root, tiene que ser uno de postgresql
+
+sudo -i -u postgres
+
+Se le crea al usuario "postgres" el PATH. recuerda. es solo el directorio
+
+export PATH=$PATH:/usr/lib/postgresql/14/bin/
+
+Ahora si funciona:
+
+pg_ctl status -D /var/lib/postgresql/14/main/
+
+Resultado:
+
+pg_ctl: server is running (PID: 769)
+/usr/lib/postgresql/14/bin/postgres "-D" "/var/lib/postgresql/14/main" "-c" "config_file=/etc/postgresql/14/main/postgresql.conf"
+
+
+\\\\\\\\\\\\\\\\\\\\
+
+Detener PostgreSQL y verifica el estado
+
+pg_ctl stop -m smart -D /var/lib/postgresql/14/main/
+
+
+Comprobar estado:
+
+pg_ctl status -D /var/lib/postgresql/14/main/
+
+
+\\\\\\\\\\\\\
+
+    Iniciar nuevamente el servicio y verifica el estado
+##date cuenta que la RUTA ES DIFERENTE.
+
+pg_ctl restart -D /etc/postgresql/14/main/
+

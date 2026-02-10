@@ -1,0 +1,14 @@
+---
+- name: Configuración Global de Seguridad
+  hosts: all
+  become: yes
+  roles:
+    - security_hardening
+
+- name: Despliegue de Servidores Web
+  hosts: web_servers
+  become: yes
+  vars:
+    apache_listen_port: 8080  # Cambio de puerto solicitado
+  roles:
+    - geerlingguy.apache

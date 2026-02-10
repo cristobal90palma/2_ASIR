@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de formulario</title>
+    <style>
+        /* Estilos básicos para mejorar la legibilidad */
+        form > div { margin-bottom: 15px; }
+        fieldset { margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; }
+        legend { font-weight: bold; padding: 0 5px; }
+        label { margin-right: 5px; }
+    </style>
+</head>
+<body>
+    <form method="post" action="ejemplo_formulario.php">
+        
+        <div>
+            <label for="nombre">Nombre </label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        
+        <div>
+            <label for="email">Email </label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div>
+            <label for="pass1">Contraseña-1 </label>
+            <input type="password" id="pass1" name="pass1" required>
+        </div>
+        
+        <div>
+            <label for="pass2">Contraseña-2 </label>
+            <input type="password" id="pass2" name="pass2" required>
+        </div>
+        
+        <fieldset>
+            <legend>Preferencias</legend>
+            <input type="checkbox" id="informatica" name="preferencias[]" value="Informatica">
+            <label for="informatica">Informática</label>
+            
+            <input type="checkbox" id="telefonia" name="preferencias[]" value="Telefonia">
+            <label for="telefonia">Telefonía</label>
+            
+            <input type="checkbox" id="comunicaciones" name="preferencias[]" value="Comunicaciones">
+            <label for="comunicaciones">Comunicaciones</label>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Envío</legend>
+            <input type="radio" id="envio_email" name="envio" value="email" checked>
+            <label for="envio_email">Email</label>
+            
+            <input type="radio" id="envio_sms" name="envio" value="SMS">
+            <label for="envio_sms">SMS</label>
+            
+            <input type="radio" id="envio_whatsapp" name="envio" value="Whatsapp">
+            <label for="envio_whatsapp">Whatsapp</label>
+        </fieldset>
+        
+        <div>
+            <label for="provincia">Provincia</label>
+            <select id="provincia" name="provincia">
+                <option value="0">--Seleccione--</option>
+                <option value="HU">Huelva</option>
+                <option value="SE">Sevilla</option>
+                <option value="CA">Cádiz</option>
+            </select>
+        </div>
+        
+        <div>
+            <input type="submit" value="Enviar">
+        </div>
+        
+    </form>
+</body>
+</html>

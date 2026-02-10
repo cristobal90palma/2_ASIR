@@ -1,0 +1,21 @@
+;nano /var/cache/bind/172.16.111.rev
+
+;ARCHIVO DE ZONA INVERSA
+$TTL 1D
+@   IN  SOA 111.16.172.in-addr.arp. root.retry07.net. (
+        2025102403 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+       IN  NS  dnscsa01.retry07.net.
+	   IN  NS  dnscsa02.retry07.net.
+
+; Registros PTR
+200             IN  PTR www.retry07.net.
+201             IN  PTR smtp1.retry07.net.
+202             IN  PTR smtp2.retry07.net.
+203             IN  PTR mc.retry07.net.
+
+;named-checkzone 111.16.172.in-addr.arp. /var/cache/bind/172.16.111.rev

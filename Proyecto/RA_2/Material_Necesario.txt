@@ -1,0 +1,52 @@
+---- WakeOnLAN y servicio DHCP para diferentes subnets:
+
+\\\\\Fase de Diseño y Configuración inicial: 
+
+Viabilidad de usar una VM (OPNsense, etc) como "IP helper address" (no tengo acceso a los bridges de proxmox).
+
+
+Hardware para casa: 
+
+Tengo un Router OpenWRT para generar una nueva LAN  sin tocar el router principal de casa. 
+
+Se podría generar otra LAN para el Proxmox Casero y estudiar la manera de gestionar como funcionan los mensajes
+WakeOnLAN y de DHCP emitidos por el servidor FOG con otras LAN.
+
+
+\\\\\\\ Implantación en IES Delgado Hernández
+
+Si se quiere implementar en el instituto, es probable que en algún momento sea necesario acceder a los routers (o servidor DHCP) que gestione
+la asignación de direcciones IPs para las subnets.
+
+Habrá que implementar
+
+
+
+
+
+
+\\\\\\\\\ REDES DEL INSTITUTOD DELGADO HERNANDEZ
+
+
+La red del instituto se divide en 2: la propia y la de Andared.
+En clase tenemos la propia.
+
+Hacer primero configuración de FOG para propia. En propia podemos "toquetear" los routers. 
+Estudiar la posibilidad de hacer configuración sin necesidad de ip helper address u otras configuraciones en equipos de red (lo veo dificil para WakeOnLAN)
+
+
+
+
+En clases con Andared se puede llevar un router (o solo cable) temporalmente para realizar las instalaciones. Es una idea.
+
+
+
+
+Opción viable para Andared: Una raspberrypi dentro de la LAN, conecta a ella desde fuera (SSH) y ejecutas un script que use el programa
+etherwake (necesitas listado de MACs) y levante los equipos de la LAN
+https://www.instructables.com/Raspberry-Pi-As-Wake-on-LAN-Server/ 
+
+
+
+Usa documentación generada por Pablo Camacho para ti:
+WoL_RaspPi.html

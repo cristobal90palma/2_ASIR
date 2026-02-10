@@ -1,0 +1,494 @@
+2asirXX.institutodh.net
+
+
+2asir07.institutodh.net
+
+
+https://gemini.google.com/app/7e1a3e1f51cf4d92
+
+https://ampache.org/docker/
+
+https://ampache.org/docs/installation/install-ampache-on-ubuntu2204/
+
+https://hub.docker.com/r/ampache/ampache
+
+https://github.com/ampache/ampache-docker/blob/master/docker-compose.yml
+
+https://www.youtube.com/watch?v=PqTt2Glczqw
+
+https://www.youtube.com/watch?v=1fQSC5mxJDc
+
+https://www.digitalocean.com/community/tutorials/how-to-install-the-ampache-music-streaming-server-on-ubuntu-18-04
+
+mkdir -p data/{config,log,media,mysql}
+
+
+chown www-data:www-data ./data/config -R
+chown www-data:www-data ./data/log -R
+chown www-data:www-data ./data/media -R
+chown www-data:www-data ./data/mysql -R
+
+
+
+
+\\\\\\\\\\\\\ archivo .env
+
+MYSQL_USER=cristobal
+MYSQL_PASS=12345
+DB_NAME=ampache
+DB_HOST=localhost
+DB_USER=cristobal
+DB_PASSWORD=12345
+DB_PORT=3306
+DISABLE_INOTIFYWAIT_CLEAN=1
+FORCE_INSTALL=1
+AMPACHE_DB_USER=cristobal
+AMPACHE_DB_PASSWORD=12345
+AMPACHE_ADMIN_USER=admin
+AMPACHE_ADMIN_PASSWORD=12345
+AMPACHE_ADMIN_EMAIL=admin@heavymetalmaniac.net
+
+docker compose up -d
+docker compose up -d --force-recreate
+
+
+
+
+
+usuario nuevo
+
+prueba01
+12345
+
+
+
+http://10.2.7.108/test.php
+
+
+https://www.youtube.com/watch?v=ICOAfYdnx2w
+
+Power Ampache
+
+
+Sacar url ¿¿streaming?? de las canciones, pero aún no lo he conseguido de una playlist
+
+https://ampache.org/docs/clients/
+
+https://ampache.org/docs/old-information/ampache6-details/#allow-permalink-user-streams
+
+http://nossl.fmstream.org/cadena-dial-live
+
+
+Para la parte de la radio, usa AzuraCast: https://www.azuracast.com/docs/getting-started/installation/docker/
+Andrés lo ha hecho en dos máquinas en el AWS (t3.small) Genera la radio en AzuraCast (Por sí sola, aunque también puedes copiar la "url stream"
+y pasarsela a Ampache para que al use en una Radio Station).
+
+
+https://www.youtube.com/watch?v=j-koy09p-jw
+
+o
+
+https://www.youtube.com/watch?v=7AywBc8N2_I&t=450s
+
+Unattended Installation
+
+mkdir -p /var/azuracast
+cd /var/azuracast
+curl -fsSL https://raw.githubusercontent.com/AzuraCast/AzuraCast/main/docker.sh > docker.sh
+chmod a+x docker.sh
+yes '' | ./docker.sh install
+
+# To install the "Stable" release channel instead of "Rolling Release", uncomment this line:
+# yes 'Y' | ./docker.sh setup-release
+
+
+
+
+\\\\\\\\\\ ASI lo hice
+
+
+ Tu Nombre  sábado 31 enero 2026 08:28
+[root@server2asir azuracast]$
+ Tu Nombre  sábado 31 enero 2026 08:28
+[root@server2asir azuracast]$mkdir -p /var/azuracast
+ar/azuracast Tu Nombre  sábado 31 enero 2026 08:29
+[root@server2asir azuracast]$cd /var/azuracast
+ Tu Nombre  sábado 31 enero 2026 08:29
+[root@server2asir azuracast]$curl -fsSL https://raw.githubusercontent.com/AzuraCast/AzuraCast/main/docker.sh > docker.sh
+ Tu Nombre  sábado 31 enero 2026 08:29
+[root@server2asir azuracast]$chmod a+x docker.sh
+ Tu Nombre  sábado 31 enero 2026 08:29
+[root@server2asir azuracast]$yes 'Y' | ./docker.sh setup-release
+Your current release channel is 'Rolling Release'. Switch to 'Stable' release channel? [y/N] You should update the Docker Utility Script after changing release channels. Automatically update it now? [Y/n] New Docker utility script downloaded.
+You can now re-run any previous command with the updated utility script.
+ Tu Nombre  sábado 31 enero 2026 08:29
+[root@server2asir azuracast]$./docker.sh
+
+
+
+////
+admin@heavymetalmaniac.net
+
+usuario.12345
+
+
+///
+
+
+////////
+
+En el proceso de de establecer la RADIO en AzuraCast, ten en cuenta:
+
+Una vez que has configurado la playlist, (ponla en default), te saldrá en local stream,
+pero no en plublic page (la radio en sí).
+
+Reinicia:
+Broadcasting Service
+Icecast
+
+Mira los logs del docker por si acaso.
+
+
+
+Aquí tienes la guía rápida para localizarlo y activar la reproducción:
+1. Localiza el selector de Playback
+
+En la mayoría de las versiones de Ampache (incluyendo la 6.0+), el selector de tipo de reproducción suele estar en uno de estos dos lugares:
+
+    La barra superior/menú lateral: Busca un icono de un pequeño monitor o un altavoz cerca de tu nombre de usuario o en la barra de herramientas principal.
+
+    Pie de página: A veces aparece como un desplegable que dice "Local", "Stream", o "Web Player".
+
+2. Cambia a "Web Player" o "Stream"
+
+Para que la música suene directamente en tu navegador sin descargar archivos:
+
+    Haz clic en el selector (que por defecto suele decir "Local" o "Stream").
+
+    Selecciona Web Player. Esto activará el reproductor HTML5 integrado en la web.
+
+    Si lo que quieres es lo que dice tu texto (generar un archivo para VLC o Foobar), selecciona Stream.
+
+3. Configuración de Usuario (El "Plan B")
+
+Si no ves el selector en la interfaz principal, es posible que no esté habilitado en tu perfil:
+
+    Ve a Settings (Configuración) -> Account (Cuenta).
+
+    Busca la sección de Player settings o Interface.
+
+    Asegúrate de que el "Playback Type" esté configurado como desees.
+
+¿Por qué no escucho nada?
+
+Si ya seleccionaste Web Player y sigue sin funcionar, revisa esto:
+
+    Transcodificación: Si tus archivos son FLAC y tu navegador solo acepta MP3, Ampache debe "convertirlos" al vuelo. Si el servidor no tiene instalado ffmpeg, no sonará nada.
+
+    SSL/HTTPS: Si accedes por http en lugar de https, algunos navegadores bloquean la reproducción de medios por seguridad.
+
+    Tip para Ampache 6.0+: Si estás usando la versión más reciente, te recomiendo mucho instalar un cliente externo como Subsonic (en móvil) o Ample (web), ya que la interfaz nativa de Ampache puede ser un poco tosca para el día a día.
+	
+	
+	
+	
+	
+	
+	
+	https://github.com/ampache/ampache-docker/tree/master
+	
+	Permissions
+
+In the container the webserver runs as the http user (UID and GID 33). If you created the directories manually, 
+it is important to ensure that the Ampache Configuration, and log directories are readable and writeable by that user.
+
+
+chown 33:33 ./data/config -R
+chown 33:33 ./data/log
+	
+	
+
+[root@server2asir ampache]$cat /etc/passwd | grep www
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+
+[root@server2asir ampache]$ls -l data/
+total 16
+drwxr-xr-x 2 www-data www-data        4096 ene 23 13:51 config
+drwxr-xr-x 2 www-data www-data        4096 ene 20 08:22 log
+drwxr-xr-x 5 www-data www-data        4096 ene 22 19:05 media
+drwxr-xr-x 7 _apt     systemd-journal 4096 ene 29 12:34 mysql
+
+
+IP pública Ampache: 100.48.114.98
+
+IP pública AzuraCast: 100.24.225.67
+
+
+Ya se han creado los VM en AWS y están configurados con IPs Elásticas.
+El VM de Ampache ya está configurado (por mi parte) para usar im07.institutodh.net en el DNS. 
+Responde a los ping con ese nombre desde otros equipos de la red. (Security Group --> Abrir puerto de ICMP.
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+EMPEZAMOS DESDE AQUI PARA CREAR EL DOCUMENTOS
+
+
+Instalacion ampache aws
+
+ssh -i labuser.pem ubuntu@im07.institutodh.net
+
+
+apt update && apt install docker.io -y && apt install docker-compose-v2 -y
+
+
+
+https://github.com/ampache/ampache-docker/blob/master/docker-compose.yml
+
+
+mkdir /ampache
+cd /ampache
+
+mkdir -p data/{config,log,media,mysql}
+
+
+chown www-data:www-data ./data/config -R
+chown www-data:www-data ./data/log -R
+chown www-data:www-data ./data/media -R
+chown www-data:www-data ./data/mysql -R
+
+
+nano docker-compose.yml
+
+name: ampache
+
+services:
+  ampache:
+    image: ampache/ampache:latest
+    container_name: ampache
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./data/config:/var/www/config
+      - ./data/log:/var/log/ampache
+      - ./data/media:/media
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_USER: ${MYSQL_USER-admin}
+      MYSQL_PASS: ${MYSQL_PASS-**Random**}
+      DB_NAME: ${DB_NAME-}
+      DB_HOST: ${DB_HOST-}
+      DB_USER: ${DB_USER-}
+      DB_PASSWORD: ${DB_PASSWORD-}
+      DB_PORT: ${DB_PORT-}
+      DISABLE_INOTIFYWAIT_CLEAN: ${DISABLE_INOTIFYWAIT_CLEAN-0}
+      FORCE_INSTALL: ${FORCE_INSTALL-0}
+      AMPACHE_DB_USER: ${AMPACHE_DB_USER-}
+      AMPACHE_DB_PASSWORD: ${AMPACHE_DB_PASSWORD-}
+      AMPACHE_ADMIN_USER: ${AMPACHE_ADMIN_USER-}
+      AMPACHE_ADMIN_PASSWORD: ${AMPACHE_ADMIN_PASSWORD-}
+      AMPACHE_ADMIN_EMAIL: ${AMPACHE_ADMIN_EMAIL-}
+	  
+	 
+\\\\ Crea un archivo .env en el mismo directorio
+nano .env
+
+MYSQL_USER=cristobal
+MYSQL_PASS=12345
+DB_NAME=ampache
+DB_HOST=localhost
+DB_USER=cristobal
+DB_PASSWORD=12345
+DB_PORT=3306
+DISABLE_INOTIFYWAIT_CLEAN=1
+FORCE_INSTALL=1
+AMPACHE_DB_USER=cristobal
+AMPACHE_DB_PASSWORD=12345
+AMPACHE_ADMIN_USER=admin
+AMPACHE_ADMIN_PASSWORD=12345
+AMPACHE_ADMIN_EMAIL=admin@im07.institutodh.net
+
+docker compose up -d
+docker compose up -d --force-recreate
+
+
+
+configuracion de /etc/hosts y ¿¿hostname?? COmprobar ping desde Servidor y clientes
+
+
+
+Ampache elastic IP: 100.48.114.98
+
+En AWS abrir puerto entrada 80 para todo el mundo
+
+https://stackoverflow.com/questions/16744863/connect-to-amazon-ec2-file-directory-using-filezilla-and-sftp
+
+
+Meter música en ampache con filezilla (pantallazos)
+
+
+En vez que pelearte con los permisos. Pasa la musica del directorio del usuario a /ampache/data/media
+
+O usa sincronización (no se si soft o hard links funcionan).
+
+
+Crear catalogo (Pantallazos)
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\ºº AZURACAST
+
+
+IP elastica: 100.24.225.67
+
+apt update && apt install docker.io -y && apt install docker-compose-v2 -y
+
+
+
+
+
+Para la parte de la radio, usa AzuraCast: https://www.azuracast.com/docs/getting-started/installation/docker/
+Andrés lo ha hecho en dos máquinas en el AWS (t3.small) Genera la radio en AzuraCast (Por sí sola, aunque también puedes copiar la "url stream"
+y pasarsela a Ampache para que al use en una Radio Station).
+
+
+https://www.youtube.com/watch?v=j-koy09p-jw
+
+o
+
+https://www.youtube.com/watch?v=7AywBc8N2_I&t=450s
+
+Unattended Installation
+
+mkdir -p /var/azuracast
+cd /var/azuracast
+curl -fsSL https://raw.githubusercontent.com/AzuraCast/AzuraCast/main/docker.sh > docker.sh
+chmod a+x docker.sh
+yes '' | ./docker.sh install
+
+# To install the "Stable" release channel instead of "Rolling Release", uncomment this line:
+# yes 'Y' | ./docker.sh setup-release
+
+
+
+
+\\\\\\\\\\ ASI lo hice
+
+
+
+
+mkdir -p /var/azuracast
+cd /var/azuracast
+curl -fsSL https://raw.githubusercontent.com/AzuraCast/AzuraCast/main/docker.sh > docker.sh
+chmod a+x docker.sh
+yes 'Y' | ./docker.sh setup-release
+Your current release channel is 'Rolling Release'. Switch to 'Stable' release channel? [y/N] You should update the Docker Utility Script after changing release channels. Automatically update it now? [Y/n] New Docker utility script downloaded.
+You can now re-run any previous command with the updated utility script.
+
+./docker.sh install
+
+Te dice que tu current install es stable, que si quieres cambiar a rolling (la ultima), le dices que NO.
+
+
+
+Elige idioma (usamos English porque hay más guias)
+
+Customize ports: NO
+
+Enable web based docker image updates: no
+
+ Automatically block common bots and crawlers (yes/no) yes
+ 
+ 
+Abrele el puerto en AWS: Este usa 80 y 443.
+
+Entra con la url: 100.24.225.67
+////
+admin@im07.institutodh.net
+
+usuario.12345
+
+
+///
+
+https://www.youtube.com/watch?v=QOi7zGPU3wA
+https://www.youtube.com/watch?v=CV7B3Q-AhWM
+https://www.youtube.com/watch?v=WUVjQPRcCK4
+https://www.youtube.com/watch?v=oC1nc0UqXRc
+
+
+////////
+
+En el proceso de de establecer la RADIO en AzuraCast, ten en cuenta:
+
+Una vez que has configurado la playlist, (ponla en default), te saldrá en local stream,
+pero no en plublic page (la radio en sí).
+
+Reinicia:
+Broadcasting Service
+Icecast
+
+Mira los logs del docker por si acaso.
+
+
+HECHO
+
+
+\\\\\\\\\\\\\\\\\\ Ampache añadir Emisora de Radio ahora que tenemos la URL Stream de AZURACAST
+
+Radio Stations --> Add Radio Stations
+
+https://100.24.225.67/public/vicecityradio
+https://100.24.225.67/listen/vicecityradio/radio.mp3
+
+
+
+
+\\\\\\\\\ Subir archivos a Ampache desde la interfaz web: (Pantallazos)
+
+To upload music to Ampache via the web interface,
+enable user uploads in Admin > System, set an "Uploads catalog destination," and navigate to Home > Upload to drag-and-drop files. Ensure the web server has write permissions to the destination folder. 
+
+NO LO CONSIGO
+
+La única manera que veo es de darle permiso de administrador a prof1 y prof2 (PERO SI NO CONSIGO METER MUSICA DESDE LA INTERFAZ WEB)
+
+
+
+
+En AZURACAST para que las canciones no se emitan. Crea la playlist primero y ponla en Disabled. Luego cuando subas las canciones
+metelas en esa playlist
+
+
+http://im07.institutodh.net/preferences.php?action=admin&tab=system#
+
+
+
+
+Cliente Android: dsub2000
+
+Preferencias: Añadir Servidor
+
+direccion WEB
+
+usuario y contraseña
+
+Permitir conexiones no seguras (HTTP)
+
+
+
+\\\\\\\\\\\\\ Ampache para subir al ampache
+
+Metes system y en options
+
+Creas directorio en servidor y despues creas un catalog
+
+https://ampache.org/docs/help/upload-catalogs
+
+
+
+Filezilla https://stackoverflow.com/questions/16744863/connect-to-amazon-ec2-file-directory-using-filezilla-and-sftp

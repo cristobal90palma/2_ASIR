@@ -1,0 +1,116 @@
+Comprobación de la conexión de Pidgin en dos máquinas clientes con dos usuarios distintos: admin y cristóbal
+
+
+root@im07:/home/ubuntu# sudo tail -f /var/log/prosody/prosody.log
+Jan 05 11:56:25 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f84' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:56:25 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq from='admin@im07.institutodh.net/2o ASIR' xml:lang='en' type='result' id='purpleb1cc3f84' to='admin@im07.institutodh.net/2o ASIR'>
+Jan 05 11:56:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f85' type='get'>
+Jan 05 11:56:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f85' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:57:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f86' type='get'>
+Jan 05 11:57:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f86' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:58:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f87' type='get'>
+Jan 05 11:58:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f87' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:59:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f88' type='get'>
+Jan 05 11:59:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f88' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+^C
+root@im07:/home/ubuntu# sudo tail -f /var/log/prosody/prosody.log
+Jan 05 11:56:25 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f84' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:56:25 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq from='admin@im07.institutodh.net/2o ASIR' xml:lang='en' type='result' id='purpleb1cc3f84' to='admin@im07.institutodh.net/2o ASIR'>
+Jan 05 11:56:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f85' type='get'>
+Jan 05 11:56:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f85' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:57:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f86' type='get'>
+Jan 05 11:57:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f86' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:58:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f87' type='get'>
+Jan 05 11:58:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f87' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 11:59:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f88' type='get'>
+Jan 05 11:59:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f88' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:00:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f89' type='get'>
+Jan 05 12:00:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f89' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:01:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f8a' type='get'>
+Jan 05 12:01:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f8a' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:02:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f8b' type='get'>
+Jan 05 12:02:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f8b' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:03:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f8c' type='get'>
+Jan 05 12:03:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f8c' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:04:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f8d' type='get'>
+Jan 05 12:04:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f8d' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:05:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f8e' type='get'>
+Jan 05 12:05:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f8e' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:06:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f8f' type='get'>
+Jan 05 12:06:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f8f' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:07:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f90' type='get'>
+Jan 05 12:07:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f90' to='admin@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:08:15 connTuYNGu5t4giU        debug   New connection FD 17 (185.251.210.8, 47856, 172.31.75.85, 5222) on server FD 9 (*, 5222)
+Jan 05 12:08:15 connTuYNGu5t4giU        debug   Connected (FD 17 (185.251.210.8, 47856, 172.31.75.85, 5222))
+Jan 05 12:08:15 c2s55a23c8c51e0 info    Client connected
+Jan 05 12:08:15 runnerdaNRLxI_6vUV      debug   creating new coroutine
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Client sent opening <stream:stream> to im07.institutodh.net
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Sending[c2s_unauthed]: <?xml version='1.0'?>
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Sent reply <stream:stream> to client
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   SASL mechanisms supported by handler: PLAIN, SCRAM-SHA-1
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Session is not secure, not offering insecure mechanisms: PLAIN
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Offering usable mechanisms: SCRAM-SHA-1
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Sending[c2s_unauthed]: <stream:features>
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Received[c2s_unauthed]: <starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls' xml:lang='en'>
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Sending[c2s_unauthed]: <proceed xmlns='urn:ietf:params:xml:ns:xmpp-tls'>
+Jan 05 12:08:15 connTuYNGu5t4giU        debug   Start TLS after write
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   TLS negotiation started for c2s_unauthed...
+Jan 05 12:08:15 connTuYNGu5t4giU        debug   Prepared to start TLS
+Jan 05 12:08:15 connTuYNGu5t4giU        debug   Starting TLS now
+Jan 05 12:08:15 connTuYNGu5t4giU        debug   TLS handshake complete (TLSv1.3 with TLS_AES_128_GCM_SHA256)
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Client sent opening <stream:stream> to im07.institutodh.net
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Sending[c2s_unauthed]: <?xml version='1.0'?>
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Sent reply <stream:stream> to client
+Jan 05 12:08:15 c2s55a23c8c51e0 info    Stream encrypted (TLSv1.3 with TLS_AES_128_GCM_SHA256)
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Channel binding 'tls-unique' undefined in context of TLS 1.3
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   SASL mechanisms supported by handler: PLAIN, SCRAM-SHA-1
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Offering usable mechanisms: PLAIN, SCRAM-SHA-1
+Jan 05 12:08:15 c2s55a23c8c51e0 debug   Sending[c2s_unauthed]: <stream:features>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Received[c2s_unauthed]: <auth xmlns:ns1='http://www.google.com/talk/protocol/auth' ns1:client-uses-full-bind-result='true' mechanism='SCRAM-SHA-1' xmlns='urn:ietf:params:xml:ns:xmpp-sasl' xml:lang='en'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s_unauthed]: <challenge xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Received[c2s_unauthed]: <response xmlns='urn:ietf:params:xml:ns:xmpp-sasl' xml:lang='en'>
+Jan 05 12:08:16 c2s55a23c8c51e0 info    Authenticated as cristobal@im07.institutodh.net
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s_unbound]: <success xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Client sent opening <stream:stream> to im07.institutodh.net
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s_unbound]: <?xml version='1.0'?>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sent reply <stream:stream> to client
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s_unbound]: <stream:features>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Received[c2s_unbound]: <iq xml:lang='en' id='purpleef51d9e7' type='set'>
+Jan 05 12:08:16 rostermanager   debug   load_roster: asked for: cristobal@im07.institutodh.net
+Jan 05 12:08:16 rostermanager   debug   load_roster: loading for new user: cristobal@im07.institutodh.net
+Jan 05 12:08:16 rostermanager   debug   load_roster: cache miss, loading from storage
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   No legacy vCard to migrate or already migrated
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s]: <iq type='result' id='purpleef51d9e7'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Resource bound: cristobal@im07.institutodh.net/2o ASIR
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9e8' type='set'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s]: <iq id='purpleef51d9e8' to='cristobal@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9e9' to='im07.institutodh.net' type='get'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s]: <iq from='im07.institutodh.net' to='cristobal@im07.institutodh.net/2o ASIR' id='purpleef51d9e9' type='result'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9ea' to='im07.institutodh.net' type='get'>
+Jan 05 12:08:16 c2s55a23c8c51e0 debug   Sending[c2s]: <iq from='im07.institutodh.net' to='cristobal@im07.institutodh.net/2o ASIR' id='purpleef51d9ea' type='result'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9eb' to='conference.im07.institutodh.net' type='get'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq from='conference.im07.institutodh.net' to='cristobal@im07.institutodh.net/2o ASIR' id='purpleef51d9eb' type='result'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9ec' type='get'>
+Jan 05 12:08:17 im07.institutodh.net:pep        debug   Creating pubsub service for user "cristobal"
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq id='purpleef51d9ec' to='cristobal@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9ed' type='get'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq id='purpleef51d9ed' to='cristobal@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9ee' to='im07.institutodh.net' type='get'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq from='im07.institutodh.net' to='cristobal@im07.institutodh.net/2o ASIR' id='purpleef51d9ee' type='result'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9ef' type='get'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq id='purpleef51d9ef' to='cristobal@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <presence xml:lang='en'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq from='cristobal@im07.institutodh.net' to='cristobal@im07.institutodh.net/2o ASIR' id='disco' type='get'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <presence from='cristobal@im07.institutodh.net/2o ASIR' xml:lang='en'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Broadcasting offline messages
+Jan 05 12:08:17 datamanager     debug   Removing empty offline datastore for user cristobal@im07.institutodh.net
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='disco' to='cristobal@im07.institutodh.net' type='result'>
+Jan 05 12:08:17 stanzarouter    debug   Discarding iq from c2s of type: result
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9f0' to='cristobal@im07.institutodh.net/2o ASIR' type='get'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq from='cristobal@im07.institutodh.net/2o ASIR' xml:lang='en' type='get' id='purpleef51d9f0' to='cristobal@im07.institutodh.net/2o ASIR'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9f0' to='cristobal@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:08:17 c2s55a23c8c51e0 debug   Sending[c2s]: <iq from='cristobal@im07.institutodh.net/2o ASIR' xml:lang='en' type='result' id='purpleef51d9f0' to='cristobal@im07.institutodh.net/2o ASIR'>
+Jan 05 12:08:47 c2s55a23c8c51e0 debug   Received[c2s]: <iq xml:lang='en' id='purpleef51d9f1' type='get'>
+Jan 05 12:08:47 c2s55a23c8c51e0 debug   Sending[c2s]: <iq id='purpleef51d9f1' to='cristobal@im07.institutodh.net/2o ASIR' type='result'>
+Jan 05 12:08:55 c2s55a23c8a4fb0 debug   Received[c2s]: <iq xml:lang='en' id='purpleb1cc3f91' type='get'>
+Jan 05 12:08:55 c2s55a23c8a4fb0 debug   Sending[c2s]: <iq id='purpleb1cc3f91' to='admin@im07.institutodh.net/2o ASIR' type='result'>

@@ -1,0 +1,64 @@
+
+
+git clone -b MOODLE_404_STABLE git://git.moodle.org/moodle.git ./moodle-code
+sudo chown -R 33:33 ./moodle-code
+
+
+mkdir moodledata_local
+sudo chown -R 33:33 moodledata_local
+
+
+
+\\\\\\\\\\\\\\\\\
+services:
+  mariadb:
+    # ... (Sin cambios)
+    image: mariadb:latest
+    container_name: mariadb-moodle
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: cristobal
+      MYSQL_PASSWORD: 12345
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - moodle_network
+
+  moodle:
+    image: moodlehq/moodle-php-apache:8.4
+    container_name: moodle
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8083:80"    # HTTP
+      - "8444:443"   # HTTPS
+    environment:
+      MOODLE_DATABASE_TYPE: mysqli
+      MOODLE_DATABASE_HOST: mariadb
+      MOODLE_DATABASE_NAME: moodle
+      MOODLE_DATABASE_USER: cristobal
+      MOODLE_DATABASE_PASSWORD: 12345
+      MOODLE_USERNAME: cristobal
+      MOODLE_PASSWORD: 12345
+      MOODLE_SITE_NAME: "Moodle SUAREZ1"
+      MOODLE_EMAIL: admin@suarez1.abad2
+    volumes:
+      - ./moodle-code:/var/www/html
+      - ./moodledata_local:/var/www/moodledata  # <-- Mapeo a carpeta local
+    networks:
+      - moodle_network
+
+volumes:
+  mariadb_data:
+  # Eliminados moodle_data y moodle_mariadb_data
+
+networks:
+  moodle_network:
+  
+  
+  
+http://10.2.17.10:8083/install.php
+

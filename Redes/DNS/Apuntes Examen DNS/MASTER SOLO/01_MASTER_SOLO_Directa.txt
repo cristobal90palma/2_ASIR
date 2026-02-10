@@ -1,0 +1,42 @@
+;DIRECTORIO: /var/cache/bind/bd.retry07.net
+
+
+
+; Archivo bd.retry07.net
+;
+; BIND data file for bd.retry.net
+;
+$TTL 1D
+@ IN SOA dnscsa01.retry07.net. root.retry07.net. (
+        2025102401 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN NS   dnscsa01.retry07.net.
+
+; Correo
+
+        IN MX 20 smtp1.retry07.net.
+        IN MX 10 smtp2.retry07.net.
+
+; Directas
+
+dnscsa01 IN A 10.2.17.5
+www IN A 172.16.111.200
+smtp1 IN A 172.16.111.201
+smtp2 IN A 172.16.111.202
+mc IN A 172.16.111.203
+
+; Alias o sinonimo
+dns IN CNAME dnscsa01
+web IN CNAME www
+mail1 IN CNAME smtp1
+mail2 IN CNAME smtp2
+servidormc IN CNAME mc
+
+
+
+;named-checkzone retry07.net. /var/cache/bind/bd.retry07.net

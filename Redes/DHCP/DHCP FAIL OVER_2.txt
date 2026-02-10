@@ -1,0 +1,181 @@
+SRI - p8 DHCP FAILOVER CSA_2
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\IP ESTÁTICA: /etc/netplay/ archivo.yaml --> netplay apply
+
+
+(((DHCP-PRIM)))
+
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.1.17/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.2
+      nameservers:
+        addresses:
+		  - 172.16.200.1
+          - 8.8.8.8
+		  
+
+((DHCP-SECOND)))
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.1.27/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.2
+      nameservers:
+        addresses:
+		  - 172.16.200.1
+          - 8.8.8.8
+		  
+		  
+((MIKROTIK))
+
+poner ip: /ip address add address=192.168.1.1/24 interface=ether1
+
+quitar: ip address/ remove 0 (o el numero que venga).
+
+\\\\\\\\\\\\\\\\\\\\\
+
+Actualizar e instalar "isc-dhcp-server" en los servidores.
+
+apt update && apt install isc-dhcp-server -y
+
+RECUERDA, EN LA CONFIGURACIÓN DE LA INTERFAZ DEL SERVER, DEBES PONER
+EL GATEWAY LA IP DEL RELAY (EN LA VIDA REAL NO SE HACE ASÍ, SE PONEN RUTAS ESTATICAS)
+
+
+Ahora modificamos el archivo: /etc/default/isc-dhcp-server
+Debemos poner el nombre de la interfaz que vamos a usar para dar el servicio de DHCP.
+
+Ahora Modificamos: /etc/dhcp/dhcpd.conf
+
+
+
+Recuerda que en esta ocasión hay que tener “descomentadas” las líneas:
+authoritative;
+ddns-update-style none;
+Después hay una configuración específica para el principal y otra para el secundario.
+
+((DHCP-PRIM))
+
+failover peer "FAILOVER" {
+  primary;
+  address 192.168.1.17;
+  port 647;
+  peer address 192.168.1.27;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+  mclt 1800;
+  split 255;
+}
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+  not authoritative;
+}
+
+# SubNet 10.20.27.0/25
+subnet 10.20.27.0 netmask 255.255.255.128 {
+  option routers 10.20.27.1;
+  pool {
+    failover peer "FAILOVER";
+    range 10.20.27.10 10.20.27.126;
+    default-lease-time 86000;
+    max-lease-time 86000;
+    host ubuntu-1 {
+      hardware ethernet 02:42:16:53:54:00;
+      fixed-address 10.20.27.5;
+    }
+  }
+}
+
+# SubNet 10.20.27.128/27
+subnet 10.20.27.128 netmask 255.255.255.224 {
+  option routers 10.20.27.129;
+  pool {
+    failover peer "FAILOVER";
+    range 10.20.27.138 10.20.27.158;
+    default-lease-time 86000;
+    max-lease-time 86000;
+    host ubuntu-3 {
+      hardware ethernet 02:42:16:53:54:00;
+      fixed-address 10.20.27.134;
+    }
+  }
+}
+
+
+((DHCP-SECOND))
+
+failover peer "FAILOVER" {
+  secondary;
+  address 192.168.1.27;
+  port 647;
+  peer address 192.168.1.17;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+  mclt 1800;
+}
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+  not authoritative;
+}
+
+
+# SubNet 10.20.27.0/25
+subnet 10.20.27.0 netmask 255.255.255.128 {
+  option routers 10.20.27.1;
+  pool {
+    failover peer "FAILOVER";
+    range 10.20.27.10 10.20.27.126;
+    default-lease-time 86000;
+    max-lease-time 86000;
+    host ubuntu-1 {
+      hardware ethernet 02:42:16:53:54:00;
+      fixed-address 10.20.27.5;
+    }
+  }
+}
+
+# SubNet 10.20.27.128/27
+subnet 10.20.27.128 netmask 255.255.255.224 {
+  option routers 10.20.27.129;
+  pool {
+    failover peer "FAILOVER";
+    range 10.20.27.138 10.20.27.158;
+    default-lease-time 86000;
+    max-lease-time 86000;
+    host ubuntu-3 {
+      hardware ethernet 02:42:16:53:54:00;
+      fixed-address 10.20.27.134;
+    }
+  }
+}
+
+
+\\\\\\\\\\
+una vez configurados AMBOS
+
+systemctl restart isc-dhcp-server
+systemctl status isc-dhcp-server

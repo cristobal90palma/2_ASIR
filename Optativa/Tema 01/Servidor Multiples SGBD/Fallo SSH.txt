@@ -1,0 +1,43 @@
+C:\Users\Cristobal>ssh user@192.168.1.96 -p 2222 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @
+ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY! Someone could be eavesdropping on you right now 
+ (man-in-the-middle attack)! It is also possible that a host key has just been changed. The fingerprint
+ for the ED25519 key sent by the remote host is SHA256:2D1APIyaH4XJPUVVeuuriD7aWxFKA/40JgWtQzLhVoE. 
+ Please contact your system administrator. Add correct host key in C:\\Users\\Cristobal/.ssh/known_hosts 
+ to get rid of this message. Offending ECDSA key in C:\\Users\\Cristobal/.ssh/known_hosts:26 Host key 
+ for [192.168.1.96]:2222 has changed and you have requested strict checking. Host key verification failed.
+ 
+ 
+ Ese mensaje de SSH significa que la clave del host remoto ha cambiado desde la última vez que te conectaste, y por seguridad SSH está bloqueando la conexión para evitar posibles ataques "man-in-the-middle". Esto suele ocurrir si:
+
+Has reinstalado el servidor SSH en 192.168.1.96.
+
+Cambiaste el puerto o el sistema operativo del host.
+
+Otra máquina ahora está usando esa IP y puerto.
+
+Para solucionarlo seguro, tienes que eliminar la entrada vieja de tu archivo known_hosts para esa IP y puerto. En tu caso, el mensaje indica:
+
+Offending ECDSA key in C:\Users\Cristobal/.ssh/known_hosts:26
+
+
+
+Eso significa que la línea 26 contiene la clave antigua. Puedes hacer lo siguiente:
+
+Opción 1: Eliminar la línea problemática manualmente
+
+Abre C:\Users\Cristobal\.ssh\known_hosts con un editor de texto.
+
+Ve a la línea 26.
+
+Borra esa línea y guarda el archivo.
+
+Opción 2: Usar el comando SSH para eliminarla
+
+Abre PowerShell o CMD y ejecuta:
+
+
+ssh-keygen -R "[192.168.1.96]:2222"
+
+
+Esto eliminará automáticamente la entrada antigua de known_hosts para esa IP y puerto.

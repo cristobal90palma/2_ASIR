@@ -1,0 +1,13 @@
+dn: cn=csa,ou=usuarios,dc=SUAREZ1,dc=abad2
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/csa
+uid: csa
+cn: csa
+userPassword: csa987
+uidNumber: 10004
+gidNumber: 10000
+sn: suarez
+mail: csa@sistemas.edu

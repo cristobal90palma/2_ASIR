@@ -1,0 +1,219 @@
+NOTA:
+EN LAS VM DE GNS3, "RESIZE" EL DISCO Y PONER 8000
+Una vez arrancadas, comprobar con “df -h”
+
+En algunas maquinas ubuntus de GNS3, los comandos de "apt" hay que hacerlos desde el sudo.
+Casi que mejor hacerlo todo desde el sudo.
+
+Usa "ubuntu cloud guest" cuando quieras que se guarden los cambios. En los otros tabmién se puede, pero no es tan facil
+En estos equipos las direcciones IP estáticas se hacen de manera manual(por desgracia)
+
+CONSEJO: Mikrotik capa sus routers en GNS3 a 1MB, así que para cosas que
+ necesiten descargarse de Internet, mejor conectarlo a un switch y a
+ la nube directamente.
+
+\\\\\\\ Server
+
+RECUERDA, EN LA CONFIGURACIÓN DE LA INTERFAZ DEL SERVER, DEBES PONER
+EL GATEWAY LA IP DEL RELAY (EN LA VIDA REAL NO SE HACE ASÍ, SE PONEN RUTAS ESTATICAS)
+
+Usa guia: Práctica 2+: Servicio DHCP en Ubuntu 22.04 una LAN
+
+apt install isc-dhcp-server -y
+
+
+Ahora modificamos el archivo: /etc/default/isc-dhcp-server
+Debemos poner el nombre de la interfaz que vamos a usar para dar el servicio de DHCP.
+
+Ahora Modificamos: /etc/dhcp/dhcpd.conf
+
+
+
+Recuerda que en esta ocasión hay que tener “descomentadas” las líneas:
+authoritative;
+ddns-update-style none;
+Después hay una configuración específica para el principal y otra para el secundario.
+
+
+\\\\\\\\\\\\ SERVIDOR PRIMARIO
+/etc/dhcp/dhcpd.conf
+
+authoritative;
+ddns-update-style none;
+
+failover peer "FAILOVER" {
+  primary; 
+  address 192.168.122.17;
+  port 647;
+  peer address 192.168.122.27;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+  mclt 1800;
+  split 128;
+}
+
+\\\\\\\\\\\\ SERVIDOR SECUNDARIO
+/etc/dhcp/dhcpd.conf
+
+authoritative;
+ddns-update-style none;
+
+failover peer "FAILOVER" {
+  secondary; 
+  address 192.168.122.27;
+  port 647;
+  peer address 192.168.122.17;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+}
+
+
+\\\\\\ LO SIGUIENTE VA EN AMBOS
+
+Hay que declarar la subnet donde se encuentra el servidor DHCP
+En esa subnet no se reparten IPs, por lo tanto solo se declara y ya está:
+
+192.168.122.?
+
+subnet 192.168.122.0 netmask 255.255.255.0 {
+}
+
+
+
+
+10.2.27.0/24
+
+# A slightly different configuration for an internal subnet.
+subnet 10.2.27.0 netmask 255.255.255.0 {
+  option domain-name-servers 1.1.1.1, 1.0.0.1;
+  option domain-name "lansw1.edu";
+  pool {
+    failover peer "FAILOVER";
+    range 10.2.27.21 10.2.27.127;
+  }  
+  option subnet-mask 255.255.255.0;
+  option routers 10.2.27.1;
+#  option broadcast-address 10.5.5.31;
+  default-lease-time 86400;
+  max-lease-time 86400;
+}
+
+10.2.37.0/24
+
+# A slightly different configuration for an internal subnet.
+subnet 10.2.37.0 netmask 255.255.255.0 {
+  option domain-name-servers 9.9.9.9, 172.16.200.1;
+  option domain-name "lansw2.edu";
+  pool {
+    failover peer "FAILOVER";
+    range 10.2.37.21 10.2.37.127;
+  }
+  option subnet-mask 255.255.255.0;
+  option routers 10.2.37.1;
+#  option broadcast-address 10.5.5.31;
+  default-lease-time 86400;
+  max-lease-time 86400;
+}
+
+
+
+
+
+
+
+
+
+
+
+\\\\\\\ Una vez que hemos configurad el servicio, volvemos a conectar todo desde el ROUTER MIKROTIK(la compañía capa el router a 1MB para que solo sirva para educación, por eso cualquier cosa que necesite mucho bando de ancha debe hacerse conectado a la nube directamente.
+RECUERDA PONER EL GATEWAY HACIA EL RELAY.
+(((PARA EL PRIMARIO)
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.122.17/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.122.37
+      nameservers:
+        addresses:
+          - 8.8.8.8
+		 
+((PARA EL SECUNDARIO))
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.122.27/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.122.37
+      nameservers:
+        addresses:
+          - 8.8.8.8
+		  
+		  
+
+\\\\ ROUTER MIKROTIK PONER IP ESTÁTICA
+
+/ip address add address=192.168.1.1/24 interface=ether1
+
+
+BUSCA EL ARCHIVO WORD PARA LA CONFIGURACIÓN DE LOS ROUTERS Mikrotik
+
+
+
+
+
+
+
+
+
+
+# Subred 1: 10.2.27.0/25
+subnet 10.2.27.0 netmask 255.255.255.128 {
+  option domain-name-servers 1.1.1.1, 1.0.0.1;
+  option domain-name "lansw1.edu";
+  option routers 10.2.27.1;
+  option subnet-mask 255.255.255.128;
+  default-lease-time 86400;
+  max-lease-time 86400;
+#  option broadcast-address 10.5.5.31;
+
+  pool {
+    failover peer "FAILOVER";
+    range 10.2.27.21 10.2.27.120;
+  }
+}
+
+# Subred 2: 10.2.27.128/27
+subnet 10.2.27.128 netmask 255.255.255.224 {
+  option domain-name-servers 1.1.1.1, 1.0.0.1;
+  option domain-name "lansw2.edu";
+  option routers 10.2.27.129;
+  option subnet-mask 255.255.255.224;
+  default-lease-time 86400;
+  max-lease-time 86400;
+#  option broadcast-address 10.5.5.31;
+
+  pool {
+    failover peer "FAILOVER";
+    range 10.2.27.130 10.2.27.158;
+  }
+}

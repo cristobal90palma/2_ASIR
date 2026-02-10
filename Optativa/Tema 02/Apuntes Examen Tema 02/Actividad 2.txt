@@ -1,0 +1,134 @@
+Actividad 2 - Shell scripts de aprovisionamiento
+
+1) Ver video que está en la Guía antes de realizar la actividad
+
+    Necesitamos una máquina virtual con una versión de ubuntu. Busca en Vagrant Hub, un box adecuado.
+    Inicializa y levanta la máquina virtual
+
+    Comprueba que tienes acceso.
+	
+	
+Hemos creado la carpeta "D:\Vagrant\actividad_2>" Nos colocamos en ella.
+
+Usamos: vagrant box add ubuntu/bionic64
+
+Es la versión más nueva de ubuntu que hay en vagranthub
+
+Hecho con éxito
+
+Descargamos el vagrantfile
+
+vagrant init
+
+Abrimos el vagrantfile y modificamos config.vm.box
+
+config.vm.box = "ubuntu/bionic64"
+
+Y ahora lo levantamos:
+
+vagrant up
+
+
+Nos conectamos por SSH
+
+vagrant ssh
+
+
+
+\\\\\\\\\\\\\\\\\\\
+
+Aprovisionamiento inline
+
+    Crea un aprovisionamiento de tipo shell inline, en el que crees una carpeta nueva.
+	
+En el vagrantfile nos vamos a config.vm.provision y lo modificamos:
+
+	config.vm.provision "shell", inline: <<-SHELL
+		mkdir /home/vagrant/carpeta_nuevecita
+	SHELL
+	
+    ¿Cómo puedes ejecutar el aprovisionamiento si la máquina ya está levantada? 
+	
+	Si ya está levantada usamos "vagrant provision"
+	
+	¿ Y si no?
+	
+	Si no está levantada, una vez que la levantemos se activará.
+	
+	vagrant up
+
+	Usa la que te interese
+	
+
+    Comprueba que el aprovisionamiento se ha realizado
+
+DEBEMOS SALIR DEL SSH Y LUEGO EJECUTAR "vagrant provision"
+EN LA FOTO SE VE COMO ENTRAMOS CON EL SSH Y SE VE LA CARPETA CREADA.
+
+
+\\\\\\\\\\\\\\\\\\\\
+
+Aprovisionamiento por documento
+
+    Elimina el aprovisionamiento anterior y crea uno nuevo mediante un fichero, que cree una nueva carpeta (que sea distinta)
+	
+	Creamos en el mismo directorio un archivi ".sh" En mi caso "provision_nueva_carpeta.sh"
+	Introducimso en el la orden:
+	
+	mkdir /home/vagrant/carpetaza
+	
+	
+	Ahora, en el vagrantfile:
+	
+		config.vm.provision "shell", path: "provision_nueva_carpeta.sh"
+	
+	
+	LO GUARDAMOS TODO.
+	
+    Recarga el aprovisionamiento
+	
+	vagrant provision
+	
+    ¿Existe la carpeta nueva? ¿Existe la carpeta anterior?
+
+SI, EXITO ROTUNDO. 
+EN LA FOTO SE VE EJECUCIÓN DE vagrant up y entrada de nuevo con ssh y ls -l para ver las dos carpetas
+
+
+
+\\\\\\\\\\\\\\
+
+Modifica los recursos que usa la VM
+
+    Indica que cuando se use VirtualBox use solo una cpu y 1gb de ram
+	
+	Los recursos de hardware se modifican dentro del bloque del proveedor (virtualbox) en el Vagrantfile.
+	
+  config.vm.provider "virtualbox" do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+  #   vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+     vb.memory = "1024"
+	 vb.cpus = 1
+   end
+	
+    Aplica los cambios y demuestra que se han llevado a cabo
+
+
+Para aplicar cambios de hardware, debes reiniciar la máquina virtual.
+
+vagrant reload
+
+O apaga y enciende la maquina
+
+
+
+vagrant ssh
+grep MemTotal /proc/meminfo
+# Debería mostrar un valor cercano a 1024 MB (e.g., 1017364 kB).
+grep processor /proc/cpuinfo | wc -l
+# Debería mostrar '1'.
+exit
+
+La memoria no da un numero exacto:  1008716 kB

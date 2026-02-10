@@ -1,0 +1,5 @@
+#ansible_user: root
+ansible_user: ansible
+# Esto en teoria solucionaba el problema de SSH, pero creo que no hace nada. Tampoco lo empeora.
+ansible_password: password
+db_port: 5432

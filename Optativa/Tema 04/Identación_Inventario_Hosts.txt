@@ -1,0 +1,20 @@
+all:
+  children:
+    madrid:
+      children:
+        db_servers:
+          hosts:
+            db_master:
+              ansible_host: node1
+    # web_servers ahora está al mismo nivel que madrid
+    web_servers:
+      hosts:
+        node2:
+        node3:
+    dev:
+      hosts:
+        node2:
+    prod:
+      hosts:
+        db_master:
+        node3:

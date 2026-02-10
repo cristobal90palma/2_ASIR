@@ -1,0 +1,46 @@
+Postgresql
+
+Configurar IP estática y Hostname
+
+sudo apt update
+
+sudo apt install postgresql postgresql-contrib
+
+sudo systemctl start postgresql
+
+Cuando se instala crea el usuario "postgres" se puede ver en /etc/passwd
+
+Entras desde terminal con: sudo -i -u postgres
+
+o
+
+sudo -i -u postgres psql
+
+Así entras en postgres como el usuario "postgres"
+
+Sin entrar propiamente dicho, puedes crear usuarios con:
+
+createuser --interactive
+
+Y desde dentro con
+
+CREATE USER _____;
+
+\\\Crear Base de Datos desde fuera
+
+createdb 2ASIR
+
+\\\Crear Base de Datos desde dentro
+
+CREATE DATABASE ________:
+
+
+Podemos ver las databases listadas desde dentro con "\l"
+
+\\\ OTORGAR PRIVILEGIOS A USUARIO
+
+GRANT CONNECT ON DATABASE nombre_basedatos TO nombre_usuario;
+
+GRANT CREATE ON DATABASE "2ASIR" TO prueba01;
+
+GRANT ALL PRIVILEGES ON DATABASE "2ASIR" TO prueba01;

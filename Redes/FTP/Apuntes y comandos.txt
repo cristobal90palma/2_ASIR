@@ -1,0 +1,153 @@
+apt -y install proftpd 
+
+REsultado:
+Setting up proftpd-doc (1.3.8.b+dfsg-1ubuntu0.1) ...
+Setting up libpcre2-posix3:amd64 (10.42-4ubuntu2.1) ...
+Setting up libhashkit2t64:amd64 (1.1.4-1.1build3) ...
+Setting up libhiredis1.1.0:amd64 (1.2.0-6ubuntu3) ...
+Setting up libmemcached11t64:amd64 (1.1.4-1.1build3) ...
+Setting up libmemcachedutil2t64:amd64 (1.1.4-1.1build3) ...
+Setting up proftpd-core (1.3.8.b+dfsg-1ubuntu0.1) ...
+
+
+
+
+
+journalctl -u proftpd
+
+Ver que usuario lo ejecuta
+ps -ef | grep ftpd
+
+ss -lntp
+
+grep -i umask /etc/proftpd/proftpd.conf 
+
+Configurar sitio:
+
+es el home del usuario ftp
+/srv/ftp
+
+Podemos mantenerlo o cambiarlo
+
+root@Redes02:~# ls -ld /srv/ftp/
+drwxr-x--- 2 ftp nogroup 4096 Nov 11 07:42 /srv/ftp/
+
+# Set the user and group that the server normally runs at.
+User proftpd
+Group nogroup
+
+
+Shelles que son validas:
+
+cat /etc/shells 
+
+/bin/sh
+/usr/bin/sh
+/bin/bash
+/usr/bin/bash
+/bin/rbash
+/usr/bin/rbash
+/usr/bin/dash
+
+
+Para evitar que te exija una shell valida.
+RequireValidShell off
+
+Se puede poner dentro y fuera de anonimo. Afecta a anonimo y/o al resto.
+
+Te conectas con ftp
+
+
+El usuario anonymous está enjaulado, para que no llegue en directorio
+de más arriba.
+
+
+oot@Redes02:~# ftp
+ftp> exit
+root@Redes02:~# fpt localhost
+Command 'fpt' not found, but there are 16 similar ones.
+root@Redes02:~# ftp localhost
+Trying [::1]:21 ...
+Connected to localhost.
+220 ProFTPD Server (Debian) [::1]
+Name (localhost:root): ftp
+331 Anonymous login ok, send your complete email address as your password
+Password: 
+230-Welcome, archive user ftp@localhost !
+ 
+ The local time is: Tue Nov 11 07:58:28 2025
+ 
+ This is an experimental FTP server.  If you have any unusual problems,
+ please report them via e-mail to <root@Redes02.institutodh.net>.
+ 
+230 Anonymous access granted, restrictions apply
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> 
+
+
+
+Limitar directorios (pner limites)
+   <Directory *>
+     <Limit WRITE>
+       DenyAll
+     </Limit>
+   </Directory>
+ 
+
+
+
+Para evitar que te llenen el disco del servidor)
+
+   # Uncomment this if you're brave.
+#   # <Directory incoming>
+#   #   # Umask 022 is a g
+
+
+
+
+
+Prueba:
+    <Directory subidas>
+       Umask 022 is a good standard umask to prevent new files and dirs
+#   #   # (second parm) from being group and world writable.
+      Umask 022  022
+      <Limit READ WRITE>
+        DenyAll
+      </Limit>
+      <Limit STOR>
+              AllowAll
+      </Limit>
+      </Directory>
+# 
+ </Anonymous>
+ 
+ Hacerla en local y darle permisos
+ 
+ mkdir /srv/ftp/subidas
+ 
+ chown ftp:nogroup /srv/ftp/subidas
+ 
+ 
+ echo "Hola mundo" > /srv/ftp/subidas/holamundo.txt
+ 
+ 
+ 
+ cp -pr mantiene permisos y usuarios
+ 
+ 
+ y ahora vamos al archivo de confuguración y cambios en anonymoous el directorio 
+ 
+ 
+ Defaultroot ~
+ para enjaular a los usuarios
+ 
+
+¿¿¿No funciona??? 
+<Limit LOGIN>
+	DenyUser malvado
+	AllowAll
+</limit>
+
+
+Si no funciona, ponlo en la lista de /ftp/users

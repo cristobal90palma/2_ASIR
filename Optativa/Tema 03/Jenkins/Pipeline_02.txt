@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    parameters {
+        string(name:'APELLIDO', description:'Ingrese su Apellido')
+        text(name:'BIOGRAFIA', description:'Ingrese su Biografía')
+        booleanParam(name:'BOOLEANO', description:'Parametro Booleano')
+        choice(name:'CIUDADES', choices:['Huelva','Sevilla','Córdoba','Cádiz'], description:'Selecciona una ciudad')
+        password(name:'CONTRASENIA', description:'Ingrese su contraseña')
+    }
+    environment {
+        CSA_INSTAGRAM="@csa_insta"
+    }
+    stages {
+        stage ("Saludo 1") {
+            steps {
+                echo "Hola desde Saludo 1"
+            }
+        }
+        stage ("Saludo 2") {
+            steps {
+                echo "Hola desde Saludo 2, paso 1"
+                echo "Hola desde Saludo 2, paso 2"
+            }
+        }
+        stage ("Imprimir variable de entorno") {
+            steps {
+                echo "${env.CSA_INSTAGRAM}"
+                // echo "${CSA_INSTAGRAM}" // No funciona directamente con 'echo'
+                // echo "$CSA_INSTAGRAM" // No funciona directamente con 'echo'
+                
+                sh "echo 'hola mundo'"
+                sh "echo '${env.CSA_INSTAGRAM}'"
+                sh "echo '${CSA_INSTAGRAM}'"
+                sh "echo '$CSA_INSTAGRAM'"
+            }
+        }
+        stage ("Imprimir variable de entorno definida en System") {
+            steps {
+                sh "echo '${env.JAMON}'"
+                sh "echo '${JAMON}'"
+                sh "echo '$JAMON'"
+            }
+        }
+        stage ("Cambiar valor a variable de entorno definida previamente en documento Pipeline") {
+            steps {
+                script {
+                    def temp_CSA_INSTAGRAM = "@cristobal_insta"
+                    echo "${temp_CSA_INSTAGRAM}"
+                    // Si se desea modificar la variable de entorno para etapas posteriores, use:
+                    // env.CSA_INSTAGRAM = "@cristobal_insta_modificado"
+                }
+            }
+        }
+        stage ("Imprimir parametro APELLIDO") { // CORRECCIÓN: Este stage fue movido al nivel correcto
+            steps {
+                echo "${params.APELLIDO}"
+                echo "${APELLIDO}"
+                // echo "$APELLIDO" // No funciona directamente con 'echo'
+            }
+        }
+    }
+}

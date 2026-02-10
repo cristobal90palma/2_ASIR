@@ -1,0 +1,3 @@
+---
+log_path: /tmp/techcorp_audit.txt
+audit_team: [auditor1, auditor2, auditor3]

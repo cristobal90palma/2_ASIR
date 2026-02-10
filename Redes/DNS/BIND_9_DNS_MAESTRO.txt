@@ -1,0 +1,438 @@
+X=7
+
+a.	El servidor Web (www) debe resolver la IP 10.2.7.10.
+b.	El servidor LDAP (ldap) está en la IP 10.2.7.13.
+c.	Los servidores de correo están en las IPs 10.2.7.11 y 12 (prioritario el primero) y llámalos mx1 y mx2.
+d.	El servidor que estás creando es la autoridad (autoritativo) para la zona que estás creando. (dnscsa.suarez.c) Debes dar de alta sus resoluciones directa e inversa.
+e.	Crea el alias web, para el servidor web y correo1 y correo2 para los servidores de correo.
+\\\\\\\\\\\\\\\\\
+A veces un contenedor no hace ping a nombres (DNS no va)
+Prueba si hace ping a nombre servidor DNS
+Prueba si hace ping a IP de servidor DNS
+Prueba si servidor DNS puede hacerle PING.
+Si nada más funciona. Borra contenedor y haz uno nuevo.
+
+
+\\\\\\\\\
+En los contenedores Proxmox, el hostname se modifica en el apartado DNS: En la parte de arriba.
+En el contenedor DNS maestro, en la sección DNS, debes indicar dominio e ip del contenedor.
+
+
+apt -y update && apt -y install bind9 && apt install dnsutils
+systemctl status bind9
+ls -l /etc/bind
+
+
+
+
+\\\\\\\\\ "Hacer la misma configuración que para DNS cache server, porque si no solo podrá resolver direcciones que conozca".
+
+
+/etc/bind/named.conf.options
+
+ooptions {
+        max-cache-size 256m;
+        allow-query-cache { any; };
+        allow-query { any; };
+        recursion yes;
+        directory "/var/cache/bind";
+        // If there is a firewall between you and nameservers you want
+        // to talk to, you may need to fix the firewall to allow multiple
+        // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+        // If your ISP provided one or more IP addresses for stable
+        // nameservers, you probably want to use them as forwarders.
+        // Uncomment the following block, and insert the addresses replacing
+        // the all-0's placeholder.
+
+        // forwarders {
+        //      0.0.0.0;
+        // };
+
+        //========================================================================
+        // If BIND logs error messages about the root key being expired,
+        // you will need to update your keys.  See https://www.isc.org/bind-keys
+        //========================================================================
+        dnssec-validation auto;
+        listen-on-v6 { any; };
+};
+
+
+\\\\\\\\\\\\\ Ahora debemos establecer el nombre de la zona de búsqueda directa, que será igual al nombre del dominio. Y también la zona de búsqueda inversa, que serán los tres primeros octetos de la ip puestos del reves. 
+El nombre de los archivos no sigue una norma, pero deben estar en /var/cache/bind/
+/etc/bind/named.conf.local
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Archivo para busquedas directas
+zone "suarez.c" {
+        type master;
+        file "bd.suarez.c"; // Debe estar en /var/cache/bind/
+        allow-update { none; };
+};
+
+// Archivo para busquedas inversas
+zone "7.2.10.in-addr.arpa" {
+        type master;
+        file "10.2.7.rev";
+        allow-update { none; };
+};
+
+\\\\\\\\\\\\\\\\\COMPROBACIÓN DE ARCHIVOS .CONF
+
+usa el comando name-checkconf 
+
+Ejemplo: named-checkconf /etc/bind/named.conf.options
+
+\\\\\\\Zona de búsqueda directa
+
+
+/var/cache/bind/bd.suarez.c
+
+; Archivo bd.suarez.c
+;
+; BIND data file for bd.suarez.c
+;
+$TTL 1D
+@ IN SOA dnscsa.suarez.c. root.suarez.c. (
+        2025102101 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN NS   dnscsa.suarez.c.
+
+; Correo
+
+        IN MX 10 mx1.suarez.c.
+        IN MX 20 mx2.suarez.c.
+
+; Directas
+
+dnscsa IN A 10.2.7.2
+www IN A 10.2.7.10
+mx1 IN A 10.2.7.11
+mx2 IN A 10.2.7.12
+ldap IN A 10.2.7.13
+
+; Alias o sinonimo
+web IN CNAME www
+correo1 IN CNAME mx1
+correo2 IN CNAME mx2
+
+\\\\\\\\\\\\\COMPROBACIÓN DE ARCHIVO BUSQUEDA DIRECTA
+
+name-checkzone suarez.c /var/cache/bind/bd.suarez.c
+
+Debe devolver un: zone suarez.c loaded serial:6386316391
+OK
+
+
+
+
+\\\\\\\\\\\\\Zona de busquedas inversas
+
+/var/cache/bind/10.2.7.rev
+
+;ARCHIVO DE ZONA INVERSA
+$TTL 1D
+@   IN  SOA 7.2.10.in-addr.arp. root.suarez.c. (
+        2025102101 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+       IN  NS  dnscsa.suarez.c.
+
+; Registros PTR
+2       IN  PTR dnsc.suarez.c.
+10      IN  PTR www.suarez.c.
+11      IN  PTR mx1.suarez.c.
+12      IN  PTR mx2.suarez.c.
+13      IN  PTR ldap.suarez.c.
+
+
+\\\\\\\\\\\\COMPROBACIÓN DE ARCHIVO BUSQUEDA INVERSA
+
+name-checkzone 7.2.10.in-addr-arp /var/cache/bind/10.2.7.rev
+
+Debe devolver algo como:
+zone 7.2.10.in-addr-arp/IN: loaded serial 6363816469
+OK
+\\\\\\\\\\\\\\
+
+systemctl restart bind9
+systemctl status bind9
+systemctl reload bind9
+
+\\\\\\\\\\\ ver logs
+
+cat /var/log/syslog | grep named
+journalctl -u named.service
+journalctl -u named.service | grep -i serial
+
+journalctl -u bind9
+journalctl -u bind9 -n 200 --no-pager
+tail -n 200 /var/log/syslog | grep named
+
+
+
+\\\\\\\\\\COMPROBACIÓN desde CLIENTE
+
+host "nombre del servidor"
+host "nombre dominio"
+
+host google.com
+host www.google.com
+host roa.es
+host roa.es 12
+host -t PTR 10.2.7.11
+
+dig "nombre del servidor"
+dig "nombre dominio"
+dig -t MX suarez.c + (IP: solo si no es público).
+dig -x 10.2.7.11
+
+nslookup + nombres o IPs de la zona que conozca
+nslookup -type=MX google.es + (IP: solo si no es público).
+nslookup -type=any google.es + (IP: solo si no es público).
+nslookup 10.2.7.11
+
+
+
+\\\\\\\Puertos
+sudo ss -tuln | grep 53
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+DNS Esclavo
+
+En el contenedor proxmox, en la sección DNS poner
+ dominio e IP del DNS Server maestro
+Y luego, en /etc/resolv.conf debes poner
+la ip del ESCLAVO
+\\\\\\\\\\\\\\\\\\\
+
+Instalar paquetería:
+
+apt -y update && apt -y install bind9
+apt install dnsutils
+systemctl status bind9
+ls -l /etc/bind
+
+
+EN EL SERVIDOR DNS MASTER SE PONEN EN LOS ARCHIVOS DE 
+BÚSQUEDA DIRECTA E INVERSA LA INFORMACIÓN SOBRE EL SEGUNDO SERVIDOR.
+NO HACE FALTA CREAR ESOS ARCHIVOS EN EL ESCLAVO PORQUE CUANDO
+SE SINCRONICEN, ESOS ARCHIVOS SE CREARÁN AUTOMÁTICAMENTE.
+
+
+\\\\\\\Zona de búsqueda directa
+
+
+/var/cache/bind/bd.suarez.c
+
+; Archivo bd.suarez.c
+;
+; BIND data file for bd.suarez.c
+;
+$TTL 1D
+@ IN SOA dnscsa.suarez.c. root.suarez.c. (
+        2025102201 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN NS   dnscsa.suarez.c.
+        IN NS   dnscsa07.suarez.c.
+; Correo
+
+        IN MX 10 mx1.suarez.c.
+        IN MX 20 mx2.suarez.c.
+
+; Directas
+
+dnscsa IN A 10.2.7.2
+dnscsa07 IN A 10.2.7.3
+www IN A 10.2.7.10
+mx1 IN A 10.2.7.11
+mx2 IN A 10.2.7.12
+ldap IN A 10.2.7.13
+
+; Alias o sinonimo
+web IN CNAME www
+correo1 IN CNAME mx1
+correo2 IN CNAME mx2
+
+\\\\\\\\\\\\\COMPROBACIÓN DE ARCHIVO BUSQUEDA DIRECTA
+
+name-checkzone suarez.c /var/cache/bind/bd.suarez.c
+
+Debe devolver un: zone suarez.c loaded serial:6386316391
+OK
+
+
+
+
+\\\\\\\\\\\\\Zona de busquedas inversas
+
+/var/cache/bind/10.2.7.rev
+
+;ARCHIVO DE ZONA INVERSA
+$TTL 604800
+@   IN  SOA 7.2.10.in-addr.arp. root.suarez.c. (
+        2025102201 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+       IN  NS  dnscsa.suarez.c.
+	   IN  NS  dnscsa07.suarez.c.
+
+; Registros PTR
+2       IN  PTR dnsc.suarez.c.
+3       IN  PTR dnscsa07.suarez.c.
+10      IN  PTR www.suarez.c.
+11      IN  PTR mx1.suarez.c.
+12      IN  PTR mx2.suarez.c.
+13      IN  PTR ldap.suarez.c.
+
+
+\\\\\\\\\\\\COMPROBACIÓN DE ARCHIVO BUSQUEDA INVERSA
+
+named-checkzone 7.2.10.in-addr-arp /var/cache/bind/10.2.7.rev
+
+Debe devolver algo como:
+zone 7.2.10.in-addr-arp/IN: loaded serial 6363816469
+OK
+\\\\\\\\\\\\\\
+
+
+AHORA PASAMOS AL SERVIDOR DNS ESCLAVO
+/etc/bind/named.conf.options
+
+Ponemos misma configuración que en el MASTER
+
+options {
+        max-cache-size 256m;
+        allow-query-cache { any; };
+        allow-query { any; };
+        recursion yes;
+        directory "/var/cache/bind";
+        // If there is a firewall between you and nameservers you want
+        // to talk to, you may need to fix the firewall to allow multiple
+        // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+        // If your ISP provided one or more IP addresses for stable
+        // nameservers, you probably want to use them as forwarders.
+        // Uncomment the following block, and insert the addresses replacing
+        // the all-0's placeholder.
+
+        // forwarders {
+        //      0.0.0.0;
+        // };
+
+        //========================================================================
+        // If BIND logs error messages about the root key being expired,
+        // you will need to update your keys.  See https://www.isc.org/bind-keys
+        //========================================================================
+        dnssec-validation auto;
+        listen-on-v6 { any; };
+};
+
+
+\\\\\\\\\\\
+
+
+/etc/bind/named.conf.local 
+
+// Archivo para busquedas directas
+zone "suarez.c" {
+        type slave;
+        file "bd.suarez.c"; // Debe estar en /var/cache/bind/
+        masters { 10.2.7.2; };
+        allow-notify { 10.2.7.2; };
+		
+};
+
+// Archivo para busquedas inversas
+zone "7.2.10.in-addr.arpa" {
+        type slave;
+        file "10.2.7.rev";
+        masters { 10.2.7.2; };
+        allow-notify { 10.2.7.2; };
+};
+
+\\\\\\\\\\\\\\\\\COMPROBACIÓN DE ARCHIVOS .CONF
+
+usa el comando name-checkconf 
+
+Ejemplo: named-checkconf /etc/bind/named.conf.local
+
+\\\\\\\\\\\\\\
+
+AHORA VOLVEMOS AL MASTER Y DEBEMOS PONER EN
+/etc/bind/named.conf.local
+en las opciones
+
+allow-transfer { ip_del_esclavo; };
+also-notify { ip_del_esclavo; };
+
+La ip del esclavo.
+
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+// Archivo para busquedas directas
+zone "suarez.c" {
+        type master;
+        file "bd.suarez.c"; // Debe estar en /var/cache/bind/
+        allow-transfer { 10.2.7.3; };
+        also-notify { 10.2.7.3; };
+};
+
+// Archivo para busquedas inversas
+zone "7.2.10.in-addr.arpa" {
+        type master;
+        file "10.2.7.rev";
+        allow-transfer { 10.2.7.3; };
+        also-notify { 10.2.7.3; };
+};
+
+
+
+\\\\\\\\\\
+
+named-checkconf /etc/bind/named.conf.local
+
+\\\\\\\\\\
+systemctl restart bind9
+systemctl status bind9
+systemctl reload bind9
+
+\\\\\\\\\\\
+
+ERRORES:
+
+journalctl -u named | grep errors
+
+
+QUIZÁS, HAY QUE USAR chown para darle permiso a bind9 sobre los archivos.

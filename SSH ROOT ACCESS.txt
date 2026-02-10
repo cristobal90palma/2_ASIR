@@ -1,0 +1,29 @@
+<<<<<<< HEAD
+Habilitar acceso root con ssh
+
+sudo nano /etc/ssh/sshd_config
+
+Busca la linea: PermitRootLogin yes
+
+Descomentala y ponle "yes"
+
+Guarda el archivo.
+
+Reinicia el servicio.
+
+service sshd restart
+=======
+Habilitar acceso root con ssh
+
+sudo nano /etc/ssh/sshd_config
+
+Busca la linea: PermitRootLogin yes
+
+Descomentala y ponle "yes"
+
+Guarda el archivo.
+
+Reinicia el servicio.
+
+service sshd restart
+>>>>>>> ff1b64f5cdd6090db57be66adb681c6ac9dd3098

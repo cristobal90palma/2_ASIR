@@ -1,0 +1,8 @@
+[webservers]
+node1
+node2
+node3
+
+[webservers:vars]
+ansible_password=password
+ansible_user=ansible

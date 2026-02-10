@@ -1,0 +1,10 @@
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2025-10-18 16:18:57
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2025-10-18 16:18:57 10.2.7.102 GET / - 80 - 10.8.3.7 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/141.0.0.0+Safari/537.36+Edg/141.0.0.0 - 401 2 5 327
+2025-10-18 16:20:12 10.2.7.102 GET / - 80 jperez 10.8.3.7 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/141.0.0.0+Safari/537.36+Edg/141.0.0.0 - 200 0 0 222
+2025-10-18 16:20:12 10.2.7.102 GET /favicon.ico - 80 jperez 10.8.3.7 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/141.0.0.0+Safari/537.36+Edg/141.0.0.0 http://www.suarezprivatezone.com/ 404 0 2 81
+2025-10-18 16:21:17 10.2.7.102 GET / - 80 - 10.8.3.7 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/141.0.0.0+Safari/537.36+Edg/141.0.0.0 - 401 2 5 79
+2025-10-18 16:21:45 10.2.7.102 GET / - 80 hackerpeligroso 10.8.3.7 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/141.0.0.0+Safari/537.36+Edg/141.0.0.0 - 401 1 1326 15090
+2025-10-18 16:21:52 10.2.7.102 GET / - 80 - 10.8.3.7 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/141.0.0.0+Safari/537.36+Edg/141.0.0.0 - 401 2 5 67

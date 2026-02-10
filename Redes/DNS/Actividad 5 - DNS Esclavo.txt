@@ -1,0 +1,9 @@
+Antes de nada, hay alguien con esta MAC bc:24:11:8b:2d:4d usando la 10.2.7.2
+Y eso provoca errores de conexión del cliente y el esclavo con el maestro.
+
+
+Contenedores:
+
+120703 - dnscsa Servidor Maestro 10.2.7.2
+120701 - dnscsa07 Servidor Esclavo 10.2.7.3
+120717 - dns-cliente Cliente 10.2.7.38

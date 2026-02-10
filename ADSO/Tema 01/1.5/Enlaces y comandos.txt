@@ -1,0 +1,74 @@
+sudo apt update
+sudo apt install postfix postfix-ldap dovecot-core dovecot-imapd dovecot-ldap libsasl2-modules-ldap
+
+
+sudo dpkg-reconfigure postfix
+
+
+
+sudo mkdir -p /var/mail/vhosts/SUAREZ1.abad2
+sudo chown -R vmail:vmail /var/mail/vhosts
+sudo chmod -R 770 /var/mail/vhosts
+
+
+dn: uid=marta,ou=usuarios,dc=SUAREZ1,dc=abad2
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+cn: marta
+sn: suarez
+uid: marta
+uidNumber: 100389
+gidNumber: 100389
+homeDirectory: /home/marta
+loginShell: /bin/bash
+mail: marta@SUAREZ1.abad2
+userPassword: usuario.12345
+
+
+
+
+ldapadd -x -D "cn=admin,dc=SUAREZ1,dc=abad2" -w "usuario.12345" -f usuariocorreo.ldif
+
+
+doveadm auth test marta usuario.12345
+
+
+swaks --to miguel@SUAREZ1.abad2m --from marta@SUAREZ1.abad2 --server localhost:587 --auth LOGIN --auth-user marta -auth-password usuario.12345 --tls
+
+
+
+dn: uid=miguel,ou=usuarios,dc=SUAREZ1,dc=abad2
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+cn: miguel
+sn: suarez
+uid: miguel
+uidNumber: 100390
+gidNumber: 100390
+homeDirectory: /home/miguel
+loginShell: /bin/bash
+mail: miguel@SUAREZ1.abad2
+userPassword: usuario.12345
+
+
+
+
+https://gemini.google.com/app/3ab30e85e558767d
+https://chatgpt.com/c/6900b05b-d498-8328-ae96-96323e8240ab
+
+
+dn: uid=kike,ou=usuarios,dc=SUAREZ1,dc=abad2
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+cn: kike
+sn: suarez
+uid: kike
+uidNumber: 100987
+gidNumber: 1035
+homeDirectory: /home/kike
+loginShell: /bin/bash
+mail: kike@SUAREZ1.abad2
+userPassword: usuario.12345

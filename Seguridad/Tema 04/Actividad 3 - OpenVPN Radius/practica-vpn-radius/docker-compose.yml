@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  # --- Servidor RADIUS ---
+  freeradius:
+    image: freeradius/freeradius-server:latest
+    container_name: asir_radius
+    restart: unless-stopped
+    ports:
+      - "1812:1812/udp" # Puerto de autenticación
+      - "1813:1813/udp" # Puerto de accounting
+    networks:
+      vpn_net:
+        ipv4_address: 10.5.0.5 # Le damos IP fija para no fallar en la config
+
+  # --- Pasarela VPN (OpenVPN Access Server) ---
+  openvpn-as:
+    image: openvpn/openvpn-as:latest
+    container_name: asir_pasarela
+    cap_add:
+      - NET_ADMIN # Necesario para crear interfaces de red VPN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    ports:
+      - "943:943"     # Web Admin UI
+      - "9443:9443"   # Web Client UI (TCP)
+      - "1194:1194/udp" # Tunel VPN (UDP)
+    volumes:
+      - ./config:/config
+    restart: unless-stopped
+    networks:
+      vpn_net:
+        ipv4_address: 10.5.0.6
+
+# Definimos una red propia para controlar las IPs
+networks:
+  vpn_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/24

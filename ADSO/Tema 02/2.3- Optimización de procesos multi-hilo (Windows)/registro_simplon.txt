@@ -1,0 +1,57 @@
+# ID del proceso que deseas monitorear
+$ID_del_Proceso = 5064 # ¡Reemplaza <ID_del_Proceso> con el ID real!
+
+# Ruta del archivo de log
+$Ruta_Log = '.\Log_Procesos.csv'
+
+# Número de veces que se ejecutará el bucle (30 segundos / 1 segundo de espera = 30 veces)
+$Contador_Maximo = 30
+$Contador = 0
+
+Write-Host "Iniciando el monitoreo del Proceso con ID: $ID_del_Proceso. Registrando cada segundo por 30 segundos..."
+
+# Bucle que se ejecuta 30 veces
+while ($Contador -lt $Contador_Maximo) {
+    try {
+        # 1. Obtener los datos del proceso
+        $Proceso = Get-Process -Id $ID_del_Proceso -ErrorAction Stop
+        
+        # 2. Estructura de los datos de log
+        $Datos = [PSCustomObject]@{
+            TimeStamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+            Nombre = $Proceso.Name
+            ID = $Proceso.Id
+            Prioridad = $Proceso.PriorityClass
+            CPU_Segundos = $Proceso.CPU
+            Memoria_WS_MB = ($Proceso.WS / 1MB).ToString("N2")
+            Hilos = $Proceso.Threads.Count
+            Estado = "Ejecucion" # Se registra cada segundo mientras está en ejecución
+        }
+
+        # 3. Exportar los datos al CSV
+        # El encabezado se añade solo la primera vez ($Contador -eq 0)
+        if ($Contador -eq 0 -and -not (Test-Path $Ruta_Log)) {
+            $Datos | Export-Csv -Path $Ruta_Log -NoTypeInformation -Force
+        } else {
+            $Datos | Export-Csv -Path $Ruta_Log -Append -NoTypeInformation
+        }
+        
+        Write-Host "Registro #$($Contador + 1) añadido correctamente."
+
+    } catch {
+        # **CORRECCIÓN APLICADA AQUÍ:** Uso de $($ID_del_Proceso) para evitar el ParserError
+        Write-Warning "ERROR al obtener el proceso con ID $($ID_del_Proceso): $($_.Exception.Message)"
+        # Si falla, salimos del bucle
+        break
+    }
+    
+    # 4. Aumentar el contador
+    $Contador++
+    
+    # 5. Esperar 1 segundo antes de la próxima iteración (excepto en la última)
+    if ($Contador -lt $Contador_Maximo) {
+        Start-Sleep -Seconds 1
+    }
+}
+
+Write-Host "Monitoreo de 30 segundos finalizado. Revise el archivo $Ruta_Log"
