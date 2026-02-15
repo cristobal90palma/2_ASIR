@@ -1,0 +1,156 @@
+P4: Lenguajes de guiones (RA7)
+Requisitos de finalización
+
+Analiza los scripts utilizados en la empresa o crea uno sencillo y
+ documenta su funcionamiento. Analiza el uso de guiones (scripts) 
+ para la administración del sistema operativo. En caso de que no 
+ se utilicen, crea un guion sencillo relacionado con tareas habituales
+ del sistema (realiza propuestas utiles que pueden ayudar) y documenta
+ su funcionamiento. Debarias analizar script que utilicen distintos lenguajes.
+
+TAREAS:
+
+    Identifica:
+
+        Si la empresa utiliza guiones o scripts.
+
+        Tipo de sistema operativo.
+
+        Lenguaje utilizado (PowerShell, Bash, Batch…).
+
+        Finalidad del guion (administración, mantenimiento, automatización).
+
+    Describe (analizando un script cualquiera):
+
+        La estructura general del guion:
+
+            Variables
+
+            Condiciones
+
+            Bucles (si no existen crea alguno y explica su función)
+
+        Qué hace cada parte del guion.
+
+        Qué problema resuelve en el sistema.
+
+    Elabora:
+
+        Crear un guion sencillo, por ejemplo:
+
+            Limpieza de archivos temporales
+
+            Copia de una carpeta
+
+            Comprobación de espacio en disco
+
+            Creación de estructura de carpetas
+
+        Probar su ejecución en un entorno controlado (no debe afectar a 
+		servicios criticos ni al sistema real de tu empresa).
+        Un anális de posbilidades de mejora en el uso de script y de 
+		reutilización en otras tareas.
+
+    Redacta:
+        Un informe con las posibilidades de reutilización y mejora de tu guión 
+
+        Donde explique:
+
+            En qué otros escenarios podría usarse.
+
+            Qué mejoras se podrían introducir.
+
+            Qué riesgos tendría su uso sin control.
+
+        una documentación técnica del guion, que incluya:
+
+            Ficha tecnica del script (indicando el lenguaje usado, finalidad, requisitos...)
+            Código comentado
+            Procedimiento de uso (y precauciones que hay que tener)
+
+
+
+Criterios de calificación
+Rúbrica
+Identificación de guiones	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Comprensión de la estructura de un guion	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Guión elaborado/adaptado	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Coplejidad en la estructura del guion	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Informe técnico (documentación del guion)	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Procedimientos de uso razonados	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Análisis para la reutilización	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Contextualización en la empresa	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Esquema e informe claro y con utilidad. Se valora la documentacion y la comprensión (no la complejidad)	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+

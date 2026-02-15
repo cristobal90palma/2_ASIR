@@ -1,6 +1,10 @@
+P1: Documentación de la infraestructura básica del sistema (RA1,6)
+Requisitos de finalización
 
-
-En la empresa en la que estás realizando tu formación dual, investiga y documenta la infraestructura básica de sistemas operativos utilizada e investiga cómo está implantado el servicio de directorio y documenta su estructura y funcionamiento.
+En la empresa en la que estás realizando tu formación dual, investiga y 
+documenta la infraestructura básica de sistemas operativos utilizada e 
+investiga cómo está implantado el servicio de directorio y documenta su 
+estructura y funcionamiento.
 
 TAREAS:
 
@@ -26,6 +30,75 @@ TAREAS:
     Redacta:
 
         Un documento descriptivo dirigido a un nuevo técnico que se incorpore a la empresa.
-
-
+		
+		
+		
+		
+		
+		
+Criterios de calificación
+Rúbrica
+Identificación de la infraestructura real	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Servicio de directorio	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Integración de sistemas	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Esquema de infraestructura	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Informe técnico	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Contextualización en la empresa	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Esquema e informe claro y con utilidad	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
 
