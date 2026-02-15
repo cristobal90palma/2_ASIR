@@ -1,0 +1,36 @@
+Memoria Técnica: SAD en el Entorno de Prácticas
+Extensión máxima: 5 páginas (contando enunciado)
+Objetivo: Analizar la implementación real de las políticas de seguridad en un entorno profesional y contrastarlas con los conocimientos teóricos adquiridos.
+Instrucciones
+Durante tu estancia en la empresa, deberás completar este documento analizando los puntos que se detallan a continuación.
+●	Si el punto se aplica en tu empresa: Describe cómo lo hacen (herramientas, protocolos, software, etc.).
+●	Si el punto NO se aplica: Elabora una propuesta técnica detallada sobre cómo crees que debería implementarse para mejorar la seguridad de tu centro de prácticas.
+Bloque 1: Estrategia y Perímetro de Seguridad
+1.1. La Triada de la Seguridad (RA1.a)
+Describe cómo la empresa garantiza los tres pilares fundamentales de la información:
+●	Confidencialidad: ¿Quién accede a qué?
+●	Integridad: ¿Cómo evitan que los datos sean alterados sin permiso?
+●	Disponibilidad: ¿Qué medidas hay para que el sistema no pare (Backups, SAIs, etc.)?
+1.2. Seguridad Física vs. Lógica (RA1.b)
+Identifica las diferentes medidas de seguridad que encuentras en el centro de trabajo:
+●	Física: Medidas de acceso al CPD, cámaras, cerraduras, protección contra incendios…
+●	Lógica: Antivirus, firewalls, permisos de usuario, segmentación de redes.
+1.3. Protección Perimetral (RA1.h)
+Analiza el plan de protección frente a redes públicas (Internet). ¿Existe un firewall físico? ¿Se utilizan zonas desmilitarizadas (DMZ)? ¿Cómo se gestionan las conexiones externas?
+Bloque 2: Vulnerabilidades y Factor Humano
+2.1. Gestión de Vulnerabilidades (RA1.c)
+Clasifica las principales vulnerabilidades que detectes en el sistema de la empresa según su origen (software desactualizado, falta de parches, hardware antiguo, configuración incorrecta).
+2.2. Ingeniería Social (RA1.d)
+¿Ha sufrido la empresa algún intento de phishing o fraude? ¿Existe concienciación entre los empleados? Describe qué medidas se toman para evitar que el personal caiga en engaños informáticos.
+2.3. Políticas de Contraseñas (RA1.e)
+Describe la normativa interna: longitud mínima, caducidad, uso de Doble Factor de Autenticación (2FA) y si se utiliza algún gestor de contraseñas corporativo.
+Bloque 3: Tecnologías de Protección y Respuesta
+3.1. Sistemas Biométricos (RA1.f)
+¿Se utiliza la biometría (huella, reconocimiento facial) para el acceso a las instalaciones o a los dispositivos? Si no es así, justifica si sería ventajoso implantarlo en algún área específica.
+3.2. Criptografía Aplicada (RA1.g)
+Identifica el uso de la criptografía en:
+●	Almacenamiento: ¿Se cifran los discos duros o bases de datos?
+●	Transmisión: ¿Qué protocolos se usan para el envío de datos (HTTPS, VPN, SSH, SFTP)?
+3.3. Análisis Forense e Incidentes (RA1.i)
+En caso de un ataque o brecha de seguridad, ¿conoces las fases que sigue la empresa? (Identificación, preservación de evidencias, análisis de logs, recuperación). Si no tienen un protocolo, diseña un esquema básico de respuesta ante incidentes para ellos.
+
