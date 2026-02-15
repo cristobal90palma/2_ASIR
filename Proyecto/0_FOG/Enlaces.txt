@@ -29,3 +29,15 @@ https://gemini.google.com/app/5e73a67e632cd278
 Sobre el diagrama que me mandó diego:
 
 https://gemini.google.com/app/236b219085676a1a
+
+
+
+
+Debes deshabilitar Secure Boot en equipos UEFI: Si no, se quedará pillados
+https://forum.proxmox.com/threads/proxmox8-virtual-machine-secure-boot-disabled.154645/
+
+
+
+He intentado poner dnsmasq, pero ha sido un fracaso. Dice que "nothing to boot from":
+
+https://gemini.google.com/app/93bee6632b1cd22a
