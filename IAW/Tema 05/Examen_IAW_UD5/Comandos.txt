@@ -1,0 +1,46 @@
+IAW_EXUD5_CSA
+
+
+Ejercicio 2: Todos los alumnos. Nombre y Apellidos deben aparecer en la misma  celda
+
+DNI Es un hipervinculo a la pantalla del ejericio 3.
+
+Ultima columna --> Boton eliminar.
+
+
+//////////////
+Ejercicio 3:
+
+Los mismos campos, excepto el de ciclo y el DNI. Se puestra pero no se cambia.
+
+Debajo del formulario hay que poner los datos del ciclo y de los modulos de ese ciclo. EN EL QUE ESTÁ Matriculado.
+
+
+///////////
+Ejercicio 4:
+Boton de eliminar
+Y te quedas en la misma vista. Borrado masivo (más de uno).
+
+
+
+
+
+
+Datos ALUMNO
+
+INSERT INTO `alumno` (`dni`, `nombre`, `apellidos`, `direccion`, `telefono`, `email`, `ciclo`) VALUES ('12345678W', 'Jose', 'Martinez Gutierrez', 'Calle Lerida 26', '123456789', 'pepe1997@gmail.com', 'DAM');
+
+
+Datos ciclo:
+INSERT INTO `ciclo` (`siglas`, `nombre`, `grado`, `año`) VALUES ('DAM', 'Desarrollo de Aplicaciones Multiplataforma', 'superior', '2008');
+
+
+Datos modulo:
+
+INSERT INTO `modulo` (`idmodulo`, `nombre`, `curso`, `horas_semana`, `ciclo`) VALUES ('1', 'Implantacion de Aplicaciones Web', '2º ASIR', '4', 'ASIR');
+INSERT INTO `modulo` (`idmodulo`, `nombre`, `curso`, `horas_semana`, `ciclo`) VALUES ('2', 'Servicios de Red e Internet', '2º ASIR', '5', 'ASIR');
+INSERT INTO `modulo` (`idmodulo`, `nombre`, `curso`, `horas_semana`, `ciclo`) VALUES ('3', 'Administración de Sistemas Gestores de Bases de Datos', '2º ASIR', '4', 'ASIR');
+
+INSERT INTO `modulo` (`idmodulo`, `nombre`, `curso`, `horas_semana`, `ciclo`) VALUES ('4', 'Acceso a Datos', '2º DAM', '5', 'DAM');
+INSERT INTO `modulo` (`idmodulo`, `nombre`, `curso`, `horas_semana`, `ciclo`) VALUES ('5', 'Sistemas de gestión empresarial', '2º DAM', '6', 'DAM');
+INSERT INTO `modulo` (`idmodulo`, `nombre`, `curso`, `horas_semana`, `ciclo`) VALUES ('6', 'Programación multimedia y dispositivos móviles', '2º DAM', '4', 'DAM');

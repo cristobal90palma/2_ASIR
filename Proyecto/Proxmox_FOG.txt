@@ -1,0 +1,104 @@
+ What version of Linux would you like to run the installation for?
+
+          1) Redhat Based Linux (Redhat, Alma, Rocky, CentOS, Mageia)
+          2) Debian Based Linux (Debian, Ubuntu, Kubuntu, Edubuntu)
+          3) Arch Linux
+
+  Choice: [2] 2
+
+
+
+  Starting Debian based Installation
+
+
+  FOG Server installation modes:
+      * Normal Server: (Choice N)
+          This is the typical installation type and
+          will install all FOG components for you on this
+          machine.  Pick this option if you are unsure what to pick.
+
+      * Storage Node: (Choice S)
+          This install mode will only install the software required
+          to make this server act as a node in a storage group
+
+  More information:
+     http://www.fogproject.org/wiki/index.php?title=InstallationModes
+
+  What type of installation would you like to do? [N/s (Normal/Storage)] Normal
+
+  We found the following interfaces on your system:
+      * ens18 - 10.2.7.5/24
+
+Would you like to change the default network interface from ens18? NO
+
+Would you like to setup a router address for the DHCP server? [Y/n] YES (En esta LAN ya hay un Servidor DHCP, tenemos que especificar su ruta)
+
+Normalmente lo "adivina" y te pregunta si es el correcto. Puedes especificarlo: 10.2.7.1
+
+Would you like DHCP to handle DNS? NO(Creo que aquí la respuesta no importa si luego le decimos que no queremos usar FOG como servidor DHCP)
+
+
+Would you like to use the FOG server for dhcp service? [Y/n] n
+No. DHCP addresses will be provided by the infrastructure's DHCP server. Having multiple DHCP servers on a single network causes a race condition for the clients, and potentially conflicting IP addresses if they are issuing out addresses within the same range.
+
+
+This version of FOG has internationalization support, would you like to install the additional language packs? [Y/n]
+Choose Yes if you'd like to install additional languages
+
+
+Cambiamos el hostname: fogserver_proxmox
+
+
+
+
+ Are you ok with sending this information? [Y/n] y
+
+   ######################################################################
+   #     FOG now has everything it needs for this setup, but please     #
+   #   understand that this script will overwrite any setting you may   #
+   #   have setup for services like DHCP, apache, pxe, tftp, and NFS.   #
+   ######################################################################
+   # It is not recommended that you install this on a production system #
+   #        as this script modifies many of your system settings.       #
+   ######################################################################
+   #             This script should be run by the root user.            #
+   #      It will prepend the running with sudo if root is not set      #
+   ######################################################################
+   #            Please see our wiki for more information at:            #
+   ######################################################################
+   #             https://wiki.fogproject.org/wiki/index.php             #
+   ######################################################################
+   #                    or our new documentation at:                    #
+   ######################################################################
+   #               https://docs.fogproject.org/en/latest/               #
+   ######################################################################
+
+ * Here are the settings FOG will use:
+ * Base Linux: Debian
+ * Detected Linux Distribution: Ubuntu
+ * Interface: ens18
+ * Server IP Address: 10.2.7.5
+ * Server Subnet Mask: 255.255.255.0
+ * Hostname: fogserver_proxmox
+ * Installation Type: Normal Server
+ * Internationalization: No
+ * Image Storage Location: /images
+ * Using FOG DHCP: No
+ * DHCP will NOT be setup but you must setup your
+ | current DHCP server to use FOG for PXE services.
+
+ * On a Linux DHCP server you must set: next-server and filename
+
+ * On a Windows DHCP server you must set options 066 and 067
+
+ * Option 066/next-server is the IP of the FOG Server: (e.g. 10.2.7.5)
+ * Option 067/filename is the bootfile: (e.g. undionly.kkpxe or snponly.efi)
+ * Send OS Name, OS Version, and FOG Version: Yes
+ 
+ 
+ * You still need to install/update your database schema.
+ * This can be done by opening a web browser and going to:
+
+   http://10.2.7.5/fog/management
+ 
+ 

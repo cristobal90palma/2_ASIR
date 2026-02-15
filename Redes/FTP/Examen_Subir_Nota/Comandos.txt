@@ -1,0 +1,70 @@
+sudo useradd -m -s /usr/sbin/nologin csa
+sudo passwd csa
+
+
+
+ftpasswd --group --name=ninjas --file=/etc/proftpd/ftpd.group --gid=2001
+
+\\\\\ crea la carpeta y dale los permisos
+mkdir -p /srv/ninjas
+chown 2001:2001 /srv/ninjas
+chmod 770 /srv/ninjas
+
+ftpasswd --passwd --name=naruto --uid=2001 --gid=2001 --home=/srv/ninjas --shell=/bin/false --file=/etc/proftpd/ftpd.passwd
+
+
+Habilita el acceso anónimo asociado al usuario sasuke, sirviendo la carpeta /srv/anon. 
+Oculta la carpeta stars. Los archivos de root deben quedar ocultos.
+
+useradd -d /srv/anon -s /bin/false sasuke
+mkdir -p /srv/anon/stars
+
+--- dale los permisos a tal usuario.
+chown -R sasuke:sasuke /srv/anon
+
+
+
+
+---crear hinata
+adduser hinata
+
+----crear tablas
+ftpquota --create-table --type=limit --table-path=/etc/proftpd/ftpquota.limittab
+ftpquota --create-table --type=tally --table-path=/etc/proftpd/ftpquota.tallytab
+
+-- asignar reglas al usuario
+ftpquota --add-record --type=limit --name=hinata --quota-type=user --bytes-upload=26843545600 --bytes-download=107374182400 --files-upload=25 --files-download=100 --table-path=/etc/proftpd/ftpquota.limittab
+
+
+
+TransferLog /var/log/proftpd/2asirfptservertransferlog
+SystemLog /var/log/proftpd/2asirftpserversystemlog.log
+
+
+
+lftp -u hinata 10.2.7.121
+set ssl:verify-certificate no
+
+Sólo acceso anónimo asociado a usuario uzumaki, carpeta de acceso de anónimo /srv/uzumaki.
+
+    <Anonymous /srv/uzumaki>
+        User uzumaki
+        Group nogroup
+        UserAlias anonymous uzumaki
+
+
+    </Anonymous>
+	
+	
+
+mkdir -p /srv/uzumaki/pool
+chown uzumaki:nogroup /srv/uzumaki/pool
+
+<Directory /srv/uzumaki/pool>
+    <Limit STOR>
+        AllowAll
+    </Limit>
+</Directory>
+
+TransferLog             /var/log/proftpd/transfer.ftp.naru.to
+ServerLog               /var/log/proftpd/ftp.naru.to.sys.log

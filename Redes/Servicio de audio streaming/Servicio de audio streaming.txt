@@ -341,8 +341,8 @@ Crear catalogo (Pantallazos)
 
 
 \\\\\\\\\\\\\\\\\\\\\\\\\\\ºº AZURACAST
-
-
+https://100.24.225.67/dashboard
+ssh -i labuser.pem ubuntu@100.24.225.67
 IP elastica: 100.24.225.67
 
 apt update && apt install docker.io -y && apt install docker-compose-v2 -y
@@ -492,3 +492,29 @@ https://ampache.org/docs/help/upload-catalogs
 
 
 Filezilla https://stackoverflow.com/questions/16744863/connect-to-amazon-ec2-file-directory-using-filezilla-and-sftp
+
+
+
+
+Activar "log".
+
+/ampache/data/config/ampache.cfg.ph
+
+
+; Debug
+; If this is enabled Ampache will write debugging information to the log file
+; DEFAULT: "false"
+debug = "true"
+
+
+; Debug Level
+; This should always be set in conjunction with the
+; debug option, it defines how prolific you want the
+; debugging in Ampache to be. values are 1-5.
+; 1 == Basic Errors
+; 2 == Errors + Failures (login attempts etc.)
+; 3 == Full Error Information
+; 4 == General Information
+; 5 == Full Information (cataloging progress etc.)
+; DEFAULT: 5
+debug_level = 5

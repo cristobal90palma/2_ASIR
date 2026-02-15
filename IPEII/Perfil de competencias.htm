@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html xml:lang="es" lang="es"><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=IE7">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="Perfil de competencias">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Perfil de competencias</title>
+    
+    <script src="Perfil%20de%20competencias_files/jquery-1.12.4.min.js"></script>
+    <script src="Perfil%20de%20competencias_files/bootstrap.min.js"></script>
+    <script src="Perfil%20de%20competencias_files/cuestionariosEF.js" type="text/javascript"></script>
+    <script src="Perfil%20de%20competencias_files/captcha.js" type="text/javascript"></script>
+
+
+    
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/style_002.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/fonts.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/all.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/components.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/menu.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/style.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/base.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/stylesEF.css" media="all">
+    <link rel="stylesheet" href="Perfil%20de%20competencias_files/ENCUESTAS-style.css" media="all">
+
+            
+    <script> 
+        if (getCookie('cookie_consent_analysis') == 'true')
+        {
+<!-- Google Analytics -->
+	<!-- El id de GA no se utiliza en entornos no productivos ni en el Author de Producción. -->
+  var metaTag = document.createElement('meta');        
+  metaTag.name = 'google-site-verification';        
+  metaTag.content = 'HEc8abJdv2Pbf_DuL_awfqTHSWm_zM02iAHP7-e3NKs';        
+  document.head.appendChild(metaTag);
+  
+<!-- Google Tag Manager -->
+  <!-- El id de GTagMan no se utiliza en entornos no productivos ni en el Author de Producción. -->
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K9554T8');
+<!-- End Google Tag Manager -->
+<!-- Clarity -->
+  
+	  (function(c,l,a,r,i,t,y){
+		c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+		t=l.createElement(r);
+		t.async=1;
+		t.src="https://www.clarity.ms/tag/"+i;
+		y=l.getElementsByTagName(r)[0];
+		y.parentNode.insertBefore(t,y);
+	  })
+	  (window, document, "clarity", "script", "bmeo4qi85f");
+  
+<!-- end Clarity -->
+
+        }
+    </script>
+
+
+  </head>
+  <body>
+<script>
+  $(document).ready(function () {
+	    includeContent("/HomeSepe/inc_cabecera_encuestas", "div.se-layout--head");
+  });
+</script>
+
+<div class="se-layout--head">
+<div class="se-head-wrapper">
+    <header class="se-head-container">
+        <div class="se-header">
+            <div class="se-logo">
+
+
+
+
+
+		<h1 class="se-logo--head">
+		  <a class="se-logo--lnk" href="https://www.sepe.es/HomeSepe/" lang="es">
+			<img class="se-logo--img" src="Perfil%20de%20competencias_files/SEPE_web_cas.svg" alt="Servicio Público de Empleo Estatal, Ministerio de Trabajo y Economía Social, Gobierno de España">
+		  </a>
+		</h1>
+		<a class="se-logo--lnk2" href="https://www.mdsocialesa2030.gob.es/agenda2030/index.htm" target="_blank">
+			<img lang="es" class="se-logo--img2" src="Perfil%20de%20competencias_files/agenda30.jpg" alt="Agenda 2030">
+		</a>
+            </div>
+        </div>
+
+        
+
+        <div class="se-headnav">
+            
+		
+
+            <div class="se-headnav--aside">
+	    	<a class="se-btn-main se-headnav--cita" href="https://sede.sepe.gob.es/portalSede/procedimientos-y-servicios/personas/proteccion-por-desempleo/cita-previa.html">Cita Previa</a>
+                    <a class="se-btn-main se-headnav--sede" href="https://sede.sepe.gob.es/portalSede">Sede electrónica</a>
+
+                
+                    <a class="se-headnav--mainitem__srch" aria-expanded="false" aria-label="Buscador" id="btnSearch" href="https://www.sepe.es/HomeSepe/buscador-solr.html"></a>
+                
+            </div>
+        </div><!-- End .se-headnav-->
+    </header>
+</div><!-- End .se-head-wrapper-->
+<!--Modal menu-->
+
+
+
+
+<!-- End Modal menu-->
+
+<!--Modal search-->
+<!--simple search-->
+<div class="se-simple-pagesch">
+  <form action="/HomeSepe/buscador-solr.html" class="navbar-form" role="search">
+    <div class="se-pagesch--wrap">
+      <input aria-label="Buscar" id="nav-search" type="text" name="queryStr" class="se-pagesch--txt" placeholder="Encuentra la información que necesitas">
+      <input id="tipo_pag" type="hidden" name="tipo_pag" value="on">
+      <input id="tipo_not" type="hidden" name="tipo_not" value="on">
+      <input id="tipo_doc" type="hidden" name="tipo_doc" value="on">
+      <button class="se-pagesch--sbmt" aria-label="Buscar" type="submit"></button>
+    </div>
+    <a class="se-btn-main se-pagesch--adv" href="https://www.sepe.es/HomeSepe/buscador-solr.html"><span>Búsqueda Avanzada</span></a>
+  </form>
+</div>
+<!--/simple search-->
+</div>
+
+<script>
+$(document).ready(function(){ 
+	//script para decodificar el pie
+	$("a.se-footer--seclnk, p.se-footer--maintxt").each(function(){
+	try {
+	var texto = decodeURIComponent(escape($(this).text()));
+	$(this).text(texto);
+	} catch (error) {
+		}
+	});
+
+	$("p.se-footer--rightxt").each(function(){
+	try {
+		var texto = decodeURIComponent(escape($(this).text()));
+		$(this).text(texto);
+		} catch (error) {
+		}
+	});
+
+//script para decodificar la cabecera
+	$("li a.se-headnav--mainlnk, .se-headnav--aside a.se-btn-main , select.se-headnav--lang-sel option").each(function(){
+	try {
+	var texto = decodeURIComponent(escape($(this).text()));
+	$(this).text(texto);
+	} catch (error) {
+	}
+	});			
+	
+	//script para decodificar el menu		
+	$("div.se-navigation--list a.se-navigation--lnk, div.se-navigation--list a.se-navigation--sublnk").each(function(){
+	try {
+		var texto = decodeURIComponent(escape($(this).text()));
+		$(this).text(texto);
+		} catch (error) {
+		}
+	});
+});
+</script>
+    <main class="wrapper-3">
+      <div class="franja"></div>
+      <div class="container">
+        <div class="row">
+          <div class="contenidoCentralUnaColumna col-12">
+            <section class="container-fluid center">
+
+
+<div>
+    <div>
+        <h1 class="">Tu perfil competencial</h1>
+    </div>
+    <div>
+        <h2 class="">
+            Resumen del Perfil
+        </h2>
+    </div>
+    <table class="perfil-competencias">
+        <tbody><tr>
+            <th>GRUPO DE COMPETENCIAS</th>
+            <th>COMPETENCIA</th>
+            <th colspan="3">Nivel elemental</th>
+            <th colspan="3">Nivel intermedio</th>
+            <th colspan="2">Nivel avanzado</th>
+            <th colspan="2">Nivel superior</th>
+        </tr>
+        <tr>
+            <td rowspan="4">
+                Capacidades y competencias y de razonamiento
+            </td>
+            <td>
+                <span class="comp-cell">
+                    Procesar información, ideas y conceptos
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="false">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Planificar y organizar
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="false">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Lidiar con problemas
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="false">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Pensar de manera creativa e innovadora
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="false">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <th colspan="12">
+                <p></p>
+            </th>
+        </tr>
+        <tr>
+            <td rowspan="4">
+                Capacidades y competencias y de autogestión
+            </td>
+            <td>
+                <span class="comp-cell">
+                    Trabajar de manera eficiente
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="false">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Adoptar un enfoque proactivo
+                    <span class="result-data">
+                        <span>5</span>
+                    </span>
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="false">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Mantener una actitud positiva
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="false">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Mostrar voluntad de aprender
+                    <span class="result-data">
+                        <span>7</span>
+                    </span>
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="false">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <th colspan="12">
+                <p></p>
+            </th>
+        </tr>
+        <tr>
+            <td rowspan="5">
+                Capacidades y competencias sociales y de comunicación
+            </td>
+            <td>
+                <span class="comp-cell">
+                    Comunicarse
+                    <span class="result-data">
+                        <span>6</span>
+                    </span>
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="false">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Ayudar a otras personas
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="false">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Colaborar en equipos y redes
+                    <span class="result-data">
+                        <span>6</span>
+                    </span>
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="false">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Dirigir a otras personas
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="false">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="true">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="comp-cell">
+                    Respetar el código ético de conducta
+                </span>
+            </td>
+            <td class="td-level" aria-hidden="true">0</td>
+            <td class="td-level" aria-hidden="true">1</td>
+            <td class="td-level" aria-hidden="true">2</td>
+            <td class="td-level" aria-hidden="true">3</td>
+            <td class="td-level" aria-hidden="true">4</td>
+            <td class="td-level" aria-hidden="true">5</td>
+            <td class="td-level" aria-hidden="true">6</td>
+            <td class="td-level" aria-hidden="true">7</td>
+            <td class="td-level" aria-hidden="false">8</td>
+            <td class="td-level" aria-hidden="true">9</td>
+        </tr>
+        <tr>
+            <th colspan="12">
+                <p></p>
+            </th>
+        </tr>
+    </tbody></table>
+</div>
+<div class="se-intmain--txtcont">
+            <p>Este es tu perfil individual en referencia a las 
+respuestas dadas al Cuestionario de Autodiagnóstico en Competencias 
+Personales (ComPersonal). Las competencias personales que se han 
+evaluado forman parte del grupo de Competencias Transversales definidas 
+por la Unión Europea en el Modelo ESCO.</p>
+
+<p>La Clasificación ESCO divide las Competencias Transversales en seis subgrupos:</p>
+
+<p>T1 Competencias Básicas.</p>
+
+<p>T2 Competencias de razonamiento.</p>
+
+<p>T3 Competencias de Autogestión.</p>
+
+<p>T4 Competencias Sociales y de Comunicación.</p>
+
+<p>T5 Competencias Físicas y Manuales.</p>
+
+<p>T6 Competencias para la Vida.</p>
+
+<p>&nbsp;</p>
+
+<p>Después de haber analizado cuales son las competencias que se exigen 
+en un gran número de ofertas de empleo, se han seleccionado tres de 
+estos subgrupos: T2, T3 y T4. Como puedes ver, las Competencias 
+Personales Transversales son aquellas capacidades, habilidades y 
+actitudes necesarias para desempeñar una amplia gama de ocupaciones en 
+diversos sectores económicos. Suelen denominarse también habilidades 
+básicas, soft skills, core skills y constituyen la piedra angular para 
+el desarrollo personal y laboral de las personas. Además, son la base 
+necesaria para el desarrollo posterior de las habilidades y competencias
+ denominadas técnicas o profesionales, imprescindibles para tener éxito 
+en el mercado laboral en las ocupaciones específicas que cada persona 
+vaya desarrollando en su vida laboral. Por ello consideramos que 
+disponer de un nivel alto de dominio de estas competencias puede 
+favorecer tu incorporación o mantenimiento en un empleo de calidad y 
+contribuir a tu progresión profesional.</p>
+
+<p>Las competencias señaladas con una estrella amarilla son las más 
+solicitadas por las empresas en las ofertas estudiadas. Es importante 
+que desarrolles todas las competencias de este cuestionario y 
+especialmente las marcadas por la estrella:&nbsp;</p>
+
+<p>T32 Adoptar un enfoque proactivo,</p>
+
+<p>T34 Mostrar voluntad de aprender,</p>
+
+<p>T41 Comunicarse</p>
+
+<p>T43 Colaborar en equipos y redes&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Analiza tu perfil y, si al comprobar tus puntuaciones percibes que 
+puedes mejorar en alguna de tus competencias personales, te recomendamos
+ que acudas con tus resultados a un servicio de orientación profesional o
+ te propongas realizar alguna formación sobre las mismas.</p>
+
+</div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+<script>
+  $(document).ready(function () {
+        includeContent("/HomeSepe/inc_pie", "div.se-layout--foot");
+  });
+</script>
+
+<div class="se-layout--foot">
+   <footer class="se-footer">      
+      <div class="se-footer--main">
+      <a class="se-anchor-top js-anchor" href="#" title="Inicio de la página" aria-label="Inicio de la página"></a>
+         <div class="se-footermain--container">
+            <ul class="se-footer--mainlst ">
+<li class="se-footer--mainitem">
+  <p class="se-footer--maintxt">Qué es el SEPE</p>
+  <ul class="se-footer--seclst">
+
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/que-es-el-sepe/que-es-el-sepe-conocenos.html">Conócenos</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/que-es-el-sepe/comunicacion-institucional.html">Comunicación Institucional</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/que-es-observatorio.html">El Observatorio de las Ocupaciones</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/que-es-el-sepe/estadisticas.html">Estadísticas</a>
+</li>  </ul>
+</li><li class="se-footer--mainitem">
+  <p class="se-footer--maintxt">Más Información</p>
+  <ul class="se-footer--seclst">
+
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/que-es-el-sepe/Red-de-oficinas.html">Buscador de oficinas</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/Glosario.html">Glosario</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/preguntas-frecuentes.html">Preguntas Frecuentes</a>
+</li>  </ul>
+</li><li class="se-footer--mainitem">
+  <p class="se-footer--maintxt">Enlaces de interés</p>
+  <ul class="se-footer--seclst">
+
+
+
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.mites.gob.es/" target="_blank">MInisterio de Trabajo y Economía Social</a>
+</li>
+
+
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.empleate.gob.es/" target="_blank">Empléate</a>
+</li>
+
+
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.fundae.es/" target="_blank">Fundae</a>
+</li>  </ul>
+</li>	
+
+
+
+
+<li class="se-footer--contact">
+  <ul>
+    <li class="se-footer--mainitem">
+      <p class="se-footer--maintxt">Contáctanos</p>
+      <ul class="se-footer--seclst">
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__onln" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/Atencion-online.html" title="Online" arial-label="Online"><span>Online</span></a>
+        </li>
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__tlf" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/atencion-telefonica.html" title="Teléfono" arial-label="Teléfono"><span>Teléfono</span></a>
+        </li>
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__reg" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/Registro-General.html" title="Registro General SS.CC" arial-label="Registro General (SS.CC Madrid)"><span>Registro General SS.CC</span></a>
+        </li>        
+      </ul>
+    </li>
+    <li class="se-footer--mainitem">
+      <p class="se-footer--maintxt">Síguenos</p>
+      <ul class="se-footer--seclst">
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__fb" href="https://www.facebook.com/SEPE.EMPLEO" target="_blank" title="Facebook" arial-label="Facebook"><span>Facebook</span></a>
+        </li>
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__tw" href="https://twitter.com/empleo_sepe" target="_blank" title="Twiter" arial-label="Twitter"><span>Twitter</span></a>
+        </li>
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__lin" href="https://www.linkedin.com/company/servicio-publico-de-empleo-estatal" target="_blank" title="LinkedIn" arial-label=""><span>Linkedin</span></a>
+        </li>
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__yt" href="https://www.youtube.com/c/SEPEServicioPublicoEmpleoEstatal" target="_blank" title="YouTube" arial-label="Youtube"><span>Youtube</span></a>
+        </li>
+        <li class="se-footer--secitem">
+            <a class="se-footer--seclnk se-footer--seclnk__rss" href="https://www.sepe.es/HomeSepe/rssgen/RSSServlet?namePage=inc_pie?&amp;param1=HomeSepe" target="_blank" title="RSS" arial-label="RRSS"><span>RRSS</span></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+            </ul>
+			<div class="se-footer-bottom">
+			<div class="se-footer--img">
+				<a href="https://generaciond.gob.es/" title="Gneracion D" aria-label="Generacion D" target="_blank">
+				   <img src="Perfil%20de%20competencias_files/cintilloGD.svg" alt="imagen generacion D">
+				</a>
+			</div>
+			<ul class="se-footer--helplst">
+
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/politica-cookies.html">Política de cookies</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/politica-privacidad.html">Política de privacidad</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/aviso-legal.html">Aviso Legal</a>
+</li>
+<li class="se-footer--secitem">
+		<a class="se-footer--seclnk" href="https://www.sepe.es/HomeSepe/mas-informacion-contacto/accesibilidad.html">Accesibilidad</a>
+</li>			</ul>				
+			</div>
+         </div>
+      </div>
+      <div class="se-footer--rights">
+         <div class="se-footrights--container">
+               <p class="se-footer--rightxt">Todos los derechos reservados - 2023 SEPE Servicio Público de Empleo Estatal</p>
+            <span class="se-footer--wai">
+               <img src="Perfil%20de%20competencias_files/wcag2.1AA-v.png" alt="W3C WAI-AA WCAG 2.1">
+            </span>
+         </div>
+      </div>
+   </footer>
+</div>
+
+  
+
+</body></html>

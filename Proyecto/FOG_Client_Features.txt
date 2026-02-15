@@ -1,0 +1,17 @@
+https://community.spiceworks.com/t/fog-client-do-i-need-it/496443/4
+
+The client allows the host to automatically:
+
+    Auto logout – Enables auto logout of users if inactive for specified period of time. 5 minute’s is the minimum time as all others are way too soon, sometimes people may just be on a phone, or had to step out for a bathroom break.
+    Client Updater – (Only on legacy clients) Allows the client to update it’s modules if you had to customize things, or found a more recent build was needed for your environment.
+    Directory Cleaner – (Only on legacy clients – Only worked with Windows XP) Enables the client to remove directories on the host automatically. It lost operation after Windows XP due to UAC controls and better security mechanisms especially needed. Removed completely from the New client.
+    Display Manager – (Legacy clients and at least through 0.9.12 of the new client, might come back if the need is strong enough though you can achieve the same results using a snap in.) Enables the client to adjust the resolution of the system on a per system basis, or global basis.
+    Green FOG – Allows you to specify a shutdown and/or Restart for hosts. These are scheduled on 24 hour time blocks. You schedule the time and action you want to take at that time. The client will schedule what you need for those times.
+    Host Registration – Registers additional mac addresses to a pre-existing host if registered. The New client will also register the host under a pending status if the host is not already registered.
+    Hostname Changer – Changes the hostname and joins the domain automatically.
+    Printer Manager – Manages Printers for the host. Legacy client only added printer or added/removed printers. The No management for both new and legacy simply does nothing. Will remove all printers under Add/Remove type and only add back the printers as needed (Only Assigned Printers). Under Add Only (now FOG Managed Printers) only manages printers that are listed under the printer’s GUI and those that are assigned to that host. In legacy client, it only added printers and never removed. Under the new client, it will ONLY manage printers assigned meaning if you remove a printer from a host, the new client will remove that printer.
+    Snapins – Allows you to install programs or run scripts on the host similar to GPO or PDQDeploy.
+    Task Reboot – This will just check if the client is in a tasking (other than a snapin tasking). If it is in a tasking, and the module is enabled, the host will be told to reboot. There is a third portion though in that if the user is logged in, and enforce is not enabled nothing will happen.
+    User Cleanup – (Legacy clients only and again only on Windows XP). Works similar to Directory Cleanup but the entries you make are “safe” user profiles. If the user is not under this listing, it will be deleted. Will not work with the new client, and even legacy clients will not work on anything beyond Windows XP due to UAC and Interactive Service utilities.
+    User Tracker – Just tracks who logs in/out of a client.
+    Do you need it no. You can still use the unattend.xml file to connect the target computer to AD. The FOG client just provides a convenient way to manage the target computers.

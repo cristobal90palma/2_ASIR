@@ -1,0 +1,97 @@
+Crea el repositorio en github y crea un token para el repositorio. guardalo.
+
+Ahora, en la máquina con el proyecto, crea un directorio donde pondrás todas las carpetas y archivos ordenados
+
+sudo mkdir -p /opt/proyectos/prosody-config-practica
+sudo chown -R $USER:$USER /opt/proyectos/prosody-config-practica
+cd /opt/proyectos/prosody-config-practica
+
+
+
+Inicializar repositorio Git
+git init
+
+Crear estructura que imita el sistema
+mkdir -p etc/prosody
+mkdir -p usr/lib/prosody
+
+
+Copiar los archivos reales al repositorio
+cp -r /etc/prosody/* etc/prosody/
+cp -r /usr/lib/prosody/* usr/lib/prosody/
+
+
+Crear .gitignore (OBLIGATORIO)
+nano .gitignore
+
+
+Contenido recomendado:
+
+# Prosody
+accounts/
+certs/
+*.key
+*.crt
+*.pem
+*.pid
+*.log
+*.db
+*.sqlite
+
+
+Guarda y cierra.
+
+
+Crear README.md
+nano README.md
+
+
+Contenido mínimo:
+
+# Prosody XMPP - Práctica de clase
+
+Este repositorio contiene la configuración de Prosody XMPP
+para una práctica académica.
+
+## Estructura
+Los archivos reproducen la estructura real del sistema Linux:
+
+- /etc/prosody
+- /usr/lib/prosody/modules
+
+## Despliegue
+Los archivos deben copiarse a sus rutas originales
+en un sistema con Prosody instalado.
+
+
+
+Primer commit
+git add .
+git status
+git commit -m "Configuración inicial de Prosody para práctica"
+
+
+
+Crear repositorio remoto (GitHub o GitLab)
+
+Conectar repo local con remoto
+git branch -M main
+git remote add origin https://github.com/usuario/prosody-config-practica.git
+
+git remote -v
+
+
+Subir el commit (PUSH)
+git push -u origin main
+
+
+Cambios posteriores (muy importante)
+
+Cada vez que modifiques Prosody:
+
+rsync -av /etc/prosody/ etc/prosody/
+rsync -av /usr/lib/prosody/modules/ usr/lib/prosody/modules/
+
+git status
+git commit -am "Actualización configuración Prosody"
+git push

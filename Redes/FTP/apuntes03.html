@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuración ProFTPD - LXC Proxmox</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background-color: #1a1a1a; color: #e0e0e0; padding: 25px; line-height: 1.4; }
+        .main-header { color: #f1c40f; text-align: center; border: 2px double #f1c40f; padding: 10px; margin-bottom: 30px; }
+        .section { margin-bottom: 35px; border-left: 4px solid #3498db; padding-left: 15px; }
+        .section-title { color: #3498db; font-weight: bold; font-size: 1.2em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        pre { background-color: #262626; padding: 15px; border-radius: 4px; border: 1px solid #444; overflow-x: auto; white-space: pre-wrap; }
+        code { color: #5ef7ab; }
+        .comment { color: #888888; font-style: italic; }
+        .file-path { color: #e74c3c; font-weight: bold; }
+        .note { background-color: #3d3d00; padding: 10px; border: 1px solid #ffff00; color: #ffffcc; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<div class="main-header">
+    EXAMEN PROFTPD: CONFIGURACIONES LXC Y SERVIDOR VIRTUAL
+</div>
+
+<div class="section">
+    <span class="section-title">Consideraciones para el caso del examen (LXC Proxmox)</span>
+    <p>Configurar acceso remoto para ROOT:</p>
+    <span class="file-path">nano /etc/ssh/sshd_config</span>
+    <pre><code>Descomentamos y ponemos:
+PermitRootLogin yes
+
+<span class="comment"># Reiniciar servicio</span>
+systemctl restart sshd
+systemctl status sshd</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Instalar proFTPd</span>
+    <pre><code>apt update && apt install proftpd -y
+
+<span class="comment"># Comprobar status:</span>
+systemctl status proftpd
+journalctl -u proftpd</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Crear usuario sin login</span>
+    <pre><code>sudo useradd -m -s /usr/sbin/nologin suarez
+sudo passwd suarez
+
+<span class="comment"># En /etc/proftpd/proftpd.conf descomenta:</span>
+RequireValidShell off</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Usuario Virtual Lobezno y Grupo Xmen</span>
+    <pre><code>ftpasswd --group --name=xmen --file=/etc/proftpd/ftpd.group --gid=2001
+
+<span class="comment"># Crear carpeta y permisos</span>
+mkdir -p /srv/xmen
+chown 2001:2001 /srv/xmen
+chmod 770 /srv/xmen
+
+ftpasswd --passwd --name=lobezno --uid=2001 --gid=2001 --home=/srv/xmen --shell=/bin/false --file=/etc/proftpd/ftpd.passwd
+
+<span class="comment"># Cargar módulo de autenticación en proftpd.conf</span>
+&lt;IfModule mod_auth_file.c&gt;
+  AuthOrder mod_auth_file.c mod_auth_unix.c
+  AuthUserFile /etc/proftpd/ftpd.passwd
+  AuthGroupFile /etc/proftpd/ftpd.group
+&lt;/IfModule&gt;</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Enjaulamiento (DefaultRoot)</span>
+    <pre><code><span class="comment"># Enjaular a todos por defecto</span>
+DefaultRoot ~
+
+<span class="comment"># Usuarios de xmen a su carpeta específica</span>
+DefaultRoot /srv/xmen xmen</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Bloqueo de Usuarios y Grupos</span>
+    <pre><code><span class="comment"># En proftpd.conf</span>
+&lt;Limit LOGIN&gt;
+    DenyUser magneto
+    DenyUser mistica
+    DenyGroup villanos
+&lt;/Limit&gt;</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Modo Pasivo y Logs Personalizados</span>
+    <pre><code>&lt;Limit EPRT PORT&gt;
+    DenyAll
+&lt;/Limit&gt;
+PassivePorts            49152 49200
+
+TransferLog             /var/log/proftpd/transferftpdlog
+SystemLog               /var/log/proftpd/proprapruftpd.log</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Acceso Anónimo (ProfesorX)</span>
+    <pre><code>useradd -d /srv/px -s /bin/false profesorx
+mkdir -p /srv/px/secrets
+chown -R profesorx:profesorx /srv/px
+
+<span class="comment"># Configuración en proftpd.conf</span>
+&lt;Anonymous /srv/px&gt;
+    User                 profesorx
+    Group                nogroup
+    UserAlias            anonymous profesorx
+    HideUser             root
+    RequireValidShell    off
+
+    &lt;Directory secrets&gt;
+        HideFiles        .*
+        &lt;Limit ALL&gt;
+            DenyAll
+        &lt;/Limit&gt;
+    &lt;/Directory&gt;
+&lt;/Anonymous&gt;</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Cuotas de Disco (Tormenta)</span>
+    <pre><code>adduser tormenta
+
+<span class="comment"># Crear tablas</span>
+ftpquota --create-table --type=limit --table-path=/etc/proftpd/ftpquota.limittab
+ftpquota --create-table --type=tally --table-path=/etc/proftpd/ftpquota.tallytab
+
+<span class="comment"># Asignar reglas (50GB Up / 1000GB Down)</span>
+ftpquota --add-record --type=limit --name=tormenta --quota-type=user --bytes-upload=53687091200 --bytes-download=1073741824000 --files-upload=50 --files-download=1000 --table-path=/etc/proftpd/ftpquota.limittab
+
+<span class="comment"># Habilitar en proftpd.conf</span>
+&lt;IfModule mod_quotatab.c&gt;
+    QuotaEngine on
+    QuotaLog /var/log/proftpd/quota.log
+    QuotaLimitTable file:/etc/proftpd/ftpquota.limittab
+    QuotaTallyTable file:/etc/proftpd/ftpquota.tallytab
+&lt;/IfModule&gt;</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Seguridad TLS Obligatoria</span>
+    <pre><code>proftpd-gencert
+<span class="comment"># Descomentar en proftpd.conf: Include /etc/proftpd/tls.conf</span>
+
+<span class="comment"># En tls.conf:</span>
+TLSEngine                on
+TLSLog                   /var/log/proftpd/tls.log
+TLSProtocol              SSLv23
+TLSRequired              on
+TLSRSACertificateFile    /etc/ssl/certs/proftpd.crt
+TLSRSACertificateKeyFile /etc/ssl/private/proftpd.key
+
+<span class="comment"># En modules.conf quitar '#' a:</span>
+LoadModule mod_tls.c</code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">Cliente LFTP y Comandos</span>
+    <pre><code>apt install lftp -y
+lftp -u tormenta 10.2.7.221
+set ssl:verify-certificate no
+
+<span class="comment"># Comandos rápidos:</span>
+get -e archivo       <span class="comment"># Descargar y sobrescribir</span>
+put archivo          <span class="comment"># Subir archivo</span>
+mget *.php           <span class="comment"># Descargar varios</span></code></pre>
+</div>
+
+<div class="section">
+    <span class="section-title">SERVIDOR VIRTUAL (.222)</span>
+    <div class="note">NOTA: incluir ftp.lordoftherings.tv en /etc/hosts del contenedor</div>
+    <pre><code><span class="comment"># En proftpd.conf</span>
+Include /etc/proftpd/virtuals.conf
+Port 21
+SocketBindTight On
+DefaultAddress 10.2.7.221
+
+<span class="comment"># En virtuals.conf</span>
+&lt;VirtualHost ftp.lordoftherings.tv&gt;
+    ServerName "Por Gondor"
+    MaxLoginAttempts 3
+    MaxClients 250
+    TimeOutLogin 30
+
+    &lt;Limit LOGIN&gt;
+        Order Allow,Deny
+        AllowUser gandalf
+        AllowUser balrog
+        DenyAll
+    &lt;/Limit&gt;
+
+    &lt;Anonymous /srv/abismo&gt;
+        User balrog
+        &lt;Directory mordor&gt;
+            &lt;Limit ALL&gt; DenyAll &lt;/Limit&gt;
+        &lt;/Directory&gt;
+        &lt;Directory uploads&gt;
+            &lt;Limit STOR&gt; AllowAll &lt;/Limit&gt;
+        &lt;/Directory&gt;
+    &lt;/Anonymous&gt;
+
+    &lt;Directory /&gt;
+        HideGroup xmen
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
+</div>
+
+</body>
+</html>

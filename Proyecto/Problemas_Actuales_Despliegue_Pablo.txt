@@ -1,0 +1,18 @@
+Software usado: Clonezilla Server.
+
+Imagen de Windows: ¿Imagen patrón para todos? 
+
+Si
+
+
+
+
+
+Si se usa una imagen patrón: ¿Como se captura?
+
+Con Clonezilla. Usan un equipo físico (hardware), lo configuran como quieren y luego toman la imagen.
+
+
+
+Problema: Proceso se interrumpe debido a disparidad de la capacidad de dispositivos de almacenamiento de los PCs.
+Esto provoca que Clonezilla falle a la hora de arrancar los equipos.

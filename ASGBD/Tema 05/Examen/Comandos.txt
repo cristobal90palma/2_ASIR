@@ -1,0 +1,183 @@
+cristobal@10.2.7.101:/home/cristobal/
+
+
+
+1.	Búsqueda de pedidos por cliente:
+ SELECT * FROM pedidos_brutos WHERE cliente_email = 'juan.perez@email.com';
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT * FROM pedidos_brutos WHERE cliente_email = 'juan.perez@email.com';
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT * FROM pedidos_brutos WHERE cliente_email = 'juan.perez@email.com';
+ 
+2.	Filtrado por categoría y rango de precios:
+ SELECT producto_nombre, precio_unitario FROM pedidos_brutos WHERE categoria_nombre = 'Hogar' AND precio_unitario > 500 ORDER BY precio_unitario DESC;
+ 
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT producto_nombre, precio_unitario FROM pedidos_brutos WHERE categoria_nombre = 'Hogar' AND precio_unitario > 500 ORDER BY precio_unitario DESC;
+ 
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT producto_nombre, precio_unitario FROM pedidos_brutos WHERE categoria_nombre = 'Hogar' AND precio_unitario > 500 ORDER BY precio_unitario DESC;
+ 
+ 
+3.	Búsqueda de palabras clave en la descripción:
+ SELECT producto_nombre FROM pedidos_brutos WHERE comentario_producto LIKE '%calidad%';
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT producto_nombre FROM pedidos_brutos WHERE comentario_producto LIKE '%calidad%';
+ 
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT producto_nombre FROM pedidos_brutos WHERE comentario_producto LIKE '%calidad%';
+ 
+4.	Reporte de ventas totales por país:
+SELECT codigo_pais, SUM(precio_unitario * cantidad_pedida) FROM pedidos_brutos GROUP BY codigo_pais;
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT codigo_pais, SUM(precio_unitario * cantidad_pedida) FROM pedidos_brutos GROUP BY codigo_pais;
+  
+  EXPLAIN ANALYZE FORMAT=TREE
+  SELECT codigo_pais, SUM(precio_unitario * cantidad_pedida) FROM pedidos_brutos GROUP BY codigo_pais;
+
+
+CREATE TABLE pedidos (
+    id_pedido INT PRIMARY KEY,
+    fecha_pedido DATE,
+    cliente_nombre VARCHAR(50),
+    cliente_email VARCHAR(100),
+    producto_nombre VARCHAR(200),
+    categoria_producto ENUM('Electrónica','Hogar','Juguetes','Ropa'),
+    cantidad INT,
+    precio_unitario DECIMAL(10,2),
+    estado_envio ENUM('ENTREGADO','PENDIENTE','CANCELADO'),
+    codigo_postal CHAR(5)
+);
+
+
+
+
+CREATE TABLE pedidos (
+    id_operacion INT PRIMARY KEY,          -- Debería ser INT PK
+    fecha_operacion DATETIME,      -- Debería ser DATETIME
+    cliente_nombre VARCHAR(255),       -- Redundante
+    cliente_email VARCHAR(255),        -- Redundante
+    producto_nombre VARCHAR(255),      -- Redundante
+    categoria_nombre ENUM('Tecnología','Hogar','Deportes','Libros'),     -- Redundante
+    precio_unitario DECIMAL(10,2),      -- Debería ser DECIMAL
+    cantidad_pedida INT,      -- Debería ser INT
+    comentario_producto TEXT,          -- Para búsquedas de texto
+    codigo_pais CHAR(2)        -- Debería ser CHAR(2)
+);
+
+
+
+
+CREATE TABLE pedidos (
+    id_operacion INT PRIMARY KEY,       
+    fecha_operacion DATETIME,      
+    cliente_nombre VARCHAR(255),       
+    cliente_email VARCHAR(255),        
+    producto_nombre VARCHAR(255),     
+    categoria_nombre ENUM('Tecnología','Hogar','Deportes','Libros'),  
+    precio_unitario DECIMAL(10,2),      
+    cantidad_pedida INT,      
+    comentario_producto TEXT,          
+    codigo_pais CHAR(2)        
+);
+
+
+INSERT INTO pedidos
+SELECT
+id_operacion,
+STR_TO_DATE(fecha_operacion,'%d/%m/%Y %H:%i:%s'),
+cliente_nombre,
+cliente_email,
+producto_nombre,
+categoria_nombre,
+precio_unitario,
+cantidad_pedida,
+comentario_producto,
+codigo_pais
+FROM pedidos_brutos;
+
+
+
+
+
+
+1.	Búsqueda de pedidos por cliente:
+ SELECT * FROM pedidos WHERE cliente_email LIKE '%2774%';
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT * FROM pedidos WHERE cliente_email LIKE '%2774%';
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT * FROM pedidos WHERE cliente_email LIKE '%2774%' GROUP BY cliente_email;
+ 
+ 
+ CREATE FULLTEXT INDEX idx_cliente_email_ft ON pedidos (cliente_email);
+ 
+ 
+ SELECT titulo FROM articulos WHERE MATCH (contenido) AGAINST
+('economía');
+ 
+  SELECT * FROM pedidos WHERE MATCH cliente_email AGAINST ('2774');
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT * FROM pedidos WHERE MATCH cliente_email AGAINST ('2774');
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT * FROM pedidos WHERE MATCH cliente_email AGAINST ('2774');
+ 
+2.	Filtrado por categoría y rango de precios:
+
+	CREATE INDEX idx_proname_preunit_categ ON pedidos (producto_nombre, precio_unitario, categoria_nombre);
+ SELECT producto_nombre, precio_unitario FROM pedidos WHERE categoria_nombre = 'Hogar' AND precio_unitario > 500 ORDER BY precio_unitario DESC;
+ 
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT producto_nombre, precio_unitario FROM pedidos WHERE categoria_nombre = 'Hogar' AND precio_unitario > 500 ORDER BY precio_unitario DESC;
+ 
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT producto_nombre, precio_unitario FROM pedidos WHERE categoria_nombre = 'Hogar' AND precio_unitario > 500 ORDER BY precio_unitario DESC;
+ 
+ 
+3.	Búsqueda de palabras clave en la descripción:
+	
+	DROP INDEX idx_comentario_producto_ft ON pedidos;
+	CREATE FULLTEXT INDEX idx_comentario_producto_ft ON pedidos (comentario_producto);
+	
+	DROP INDEX idx_comentario_producto ON pedidos;
+	CREATE INDEX idx_comentario_producto on pedidos (comentario_producto);
+	CREATE INDEX idx_proname_coment ON pedidos (producto_nombre, comentario_producto);
+
+ SELECT producto_nombre FROM pedidos WHERE comentario_producto LIKE '%calidad%';
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT producto_nombre FROM pedidos WHERE comentario_producto LIKE '%calidad%';
+ 
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT producto_nombre FROM pedidos WHERE comentario_producto LIKE '%calidad%';
+ 
+ EXPLAIN ANALYZE FORMAT=TREE
+ SELECT * FROM pedidos WHERE MATCH comentario_producto AGAINST ('calidad');
+ 
+ 
+ 
+4.	Reporte de ventas totales por país:
+
+CREATE INDEX idx_estado_ingresos ON pedidos (estado_envio, cantidad, precio_unitario);
+CREATE INDEX idx_estado_cantidad_precio ON pedidos (codigo_pais, precio_unitario, cantidad_pedida);
+
+SELECT codigo_pais, SUM(precio_unitario * cantidad_pedida) FROM pedidos GROUP BY codigo_pais;
+ 
+ EXPLAIN FORMAT=TREE
+ SELECT codigo_pais, SUM(precio_unitario * cantidad_pedida) FROM pedidos GROUP BY codigo_pais;
+  
+  EXPLAIN ANALYZE FORMAT=TREE
+  SELECT codigo_pais, SUM(precio_unitario * cantidad_pedida) FROM pedidos GROUP BY codigo_pais;

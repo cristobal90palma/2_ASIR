@@ -1,0 +1,49 @@
+ What version of Linux would you like to run the installation for?
+
+          1) Redhat Based Linux (Redhat, Alma, Rocky, CentOS, Mageia)
+          2) Debian Based Linux (Debian, Ubuntu, Kubuntu, Edubuntu)
+          3) Arch Linux
+
+  Choice: [2] 2
+
+
+
+  Starting Debian based Installation
+
+
+  FOG Server installation modes:
+      * Normal Server: (Choice N)
+          This is the typical installation type and
+          will install all FOG components for you on this
+          machine.  Pick this option if you are unsure what to pick.
+
+      * Storage Node: (Choice S)
+          This install mode will only install the software required
+          to make this server act as a node in a storage group
+
+  More information:
+     http://www.fogproject.org/wiki/index.php?title=InstallationModes
+
+  What type of installation would you like to do? [N/s (Normal/Storage)] Normal
+
+  We found the following interfaces on your system:
+      * ens3 - 192.168.1.5/24
+
+Would you like to change the default network interface from ens3? NO
+
+Would you like to setup a router address for the DHCP server? [Y/n] YES (En esta LAN ya hay un Servidor DHCP, tenemos que especificar su ruta)
+
+Normalmente lo "adivina" y te pregunta si es el correcto. Puedes especificarlo: 192.168.1.1
+
+Would you like DHCP to handle DNS? NO(Creo que aquí la respuesta no importa si luego le decimos que no queremos usar FOG como servidor DHCP)
+
+
+Would you like to use the FOG server for dhcp service? [Y/n] n
+No. DHCP addresses will be provided by the infrastructure's DHCP server. Having multiple DHCP servers on a single network causes a race condition for the clients, and potentially conflicting IP addresses if they are issuing out addresses within the same range.
+
+
+This version of FOG has internationalization support, would you like to install the additional language packs? [Y/n]
+Choose Yes if you'd like to install additional languages
+
+
+Cambiamos el hostname: fogserver_gns3

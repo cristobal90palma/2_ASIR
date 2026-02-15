@@ -1,0 +1,31 @@
+
+
+En la empresa en la que estás realizando tu formación dual, investiga y documenta la infraestructura básica de sistemas operativos utilizada e investiga cómo está implantado el servicio de directorio y documenta su estructura y funcionamiento.
+
+TAREAS:
+
+    Identifica:
+
+        Sistemas operativos utilizados (servidor y cliente).
+
+        Tipo de instalación (física, virtual, cloud).
+        Tipo de servicio de directorio (AD, LDAP, Azure AD, híbrido…).
+        Integración con otros servicios (archivos, impresión, correo…).
+
+    Describe:
+
+        Función de cada sistema dentro de la empresa.
+        Estructura lógica (dominios, OUs, grupos).
+        Cómo se autentican los usuarios en la red.
+        Integración con otros servicios (archivos, impresión, correo…).
+
+    Elabora:
+
+        Un esquema sencillo de la infraestructura.
+
+    Redacta:
+
+        Un documento descriptivo dirigido a un nuevo técnico que se incorpore a la empresa.
+
+
+

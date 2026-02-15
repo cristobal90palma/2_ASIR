@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # Capa de Interfaz
+  frontend:
+    image: nginx:alpine
+    container_name: frontend-service
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      - back-tier
+    depends_on:
+      - backend
+
+  # Capa de Aplicación
+  backend:
+    image: katacoda/docker-http-server
+    container_name: backend-service
+    restart: unless-stopped
+    networks:
+      - back-tier
+    depends_on:
+      - db
+
+  # Capa de Datos
+  db:
+    image: redis:alpine
+    container_name: redis-db
+    restart: unless-stopped
+    networks:
+      - back-tier
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - back-tier
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - back-tier
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - back-tier
+
+  grafana:
+      image: grafana/grafana-enterprise:latest
+      container_name: grafana
+      restart: unless-stopped
+      ports:
+        - "3000:3000"
+      networks:
+        - back-tier
+      volumes:
+        - grafana-data:/var/lib/grafana
+
+volumes:
+  grafana-data: # Volumen para GRAFANA
+
+networks:
+  back-tier:
+    driver: bridge

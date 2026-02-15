@@ -1,0 +1,24 @@
+Usamos ErsatzTV para crear un TV propio con videos y después enlazar a Jellyfin
+
+https://www.xda-developers.com/youtube-video-tv-channel-on-jellyfin/
+
+
+Existe JellyfinTV
+
+https://github.com/DrewThomasson/JellyfinTV
+
+
+
+
+Tunarr + Jellyfin
+
+https://tunarr.com/getting-started/installation/
+https://tunarr.com/getting-started/run/ Docker Compose
+
+
+Que tunarr use media de Jellyfin
+https://tunarr.com/configure/media_sources/jellyfin/
+
+
+Que Jellyfin conecte a las TVs creadas en tunarr
+https://tunarr.com/configure/clients/jellyfin/

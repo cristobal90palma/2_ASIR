@@ -1,0 +1,43 @@
+Ubuntu Server Limpia
+Ubuntu Desktop Limpio (para configurar Thunderbird).
+
+Puedes instalarle Docker y la IP Estática
+
+
+Desactiva greylisting para ciertos dominios
+
+How to disable greylisting service globally
+
+To disable greylisting global, please run command below:
+
+python3 /opt/iredapd/tools/greylisting_admin.py --disable --from '@.'
+python3 /opt/iredapd/tools/greylisting_admin.py --disable --from '@.'
+python3 /opt/iredapd/tools/greylisting_admin.py --disable --from '.'
+
+What this command does
+
+    --disable: Sets the greylisting status to disabled for the specified sender/recipient pair.
+
+    --from '@.': This is a wildcard in iRedAPD that represents any sender address.
+
+    Result: It inserts a record into the iredapd database (usually PostgreSQL or MariaDB) that tells the policy server to skip the "451" temporary rejection (greylisting) for all incoming mail.
+
+
+PONER EL PROMPT DE TU NOMBRE Y ETC
+
+export PS1="\e[01,31m Cristobal \e[01;35m \D{%A %e %B %G %R} \e[00;31m \n\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\]"
+
+HAZ UN docker pull iredmail/mariadb:stable
+
+Mensajeria instantánea
+
+15 minutos presentación
+
+
+cristobal2asir@outlook.es
+
+
+'wblist_admin'
+
+
+10.255.0.75

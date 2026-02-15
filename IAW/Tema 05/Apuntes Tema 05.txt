@@ -84,9 +84,108 @@ Crear relacion tablas foreign key
 
 En ambas tablas debe haber ya datos que coincidan en las columnas Primary y Foreign Key
 
-Ambas deben ser "unique" (El primary key no hace falta, ya lo es).
+Ambas deben ser "unique" o index (El primary key no hace falta, ya lo es).
 
 Después en la parte de la base de datos nos vamos al Designer y nos vamos al panel izquierda
 a "Create relationship"
 
 
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Explicaciones "Pedido Online" --> Práctica final
+
+
+\\\\\\\\\\\\\\
+
+Proceso de login y registro para un ejercicio:
+
+acceso.php --> login.php --> Pagina deseada
+
+acceso.php --> registro.html --> crear_usuario.php (lo crea/o no, e imprimer el resultado --> acceso.php
+
+
+
+\\\\\\\\\\\\\
+
+Explicación Sentencia SQL:
+
+    $sql = "SELECT p.npedido, p.nombre, p.direccion, p.telefono, p.importe, p.username,
+            GROUP_CONCAT(pr.nombre SEPARATOR ', ') AS lista_productos
+            FROM pedido p
+            LEFT JOIN `pedido-producto` pp ON p.npedido = pp.npedido
+            LEFT JOIN producto pr ON pp.nproducto = pr.nproducto
+            WHERE p.username = '$usuario_logueado'
+            GROUP BY p.npedido";
+			
+			
+
+
+pedido p
+producto pr
+pedido-producto pp
+
+
+Con el LEFT JOIN
+
+Aquí es donde conectamos las tres piezas del puzzle:
+
+    Partimos de la tabla Pedido.
+
+    Nos unimos a pedido-producto buscando donde coincida el número de pedido (p.npedido = pp.npedido).
+
+    Desde ahí, saltamos a la tabla Producto buscando el ID del producto (pp.nproducto = pr.nproducto).
+	
+	
+	¿Por qué LEFT JOIN? Porque queremos que, si por un error extraño un pedido se quedara sin productos 
+	en la tabla intermedia, el pedido siga apareciendo en la lista (aunque la columna de productos salga vacía).
+	Si usáramos INNER JOIN, ese pedido "huérfano" desaparecería del listado.
+
+
+GROUP_CONCAT
+
+
+	Sin esta función, si un pedido tuviera 3 productos, la base de datos te devolvería 3 filas casi iguales 
+    (una por cada producto).
+
+    GROUP_CONCAT(pr.nombre SEPARATOR ', '): Le dice a MySQL: "Coge todos los nombres de los productos que pertenecen
+	al mismo grupo y júntalos en una sola cadena de texto, separándolos con una coma y un espacio".
+
+    AS lista_productos: Le da un nombre a esa columna inventada para que luego en PHP puedas escribir
+	$fila['lista_productos'].
+	
+	
+GROUP BY
+
+Es el compañero obligatorio del GROUP_CONCAT. Le indica a la base de datos cuál es el criterio para "juntar" las filas.
+
+    GROUP BY p.npedido: "Junta todas las filas que tengan el mismo número de pedido en una sola".
+	
+	
+WHERE
+
+WHERE p.username = '$usuario_logueado': Simplemente asegura que el usuario Pepe no vea los pedidos del usuario Juan. 
+Es el muro de privacidad de tu consulta.
+
+
+
+TRUNCATE TABLE producto;
+
+INSERT INTO `producto` (`nproducto`, `nombre`, `precio`) VALUES 
+(1, 'Nachos clásicos', 8.95),
+(2, 'Ensalada Cesar', 10.00),
+(3, 'Combo de alitas', 15.00),
+(4, 'Pizza carbonara', 11.00),
+(5, 'Pizza ranchera', 8.00),
+(6, 'Pizza taco', 15.00),
+(7, 'Tarta trufa', 4.00),
+(8, 'Helados variados', 3.00);
+
+
+
+\\\\\\  Creación de Relación tabla
+
+Para la relación de usuario y pedido, "username" en pedido se le pone como "index" --> NO UNIQUE.
+
+La relación de la tabla pedido-producto es normal, porque ambos provienen de primary key
+
+En pedido-producto: nproducto y npedido son PRIMARY KEY.

@@ -1,0 +1,76 @@
+1. Poblado de Tablas Maestras (Dimensiones)
+
+Primero extraemos los valores únicos para evitar duplicados.
+
+-- Insertar Clientes únicos
+INSERT INTO clientes (nombre, email)
+SELECT DISTINCT cliente_nombre, cliente_email 
+FROM pedidos_brutos; 
+
+Prueba:
+
+INSERT INTO clientes (nombre, email) SELECT MAX(cliente_nombre), cliente_email FROM
+pedidos_brutos GROUP BY cliente_email;
+
+-- Insertar Categorías únicas
+INSERT INTO categorias (nombre_categoria)
+SELECT DISTINCT categoria_nombre 
+FROM pedidos_brutos; 
+
+-- Insertar Países únicos (Usando los códigos ES, FR, PT del script original)
+INSERT INTO paises (codigo_pais, nombre_pais)
+SELECT DISTINCT codigo_pais, 
+    CASE codigo_pais 
+        WHEN 'ES' THEN 'España' 
+        WHEN 'FR' THEN 'Francia' 
+        ELSE 'Portugal' 
+    END
+FROM pedidos_brutos; 
+
+
+
+
+
+
+
+
+-- Insertar Productos
+INSERT INTO productos (nombre, precio_unitario, id_categoria)
+SELECT DISTINCT p.producto_nombre, CAST(p.precio_unitario AS DECIMAL(10,2)), c.id_categoria
+FROM pedidos_brutos p
+JOIN categorias c ON p.categoria_nombre = c.nombre_categoria; 
+
+-- Insertar Reviews (Comentarios)
+INSERT INTO reviews (id_producto, id_cliente, comentario)
+SELECT DISTINCT pr.id_producto, cl.id_cliente, pb.comentario_producto
+FROM pedidos_brutos pb
+JOIN productos pr ON pb.producto_nombre = pr.nombre
+JOIN clientes cl ON pb.cliente_email = cl.email; 
+
+
+-- 1. Crea un índice en la columna de búsqueda de la tabla origen
+CREATE INDEX idx_bruto_email ON pedidos_brutos(cliente_email);
+
+-- 2. Crea un índice en la columna de búsqueda de productos de la tabla origen
+CREATE INDEX idx_bruto_prod ON pedidos_brutos(producto_nombre);
+
+-- 3. Asegura un índice en el nombre de la nueva tabla de productos
+CREATE INDEX idx_prod_nombre ON productos(nombre);
+
+
+
+
+-- Insertar Pedidos (Cabecera)
+-- Nota: Usamos STR_TO_DATE para convertir el VARCHAR ineficiente a DATETIME real
+INSERT INTO pedidos (id_cliente, fecha, codigo_pais)
+SELECT cl.id_cliente, STR_TO_DATE(pb.fecha_operacion, '%d/%m/%Y %H:%i:%s'), pb.codigo_pais
+FROM pedidos_brutos pb
+JOIN clientes cl ON pb.cliente_email = cl.email; 
+
+-- Insertar Detalles del Pedido
+INSERT INTO detalles_Pedido (id_pedido, id_producto, cantidad)
+SELECT p.id_pedido, pr.id_producto, CAST(pb.cantidad_pedida AS UNSIGNED)
+FROM pedidos_brutos pb
+JOIN clientes cl ON pb.cliente_email = cl.email
+JOIN pedidos p ON cl.id_cliente = p.id_cliente AND STR_TO_DATE(pb.fecha_operacion, '%d/%m/%Y %H:%i:%s') = p.fecha
+JOIN productos pr ON pb.producto_nombre = pr.nombre; 

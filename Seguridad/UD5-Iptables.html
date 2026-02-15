@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iptables: Control de Tráfico de Servidor</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 850px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        .container { background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #5c5edc; font-size: 2.5em; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { color: #5c5edc; font-size: 1.8em; margin-top: 30px; }
+        h3 { color: #5c5edc; font-size: 1.5em; margin-top: 25px; }
+        p { margin-bottom: 15px; text-align: justify; }
+        ul { margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+        .highlight { color: #5c5edc; font-weight: bold; }
+        .diagram-box { background: #f0f0ff; border: 1px solid #d1d1f0; padding: 20px; text-align: center; border-radius: 5px; margin: 20px 0; }
+        .chain-item { display: flex; align-items: center; margin-top: 20px; padding: 10px; border-left: 5px solid #5c5edc; background: #f8f8f8; }
+        .chain-title { font-weight: bold; font-size: 1.1em; margin-right: 15px; min-width: 100px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Iptables: Herramienta para Controlar el Tráfico de un Servidor [cite: 1]</h1>
+    
+    <p>Esta herramienta configurable tiene dos funciones básicas: [cite: 2]</p>
+    <ul>
+        <li>Bloquear el acceso no permitido desde redes externas [cite: 3]</li>
+        <li>Restringir las conexiones de la red local con el exterior. [cite: 3]</li>
+    </ul>
+
+    <h2>¿Qué es Iptables? [cite: 4]</h2>
+    <p>
+        Iptables es un módulo del núcleo de Linux que se encarga de <span class="highlight">filtrar los paquetes de red</span>, determinando qué paquetes de datos llegan hasta el servidor y cuáles no. [cite: 5]
+    </p>
+    <p>
+        Iptables funciona a través de <strong>reglas</strong>. El usuario indica mediante instrucciones el tipo de paquetes permitidos, los puertos de recepción, el protocolo utilizado y cualquier información relacionada con el intercambio de datos entre redes. [cite: 6]
+    </p>
+    <p>
+        Cuando el sistema recibe o envía un paquete, se recorren las reglas en orden hasta encontrar una que cumpla las condiciones. [cite: 7] Una vez localizada, esa regla se activa realizando la acción indicada sobre el paquete. [cite: 8]
+    </p>
+
+    <h2>Tablas y Cadenas en Iptables [cite: 9]</h2>
+    <p>
+        En iptables existen tres grandes grupos de reglas o tablas, dentro de las que se definen cadenas predefinidas. Cualquier paquete pasará por una de ellas para determinar su tratamiento. [cite: 10, 11]
+    </p>
+
+    <h3>Tabla Filter: Reglas de Filtrado [cite: 12]</h3>
+    <p>
+        La tabla filter es donde se indican las reglas de filtrado fundamentales. [cite: 13] Esta tabla contiene tres cadenas predefinidas que controlan el flujo de paquetes en diferentes direcciones. [cite: 14]
+    </p>
+
+    
+    <div class="chain-item">
+        <span class="chain-title">INPUT</span>
+        <span>Hace referencia a los paquetes que llegan al sistema desde el exterior [cite: 15, 20]</span>
+    </div>
+
+    <div class="chain-item">
+        <span class="chain-title">OUTPUT</span>
+        <span>Hace referencia a los paquetes generados en el sistema para ser enviados al exterior. [cite: 16]</span>
+    </div>
+
+    <div class="chain-item">
+        <span class="chain-title">FORWARD</span>
+        <span>Se aplica a los paquetes que pasan por el servidor pero no tienen como destino el propio servidor (actuando como router). [cite: 18]</span>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,2 +1,51 @@
-Microsoft Projects: hacer Gantt
-https://blog.ganttpro.com/es/como-hacer-un-diagrama-de-gantt-en-ms-project/
+https://www.reddit.com/r/sysadmin/comments/7slit1/i_created_a_thorough_fog_server_tutorial_repost/
+	https://www.ceos3c.com/linux/install-fog-server-ubuntu-server/
+	https://www.ceos3c.com/sysadmin/create-generalized-windows-10-image-deploy-fog-server/
+	https://www.ceos3c.com/sysadmin/update-fog-image/
+	
+	
+	https://www.ceos3c.com/linux/install-fog-server-ubuntu-server/
+	
+	
+	
+	
+	
+	
+	
+
+Cliente FOG:
+
+https://docs.fogproject.org/en/latest/installation/client/install-fog-client/#download-the-fog-client
+https://wiki.fogproject.org/wiki/index.php/FOG_Client
+
+https://community.spiceworks.com/t/fog-client-do-i-need-it/496443
+Do you need it ? No…
+
+I use FOG for image deployment and i think its a brilliant bit of software.
+i have never install the client mind you.
+
+i’m half interested to see what it does…
+
+
+
+
+
+
+
+
+Integrating FOG into an Existing Network
+https://wiki.fogproject.org/wiki/index.php/Integrating_FOG_into_an_Existing_Networks
+
+
+FOG on an Isolated Network
+https://wiki.fogproject.org/wiki/index.php/FOG_on_an_Isolated_Network
+
+
+
+Installing FOG Server
+https://github.com/marcbizal/FOG-Install-Guide/blob/master/README.md
+
+
+
+Habilitar HTTPS:
+https://wiki.fogproject.org/HTTPS

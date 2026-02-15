@@ -1,0 +1,76 @@
+Pagina de acceso.php y registro.html
+
+acceso.php --> login.php --> True: pedido.php | False: acceso.php
+registro.html --> crear_usuario.php --> True: acceso.php | False: acceso.php
+
+
+pedido.php: --> FORM: procesarPedido.php 
+
+Convertir procesarPedido.php en una página que solo llame a funciones.
+
+Y meter en ella también la insertación de la tabla pedido
+
+
+
+pedido.php: --> ver_pedidos.php --> VOLVER AL FORMULARIO.
+
+
+pedido:php --> logout.php --> acceso.php
+
+
+
+https://gemini.google.com/app/4903d3db8b20cbbc
+
+
+
+
+
+
+
+para ver los pedidos de los usuarios.
+
+SELECT p.npedido, p.nombre, p.direccion, p.telefono, p.importe, p.username,
+       GROUP_CONCAT(pr.nombre SEPARATOR ', ') AS lista_productos
+FROM pedido p
+LEFT JOIN `pedido-producto` pp ON p.npedido = pp.npedido
+LEFT JOIN producto pr ON pp.nproducto = pr.nproducto
+WHERE p.username = 'cristobal'
+GROUP BY p.npedido;
+
+
+
+
+
+
+
+SELECT p.npedido, p.nombre, p.direccion, p.telefono, p.importe, p.username,
+       GROUP_CONCAT(pr.nombre SEPARATOR ', ') AS lista_productos
+FROM pedido p
+LEFT JOIN `pedido-producto` pp ON p.npedido = pp.npedido
+LEFT JOIN producto pr ON pp.nproducto = pr.nproducto
+WHERE p.username = 'jacker'
+GROUP BY p.npedido;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
