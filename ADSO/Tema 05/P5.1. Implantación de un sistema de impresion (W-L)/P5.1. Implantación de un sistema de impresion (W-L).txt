@@ -1,3 +1,97 @@
 https://gemini.google.com/app/c85c4e7d891ed7c2
 
 Usa mejor este: https://chatgpt.com/c/697b427c-4560-832c-9e82-cc4b188b4e8a
+
+
+Tengo este equipo: WIN-Q9RNRM3S3QT.empresa.local
+
+Y tengo que hacer este trabajo:
+P5.1. Implantación de un sistema de impresion (W-L)
+Requisitos de finalización
+
+La empresa INFORPRINT S.A., dedicada a servicios tecnológicos, al analizar su contexto vemos que cuenta con:
+
+    3 departamentos:
+        Dirección
+        Administración
+        Soporte técnico
+    Un parque informático heterogéneo:
+        Equipos Windows
+        Equipos Linux
+    Necesidad de:
+        Centralizar la impresión.
+        Controlar accesos.
+        Facilitar la administración desde navegador web.
+        Preparar el sistema para auditorías y ampliaciones futuras.
+
+La empresa ha decidido implantar dos servidores de impresión:
+
+    Uno basado en Windows Server
+    Otro basado en Linux
+
+Formas parte de su equipo de sistemas y debes diseñar e implantar un sistema de impresión corporativo híbrido, cumpliendo los siguientes requisitos:
+
+    Servidores funcionales en Windows y Linux
+    Administración vía interfaz web
+    Preparado para:
+        Impresoras lógicas
+        Grupos
+        Análisis de red
+        Gestión avanzada
+
+Para ello debes contar con las siguientes máquinas:
+
+·         Servidor de impresión Windows que debe:
+
+o   Gestionar al menos una impresora compartida.
+
+o   Permitir administración mediante:
+
+§  Consola de administración de impresión.
+
+§  Interfaz web (IIS / administración remota).
+
+o    Estar preparado para clientes Windows y Linux.
+
+·         Servidor de impresión Linux:
+
+o    Tiene instalado y configurado CUPS.
+
+o   Dispone de:
+
+§  Interfaz web accesible desde clientes.
+
+§  Al menos una impresora configurada.
+
+o   Permite administración desde navegador web (puerto 631)
+
+2 clientes, uno con Windows y otro con linux
+
+TAREAS A REALIZAR:
+En Windows
+
+    Instalación del rol de impresión.
+
+    Creación de impresora compartida.
+
+    Comprobación desde cliente Windows.
+
+    Acceso a herramientas web/administración remota.
+
+En Linux
+
+    Instalación de CUPS.
+
+    Activación del acceso web.
+
+    Creación de impresora.
+
+    Acceso desde navegador web de cliente.
+
+Pruebas
+
+    Prueba de impresión desde:
+
+        Cliente Windows → servidor Linux
+
+        Cliente Linux → servidor Windows
