@@ -5,6 +5,7 @@
 *.zip
 *.rar
 *.mp4
+*.mkv
 
 # Temporales de Windows
 Thumbs.db
