@@ -1,0 +1,212 @@
+NOTA:
+EN LAS VM DE GNS3, "RESIZE" EL DISCO Y PONER 8000
+Una vez arrancadas, comprobar con “df -h”
+
+En algunas maquinas ubuntus de GNS3, los comandos de "apt" hay que hacerlos desde el sudo.
+Casi que mejor hacerlo todo desde el sudo.
+
+Usa "ubuntu cloud guest" cuando quieras que se guarden los cambios. En los otros tabmién se puede, pero no es tan facil
+En estos equipos las direcciones IP estáticas se hacen de manera manual(por desgracia)
+
+
+Ejemplo de relay con tres interfaces:
+
+\\\\\\\\\\\\\\\\\\\ /etc/netplan
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.122.17/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.122.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+    ens4:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:01
+#      set-name: ens4
+#      dhcp4: false
+      addresses:
+        - 10.2.27.1/24
+      routes: []
+      nameservers:
+        addresses:
+          - 8.8.8.8
+    ens5:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:01
+#      set-name: ens4
+#      dhcp4: false
+      addresses:
+        - 10.2.37.1/24
+      routes: []
+      nameservers:
+        addresses:
+          - 8.8.8.8
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+Una vez que termines de modificar el archivo ".yaml", usa "netplan apply"
+
+En aquellas máquinas en las que falten comandos, usa: alias b=/gns3/bin/busybox
+
+####
+
+ip route
+
+b route -n
+####
+
+
+NOTA IMPORTANTE (ANTE PROBLEMAS DE IP, UNA VEZ QUE LA RECONFIGURES, DEBES REINICIAR AMBOS SERVICIOS
+UNA VEZ EL RELAY SE QUEDÓ PILLADO Y ME SEGUIA MANDANDO REQUEST DESDE UNA IP QUE YA NO EXISTÍA.
+
+#####RELAY 
+
+metete siempre como root con "sudo su".
+
+apt update (CREO QUE ESTO ES MEJOR SARTÁRSELO PORQUE TARDA BASTANTE).
+apt install isc-dhcp-relay -y
+
+En el configurador de la instalación: Indicar IP del servidor al que hay que hacer las peticiones
+nombre de interfaces que se usan (PREGUNTAR A DIEGO DUDAS SOBRE LA INTERFAZ QUE DA AL SERVIDOR DHCP).
+
+Si te equivocas en la configuración inicial, modificas: /etc/default/isc-dhcp-relay 
+
+Inicia el servicio: etc/init.d/isc-dhcp-relay start
+
+o 
+
+systemctl start isc-dhcp-relay
+systemctl restart isc-dhcp-relay
+systemctl status isc-dhcp-relay
+
+Comprueba procesos: ps -ef | grep relay
+
+
+
+Ver si Maquina Linux actua como router: cat proc/sys/net/ipv4/ip_forward
+Debe tener el valor 1
+
+Puedes hacerlo permanente
+
+nano /etc/sysctl.conf
+“Descomentar” línea “net.ipv4.ip_forward=1”
+Después hay que usar: sysctl -p
+
+
+
+\\\\\\\ Server
+
+RECUERDA, EN LA CONFIGURACIÓN DE LA INTERFAZ DEL SERVER, DEBES PONER
+EL GATEWAY LA IP DEL RELAY (EN LA VIDA REAL NO SE HACE ASÍ, SE PONEN RUTAS ESTATICAS HACIA LAS REDES A LAS QUE HAY QUE DAR SERVICIO).
+
+
+Usa guia: Práctica 2+: Servicio DHCP en Ubuntu 22.04 una LAN
+
+apt install isc-dhcp-server -y
+
+Ahora modificamos el archivo: /etc/default/isc-dhcp-server
+Debemos poner el nombre de la interfaz que vamos a usar para dar el servicio de DHCP.
+Para saber el nombre usamos “ip a” o miramos en le diagrama.
+
+Despues modificamos: /etc/dhcp/dhcpd.conf
+
+Hay que declarar la subnet donde se encuentra el servidor DHCP
+En esa subnet no se reparten IPs, por lo tanto solo se declara y ya está:
+
+\\\\\\\\\\\\\
+subnet 192.168.122.0 netmask 255.255.255.0 {
+}
+\\\\\\\\\\\
+
+\\\\\\\\ EN LOS DOMINIOS, INTENTA PONER SOLO UN NOMBRE, MÁS PUEDEN DAR PROBLEMAS.
+
+# A slightly different configuration for an internal subnet.
+subnet 10.2.27.0 netmask 255.255.255.0 {
+  range 10.2.27.21 10.2.27.254;
+  option domain-name-servers 1.1.1.1, 1.0.0.1;
+  option domain-name "lansw1.edu";
+  option subnet-mask 255.255.255.0;
+  option routers 10.2.27.1;
+#  option broadcast-address 10.5.5.31;
+  default-lease-time 86400;
+  max-lease-time 86400;
+}
+
+
+# A slightly different configuration for an internal subnet.
+subnet 10.2.37.0 netmask 255.255.255.0 {
+  range 10.2.37.21 10.2.37.254;
+  option domain-name-servers 9.9.9.9, 172.16.200.1;
+  option domain-name "lansw2.edu";
+  option subnet-mask 255.255.255.0;
+  option routers 10.2.37.1;
+#  option broadcast-address 10.5.5.31;
+  default-lease-time 115200;
+  max-lease-time 115200;
+}
+
+\\\\\\\\\\
+
+Para reservar IPs: debe ser una IP de las que no se reparten.
+
+host UbuntuDockerGuest-1 {
+  hardware ethernet 02:42:53:61:72:00;
+  fixed-address 10.2.27.10;
+}
+  
+host UbuntuDockerGuest-2 {
+  hardware ethernet 02:42:5c:72:b2:00;
+  fixed-address 10.2.37.10;
+}
+
+\\\\\\\\\\\\\\
+
+Cuando termines de modificar el archivo, reinicia el servicio.
+
+/etc/default/isc-dhcp-server status
+/etc/default/isc-dhcp-server restart
+
+o 
+
+systemctl restart isc-dhcp-server
+systemctl status isc-dhcp-server
+
+
+\\\\\\\\ Para ver los log (errores e información):
+
+journalctl -u isc-dhcp-server
+journalctl -u isc-dhcp-relay
+
+\\\\\\\\\ Para ver el DNS configurado
+
+cat /etc/resolv.conf 
+
+\\\\\\\\ Para ver el gateway
+
+route -n
+
+
+\\\\\\ SI tenemos un error en nano tipo: nano bad lock file is ignored
+
+https://askubuntu.com/questions/939527/getting-error-while-opening-etc-profile-error-reading-lock-file-etc-profile
+
+
+
+Try to remove the hidden file .[yourfilename].swp, which is stored in the same folder as the file that you are trying to open.
+In your case try the shell command rm /etc/.profile.swp.
+
+This issue also occurs with nano 2.7.4, and must be something to do with how nano handles a corrupted swapfile.
+
+Hope this helped
+
+
+AUNQUE ES MÁS PROBABLE QUE TENGAS QUE DESHECHAR LA MÁQUINA. mala suerte.

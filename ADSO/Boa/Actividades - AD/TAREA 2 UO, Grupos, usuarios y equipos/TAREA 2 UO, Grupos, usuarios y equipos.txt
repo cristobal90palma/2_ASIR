@@ -1,0 +1,32 @@
+TAREA 2 UO, Grupos, usuarios y equipos
+
+
+
+Crear la estructura de cuentas de un dominio:
+
+    Crea una máquina virtual clonada a partir de la anterior tarea y no la borres porque nos servirá para la siguiente tarea.
+    Crea tres plantillas que permitan crear cuentas de usuario cuya jornada laboral atienda a las siguientes franjas horarias:
+        Turno de mañana: 7 a 15 horas
+        Turno de tarde: 15 a 23 horas.
+        Turno de noche: 23 a 7 horas.
+    Crea una nueva Unidad Organizativa con el nombre Departamentos.
+    Crea los grupos Contabilidad, Almacén y Mantenimiento y ubícalos dentro de la Unidad Organizativa Departamentos.
+    Crea los siguientes objetos:
+        En el grupo Contabilidad: 3 equipos y 6 usuarios (3 en turno de mañana y 3 en turno de tarde).
+        En el grupo Almacén: 3 equipos y 9 usuarios (3 en turno de mañana, 3 en turno de tarde y 3 en turno de noche).
+        En el grupo Mantenimiento: 3 equipos y 3 usuarios (sin turno).
+    Crea un nuevo grupo llamado Dirección que tendrá un solo equipo y un solo usuario (sin turno).
+
+Las características que deben cumplir las cuentas son las siguientes:
+
+    Los nombres de las plantillas tendrán la forma usr-xxxxxx (donde xxxxx representa mañana, tarde o noche).
+    Para crear las cuentas de usuario con turnos deberán utilizarse las plantillas.
+    Los datos personales de los usuarios puedes inventarlos.
+    Los nombres de las cuentas de equipo tendrán la forma equ-xxx-yy y los nombres de las cuentas de usuario tendrán la forma usr-xxx-yy (xxx son las tres primeras letras del nombre del grupo e yy es un número de orden de dos cifras).
+
+Finalmente y para terminar la actividad, une un cliente Windows al dominio:
+
+    Partiendo de una máquina virtual con un sistema operativo Windows 10, cambia sus propiedades para que pueda unirse al dominio usando la cuenta de equipo equ-con-02.
+    Una vez que hayas unido el equipo al dominio, intenta iniciar sesión en él utilizando una de las cuentas de usuario del departamento de Contabilidad que tienen turno de tarde y comprueba qué sucede (si estás realizando esta tarea por la tarde, inténtalo con un usuario del turno de mañana).
+    Después, inicia sesión en el dominio usando una de las cuentas de usuario del departamento de Contabilidad que tienen turno de mañana (si estás realizando esta tarea por la tarde, inténtalo con un usuario del turno de tarde).
+

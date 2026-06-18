@@ -1,0 +1,16 @@
+NextCloud:
+
+directorio de almacenaje:
+
+https://help.nextcloud.com/t/volume-management-in-docker-still-no-working-nextcloud/104585/3
+
+MariaDB:
+
+Variable contraseña ROOT:
+
+https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables
+
+
+directorio de almacenaje:
+
+https://forums.docker.com/t/persistent-mariadb-storage/100946

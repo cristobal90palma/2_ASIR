@@ -1,0 +1,168 @@
+1. Creación del Usuario y Entorno
+
+Primero preparamos al usuario becario sin acceso a la terminal (shell) por seguridad, limitándolo solo a la transferencia de archivos.
+Bash
+
+# Crear grupo de gestión
+sudo addgroup sftp_users
+
+# Crear usuario sin acceso a shell (-s /bin/false)
+sudo useradd -m -g sftp_users -s /bin/false becario
+
+# Asignar contraseña (la que usará en FileZilla)
+sudo passwd becario
+
+2. Configuración de la "Cárcel" (Chroot) y Permisos
+
+Este es el punto crítico donde fallaba. La ruta del Chroot debe ser propiedad de root y no tener permisos de escritura para nadie más.
+Bash
+
+# Propietario Root para toda la ruta hasta la biblioteca
+sudo chown root:root /video_streaming
+sudo chown root:root /video_streaming/jellyfin_owncast
+sudo chown root:root /video_streaming/jellyfin_owncast/biblioteca
+
+# Permisos restrictivos (755: lectura y ejecución, pero solo root escribe)
+sudo chmod 755 /video_streaming
+sudo chmod 755 /video_streaming/jellyfin_owncast
+sudo chmod 755 /video_streaming/jellyfin_owncast/biblioteca
+
+# Carpetas de contenido: Aquí sí permitimos que el becario trabaje
+sudo chown -R becario:sftp_users /video_streaming/jellyfin_owncast/biblioteca/*
+sudo chmod -R 775 /video_streaming/jellyfin_owncast/biblioteca/*
+
+
+3. Configuración del Servidor SSH
+
+Modificamos /etc/ssh/sshd_config para habilitar las contraseñas y definir las reglas del becario.
+
+    Asegúrate de que estas líneas estén activas:
+
+        PasswordAuthentication yes
+
+        KbdInteractiveAuthentication yes (o ChallengeResponseAuthentication yes en versiones antiguas)
+		
+		
+Añade al final del archivo el bloque de restricción:
+
+Plaintext
+
+Match User becario
+    ChrootDirectory /video_streaming/jellyfin_owncast/biblioteca
+    ForceCommand internal-sftp
+    PasswordAuthentication yes
+    PermitTunnel no
+    AllowAgentForwarding no
+    AllowTcpForwarding no
+	
+	
+	
+4. Limpieza de bloqueos de AWS
+
+En AWS Ubuntu, debemos asegurar que no haya archivos en .d anulando nuestra configuración:
+Bash
+
+# Si existe este archivo, asegúrate de que diga PasswordAuthentication yes
+sudo nano /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
+
+5. Reinicio y Aplicación
+
+Para que el sistema reconozca los nuevos permisos y la configuración:
+Bash
+
+sudo systemctl daemon-reload
+sudo systemctl restart ssh
+sudo systemctl restart ssh.socket
+
+
+
+
+Gemini ha dicho
+
+¡Excelente noticia! Una vez que los permisos de Linux y los requisitos de seguridad de OpenSSH se alinean, el sistema es infalible.
+
+Aquí tienes la guía definitiva y consolidada con los pasos exactos que han hecho que tu configuración de AWS sea exitosa. Esta estructura es la que deberías reflejar en tu memoria técnica.
+Guía de Configuración SFTP con Chroot (AWS Ubuntu)
+1. Creación del Usuario y Entorno
+
+Primero preparamos al usuario becario sin acceso a la terminal (shell) por seguridad, limitándolo solo a la transferencia de archivos.
+Bash
+
+# Crear grupo de gestión
+sudo addgroup sftp_users
+
+# Crear usuario sin acceso a shell (-s /bin/false)
+sudo useradd -m -g sftp_users -s /bin/false becario
+
+# Asignar contraseña (la que usará en FileZilla)
+sudo passwd becario
+
+2. Configuración de la "Cárcel" (Chroot) y Permisos
+
+Este es el punto crítico donde fallaba. La ruta del Chroot debe ser propiedad de root y no tener permisos de escritura para nadie más.
+Bash
+
+# Propietario Root para toda la ruta hasta la biblioteca
+sudo chown root:root /video_streaming
+sudo chown root:root /video_streaming/jellyfin_owncast
+sudo chown root:root /video_streaming/jellyfin_owncast/biblioteca
+
+# Permisos restrictivos (755: lectura y ejecución, pero solo root escribe)
+sudo chmod 755 /video_streaming
+sudo chmod 755 /video_streaming/jellyfin_owncast
+sudo chmod 755 /video_streaming/jellyfin_owncast/biblioteca
+
+# Carpetas de contenido: Aquí sí permitimos que el becario trabaje
+sudo chown -R becario:sftp_users /video_streaming/jellyfin_owncast/biblioteca/*
+sudo chmod -R 775 /video_streaming/jellyfin_owncast/biblioteca/*
+
+3. Configuración del Servidor SSH
+
+Modificamos /etc/ssh/sshd_config para habilitar las contraseñas y definir las reglas del becario.
+
+    Asegúrate de que estas líneas estén activas:
+
+        PasswordAuthentication yes
+
+        KbdInteractiveAuthentication yes (o ChallengeResponseAuthentication yes en versiones antiguas)
+
+    Añade al final del archivo el bloque de restricción:
+
+Plaintext
+
+Match User becario
+    ChrootDirectory /video_streaming/jellyfin_owncast/biblioteca
+    ForceCommand internal-sftp
+    PasswordAuthentication yes
+    PermitTunnel no
+    AllowAgentForwarding no
+    AllowTcpForwarding no
+
+4. Limpieza de bloqueos de AWS
+
+En AWS Ubuntu, debemos asegurar que no haya archivos en .d anulando nuestra configuración:
+Bash
+
+# Si existe este archivo, asegúrate de que diga PasswordAuthentication yes
+sudo nano /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
+
+5. Reinicio y Aplicación
+
+Para que el sistema reconozca los nuevos permisos y la configuración:
+Bash
+
+sudo systemctl daemon-reload
+sudo systemctl restart ssh
+sudo systemctl restart ssh.socket
+
+Resumen de Uso para el Becario
+
+    Host: im07.institutodh.net (o la IP 100.48.114.98)
+
+    Protocolo: SFTP (Puerto 22)
+
+    Logon Type: Normal (Usuario y Contraseña)
+
+    Carpeta Inicial: Al conectar, el becario aparecerá en la raíz de biblioteca. Verá las carpetas Peliculas, Series, etc.
+
+    Regla de oro: No puede subir archivos directamente a la raíz. Debe entrar en una subcarpeta para poder subir contenido.

@@ -1,0 +1,5 @@
+---
+- name: "Proyecto FDA: Hardening Global de Infraestructura"
+  hosts: all
+  roles:
+    - common

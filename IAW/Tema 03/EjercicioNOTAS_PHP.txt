@@ -1,0 +1,7 @@
+Escribe un algoritmo que pida por pantalla al usuario una nota numérica (entre 0 y 10) y escriba en la salida del programa 
+dicha nota en formato texto, con la siguiente equivalencia:
+
+- De 0.0 a 4.9 -> Suspenso
+- De 5.0 a 6.9 -> Bien
+- De 7.0 a 8.9 -> Notable
+- De 9.0 a 10.0 -> Sobresaliente

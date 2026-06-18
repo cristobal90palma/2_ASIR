@@ -1,0 +1,82 @@
+mget MX-25_Xfce_ahs_sysvinit_x64.iso MX-25_Xfce_ahs_sysvinit_x64.iso.sha256 README.txt
+
+
+
+use admin
+db.createUser(
+  {
+    user: "adminUser",
+    pwd: passwordPrompt(),
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+  }
+)
+
+
+db.createUser({
+user: "administrador",
+pwd: "12345",
+roles: [ { role: "root", db: "admin" } ]
+})
+
+
+db.createUser({
+user: "usuario",
+pwd: "Usuario.25",
+roles: [ { role: "root", db: "admin" } ]
+})
+
+
+security:
+  keyFile: /etc/mongod.key
+  authorization: enabled
+
+  
+  
+openssl rand -base64 756 > /etc/mongod.key
+sudo chown mongodb:mongodb /etc/mongod.key
+sudo chmod 400 /etc/mongod.key
+
+  keyFile: /etc/mongod.key
+  
+  
+sudo scp /etc/mongod.keyfile usuario@10.2.17.80:/tmp/
+sudo scp /etc/mongod.keyfile usuario@10.2.17.85:/tmp/
+
+sudo mv /tmp/mongod.key /etc/mongod.key
+sudo chown mongodb:mongodb /etc/mongod.key
+sudo chmod 400 /etc/mongod.key
+
+sudo mv /tmp/mongod.keyfile /etc/mongod.keyfile
+sudo chown mongodb:mongodb /etc/mongod.keyfile
+sudo chmod 400 /etc/mongod.keyfile
+ls -l /etc/mongod.keyfile
+
+sudo systemctl restart mongod
+sudo systemctl status mongod
+
+mongosh -u "admin" -p --authenticationDatabase "admin"
+
+mongosh -u "usuario" -p "Usuario.25" --authenticationDatabase "admin"
+
+
+
+Muchas conexiones:
+
+cat /var/log/mongodb/mongod.log
+
+
+db.serverStatus().connections
+
+
+
+
+db.createCollection("cni", {
+capped: true,
+size: 512 * 512, // 0.5 MB
+max: 5 // (máximo número de documentos
+})
+
+
+security:
+  keyFile: /etc/mongod.keyfile
+  authorization: enabled

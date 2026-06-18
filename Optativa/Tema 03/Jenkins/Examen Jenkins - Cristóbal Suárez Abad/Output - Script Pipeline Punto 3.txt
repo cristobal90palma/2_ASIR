@@ -1,0 +1,55 @@
+Started by user Administrador ASIR Examen
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/Despliegue
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+Compilando aplicación...
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/octocat/Hello-World.git
+ > git init /var/jenkins_home/workspace/Despliegue # timeout=10
+Fetching upstream changes from https://github.com/octocat/Hello-World.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/octocat/Hello-World.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/octocat/Hello-World.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 7fd1a60b01f91b314f59955a4e4d4e80d8edf11d (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 7fd1a60b01f91b314f59955a4e4d4e80d8edf11d # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master 7fd1a60b01f91b314f59955a4e4d4e80d8edf11d # timeout=10
+Commit message: "Merge pull request #6 from Spaceghost/patch-1"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Verificando existencia de README...
+[Pipeline] fileExists
+[Pipeline] echo
+README encontrado. Test OK.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Desplegando a producción...
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

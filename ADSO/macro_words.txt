@@ -1,0 +1,9 @@
+TODO ENLAZADO A LA ANTERIOR
+
+
+For Each s In ActiveDocument.Sections 
+  With s.Headers(wdHeaderFooterPrimary).PageNumbers 
+    .RestartNumberingAtSection = False 
+    .StartingNumber = 0 
+  End With 
+Next s

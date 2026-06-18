@@ -1,0 +1,48 @@
+Enlaces DHPC:
+
+Calculadora CIDR
+https://www.ipaddressguide.com/cidr
+
+Plantilla antigua FAILOVER:
+https://www.fpgenred.es/DHCP/protocolo_dhcp_failover.html
+
+Buscar mikrotik enable romon
+
+https://admiralplatform.com/tips4tiks-romon/
+https://help.mikrotik.com/docs/spaces/ROS/pages/8978569/RoMON
+
+Mikrotik RELAY DHCP en WINBOX
+
+https://www.youtube.com/watch?v=zubv8RO6WCk
+
+
+https://wiki.mikrotik.com/Manual:IP/DHCP_Relay
+
+Añadir IP estática en Mikrotik
+
+https://itwarehouse.ph/docs/how-to-set-a-static-ip-address-on-your-mikrotik-router/
+
+FAILOVER
+
+https://kb.isc.org/docs/aa-00502
+
+
+Problemas en FAILOVER
+
+https://serverfault.com/questions/313008/isc-dhcp-fails-to-sync-leases-between-peers
+
+PORT FORWARDING
+
+https://alexariza.net/tutorial/hacer-port-forwarding-o-redireccion-de-puertos-en-mikrotik/
+
+https://linuxconfig.org/how-to-turn-on-off-ip-forwarding-in-linux
+
+
+EDITOR vi
+
+https://services.udel.edu/TDClient/32/Portal/KB/ArticleDet?ID=533
+
+
+CONFIGURACION FAILOVER ANTIGUA
+
+https://www.fpgenred.es/DHCP/etcdefaultiscdhcprelay.html

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Básica</title>
+</head>
+<body>
+
+    <form action="calculadora.php" method="POST">
+        <h2>🔢 Calculadora Simple</h2>
+
+        <label for="numero1">Primer Número:</label>
+        <input type="number" id="numero1" name="numero1">
+        <br><br>
+
+        <label for="operacion">Selecciona Operación:</label>
+        <select id="operacion" name="operacion" required>
+            <option value="suma">+</option>
+            <option value="resta">-</option>
+            <option value="multiplicacion">*</option>
+            <option value="division">/</option>
+        </select>
+        <br><br>
+
+        <label for="numero2">Segundo Número:</label>
+        <input type="number" id="numero2" name="numero2">
+        <br><br>
+
+        <button type="submit">Calcular</button>
+    </form>
+
+</body>
+</html>

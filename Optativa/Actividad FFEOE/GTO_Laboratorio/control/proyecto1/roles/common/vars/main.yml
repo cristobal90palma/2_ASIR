@@ -1,0 +1,7 @@
+---
+# Paquetes esenciales para auditoria y seguridad
+seguridad_paquetes:
+  - ufw
+  - fail2ban
+  - htop
+  - curl

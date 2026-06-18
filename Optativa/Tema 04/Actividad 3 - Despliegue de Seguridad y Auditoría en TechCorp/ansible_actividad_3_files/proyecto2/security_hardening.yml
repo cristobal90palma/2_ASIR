@@ -1,0 +1,45 @@
+---
+- name: Playbook de Hardening de Seguridad - Fase 1
+  hosts: all
+  become: no
+  gather_facts: no
+
+  tasks:
+    - name: Registro estado del host - Ejecutar uptime
+      command: uptime
+      register: uptime_result
+
+    - name: Mostrar el estado del uptime
+      debug:
+        msg: "El host {{ inventory_hostname }} lleva encendido: {{ uptime_result.stdout }}"
+
+    - name: Fase 2.1 - Asegurar que sudo esté instalado
+      raw: apt-get update && apt-get install -y sudo
+      become: yes
+      become_method: su
+      register: sudo_install
+      changed_when: "'is already the newest version' not in sudo_install.stdout"
+
+    - name: Fase 2.2 - Crear el equipo de auditoría
+      user:
+        name: "{{ item }}"
+        state: present
+        shell: /bin/bash
+        groups: sudo
+        append: yes
+        password: "{{ 'password_provisional' | password_hash('sha512') }}"
+      loop: "{{ audit_team }}"
+      become: yes
+    - name: Fase 3 - Configurar Banner de seguridad (MOTD)
+      copy:
+        content: |
+          ****************************************************************
+          ¡SISTEMA PROPIEDAD DE {{ empresa | upper }}!
+          Solo personal autorizado. Todo el acceso esta siendo auditado.
+          Equipo de auditoria a cargo: {{ audit_team | join(', ') }}
+          ****************************************************************
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'
+      become: yes

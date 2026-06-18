@@ -1,0 +1,58 @@
+Si lo instalas directamente en la VM, ensucias el sistema operativo base. Al usarlo en Docker, mantienes todo tu ecosistema de video (Jitsi, Jellyfin, Owncast y el Proxy) dentro del mismo motor, lo que facilita enormemente la comunicación entre ellos.
+
+Aquí tienes la hoja de ruta para montarlo en AWS:
+1. Crear una red común para el Proxy
+
+Para que el contenedor del Proxy pueda "hablar" con Jitsi o Jellyfin sin exponer puertos al exterior, necesitamos que todos compartan una red virtual de Docker. Créala en la terminal de tu VM:
+Bash
+
+docker network create nginx_network
+
+
+
+
+https://gemini.google.com/app/ebd806493cb6cc28
+
+
+
+Esta es una parte clave para que el proyecto sea profesional. De todos los contenedores que tienes corriendo, solo necesitas crear subdominios para los que tienen interfaz web de cara al usuario.
+
+Los componentes internos (como el jicofo, jvb, recorder o prosody) trabajan por detrás y no necesitan un subdominio propio.
+
+Aquí tienes la lista exacta de qué subdominio asignar a cada contenedor en Nginx Proxy Manager:
+1. Los 3 Subdominios Principales (Obligatorios para el ejercicio)
+Servicio	Contenedor (Forward Hostname)	Puerto	Subdominio Sugerido
+Jitsi Meet	jitsi-docker-jitsi-meet-35879bb-web-1	80	clase.2asir07.institutodh.net
+Jellyfin	jellyfin	8096	biblioteca.2asir07.institutodh.net
+Owncast	owncast	8080	directo.2asir07.institutodh.net
+2. ¿Qué pasa con los demás contenedores?
+
+    nginx-proxy-manager: No necesita subdominio (aunque podrías ponerle uno como proxy.2asir07...). Normalmente accedes a él por la IP pública puerto 81 (http://tu-ip:81) para administrarlo.
+
+    owncast_recorder: No tiene interfaz web. Es un script que corre en segundo plano. Sin subdominio.
+
+    jicofo, jvb, prosody, jibri: Son las "tripas" de Jitsi. Se comunican entre ellos por la red interna de Docker. El único que da la cara al exterior es el contenedor web. Sin subdominio.
+
+    etherpad / whiteboard: Jitsi los gestiona internamente a través del contenedor web. Si los has configurado correctamente en el .env de Jitsi, aparecerán dentro de la videoconferencia sin necesidad de subdominios extra.
+
+Resumen de la configuración en Nginx Proxy Manager (NPM):
+
+Para cada uno de los 3 servicios principales, debes crear un "Proxy Host" siguiendo este esquema:
+
+    Domain Names: El subdominio correspondiente (ej. clase.2asir07.institutodh.net).
+
+    Scheme: http (NPM se comunica con los contenedores por HTTP interno).
+
+    Forward Hostname: El nombre que aparece en la columna NAMES de tu docker ps (ej. jellyfin o owncast).
+
+    Forward Port: El puerto interno del servicio (8096 para Jellyfin, 8080 para Owncast, 80 para Jitsi-Web).
+
+    Websockets Support: ACTÍVALO especialmente para Jitsi y Owncast, si no, la conexión se cortará.
+
+Importante para Jitsi en AWS:
+
+Aunque solo le pongas subdominio al contenedor web, recuerda lo que mencionamos antes: el contenedor jvb (el de la imagen jitsi/jvb) necesita que el puerto 10000 UDP esté abierto en el Firewall (Security Group) de AWS apuntando directamente a la IP de la instancia, ya que por ahí viaja el vídeo real de los alumnos.
+
+
+
+

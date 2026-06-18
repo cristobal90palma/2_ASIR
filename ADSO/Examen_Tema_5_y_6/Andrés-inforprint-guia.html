@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFORPRINT — Guía de burros</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d0d;
+  --surface: #141414;
+  --surface2: #1a1a1a;
+  --border: #2a2a2a;
+  --border2: #333;
+  --text: #e8e8e8;
+  --muted: #666;
+  --accent: #00ff88;
+  --accent2: #0099ff;
+  --accent3: #ff6b35;
+  --win: #0078d4;
+  --lnx: #f97316;
+  --cli: #8b5cf6;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-head: 'Syne', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 2.5rem 1.5rem;
+  position: sticky;
+  top: 0;
+  background: rgba(13,13,13,0.95);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.logo {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.logo span { color: var(--muted); font-weight: 400; }
+.ptabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.ptab {
+  padding: 5px 12px;
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: transparent;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.ptab:hover { border-color: var(--accent); color: var(--accent); }
+.ptab.on { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; }
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: calc(100vh - 80px);
+}
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+.sidebar-section {
+  padding: 0 1rem 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: .5rem;
+}
+.sidebar-label {
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: .5rem 1rem;
+  display: block;
+}
+.mbtns { display: flex; flex-direction: column; gap: 3px; padding: 0 1rem; }
+.mbtn {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: transparent;
+  text-align: left;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mbtn:hover { border-color: var(--border2); color: var(--text); background: var(--surface2); }
+.mbtn.on { border-color: currentColor; }
+.mbtn .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.mbtn.win { color: #60a5fa; }
+.mbtn.win.on { background: rgba(96,165,250,.1); }
+.mbtn.lnx { color: #fb923c; }
+.mbtn.lnx.on { background: rgba(251,146,60,.1); }
+.mbtn.cli-w { color: #a78bfa; }
+.mbtn.cli-w.on { background: rgba(167,139,250,.1); }
+.mbtn.cli-l { color: #34d399; }
+.mbtn.cli-l.on { background: rgba(52,211,153,.1); }
+.content {
+  padding: 2rem 2.5rem;
+  max-width: 860px;
+}
+.prac { display: none; }
+.prac.on { display: block; }
+.mcont { display: none; }
+.mcont.on { display: block; }
+.blk { margin-bottom: 1.5rem; }
+.blk-title {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .5rem;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+pre {
+  background: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.65;
+  margin-bottom: 6px;
+  position: relative;
+}
+pre .cm { color: #4a5568; }
+pre .kw { color: #63b3ed; }
+pre .str { color: #68d391; }
+pre .fl { color: #f6ad55; }
+pre .hl { color: #fc8181; }
+.cfg {
+  background: #080f1a;
+  border: 1px solid #1a2a3a;
+  border-radius: 4px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.65;
+  margin-bottom: 6px;
+  white-space: pre;
+}
+.cfg .cs { color: #63b3ed; }
+.cfg .ck { color: #e2e8f0; }
+.cfg .cv { color: #68d391; }
+.cfg .cc { color: #4a5568; }
+.note {
+  padding: 8px 12px;
+  border-left: 3px solid;
+  border-radius: 0 4px 4px 0;
+  font-size: 12px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.ni { border-color: var(--accent2); background: rgba(0,153,255,.06); color: #93c5fd; }
+.nw { border-color: var(--warn); background: rgba(245,158,11,.06); color: #fcd34d; }
+.nd { border-color: var(--danger); background: rgba(239,68,68,.06); color: #fca5a5; }
+.ns { border-color: var(--success); background: rgba(34,197,94,.06); color: #86efac; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+th {
+  background: var(--surface2);
+  font-weight: 500;
+  padding: 6px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+td {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+tr:last-child td { border-bottom: none; }
+td:first-child { color: var(--text); font-family: var(--font-mono); }
+.gr { color: var(--success); }
+.rd { color: var(--danger); }
+.am { color: var(--warn); }
+.copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 2px 7px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all .15s;
+}
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+.copy-btn.copied { color: var(--success); border-color: var(--success); }
+.meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 12px;
+}
+.meta-item { display: flex; flex-direction: column; gap: 2px; }
+.meta-label { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.meta-val { color: var(--accent); font-weight: 500; }
+.separator {
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: .75rem 0 .4rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .75rem;
+}
+.separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+code {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">INFORPRINT <span>// guía de burros</span></div>
+  <div class="ptabs" id="ptabs">
+    <button class="ptab on" onclick="sp(0)">P1 · Impresión básica</button>
+    <button class="ptab" onclick="sp(1)">P2 · Impresoras lógicas</button>
+    <button class="ptab" onclick="sp(2)">P3 · Wireshark/Seg.</button>
+    <button class="ptab" onclick="sp(3)">P4 · NFS</button>
+    <button class="ptab" onclick="sp(4)">P5 · Samba</button>
+    <button class="ptab" onclick="sp(5)">P6 · Red mixta</button>
+  </div>
+</div>
+
+<div class="layout">
+<div class="sidebar" id="sidebar"></div>
+<div class="content" id="content"></div>
+</div>
+
+<script>
+const DATA = {
+  meta: {
+    dominio: 'aso.local',
+    admin: 'Administrador',
+    pass: 'Usuario.25',
+    driver: 'clawPDF Virtual Printer',
+    ws_ip: '&lt;IP-WS2022&gt;',
+    lnx_ip: '&lt;IP-SRV-LNX&gt;'
+  },
+  pracs: [
+    {
+      label: 'P1 · Impresión básica',
+      machines: [
+        { id: 'ws', label: 'WS2022', cls: 'win' },
+        { id: 'lnx', label: 'Ubuntu Server', cls: 'lnx' },
+        { id: 'cliw', label: 'CLI-WIN', cls: 'cli-w' },
+        { id: 'clil', label: 'CLI-LNX', cls: 'cli-l' }
+      ]
+    },
+    {
+      label: 'P2 · Impresoras lógicas',
+      machines: [
+        { id: 'ws', label: 'WS2022', cls: 'win' },
+        { id: 'lnx', label: 'Ubuntu Server', cls: 'lnx' },
+        { id: 'cliw', label: 'CLI-WIN', cls: 'cli-w' },
+        { id: 'clil', label: 'CLI-LNX', cls: 'cli-l' }
+      ]
+    },
+    {
+      label: 'P3 · Wireshark/Seg.',
+      machines: [
+        { id: 'ws', label: 'WS2022', cls: 'win' },
+        { id: 'lnx', label: 'Ubuntu Server', cls: 'lnx' },
+        { id: 'cliw', label: 'CLI-WIN', cls: 'cli-w' },
+        { id: 'clil', label: 'CLI-LNX', cls: 'cli-l' }
+      ]
+    },
+    {
+      label: 'P4 · NFS',
+      machines: [
+        { id: 'lnx', label: 'Ubuntu Server (NFS)', cls: 'lnx' },
+        { id: 'clil', label: 'CLI-LNX', cls: 'cli-l' }
+      ]
+    },
+    {
+      label: 'P5 · Samba',
+      machines: [
+        { id: 'lnx', label: 'Ubuntu Server', cls: 'lnx' },
+        { id: 'cliw', label: 'CLI-WIN', cls: 'cli-w' },
+        { id: 'clil', label: 'CLI-LNX', cls: 'cli-l' }
+      ]
+    },
+    {
+      label: 'P6 · Red mixta',
+      machines: [
+        { id: 'lnx', label: 'Ubuntu Server', cls: 'lnx' },
+        { id: 'cliw', label: 'CLI-WIN', cls: 'cli-w' },
+        { id: 'clil', label: 'CLI-LNX', cls: 'cli-l' }
+      ]
+    }
+  ],
+  content: {
+    0: {
+      ws: `<div class="blk"><div class="blk-title">1. Instalar rol de impresión</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># PowerShell como Administrador</span>
+Install-WindowsFeature Print-Services -IncludeManagementTools
+Install-WindowsFeature Web-Server, Web-Mgmt-Tools</pre>
+<div class="note ni">GUI: Server Manager → Add Roles → Print and Document Services → marcar Print Server e Internet Printing</div>
+</div>
+<div class="blk"><div class="blk-title">2. Crear puerto y impresora clawPDF</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>Add-PrinterPort -Name "CLAWPDF-PORT" -PrinterHostAddress "127.0.0.1" -PortNumber 9100
+Add-Printer -Name "IMP-WS-FISICA" -DriverName "clawPDF Virtual Printer" -PortName "CLAWPDF-PORT"
+Set-Printer -Name "IMP-WS-FISICA" -Shared $true -ShareName "IMP-WS"
+Get-Printer -Name "IMP-WS-FISICA" | Select Name, Shared, ShareName, DriverName</pre>
+</div>
+<div class="blk"><div class="blk-title">3. Firewall</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>New-NetFirewallRule -DisplayName "Allow-SMB-445" -Direction Inbound -Protocol TCP -LocalPort 445 -Action Allow
+New-NetFirewallRule -DisplayName "Allow-RAW-9100" -Direction Inbound -Protocol TCP -LocalPort 9100 -Action Allow
+Get-Service Spooler</pre>
+</div>
+<div class="blk"><div class="blk-title">4. Acceso web IIS</div>
+<div class="note ni">URL desde clientes: <code>http://&lt;IP-WS&gt;/printers</code> — requiere Internet Printing instalado</div>
+</div>`,
+
+      lnx: `<div class="blk"><div class="blk-title">1. Instalar CUPS y cups-pdf</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt update && sudo apt install -y cups cups-client cups-pdf
+sudo systemctl enable --now cups
+sudo systemctl status cups</pre>
+</div>
+<div class="blk"><div class="blk-title">2. Editar /etc/cups/cupsd.conf</div>
+<div class="note nw">Cambiar <code>Listen localhost:631</code> por el bloque siguiente</div>
+<div class="cfg"><span class="cv">Port 631</span>
+<span class="cv">ServerAlias *</span>
+
+<span class="cs">&lt;Location /&gt;</span>
+  <span class="ck">Order</span> <span class="cv">allow,deny</span>
+  <span class="ck">Allow</span> <span class="cv">all</span>
+<span class="cs">&lt;/Location&gt;</span>
+
+<span class="cs">&lt;Location /admin&gt;</span>
+  <span class="ck">Order</span> <span class="cv">allow,deny</span>
+  <span class="ck">Allow</span> <span class="cv">all</span>
+  <span class="ck">AuthType</span> <span class="cv">Default</span>
+  <span class="ck">Require</span> <span class="cv">user @SYSTEM</span>
+<span class="cs">&lt;/Location&gt;</span>
+
+<span class="cs">&lt;Location /admin/conf&gt;</span>
+  <span class="ck">AuthType</span> <span class="cv">Default</span>
+  <span class="ck">Require</span> <span class="cv">user @SYSTEM</span>
+  <span class="ck">Order</span> <span class="cv">allow,deny</span>
+  <span class="ck">Allow</span> <span class="cv">all</span>
+<span class="cs">&lt;/Location&gt;</span></div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo systemctl restart cups
+ss -tlnp | grep 631
+sudo usermod -aG lpadmin $USER</pre>
+</div>
+<div class="blk"><div class="blk-title">3. Crear impresora cups-pdf</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># Verificar si se creó automáticamente:</span>
+lpstat -p
+<span class="cm"># Si no aparece, crear manualmente:</span>
+sudo lpadmin -p IMP-LNX-FISICA \\
+  -E \\
+  -v cups-pdf:/ \\
+  -P /usr/share/ppd/cups-pdf/CUPS-PDF_opt.ppd \\
+  -o printer-is-shared=true
+sudo cupsenable IMP-LNX-FISICA
+sudo cupsaccept IMP-LNX-FISICA
+lpstat -p -d</pre>
+<div class="note ni">Los PDFs generados se guardan en <code>/var/spool/cups-pdf/</code></div>
+</div>
+<div class="blk"><div class="blk-title">4. Prueba — usar lp, no lpr</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>lp -d IMP-LNX-FISICA /etc/hostname
+ls /var/spool/cups-pdf/</pre>
+<div class="note nw"><code>lpr -P</code> da "unknown printer" aunque exista. Usar siempre <code>lp -d</code></div>
+</div>`,
+
+      cliw: `<div class="blk"><div class="blk-title">Conectar a WS2022 (SMB)</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># GUI: Ejecutar → \\&lt;IP-WS&gt;\IMP-WS → instala driver automático</span>
+Add-Printer -ConnectionName "\\\\&lt;IP-WS&gt;\\IMP-WS"
+Get-Printer</pre>
+</div>
+<div class="blk"><div class="blk-title">Conectar a Ubuntu (IPP)</div>
+<div class="note ni">GUI: Agregar impresora → No está en la lista → <code>http://&lt;IP-LNX&gt;:631/printers/IMP-LNX-FISICA</code> → Driver: Generic → MS Publisher Imagesetter</div>
+</div>
+<div class="blk"><div class="blk-title">Página de prueba</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>$p = Get-WmiObject -Query "SELECT * FROM Win32_Printer WHERE ShareName='IMP-WS'"
+$p.PrintTestPage()
+Get-PrintJob -PrinterName "IMP-WS-FISICA"</pre>
+</div>`,
+
+      clil: `<div class="blk"><div class="blk-title">Instalar cliente</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y cups-client smbclient cifs-utils</pre>
+</div>
+<div class="blk"><div class="blk-title">Conectar a Ubuntu (IPP)</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo lpadmin -p IMP-LNX-remota \\
+  -E \\
+  -v ipp://&lt;IP-LNX&gt;:631/printers/IMP-LNX-FISICA \\
+  -m everywhere
+sudo lpoptions -d IMP-LNX-remota</pre>
+</div>
+<div class="blk"><div class="blk-title">Conectar a Windows (SMB)</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo lpadmin -p IMP-WS-remota \\
+  -E \\
+  -v smb://usuario:Usuario.25@&lt;IP-WS&gt;/IMP-WS \\
+  -m everywhere</pre>
+</div>
+<div class="blk"><div class="blk-title">Probar</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>lp -d IMP-LNX-remota /etc/hostname
+lp -d IMP-WS-remota /etc/hostname</pre>
+</div>`
+    },
+    1: {
+      ws: `<div class="blk"><div class="blk-title">1. Montar AD — instalar roles</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+Install-ADDSForest -DomainName "aso.local" -InstallDns
+<span class="cm"># Reinicia solo — volver a entrar como ASO\Administrador</span></pre>
+</div>
+<div class="blk"><div class="blk-title">2. Grupos y usuarios en AD</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>New-ADGroup -Name "GRP-Direccion"      -GroupScope Global -GroupCategory Security
+New-ADGroup -Name "GRP-Administracion" -GroupScope Global -GroupCategory Security
+New-ADGroup -Name "GRP-Soporte"        -GroupScope Global -GroupCategory Security
+New-ADGroup -Name "GRP-PrintAdmins"    -GroupScope Global -GroupCategory Security
+
+$pass = (ConvertTo-SecureString "Usuario.25" -AsPlainText -Force)
+New-ADUser -Name "director1" -AccountPassword $pass -Enabled $true
+New-ADUser -Name "admin1"    -AccountPassword $pass -Enabled $true
+New-ADUser -Name "soporte1"  -AccountPassword $pass -Enabled $true
+
+Add-ADGroupMember -Identity "GRP-Direccion"      -Members "director1"
+Add-ADGroupMember -Identity "GRP-Administracion" -Members "admin1"
+Add-ADGroupMember -Identity "GRP-Soporte"        -Members "soporte1"</pre>
+</div>
+<div class="blk"><div class="blk-title">3. Impresoras lógicas por departamento</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>Add-Printer -Name "IMP-Direccion"      -DriverName "clawPDF Virtual Printer" -PortName "CLAWPDF-PORT"
+Add-Printer -Name "IMP-Administracion" -DriverName "clawPDF Virtual Printer" -PortName "CLAWPDF-PORT"
+Add-Printer -Name "IMP-Soporte"        -DriverName "clawPDF Virtual Printer" -PortName "CLAWPDF-PORT"
+Set-Printer -Name "IMP-Direccion"      -Shared $true -ShareName "IMP-DIR"
+Set-Printer -Name "IMP-Administracion" -Shared $true -ShareName "IMP-ADM"
+Set-Printer -Name "IMP-Soporte"        -Shared $true -ShareName "IMP-SOP"</pre>
+</div>
+<div class="blk"><div class="blk-title">4. Prioridad — GUI obligatoria</div>
+<div class="note ni">Propiedades impresora → Advanced → Priority</div>
+<table><tr><th>Impresora</th><th>Prioridad</th></tr>
+<tr><td>IMP-Direccion</td><td class="gr">99</td></tr>
+<tr><td>IMP-Administracion</td><td class="am">50</td></tr>
+<tr><td>IMP-Soporte</td><td class="rd">10</td></tr></table>
+</div>
+<div class="blk"><div class="blk-title">5. Permisos — GUI: Propiedades → Security → quitar Everyone → añadir grupo AD</div>
+<table>
+<tr><th>Grupo</th><th>Print</th><th>Manage Docs</th><th>Manage Printers</th></tr>
+<tr><td>GRP-PrintAdmins</td><td class="gr">✓</td><td class="gr">✓</td><td class="gr">✓</td></tr>
+<tr><td>GRP-Direccion</td><td class="gr">✓</td><td class="gr">✓</td><td class="gr">✓ solo IMP-DIR</td></tr>
+<tr><td>GRP-Administracion</td><td class="gr">✓</td><td class="gr">✓</td><td class="rd">✗</td></tr>
+<tr><td>GRP-Soporte</td><td class="gr">✓</td><td class="rd">✗</td><td class="rd">✗</td></tr>
+</table></div>`,
+
+      lnx: `<div class="blk"><div class="blk-title">1. Instalar paquetes y sincronizar reloj — CRÍTICO</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y realmd sssd sssd-tools adcli samba-common-bin \\
+  oddjob oddjob-mkhomedir packagekit \\
+  libnss-winbind libpam-winbind winbind ntpdate
+<span class="cm"># Sincronizar reloj con el DC — sin esto Kerberos falla</span>
+sudo ntpdate &lt;IP-WS2022&gt;</pre>
+</div>
+<div class="blk"><div class="blk-title">2. DNS y unión al dominio</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo nano /etc/resolv.conf</pre>
+<div class="cfg"><span class="cv">nameserver &lt;IP-WS2022&gt;</span>
+<span class="cv">search aso.local</span></div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>realm discover aso.local
+<span class="cm"># Unir con sssd:</span>
+sudo realm join aso.local -U Administrador
+<span class="cm"># contraseña: Usuario.25</span>
+<span class="cm"># Unir desde Samba (paso separado y obligatorio):</span>
+sudo net ads join -U Administrador
+<span class="cm"># contraseña: Usuario.25</span>
+<span class="cm"># "Joined 'LINPRINT' to dns domain 'aso.local'" = correcto</span>
+<span class="cm"># El error de DNS update es normal, ignorarlo</span>
+sudo net ads testjoin</pre>
+</div>
+<div class="blk"><div class="blk-title">3. sssd.conf</div>
+<div class="cfg"><span class="cs">[sssd]</span>
+<span class="ck">domains</span> = <span class="cv">aso.local</span>
+<span class="ck">services</span> = <span class="cv">nss, pam</span>
+
+<span class="cs">[domain/aso.local]</span>
+<span class="ck">default_shell</span> = <span class="cv">/bin/bash</span>
+<span class="ck">krb5_store_password_if_offline</span> = <span class="cv">True</span>
+<span class="ck">cache_credentials</span> = <span class="cv">True</span>
+<span class="ck">krb5_realm</span> = <span class="cv">ASO.LOCAL</span>
+<span class="ck">id_provider</span> = <span class="cv">ad</span>
+<span class="ck">ad_domain</span> = <span class="cv">aso.local</span>
+<span class="ck">use_fully_qualified_names</span> = <span class="cv">False</span>
+<span class="ck">ldap_id_mapping</span> = <span class="cv">True</span>
+<span class="ck">access_provider</span> = <span class="cv">ad</span>
+<span class="ck">fallback_homedir</span> = <span class="cv">/home/%u@%d</span></div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo systemctl restart sssd && sudo systemctl enable sssd
+sudo pam-auth-update --enable mkhomedir
+<span class="cm"># Verificar que Linux ve el AD:</span>
+id director1
+getent group GRP-Direccion</pre>
+</div>
+<div class="blk"><div class="blk-title">4. Impresoras lógicas CUPS</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo lpadmin -p IMP-LNX-DIR -E -v cups-pdf:/ \\
+  -P /usr/share/ppd/cups-pdf/CUPS-PDF_opt.ppd \\
+  -o printer-is-shared=true -o job-priority-default=99
+sudo lpadmin -p IMP-LNX-ADM -E -v cups-pdf:/ \\
+  -P /usr/share/ppd/cups-pdf/CUPS-PDF_opt.ppd \\
+  -o printer-is-shared=true -o job-priority-default=50
+sudo lpadmin -p IMP-LNX-SOP -E -v cups-pdf:/ \\
+  -P /usr/share/ppd/cups-pdf/CUPS-PDF_opt.ppd \\
+  -o printer-is-shared=true -o job-priority-default=10
+sudo cupsenable IMP-LNX-DIR IMP-LNX-ADM IMP-LNX-SOP
+sudo cupsaccept IMP-LNX-DIR IMP-LNX-ADM IMP-LNX-SOP
+lpstat -p</pre>
+</div>
+<div class="blk"><div class="blk-title">5. Permisos en cupsd.conf — añadir al final</div>
+<div class="cfg"><span class="cs">&lt;Location /printers/IMP-LNX-DIR&gt;</span>
+  <span class="ck">Order</span> <span class="cv">allow,deny</span>
+  <span class="ck">Allow</span> <span class="cv">all</span>
+  <span class="ck">AuthType</span> <span class="cv">Default</span>
+  <span class="ck">Require</span> <span class="cv">user @GRP-Direccion</span>
+<span class="cs">&lt;/Location&gt;</span>
+<span class="cs">&lt;Location /printers/IMP-LNX-ADM&gt;</span>
+  <span class="ck">Order</span> <span class="cv">allow,deny</span>
+  <span class="ck">Allow</span> <span class="cv">all</span>
+  <span class="ck">AuthType</span> <span class="cv">Default</span>
+  <span class="ck">Require</span> <span class="cv">user @GRP-Administracion</span>
+<span class="cs">&lt;/Location&gt;</span>
+<span class="cs">&lt;Location /printers/IMP-LNX-SOP&gt;</span>
+  <span class="ck">Order</span> <span class="cv">allow,deny</span>
+  <span class="ck">Allow</span> <span class="cv">all</span>
+  <span class="ck">AuthType</span> <span class="cv">Default</span>
+  <span class="ck">Require</span> <span class="cv">user @GRP-Soporte</span>
+<span class="cs">&lt;/Location&gt;</span></div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo systemctl restart cups</pre>
+</div>`,
+
+      cliw: `<div class="blk"><div class="blk-title">Unirse al dominio</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># 1. Panel de control → Red → IPv4 → DNS: &lt;IP-WS2022&gt;</span>
+<span class="cm"># 2. Unirse:</span>
+Add-Computer -DomainName "aso.local" -Credential (Get-Credential) -Restart
+<span class="cm"># usuario: Administrador  contraseña: Usuario.25</span>
+<span class="cm"># Iniciar sesión como ASO\director1</span></pre>
+</div>
+<div class="blk"><div class="blk-title">Pruebas de permisos</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># Imprimir como soporte1 en IMP-SOP (debe funcionar):</span>
+runas /user:ASO\soporte1 "notepad"
+<span class="cm"># Archivo → Imprimir → IMP-SOP</span>
+
+<span class="cm"># Intentar como soporte1 en IMP-DIR (debe denegar):</span>
+runas /user:ASO\soporte1 "rundll32 printui.dll,PrintUIEntry /in /n \\\\&lt;IP-WS&gt;\\IMP-DIR"
+
+Get-PrintJob -PrinterName "IMP-Soporte"</pre>
+</div>`,
+
+      clil: `<div class="blk"><div class="blk-title">Unirse al dominio</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y realmd sssd sssd-tools adcli samba-common-bin \\
+  oddjob oddjob-mkhomedir packagekit \\
+  libnss-winbind libpam-winbind winbind ntpdate cups-client smbclient cifs-utils
+<span class="cm"># Sincronizar reloj — CRÍTICO:</span>
+sudo ntpdate &lt;IP-WS2022&gt;
+<span class="cm"># DNS:</span>
+sudo nano /etc/resolv.conf
+<span class="cm"># nameserver &lt;IP-WS2022&gt; / search aso.local</span>
+sudo realm join aso.local -U Administrador
+<span class="cm"># contraseña: Usuario.25</span>
+<span class="cm"># sssd.conf igual que Ubuntu Server</span>
+sudo systemctl restart sssd
+sudo pam-auth-update --enable mkhomedir
+id director1</pre>
+</div>
+<div class="blk"><div class="blk-title">Pruebas CUPS</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># No autorizado (debe dar 403):</span>
+lp -d IMP-LNX-DIR -U soporte1 /etc/hostname
+<span class="cm"># Autorizado:</span>
+lp -d IMP-LNX-DIR -U director1 /etc/hostname
+lpstat -o IMP-LNX-DIR
+cancel &lt;JOBID&gt;</pre>
+</div>`
+    },
+    2: {
+      ws: `<div class="blk"><div class="blk-title">Auditoría de puertos</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>netstat -ano | findstr "LISTENING"
+Get-NetTCPConnection -State Listen | Sort LocalPort | Format-Table LocalPort, OwningProcess</pre>
+</div>
+<div class="blk"><div class="blk-title">Bloquear puertos innecesarios</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># Bloquear LPD/LPR (515) — legacy sin cifrado:</span>
+New-NetFirewallRule -DisplayName "BLOCK-LPD-515" -Direction Inbound -Protocol TCP -LocalPort 515 -Action Block
+Get-NetFirewallRule | Where-Object {$_.DisplayName -match "Print|SMB|LPD|RAW"} | Format-Table DisplayName, Enabled, Action</pre>
+</div>
+<div class="blk"><div class="blk-title">Cola bloqueada</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm"># Limpiar spooler (método más fiable):</span>
+Stop-Service Spooler -Force
+Remove-Item "C:\\Windows\\System32\\spool\\PRINTERS\\*" -Force -Recurse
+Start-Service Spooler
+<span class="cm"># Cancelar sin reiniciar:</span>
+Get-PrintJob -PrinterName "IMP-WS-FISICA" | Remove-PrintJob
+<span class="cm"># Pausar / reanudar:</span>
+Suspend-Printer -Name "IMP-WS-FISICA"
+Resume-Printer  -Name "IMP-WS-FISICA"</pre>
+<div class="note ni">GUI: Print Management → impresora → doble clic → cola → clic derecho trabajo → Cancel/Pause</div>
+</div>`,
+
+      lnx: `<div class="blk"><div class="blk-title">Auditoría puertos CUPS</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>ss -tlnp | grep cups
+sudo cupsctl
+sudo tail -50 /var/log/cups/access_log</pre>
+</div>
+<div class="blk"><div class="blk-title">UFW — solo puertos necesarios</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo ufw enable
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 22/tcp
+sudo ufw allow 631/tcp
+sudo ufw deny 515/tcp
+sudo ufw deny 515/udp
+sudo ufw status verbose</pre>
+</div>
+<div class="blk"><div class="blk-title">Tabla de protocolos</div>
+<table>
+<tr><th>Protocolo</th><th>Puerto</th><th>Cifrado</th></tr>
+<tr><td>IPP</td><td>631 TCP</td><td class="rd">Ninguno</td></tr>
+<tr><td>IPPS</td><td>631 TCP+TLS</td><td class="gr">TLS</td></tr>
+<tr><td>RAW/JetDirect</td><td>9100 TCP</td><td class="rd">Ninguno</td></tr>
+<tr><td>LPD/LPR</td><td>515 TCP</td><td class="rd">Ninguno</td></tr>
+<tr><td>SMB/CIFS</td><td>445 TCP</td><td class="am">SMB3+AES</td></tr>
+</table>
+</div>
+<div class="blk"><div class="blk-title">Cola bloqueada</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>lpstat -o
+cancel &lt;JOBID&gt;
+cancel -a IMP-LNX-SOP
+sudo cupsdisable IMP-LNX-SOP
+sudo cupsenable  IMP-LNX-SOP
+sudo cupsreject  IMP-LNX-SOP
+sudo cupsaccept  IMP-LNX-SOP
+<span class="cm"># Si persiste:</span>
+sudo rm /var/spool/cups/[0-9]*
+sudo systemctl restart cups</pre>
+</div>`,
+
+      cliw: `<div class="blk"><div class="blk-title">Wireshark — filtros</div>
+<pre><span class="cm"># Todo al servidor Linux:</span>
+ip.addr == &lt;IP-LNX&gt;
+<span class="cm"># Todo al servidor Windows:</span>
+ip.addr == &lt;IP-WS&gt;
+<span class="cm"># IPP:</span>
+tcp.port == 631
+<span class="cm"># RAW:</span>
+tcp.port == 9100
+<span class="cm"># SMB:</span>
+tcp.port == 445
+<span class="cm"># IPP hacia Linux:</span>
+ip.addr == &lt;IP-LNX&gt; &amp;&amp; tcp.port == 631</pre>
+<div class="note ni">Para ver tráfico sin cifrar: clic derecho en paquete → Follow → TCP Stream. Si ves texto legible = sin cifrar</div>
+</div>`,
+
+      clil: `<div class="blk"><div class="blk-title">Wireshark / tcpdump</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y wireshark tshark
+sudo usermod -aG wireshark $USER
+<span class="cm"># cerrar sesión y volver a entrar</span>
+<span class="cm"># Captura con tcpdump:</span>
+sudo tcpdump -i eth0 port 631 -w /tmp/captura-ipp.pcap
+sudo tcpdump -i eth0 port 445 -w /tmp/captura-smb.pcap
+<span class="cm"># Analizar:</span>
+tshark -r /tmp/captura-ipp.pcap -Y "ipp" -T fields -e ip.src -e ip.dst -e tcp.dstport
+<span class="cm"># Abrir GUI:</span>
+wireshark /tmp/captura-ipp.pcap &amp;</pre>
+</div>`
+    },
+    3: {
+      lnx: `<div class="blk"><div class="blk-title">1. Instalar NFS server</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y nfs-kernel-server
+sudo systemctl enable --now nfs-kernel-server</pre>
+</div>
+<div class="blk"><div class="blk-title">2. Crear carpetas</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo mkdir -p /srv/nfs_publica /srv/nfs_rw
+sudo chown nobody:nogroup /srv/nfs_publica /srv/nfs_rw
+sudo chmod 755 /srv/nfs_publica
+sudo chmod 777 /srv/nfs_rw
+echo "fichero de prueba" | sudo tee /srv/nfs_publica/test.txt</pre>
+</div>
+<div class="blk"><div class="blk-title">3. /etc/exports — sin espacio entre IP y paréntesis</div>
+<div class="cfg"><span class="cc"># /etc/exports</span>
+<span class="cv">/srv/nfs_publica</span>  <span class="ck">192.168.1.0/24</span>(<span class="cs">ro,sync,no_subtree_check,root_squash</span>)
+<span class="cv">/srv/nfs_rw</span>       <span class="ck">192.168.1.50</span>(<span class="cs">rw,sync,no_subtree_check,root_squash</span>)</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo exportfs -ra
+sudo exportfs -v
+showmount -e localhost</pre>
+<div class="note nd">Sin espacio entre la IP y el paréntesis. Con espacio lo trata como dos entradas y falla.</div>
+</div>
+<div class="blk"><div class="blk-title">4. Firewall</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo ufw allow from 192.168.1.0/24 to any port 2049
+sudo ufw allow from 192.168.1.0/24 to any port 111</pre>
+</div>`,
+
+      clil: `<div class="blk"><div class="blk-title">1. Instalar cliente y ver exports</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y nfs-common
+showmount -e &lt;IP-SRV&gt;</pre>
+</div>
+<div class="blk"><div class="blk-title">2. Montar</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo mkdir -p /mnt/publica /mnt/rw
+sudo mount -t nfs &lt;IP-SRV&gt;:/srv/nfs_publica /mnt/publica -o ro
+sudo mount -t nfs &lt;IP-SRV&gt;:/srv/nfs_rw      /mnt/rw      -o rw
+mount | grep nfs
+df -h | grep nfs</pre>
+</div>
+<div class="blk"><div class="blk-title">3. Pruebas</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>ls /mnt/publica && cat /mnt/publica/test.txt
+touch /mnt/rw/desde-cliente.txt       <span class="cm"># debe funcionar</span>
+touch /mnt/publica/intento.txt        <span class="cm"># debe fallar: Read-only file system</span></pre>
+</div>
+<div class="blk"><div class="blk-title">4. /etc/fstab — montaje persistente</div>
+<div class="cfg"><span class="cv">&lt;IP-SRV&gt;:/srv/nfs_publica</span>  <span class="ck">/mnt/publica</span>  <span class="cs">nfs</span>  <span class="ck">ro,auto,nofail,_netdev</span>  <span class="cv">0 0</span>
+<span class="cv">&lt;IP-SRV&gt;:/srv/nfs_rw</span>       <span class="ck">/mnt/rw</span>       <span class="cs">nfs</span>  <span class="ck">rw,auto,nofail,_netdev</span>  <span class="cv">0 0</span></div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo mount -a</pre>
+</div>`
+    },
+    4: {
+      lnx: `<div class="blk"><div class="blk-title">1. Instalar Samba</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y samba samba-common-bin libnss-winbind libpam-winbind winbind
+sudo systemctl enable smbd nmbd winbind
+<span class="cm"># Sincronizar reloj ANTES de tocar Samba:</span>
+sudo ntpdate &lt;IP-WS2022&gt;</pre>
+</div>
+<div class="blk"><div class="blk-title">2. smb.conf — sección global completa</div>
+<div class="cfg"><span class="cs">[global]</span>
+  <span class="ck">workgroup</span>     = <span class="cv">ASO</span>
+  <span class="ck">realm</span>         = <span class="cv">ASO.LOCAL</span>
+  <span class="ck">security</span>      = <span class="cv">ADS</span>
+  <span class="ck">server string</span> = <span class="cv">Servidor Samba INFORPRINT</span>
+
+  <span class="ck">idmap config * : backend</span>  = <span class="cv">tdb</span>
+  <span class="ck">idmap config * : range</span>    = <span class="cv">10000-99999</span>
+  <span class="ck">idmap config ASO : backend</span> = <span class="cv">ad</span>
+  <span class="ck">idmap config ASO : range</span>   = <span class="cv">100000-999999</span>
+
+  <span class="ck">template shell</span>           = <span class="cv">/bin/bash</span>
+  <span class="ck">winbind use default domain</span> = <span class="cv">yes</span>
+  <span class="ck">winbind offline logon</span>     = <span class="cv">yes</span>
+  <span class="ck">winbind enum users</span>        = <span class="cv">yes</span>
+  <span class="ck">winbind enum groups</span>       = <span class="cv">yes</span>
+
+  <span class="ck">map to guest</span>   = <span class="cv">Bad User</span>
+  <span class="ck">guest account</span>  = <span class="cv">nobody</span>
+
+  <span class="ck">log file</span>      = <span class="cv">/var/log/samba/log.%m</span>
+  <span class="ck">max log size</span>  = <span class="cv">1000</span></div>
+</div>
+<div class="blk"><div class="blk-title">3. Shares</div>
+<div class="cfg"><span class="cs">[publica]</span>
+  <span class="ck">path</span>       = <span class="cv">/srv/samba_publica</span>
+  <span class="ck">read only</span>  = <span class="cv">yes</span>
+  <span class="ck">guest ok</span>   = <span class="cv">yes</span>
+  <span class="ck">browseable</span> = <span class="cv">yes</span>
+  <span class="ck">public</span>     = <span class="cv">yes</span>
+
+<span class="cs">[administracion]</span>
+  <span class="ck">path</span>        = <span class="cv">/srv/samba_administracion</span>
+  <span class="ck">valid users</span> = <span class="cv">@GRP-Administracion</span>
+  <span class="ck">writable</span>    = <span class="cv">yes</span>
+  <span class="ck">guest ok</span>    = <span class="cv">no</span>
+  <span class="ck">create mask</span> = <span class="cv">0660</span>
+
+<span class="cs">[soporte]</span>
+  <span class="ck">path</span>        = <span class="cv">/srv/samba_soporte</span>
+  <span class="ck">valid users</span> = <span class="cv">@GRP-Soporte</span>
+  <span class="ck">writable</span>    = <span class="cv">yes</span>
+  <span class="ck">guest ok</span>    = <span class="cv">no</span>
+  <span class="ck">create mask</span> = <span class="cv">0660</span></div>
+</div>
+<div class="blk"><div class="blk-title">4. Carpetas y unión al dominio</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo mkdir -p /srv/samba_publica /srv/samba_administracion /srv/samba_soporte
+sudo chown nobody:nogroup /srv/samba_publica
+sudo chmod 755 /srv/samba_publica
+sudo chmod 770 /srv/samba_administracion /srv/samba_soporte
+testparm
+<span class="cm"># Unir Samba al dominio (obligatorio, separado del realm join):</span>
+sudo net ads join -U Administrador
+<span class="cm"># contraseña: Usuario.25</span>
+sudo systemctl restart smbd nmbd winbind
+sudo systemctl status winbind
+<span class="cm"># Verificar que winbind ve el AD:</span>
+wbinfo -u
+wbinfo -g</pre>
+</div>
+<div class="blk"><div class="blk-title">5. Instalar Webmin</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh
+sudo sh setup-repos.sh
+sudo apt install -y webmin
+sudo systemctl status webmin
+<span class="cm"># Acceso: https://&lt;IP-SRV&gt;:10000  contraseña root: Usuario.25</span></pre>
+</div>`,
+
+      cliw: `<div class="blk"><div class="blk-title">Acceder desde Windows</div>
+<pre><span class="cm"># Explorador (ya en dominio, no pide contraseña si tienes permisos):</span>
+\\\\&lt;IP-SRV-LNX&gt;\\publica
+\\\\&lt;IP-SRV-LNX&gt;\\administracion
+\\\\&lt;IP-SRV-LNX&gt;\\soporte</pre>
+</div>
+<div class="blk"><div class="blk-title">Mapear unidades</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>net use Z: \\\\&lt;IP-SRV-LNX&gt;\\publica
+net use Y: \\\\&lt;IP-SRV-LNX&gt;\\administracion /user:ASO\\admin1 Usuario.25 /persistent:yes
+net use
+net use Z: /delete</pre>
+</div>`,
+
+      clil: `<div class="blk"><div class="blk-title">Acceder desde Linux</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo apt install -y smbclient cifs-utils
+<span class="cm"># Listar shares:</span>
+smbclient -L //&lt;IP-SRV&gt; -U admin1%Usuario.25
+<span class="cm"># Acceder interactivo a pública:</span>
+smbclient //&lt;IP-SRV&gt;/publica -N</pre>
+</div>
+<div class="blk"><div class="blk-title">Montar con CIFS</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo mkdir -p /mnt/samba_pub /mnt/samba_adm
+sudo mount -t cifs //&lt;IP-SRV&gt;/publica        /mnt/samba_pub -o guest
+sudo mount -t cifs //&lt;IP-SRV&gt;/administracion /mnt/samba_adm \\
+  -o user=admin1,password=Usuario.25,domain=ASO,uid=$(id -u),gid=$(id -g)
+touch /mnt/samba_adm/test-linux.txt</pre>
+</div>`
+    },
+    5: {
+      lnx: `<div class="blk"><div class="blk-title">1. Verificar AD y crear recursos</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>id director1 && id soporte1
+getent group GRP-Direccion && getent group GRP-Soporte
+wbinfo -u && wbinfo -g
+
+sudo mkdir -p /srv/nfs_direccion /srv/nfs_soporte
+sudo chown nobody:nogroup /srv/nfs_direccion /srv/nfs_soporte
+sudo chmod 770 /srv/nfs_direccion /srv/nfs_soporte</pre>
+</div>
+<div class="blk"><div class="blk-title">2. /etc/exports</div>
+<div class="cfg"><span class="cv">/srv/nfs_direccion</span>  <span class="ck">192.168.1.50</span>(<span class="cs">rw,sync,root_squash,no_subtree_check</span>)
+<span class="cv">/srv/nfs_soporte</span>    <span class="ck">192.168.1.0/24</span>(<span class="cs">ro,sync,root_squash,no_subtree_check</span>)</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo exportfs -ra && sudo exportfs -v</pre>
+</div>
+<div class="blk"><div class="blk-title">3. smb.conf — añadir shares por grupos AD</div>
+<div class="cfg"><span class="cs">[direccion]</span>
+  <span class="ck">path</span>        = <span class="cv">/srv/samba_direccion</span>
+  <span class="ck">valid users</span> = <span class="cv">@GRP-Direccion</span>
+  <span class="ck">writable</span>    = <span class="cv">yes</span>
+  <span class="ck">guest ok</span>    = <span class="cv">no</span>
+
+<span class="cs">[soporte]</span>
+  <span class="ck">path</span>        = <span class="cv">/srv/samba_soporte</span>
+  <span class="ck">valid users</span> = <span class="cv">@GRP-Soporte</span>
+  <span class="ck">writable</span>    = <span class="cv">yes</span>
+  <span class="ck">guest ok</span>    = <span class="cv">no</span></div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>sudo mkdir -p /srv/samba_direccion /srv/samba_soporte
+sudo chmod 770 /srv/samba_direccion /srv/samba_soporte
+testparm && sudo systemctl restart smbd</pre>
+</div>
+<div class="blk"><div class="blk-title">4. Diagnóstico de los 3 fallos intencionados</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button><span class="cm">### FALLO 1: firewall bloqueando Samba</span>
+sudo ufw status verbose | grep -E "445|139|137|138"
+sudo ufw allow samba   <span class="cm"># 137/udp 138/udp 139/tcp 445/tcp</span>
+
+<span class="cm">### FALLO 2: error en /etc/exports</span>
+sudo exportfs -ra      <span class="cm"># muestra errores de sintaxis</span>
+sudo journalctl -u nfs-kernel-server -n 30
+sudo systemctl status rpcbind
+sudo systemctl start rpcbind
+
+<span class="cm">### FALLO 3: resolución de nombres</span>
+ping nombre-maquina    <span class="cm"># falla pero ping IP funciona → DNS/hosts</span>
+echo "&lt;IP-CLI&gt; cli-lnx" | sudo tee -a /etc/hosts
+getent hosts cli-lnx</pre>
+</div>
+<div class="blk"><div class="blk-title">5. Herramientas obligatorias</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button>ping -c 4 &lt;IP&gt;
+ip a && ip route show
+systemctl status smbd nfs-kernel-server cups sssd winbind
+sudo smbstatus
+testparm
+showmount -e &lt;IP-SRV&gt;
+showmount -a &lt;IP-SRV&gt;
+wbinfo -u && wbinfo -g</pre>
+</div>`,
+
+      cliw: `<div class="blk"><div class="blk-title">Samba con usuario de dirección</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button">net use Z: \\\\&lt;IP-SRV&gt;\\direccion /user:ASO\\director1 Usuario.25 /persistent:yes
+dir Z:\\
+echo prueba > Z:\\desde-windows.txt
+<span class="cm"># Verificar que soporte1 NO puede entrar a direccion:</span>
+net use Y: \\\\&lt;IP-SRV&gt;\\direccion /user:ASO\\soporte1 Usuario.25
+<span class="cm"># → System error 5: Access is denied (correcto)</span>
+net use</pre>
+</div>`,
+
+      clil: `<div class="blk"><div class="blk-title">NFS + Samba simultáneo</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button">sudo mkdir -p /mnt/nfs_soporte /mnt/samba_dir
+sudo mount -t nfs &lt;IP-SRV&gt;:/srv/nfs_soporte /mnt/nfs_soporte
+sudo mount -t cifs //&lt;IP-SRV&gt;/direccion /mnt/samba_dir \\
+  -o user=director1,password=Usuario.25,domain=ASO,uid=$(id -u),gid=$(id -g)
+<span class="cm"># Verificar:</span>
+df -h | grep -E "nfs|cifs"
+mount | grep -E "nfs|cifs"
+<span class="cm"># Pruebas:</span>
+echo "NFS OK"  > /mnt/nfs_soporte/prueba-nfs.txt
+echo "CIFS OK" > /mnt/samba_dir/prueba-smb.txt</pre>
+</div>
+<div class="blk"><div class="blk-title">Diagnóstico rápido</div>
+<pre><button class="copy-btn" onclick="cp(this)">copy</button">ping -c 2 &lt;IP-SRV&gt;
+ip a show eth0
+showmount -e &lt;IP-SRV&gt;
+smbclient -L //&lt;IP-SRV&gt; -U director1%Usuario.25 2>&amp;1 | head -20
+sudo ufw status</pre>
+</div>`
+    }
+  }
+};
+
+const mm = { 0: ['ws','lnx','cliw','clil'], 1: ['ws','lnx','cliw','clil'], 2: ['ws','lnx','cliw','clil'], 3: ['lnx','clil'], 4: ['lnx','cliw','clil'], 5: ['lnx','cliw','clil'] };
+let cp_idx = 0, cm_idx = 0;
+
+function renderMeta() {
+  const m = DATA.meta;
+  return `<div class="meta">
+    <div class="meta-item"><span class="meta-label">Dominio</span><span class="meta-val">${m.dominio}</span></div>
+    <div class="meta-item"><span class="meta-label">Admin AD</span><span class="meta-val">${m.admin}</span></div>
+    <div class="meta-item"><span class="meta-label">Contraseña</span><span class="meta-val">${m.pass}</span></div>
+    <div class="meta-item"><span class="meta-label">Driver Windows</span><span class="meta-val">${m.driver}</span></div>
+  </div>`;
+}
+
+function renderSidebar(pIdx) {
+  const machines = DATA.pracs[pIdx].machines;
+  const labels = { ws: 'WS2022', lnx: 'Ubuntu Server', cliw: 'CLI-WIN', clil: 'CLI-LNX' };
+  let html = '<span class="sidebar-label">Máquinas</span><div class="mbtns">';
+  machines.forEach((m, i) => {
+    html += `<button class="mbtn ${m.cls} ${i===0?'on':''}" onclick="sm('${m.id}', ${pIdx})"><span class="dot"></span>${labels[m.id]}</button>`;
+  });
+  html += '</div>';
+  document.getElementById('sidebar').innerHTML = html;
+}
+
+function renderContent(pIdx, mId) {
+  const c = DATA.content[pIdx];
+  if (!c) { document.getElementById('content').innerHTML = '<p style="color:var(--muted)">Sin contenido</p>'; return; }
+  const html = c[mId] || '<p style="color:var(--muted)">Sin contenido para esta máquina</p>';
+  document.getElementById('content').innerHTML = renderMeta() + html;
+}
+
+function sp(i) {
+  cp_idx = i;
+  document.querySelectorAll('#ptabs .ptab').forEach((t,j) => t.classList.toggle('on', j===i));
+  renderSidebar(i);
+  const first = mm[i][0];
+  cm_idx = first;
+  renderContent(i, first);
+}
+
+function sm(mId, pIdx) {
+  cm_idx = mId;
+  document.querySelectorAll('.mbtn').forEach(b => b.classList.remove('on'));
+  event.currentTarget.classList.add('on');
+  renderContent(pIdx, mId);
+}
+
+function cp(btn) {
+  const pre = btn.parentElement;
+  const text = pre.innerText.replace('copy','').replace('copied','').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+sp(0);
+</script>
+</body>
+</html>

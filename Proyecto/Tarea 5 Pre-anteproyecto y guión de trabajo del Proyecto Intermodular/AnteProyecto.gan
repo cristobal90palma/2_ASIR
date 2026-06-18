@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2025-12-01" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3316" locale="es_ES">
+    <description/>
+    <view zooming-state="default:8" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="200" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="75" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="75" order="2"/>
+        <field id="tpd15" name="Notas" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="452916b1d5eb4ad99100226982cc2439" name="Analisis" meeting="false" start="2025-11-24" duration="20" complete="0" expand="true"/>
+        <task id="1" uid="926cb07cff8a4c8ea6bca6a9930f6918" name="Diseño" meeting="false" start="2025-12-19" duration="31" complete="0" expand="true"/>
+        <task id="2" uid="882a64cef16848d0b6f520c404f47c37" name="Servidor FOG Configuración Incial" meeting="false" start="2026-01-30" duration="6" complete="0" expand="true"/>
+        <task id="3" uid="3e11c76765a64de49ef49a31d49d5359" name="Captura de Imagen" meeting="false" start="2026-02-09" duration="2" complete="0" expand="true"/>
+        <task id="6" uid="850fe384100a46dc91aa0c54724c33c1" name="Comprobación WakeOnLAN" meeting="false" start="2025-12-15" duration="40" complete="0" expand="true"/>
+        <task id="4" uid="35948343b25a4667a3d6a70734e483b5" name="Despliegue 1 equipo - misma subnet" meeting="false" start="2026-02-11" duration="3" complete="0" expand="true"/>
+        <task id="5" uid="e869f213978e417e9fe2bd6e9aa33e60" name="Despliegue multiples equipos - diferentes subnets" meeting="false" start="2026-02-16" duration="32" complete="0" expand="true"/>
+        <task id="8" uid="56493b72f23542bf947534c2c9d1046e" name="Implementar sistemas de automatización post-despliegue" meeting="false" start="2026-02-27" duration="26" complete="0" expand="true"/>
+        <task id="9" uid="97162a41dbb0487ca1d0e3e301670dfa" name="Creación de base de datos con las MACs de los equipos cliente" meeting="false" start="2026-03-13" duration="24" complete="0" expand="true"/>
+        <task id="10" uid="3fd4cde0716e444884151fb67ddd342a" name="Desarrollo de una versión simplificada del servicio web" meeting="false" start="2026-03-13" duration="35" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>

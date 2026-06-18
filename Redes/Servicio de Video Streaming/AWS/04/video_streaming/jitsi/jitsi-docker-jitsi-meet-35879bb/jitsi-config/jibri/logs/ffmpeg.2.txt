@@ -1,0 +1,340 @@
+Jibri 2026-03-05 22:32:05.022 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: ffmpeg version 5.1.8-0+deb12u1 Copyright (c) 2000-2025 the FFmpeg developers
+Jibri 2026-03-05 22:32:05.022 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   built with gcc 12 (Debian 12.2.0-14+deb12u1)
+Jibri 2026-03-05 22:32:05.142 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   configuration: --prefix=/usr --extra-version=0+deb12u1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --disable-sndio --enable-libjxl --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-libplacebo --enable-librav1e --enable-shared
+Jibri 2026-03-05 22:32:05.142 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libavutil      57. 28.100 / 57. 28.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libavcodec     59. 37.100 / 59. 37.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libavformat    59. 27.100 / 59. 27.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libavdevice    59.  7.100 / 59.  7.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libavfilter     8. 44.100 /  8. 44.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libswscale      6.  7.100 /  6.  7.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libswresample   4.  7.100 /  4.  7.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   libpostproc    56.  6.100 / 56.  6.100
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [x11grab @ 0x5e9f88715e80] Stream #0: not enough frames to estimate rate; consider increasing probesize
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: Input #0, x11grab, from ':0.0+0,0':
+Jibri 2026-03-05 22:32:05.143 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Duration: N/A, start: 1772749925.092584, bitrate: 884736 kb/s
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Stream #0:0: Video: rawvideo (BGR[0] / 0x524742), bgr0, 1280x720, 884736 kb/s, 30 fps, 1000k tbr, 1000k tbn
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: Guessed Channel Layout for Input Stream #1.0 : stereo
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: Input #1, pulse, from 'default':
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Duration: N/A, start: 1772749925.140284, bitrate: 1536 kb/s
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Stream #1:0: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: timestamp is deprecated, set the 'creation_time' metadata tag instead.
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: Stream mapping:
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Stream #0:0 -> #0:0 (rawvideo (native) -> h264 (libx264))
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Stream #1:0 -> #0:1 (pcm_s16le (native) -> aac (native))
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: Press [q] to stop, [?] for help
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+Jibri 2026-03-05 22:32:05.273 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] profile Constrained Baseline, level 3.1, 4:2:0, 8-bit
+Jibri 2026-03-05 22:32:05.833 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] 264 - core 164 r3095 baee400 - H.264/MPEG-4 AVC codec - Copyleft 2003-2022 - http://www.videolan.org/x264.html - options: cabac=0 ref=1 deblock=0:0:0 analyse=0:0 me=dia subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=0 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=3 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=0 weightp=0 keyint=250 keyint_min=25 scenecut=0 intra_refresh=0 rc=crf mbtree=0 crf=25.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=0
+Jibri 2026-03-05 22:32:05.834 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: Output #0, mp4, to '/recordings/f89b5d9a-0178-49c7-8174-a78efa6ef4aa/fondo_del_mar_2026-03-05-22-32-00.mp4':
+Jibri 2026-03-05 22:32:05.834 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Metadata:
+Jibri 2026-03-05 22:32:05.834 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:     creation_time   : 2026-03-05T22:32:05+0000
+Jibri 2026-03-05 22:32:05.834 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:     encoder         : Lavf59.27.100
+Jibri 2026-03-05 22:32:05.836 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1280x720, q=2-31, 30 fps, 15360 tbn
+Jibri 2026-03-05 22:32:05.836 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:     Metadata:
+Jibri 2026-03-05 22:32:05.836 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:       encoder         : Lavc59.37.100 libx264
+Jibri 2026-03-05 22:32:05.836 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:     Side data:
+Jibri 2026-03-05 22:32:05.836 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:       cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+Jibri 2026-03-05 22:32:05.836 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:   Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s
+Jibri 2026-03-05 22:32:05.837 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:     Metadata:
+Jibri 2026-03-05 22:32:05.837 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42:       encoder         : Lavc59.37.100 aac
+Jibri 2026-03-05 22:32:05.837 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=    1 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    
+Jibri 2026-03-05 22:32:06.838 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=   21 fps=0.0 q=17.0 size=       0kB time=00:00:00.60 bitrate=   0.6kbits/s speed=0.986x    
+Jibri 2026-03-05 22:32:06.838 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=   37 fps= 33 q=15.0 size=       0kB time=00:00:01.11 bitrate=   0.3kbits/s speed=0.993x    
+Jibri 2026-03-05 22:32:06.838 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=   52 fps= 32 q=20.0 size=       0kB time=00:00:01.57 bitrate=   0.2kbits/s speed=0.97x    
+Jibri 2026-03-05 22:32:07.842 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=   67 fps= 31 q=15.0 size=       0kB time=00:00:02.08 bitrate=   0.2kbits/s speed=0.979x    
+Jibri 2026-03-05 22:32:07.842 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=   82 fps= 31 q=15.0 size=       0kB time=00:00:02.60 bitrate=   0.1kbits/s speed=0.986x    
+Jibri 2026-03-05 22:32:08.843 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=   98 fps= 31 q=15.0 size=       0kB time=00:00:03.11 bitrate=   0.1kbits/s speed=0.992x    
+Jibri 2026-03-05 22:32:09.849 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  112 fps= 31 q=15.0 size=       0kB time=00:00:03.59 bitrate=   0.1kbits/s speed=0.989x    
+Jibri 2026-03-05 22:32:09.850 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  128 fps= 31 q=15.0 size=       0kB time=00:00:04.10 bitrate=   0.1kbits/s speed=0.992x    
+Jibri 2026-03-05 22:32:10.852 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  143 fps= 31 q=22.0 size=     256kB time=00:00:04.62 bitrate= 453.9kbits/s speed=0.995x    
+Jibri 2026-03-05 22:32:10.852 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  157 fps= 31 q=20.0 size=     256kB time=00:00:05.13 bitrate= 408.7kbits/s speed=0.997x    
+Jibri 2026-03-05 22:32:10.852 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  173 fps= 31 q=19.0 size=     256kB time=00:00:05.60 bitrate= 374.6kbits/s speed=0.991x    
+Jibri 2026-03-05 22:32:11.852 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  188 fps= 31 q=18.0 size=     256kB time=00:00:06.10 bitrate= 343.5kbits/s speed=0.993x    
+Jibri 2026-03-05 22:32:11.853 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  203 fps= 31 q=18.0 size=     512kB time=00:00:06.61 bitrate= 633.9kbits/s speed=0.995x    
+Jibri 2026-03-05 22:32:12.855 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  217 fps= 30 q=19.0 size=     512kB time=00:00:07.12 bitrate= 588.4kbits/s speed=0.992x    
+Jibri 2026-03-05 22:32:13.856 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  234 fps= 30 q=20.0 size=     512kB time=00:00:07.63 bitrate= 549.1kbits/s speed=0.994x    
+Jibri 2026-03-05 22:32:13.856 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  248 fps= 30 q=18.0 size=     512kB time=00:00:08.15 bitrate= 514.7kbits/s speed=0.993x    
+Jibri 2026-03-05 22:32:14.857 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  265 fps= 30 q=19.0 size=     768kB time=00:00:08.66 bitrate= 726.0kbits/s speed=0.995x    
+Jibri 2026-03-05 22:32:14.857 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  280 fps= 30 q=18.0 size=     768kB time=00:00:09.21 bitrate= 682.5kbits/s speed=0.996x    
+Jibri 2026-03-05 22:32:15.858 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  296 fps= 30 q=19.0 size=    1024kB time=00:00:09.72 bitrate= 862.3kbits/s speed=0.996x    
+Jibri 2026-03-05 22:32:15.858 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  311 fps= 30 q=20.0 size=    1024kB time=00:00:10.24 bitrate= 819.2kbits/s speed=0.997x    
+Jibri 2026-03-05 22:32:16.858 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  327 fps= 30 q=20.0 size=    1024kB time=00:00:10.75 bitrate= 780.3kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:16.859 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  342 fps= 30 q=20.0 size=    1024kB time=00:00:11.26 bitrate= 744.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:17.860 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  357 fps= 30 q=18.0 size=    1280kB time=00:00:11.73 bitrate= 893.7kbits/s speed=0.996x    
+Jibri 2026-03-05 22:32:17.861 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  372 fps= 30 q=18.0 size=    1280kB time=00:00:12.23 bitrate= 856.9kbits/s speed=0.997x    
+Jibri 2026-03-05 22:32:18.862 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  387 fps= 30 q=20.0 size=    1280kB time=00:00:12.74 bitrate= 822.6kbits/s speed=0.997x    
+Jibri 2026-03-05 22:32:18.862 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  402 fps= 30 q=20.0 size=    1536kB time=00:00:13.25 bitrate= 949.1kbits/s speed=0.997x    
+Jibri 2026-03-05 22:32:19.863 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  418 fps= 30 q=20.0 size=    1536kB time=00:00:13.76 bitrate= 913.9kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:19.863 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  433 fps= 30 q=18.0 size=    1536kB time=00:00:14.28 bitrate= 881.2kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:20.866 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  447 fps= 30 q=18.0 size=    1792kB time=00:00:14.79 bitrate= 992.5kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:20.866 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  463 fps= 30 q=19.0 size=    1792kB time=00:00:15.30 bitrate= 959.4kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:21.867 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  478 fps= 30 q=19.0 size=    1792kB time=00:00:15.76 bitrate= 931.1kbits/s speed=0.996x    
+Jibri 2026-03-05 22:32:21.867 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  493 fps= 30 q=19.0 size=    1792kB time=00:00:16.32 bitrate= 899.3kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:22.868 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  508 fps= 30 q=22.0 size=    2048kB time=00:00:16.83 bitrate= 996.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:22.868 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  524 fps= 30 q=19.0 size=    2048kB time=00:00:17.30 bitrate= 969.8kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:23.869 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  539 fps= 30 q=20.0 size=    2304kB time=00:00:17.80 bitrate=1059.8kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:23.870 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  554 fps= 30 q=22.0 size=    2304kB time=00:00:18.32 bitrate=1030.3kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:24.896 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  568 fps= 30 q=20.0 size=    2560kB time=00:00:18.80 bitrate=1115.0kbits/s speed=0.997x    
+Jibri 2026-03-05 22:32:24.896 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  579 fps= 30 q=17.0 size=    2560kB time=00:00:19.17 bitrate=1093.4kbits/s speed=0.99x    
+Jibri 2026-03-05 22:32:25.897 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  592 fps= 30 q=20.0 size=    2560kB time=00:00:19.59 bitrate=1070.1kbits/s speed=0.984x    
+Jibri 2026-03-05 22:32:25.897 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  610 fps= 30 q=21.0 size=    2816kB time=00:00:20.20 bitrate=1142.0kbits/s speed=0.985x    
+Jibri 2026-03-05 22:32:26.902 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  626 fps= 30 q=17.0 size=    2816kB time=00:00:20.75 bitrate=1111.3kbits/s speed=0.988x    
+Jibri 2026-03-05 22:32:26.903 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  648 fps= 30 q=19.0 size=    2816kB time=00:00:21.50 bitrate=1072.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:27.903 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  662 fps= 30 q=17.0 size=    3072kB time=00:00:21.96 bitrate=1145.7kbits/s speed=0.997x    
+Jibri 2026-03-05 22:32:27.903 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  679 fps= 30 q=20.0 size=    3072kB time=00:00:22.52 bitrate=1117.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:28.904 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  694 fps= 30 q=21.0 size=    3328kB time=00:00:23.03 bitrate=1183.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:28.904 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  710 fps= 30 q=21.0 size=    3328kB time=00:00:23.50 bitrate=1160.1kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:29.932 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  723 fps= 30 q=18.0 size=    3328kB time=00:00:23.96 bitrate=1137.7kbits/s speed=0.994x    
+Jibri 2026-03-05 22:32:29.932 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  735 fps= 30 q=20.0 size=    3584kB time=00:00:24.33 bitrate=1206.5kbits/s speed=0.988x    
+Jibri 2026-03-05 22:32:30.934 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  743 fps= 30 q=22.0 size=    3584kB time=00:00:24.65 bitrate=1190.6kbits/s speed=0.981x    
+Jibri 2026-03-05 22:32:30.934 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  756 fps= 29 q=20.0 size=    3584kB time=00:00:25.07 bitrate=1170.8kbits/s speed=0.978x    
+Jibri 2026-03-05 22:32:31.936 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  777 fps= 30 q=19.0 size=    3840kB time=00:00:25.73 bitrate=1222.4kbits/s speed=0.984x    
+Jibri 2026-03-05 22:32:31.936 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  787 fps= 30 q=19.0 size=    3840kB time=00:00:26.09 bitrate=1205.3kbits/s speed=0.979x    
+Jibri 2026-03-05 22:32:32.937 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  804 fps= 30 q=16.0 size=    3840kB time=00:00:26.63 bitrate=1181.1kbits/s speed=0.98x    
+Jibri 2026-03-05 22:32:32.937 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  832 fps= 30 q=21.0 size=    4096kB time=00:00:27.56 bitrate=1217.2kbits/s speed=0.996x    
+Jibri 2026-03-05 22:32:33.937 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  849 fps= 30 q=21.0 size=    4096kB time=00:00:28.16 bitrate=1191.3kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:33.937 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  865 fps= 30 q=21.0 size=    4352kB time=00:00:28.67 bitrate=1243.2kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:34.938 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  879 fps= 30 q=20.0 size=    4352kB time=00:00:29.18 bitrate=1221.5kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:35.938 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  890 fps= 30 q=20.0 size=    4352kB time=00:00:29.55 bitrate=1206.1kbits/s speed=0.995x    
+Jibri 2026-03-05 22:32:35.939 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  910 fps= 30 q=21.0 size=    4608kB time=00:00:30.16 bitrate=1251.3kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:35.939 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  925 fps= 30 q=21.0 size=    4608kB time=00:00:30.67 bitrate=1230.7kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:36.942 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  940 fps= 30 q=20.0 size=    4864kB time=00:00:31.18 bitrate=1277.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:36.943 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  955 fps= 30 q=20.0 size=    4864kB time=00:00:31.69 bitrate=1257.2kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:37.944 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  971 fps= 30 q=20.0 size=    4864kB time=00:00:32.20 bitrate=1237.2kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:37.944 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame=  985 fps= 30 q=21.0 size=    5120kB time=00:00:32.71 bitrate=1282.0kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:38.945 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1000 fps= 30 q=19.0 size=    5120kB time=00:00:33.18 bitrate=1264.1kbits/s speed=0.998x    
+Jibri 2026-03-05 22:32:38.947 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1016 fps= 30 q=21.0 size=    5120kB time=00:00:33.70 bitrate=1244.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:39.948 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1031 fps= 30 q=21.0 size=    5376kB time=00:00:34.20 bitrate=1287.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:40.948 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1043 fps= 30 q=22.0 size=    5376kB time=00:00:34.62 bitrate=1272.1kbits/s speed=0.996x    
+Jibri 2026-03-05 22:32:40.949 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1062 fps= 30 q=21.0 size=    5376kB time=00:00:35.23 bitrate=1250.0kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:41.951 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1077 fps= 30 q=21.0 size=    5632kB time=00:00:35.73 bitrate=1291.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:41.952 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1092 fps= 30 q=20.0 size=    5632kB time=00:00:36.24 bitrate=1272.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:42.952 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1107 fps= 30 q=21.0 size=    5632kB time=00:00:36.75 bitrate=1255.2kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:42.953 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1121 fps= 30 q=21.0 size=    5632kB time=00:00:37.26 bitrate=1238.0kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:43.954 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1137 fps= 30 q=20.0 size=    5888kB time=00:00:37.77 bitrate=1276.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:43.955 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1152 fps= 30 q=20.0 size=    5888kB time=00:00:38.28 bitrate=1259.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:44.955 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1167 fps= 30 q=21.0 size=    5888kB time=00:00:38.75 bitrate=1244.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:44.955 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1183 fps= 30 q=20.0 size=    6144kB time=00:00:39.26 bitrate=1281.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:45.955 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1198 fps= 30 q=18.0 size=    6144kB time=00:00:39.79 bitrate=1264.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:45.956 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1214 fps= 30 q=19.0 size=    6144kB time=00:00:40.35 bitrate=1247.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:46.956 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1229 fps= 30 q=22.0 size=    6400kB time=00:00:40.86 bitrate=1282.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:46.956 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1245 fps= 30 q=18.0 size=    6400kB time=00:00:41.33 bitrate=1268.4kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:47.957 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1260 fps= 30 q=20.0 size=    6656kB time=00:00:41.84 bitrate=1303.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:47.957 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1275 fps= 30 q=21.0 size=    6656kB time=00:00:42.35 bitrate=1287.4kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:48.957 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1290 fps= 30 q=21.0 size=    6656kB time=00:00:42.86 bitrate=1272.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:48.958 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1305 fps= 30 q=19.0 size=    6912kB time=00:00:43.37 bitrate=1305.4kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:49.958 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1320 fps= 30 q=18.0 size=    6912kB time=00:00:43.88 bitrate=1290.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:49.959 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1336 fps= 30 q=18.0 size=    6912kB time=00:00:44.39 bitrate=1275.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:50.959 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1351 fps= 30 q=19.0 size=    7168kB time=00:00:44.90 bitrate=1307.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:50.959 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1366 fps= 30 q=21.0 size=    7168kB time=00:00:45.41 bitrate=1292.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:51.959 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1381 fps= 30 q=21.0 size=    7168kB time=00:00:45.88 bitrate=1279.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:51.960 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1396 fps= 30 q=20.0 size=    7168kB time=00:00:46.39 bitrate=1265.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:52.960 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1411 fps= 30 q=20.0 size=    7424kB time=00:00:46.90 bitrate=1296.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:52.960 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1427 fps= 30 q=21.0 size=    7424kB time=00:00:47.41 bitrate=1282.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:53.960 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1442 fps= 30 q=21.0 size=    7424kB time=00:00:47.92 bitrate=1269.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:53.961 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1457 fps= 30 q=21.0 size=    7680kB time=00:00:48.40 bitrate=1299.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:54.961 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1472 fps= 30 q=20.0 size=    7680kB time=00:00:48.90 bitrate=1286.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:54.961 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1487 fps= 30 q=20.0 size=    7680kB time=00:00:49.41 bitrate=1273.3kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:55.962 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1502 fps= 30 q=19.0 size=    7680kB time=00:00:49.92 bitrate=1260.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:55.962 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1517 fps= 30 q=21.0 size=    7936kB time=00:00:50.43 bitrate=1289.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:56.962 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1532 fps= 30 q=20.0 size=    7936kB time=00:00:50.94 bitrate=1276.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:56.963 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1547 fps= 30 q=20.0 size=    7936kB time=00:00:51.45 bitrate=1263.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:57.967 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1562 fps= 30 q=20.0 size=    8192kB time=00:00:51.96 bitrate=1291.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:57.967 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1578 fps= 30 q=20.0 size=    8192kB time=00:00:52.43 bitrate=1279.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:58.969 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1593 fps= 30 q=20.0 size=    8192kB time=00:00:52.94 bitrate=1267.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:58.969 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1608 fps= 30 q=21.0 size=    8448kB time=00:00:53.45 bitrate=1294.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:32:59.969 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1623 fps= 30 q=20.0 size=    8448kB time=00:00:53.96 bitrate=1282.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:32:59.969 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1638 fps= 30 q=22.0 size=    8448kB time=00:00:54.47 bitrate=1270.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:00.970 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1654 fps= 30 q=20.0 size=    8448kB time=00:00:54.98 bitrate=1258.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:00.970 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1669 fps= 30 q=18.0 size=    8704kB time=00:00:55.49 bitrate=1284.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:01.974 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1684 fps= 30 q=20.0 size=    8704kB time=00:00:55.98 bitrate=1273.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:01.974 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1699 fps= 30 q=21.0 size=    8704kB time=00:00:56.49 bitrate=1262.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:02.974 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1714 fps= 30 q=20.0 size=    8960kB time=00:00:57.00 bitrate=1287.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:02.974 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1729 fps= 30 q=20.0 size=    8960kB time=00:00:57.51 bitrate=1276.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:03.975 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1744 fps= 30 q=20.0 size=    8960kB time=00:00:57.98 bitrate=1266.0kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:03.978 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1760 fps= 30 q=20.0 size=    8960kB time=00:00:58.50 bitrate=1254.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:04.986 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1775 fps= 30 q=18.0 size=    9216kB time=00:00:59.00 bitrate=1279.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:04.986 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1790 fps= 30 q=18.0 size=    9216kB time=00:00:59.51 bitrate=1268.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:05.986 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1805 fps= 30 q=19.0 size=    9216kB time=00:01:00.02 bitrate=1257.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:05.986 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1821 fps= 30 q=20.0 size=    9472kB time=00:01:00.53 bitrate=1281.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:06.987 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1836 fps= 30 q=20.0 size=    9472kB time=00:01:01.04 bitrate=1271.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:06.987 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1851 fps= 30 q=19.0 size=    9472kB time=00:01:01.55 bitrate=1260.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:07.987 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1866 fps= 30 q=20.0 size=    9472kB time=00:01:02.06 bitrate=1250.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:07.987 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1881 fps= 30 q=19.0 size=    9728kB time=00:01:02.53 bitrate=1274.4kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:08.988 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1896 fps= 30 q=20.0 size=    9728kB time=00:01:03.04 bitrate=1264.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:08.988 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1911 fps= 30 q=20.0 size=    9728kB time=00:01:03.55 bitrate=1253.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:09.991 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1926 fps= 30 q=21.0 size=    9728kB time=00:01:04.06 bitrate=1243.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:09.991 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1941 fps= 30 q=19.0 size=    9984kB time=00:01:04.57 bitrate=1266.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:10.992 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1955 fps= 30 q=16.0 size=    9984kB time=00:01:05.03 bitrate=1257.5kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:10.992 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1971 fps= 30 q=19.0 size=    9984kB time=00:01:05.59 bitrate=1246.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:11.992 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 1987 fps= 30 q=19.0 size=    9984kB time=00:01:06.10 bitrate=1237.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:11.992 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2002 fps= 30 q=21.0 size=   10240kB time=00:01:06.57 bitrate=1260.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:12.993 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2017 fps= 30 q=21.0 size=   10240kB time=00:01:07.08 bitrate=1250.5kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:12.993 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2033 fps= 30 q=22.0 size=   10240kB time=00:01:07.60 bitrate=1240.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:13.993 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2048 fps= 30 q=21.0 size=   10496kB time=00:01:08.10 bitrate=1262.5kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:13.993 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2063 fps= 30 q=21.0 size=   10496kB time=00:01:08.61 bitrate=1253.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:14.994 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2078 fps= 30 q=22.0 size=   10752kB time=00:01:09.12 bitrate=1274.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:14.994 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2093 fps= 30 q=21.0 size=   10752kB time=00:01:09.63 bitrate=1264.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:15.994 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2109 fps= 30 q=20.0 size=   10752kB time=00:01:10.14 bitrate=1255.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:15.994 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2124 fps= 30 q=22.0 size=   11008kB time=00:01:10.65 bitrate=1276.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:16.995 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2137 fps= 30 q=18.0 size=   11008kB time=00:01:11.07 bitrate=1268.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:16.995 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2154 fps= 30 q=22.0 size=   11008kB time=00:01:11.63 bitrate=1258.9kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:17.996 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2169 fps= 30 q=22.0 size=   11264kB time=00:01:12.14 bitrate=1279.0kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:17.996 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2184 fps= 30 q=21.0 size=   11264kB time=00:01:12.65 bitrate=1270.0kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:18.996 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2200 fps= 30 q=21.0 size=   11264kB time=00:01:13.16 bitrate=1261.2kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:18.996 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2215 fps= 30 q=21.0 size=   11520kB time=00:01:13.67 bitrate=1280.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:19.999 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2230 fps= 30 q=21.0 size=   11520kB time=00:01:14.18 bitrate=1272.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:20.000 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2245 fps= 30 q=21.0 size=   11520kB time=00:01:14.69 bitrate=1263.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:21.000 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2260 fps= 30 q=21.0 size=   11776kB time=00:01:15.20 bitrate=1282.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:21.000 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2275 fps= 30 q=20.0 size=   11776kB time=00:01:15.72 bitrate=1274.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:22.000 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2290 fps= 30 q=21.0 size=   12032kB time=00:01:16.18 bitrate=1293.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:22.000 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2305 fps= 30 q=19.0 size=   12032kB time=00:01:16.69 bitrate=1285.2kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:23.001 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2321 fps= 30 q=21.0 size=   12032kB time=00:01:17.25 bitrate=1275.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:23.001 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2336 fps= 30 q=22.0 size=   12288kB time=00:01:17.71 bitrate=1295.3kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:24.003 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2351 fps= 30 q=22.0 size=   12288kB time=00:01:18.22 bitrate=1286.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:24.004 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2367 fps= 30 q=20.0 size=   12288kB time=00:01:18.73 bitrate=1278.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:25.004 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2382 fps= 30 q=22.0 size=   12544kB time=00:01:19.24 bitrate=1296.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:25.004 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2397 fps= 30 q=21.0 size=   12544kB time=00:01:19.76 bitrate=1288.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:26.006 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2412 fps= 30 q=20.0 size=   12800kB time=00:01:20.27 bitrate=1306.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:26.006 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2427 fps= 30 q=20.0 size=   12800kB time=00:01:20.78 bitrate=1298.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:27.006 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2442 fps= 30 q=21.0 size=   12800kB time=00:01:21.24 bitrate=1290.6kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:28.007 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2458 fps= 30 q=18.0 size=   13056kB time=00:01:21.76 bitrate=1308.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:28.007 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2473 fps= 30 q=21.0 size=   13056kB time=00:01:22.26 bitrate=1300.1kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:29.007 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2488 fps= 30 q=21.0 size=   13056kB time=00:01:22.77 bitrate=1292.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:29.007 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2503 fps= 30 q=18.0 size=   13312kB time=00:01:23.28 bitrate=1309.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:30.008 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2518 fps= 30 q=21.0 size=   13312kB time=00:01:23.80 bitrate=1301.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:30.008 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2533 fps= 30 q=21.0 size=   13568kB time=00:01:24.31 bitrate=1318.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:31.114 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2548 fps= 30 q=20.0 size=   13568kB time=00:01:24.82 bitrate=1310.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:31.114 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2563 fps= 30 q=21.0 size=   13568kB time=00:01:25.33 bitrate=1302.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:31.114 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2578 fps= 30 q=19.0 size=   13824kB time=00:01:25.79 bitrate=1319.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:32.115 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2594 fps= 30 q=21.0 size=   13824kB time=00:01:26.30 bitrate=1312.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:32.115 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2609 fps= 30 q=20.0 size=   13824kB time=00:01:26.81 bitrate=1304.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:33.115 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2624 fps= 30 q=22.0 size=   14080kB time=00:01:27.33 bitrate=1320.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:33.115 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2639 fps= 30 q=21.0 size=   14080kB time=00:01:27.84 bitrate=1313.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:34.117 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2654 fps= 30 q=21.0 size=   14080kB time=00:01:28.35 bitrate=1305.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:34.117 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2669 fps= 30 q=21.0 size=   14336kB time=00:01:28.81 bitrate=1322.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:35.117 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2684 fps= 30 q=20.0 size=   14336kB time=00:01:29.32 bitrate=1314.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:35.117 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2700 fps= 30 q=21.0 size=   14336kB time=00:01:29.83 bitrate=1307.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:36.118 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2715 fps= 30 q=19.0 size=   14592kB time=00:01:30.34 bitrate=1323.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:36.118 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2730 fps= 30 q=21.0 size=   14592kB time=00:01:30.85 bitrate=1315.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:37.119 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2745 fps= 30 q=19.0 size=   14592kB time=00:01:31.37 bitrate=1308.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:37.119 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2760 fps= 30 q=17.0 size=   14848kB time=00:01:31.88 bitrate=1323.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:38.119 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2775 fps= 30 q=18.0 size=   14848kB time=00:01:32.39 bitrate=1316.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:38.119 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2791 fps= 30 q=21.0 size=   14848kB time=00:01:32.86 bitrate=1309.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:39.120 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2806 fps= 30 q=19.0 size=   14848kB time=00:01:33.36 bitrate=1302.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:39.120 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2821 fps= 30 q=21.0 size=   15104kB time=00:01:33.87 bitrate=1318.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:40.121 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2836 fps= 30 q=21.0 size=   15104kB time=00:01:34.43 bitrate=1310.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:41.123 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2852 fps= 30 q=20.0 size=   15104kB time=00:01:34.94 bitrate=1303.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:41.123 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2867 fps= 30 q=21.0 size=   15360kB time=00:01:35.45 bitrate=1318.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:42.127 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2882 fps= 30 q=21.0 size=   15360kB time=00:01:35.92 bitrate=1311.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:42.127 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2897 fps= 30 q=19.0 size=   15360kB time=00:01:36.43 bitrate=1304.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:43.152 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2913 fps= 30 q=21.0 size=   15360kB time=00:01:36.94 bitrate=1298.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:43.152 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2928 fps= 30 q=19.0 size=   15616kB time=00:01:37.45 bitrate=1312.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:44.152 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2944 fps= 30 q=18.0 size=   15616kB time=00:01:37.96 bitrate=1305.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:44.152 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2959 fps= 30 q=19.0 size=   15616kB time=00:01:38.47 bitrate=1299.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:45.154 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2974 fps= 30 q=21.0 size=   15872kB time=00:01:38.98 bitrate=1313.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:45.154 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 2988 fps= 30 q=17.0 size=   15872kB time=00:01:39.49 bitrate=1306.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:46.156 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3003 fps= 30 q=16.0 size=   15872kB time=00:01:39.96 bitrate=1300.7kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:46.156 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3019 fps= 30 q=20.0 size=   16128kB time=00:01:40.51 bitrate=1314.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:47.158 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3034 fps= 30 q=21.0 size=   16128kB time=00:01:41.03 bitrate=1307.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:47.160 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3049 fps= 30 q=21.0 size=   16384kB time=00:01:41.49 bitrate=1322.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:48.160 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3064 fps= 30 q=21.0 size=   16384kB time=00:01:42.00 bitrate=1315.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:48.160 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3080 fps= 30 q=21.0 size=   16384kB time=00:01:42.51 bitrate=1309.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:49.161 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3095 fps= 30 q=20.0 size=   16640kB time=00:01:43.02 bitrate=1323.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:49.161 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3108 fps= 30 q=18.0 size=   16640kB time=00:01:43.44 bitrate=1317.8kbits/s speed=0.999x    
+Jibri 2026-03-05 22:33:50.162 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3125 fps= 30 q=19.0 size=   16896kB time=00:01:44.04 bitrate=1330.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:50.162 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3139 fps= 30 q=21.0 size=   16896kB time=00:01:44.51 bitrate=1324.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:51.162 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3155 fps= 30 q=20.0 size=   16896kB time=00:01:45.02 bitrate=1317.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:51.162 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3170 fps= 30 q=20.0 size=   17152kB time=00:01:45.53 bitrate=1331.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:52.163 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3186 fps= 30 q=20.0 size=   17152kB time=00:01:46.04 bitrate=1325.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:52.163 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3201 fps= 30 q=22.0 size=   17152kB time=00:01:46.55 bitrate=1318.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:53.163 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3216 fps= 30 q=21.0 size=   17408kB time=00:01:47.06 bitrate=1331.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:53.164 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3231 fps= 30 q=21.0 size=   17408kB time=00:01:47.57 bitrate=1325.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:54.164 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3247 fps= 30 q=21.0 size=   17664kB time=00:01:48.08 bitrate=1338.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:54.164 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3262 fps= 30 q=21.0 size=   17664kB time=00:01:48.59 bitrate=1332.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:55.164 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3277 fps= 30 q=18.0 size=   17920kB time=00:01:49.11 bitrate=1345.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:55.164 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3292 fps= 30 q=20.0 size=   17920kB time=00:01:49.57 bitrate=1339.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:56.165 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3307 fps= 30 q=20.0 size=   17920kB time=00:01:50.08 bitrate=1333.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:56.165 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3322 fps= 30 q=19.0 size=   18176kB time=00:01:50.59 bitrate=1346.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:57.166 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3337 fps= 30 q=19.0 size=   18176kB time=00:01:51.10 bitrate=1340.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:57.166 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3352 fps= 30 q=20.0 size=   18176kB time=00:01:51.61 bitrate=1334.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:58.166 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3367 fps= 30 q=21.0 size=   18432kB time=00:01:52.08 bitrate=1347.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:58.167 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3382 fps= 30 q=21.0 size=   18432kB time=00:01:52.59 bitrate=1341.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:59.167 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3397 fps= 30 q=20.0 size=   18432kB time=00:01:53.10 bitrate=1335.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:33:59.167 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3413 fps= 30 q=20.0 size=   18688kB time=00:01:53.61 bitrate=1347.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:00.168 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3428 fps= 30 q=21.0 size=   18688kB time=00:01:54.12 bitrate=1341.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:00.168 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3443 fps= 30 q=22.0 size=   18688kB time=00:01:54.63 bitrate=1335.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:01.168 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3458 fps= 30 q=21.0 size=   18944kB time=00:01:55.14 bitrate=1347.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:01.168 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3473 fps= 30 q=20.0 size=   18944kB time=00:01:55.65 bitrate=1341.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:02.169 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3488 fps= 30 q=21.0 size=   18944kB time=00:01:56.16 bitrate=1335.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:02.169 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3504 fps= 30 q=23.0 size=   19200kB time=00:01:56.63 bitrate=1348.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:03.169 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3519 fps= 30 q=20.0 size=   19200kB time=00:01:57.14 bitrate=1342.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:03.170 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3534 fps= 30 q=19.0 size=   19456kB time=00:01:57.65 bitrate=1354.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:04.170 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3549 fps= 30 q=20.0 size=   19456kB time=00:01:58.16 bitrate=1348.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:04.171 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3564 fps= 30 q=18.0 size=   19456kB time=00:01:58.67 bitrate=1343.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:05.172 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3579 fps= 30 q=21.0 size=   19712kB time=00:01:59.18 bitrate=1354.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:05.172 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3594 fps= 30 q=22.0 size=   19712kB time=00:01:59.65 bitrate=1349.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:06.172 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3609 fps= 30 q=21.0 size=   19712kB time=00:02:00.16 bitrate=1343.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:06.172 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3625 fps= 30 q=19.0 size=   19968kB time=00:02:00.67 bitrate=1355.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:07.173 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3640 fps= 30 q=21.0 size=   19968kB time=00:02:01.18 bitrate=1349.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:07.173 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3655 fps= 30 q=18.0 size=   19968kB time=00:02:01.69 bitrate=1344.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:08.175 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3670 fps= 30 q=21.0 size=   20224kB time=00:02:02.20 bitrate=1355.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:08.175 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3685 fps= 30 q=21.0 size=   20224kB time=00:02:02.71 bitrate=1350.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:09.178 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3700 fps= 30 q=21.0 size=   20480kB time=00:02:03.22 bitrate=1361.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:09.178 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3716 fps= 30 q=21.0 size=   20480kB time=00:02:03.70 bitrate=1356.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:10.178 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3731 fps= 30 q=22.0 size=   20480kB time=00:02:04.20 bitrate=1350.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:10.178 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3746 fps= 30 q=20.0 size=   20736kB time=00:02:04.71 bitrate=1362.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:11.180 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3761 fps= 30 q=21.0 size=   20736kB time=00:02:05.22 bitrate=1356.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:11.180 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3776 fps= 30 q=21.0 size=   20992kB time=00:02:05.73 bitrate=1367.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:12.180 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3791 fps= 30 q=21.0 size=   20992kB time=00:02:06.24 bitrate=1362.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:12.180 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3806 fps= 30 q=21.0 size=   20992kB time=00:02:06.75 bitrate=1356.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:13.181 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3821 fps= 30 q=20.0 size=   21248kB time=00:02:07.22 bitrate=1368.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:13.181 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3836 fps= 30 q=21.0 size=   21248kB time=00:02:07.73 bitrate=1362.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:14.181 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3852 fps= 30 q=20.0 size=   21248kB time=00:02:08.24 bitrate=1357.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:14.183 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3867 fps= 30 q=21.0 size=   21504kB time=00:02:08.75 bitrate=1368.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:15.183 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3882 fps= 30 q=21.0 size=   21504kB time=00:02:09.26 bitrate=1362.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:15.183 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3897 fps= 30 q=21.0 size=   21504kB time=00:02:09.77 bitrate=1357.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:16.183 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3912 fps= 30 q=19.0 size=   21760kB time=00:02:10.28 bitrate=1368.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:16.184 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3927 fps= 30 q=21.0 size=   21760kB time=00:02:10.79 bitrate=1362.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:17.184 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3942 fps= 30 q=19.0 size=   21760kB time=00:02:11.26 bitrate=1358.0kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:17.184 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3958 fps= 30 q=21.0 size=   22016kB time=00:02:11.77 bitrate=1368.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:18.185 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3973 fps= 30 q=20.0 size=   22016kB time=00:02:12.28 bitrate=1363.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:18.185 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 3988 fps= 30 q=22.0 size=   22272kB time=00:02:12.79 bitrate=1373.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:19.185 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4003 fps= 30 q=18.0 size=   22272kB time=00:02:13.30 bitrate=1368.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:19.185 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4018 fps= 30 q=21.0 size=   22528kB time=00:02:13.81 bitrate=1379.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:20.187 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4033 fps= 30 q=20.0 size=   22528kB time=00:02:14.32 bitrate=1373.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:20.187 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4048 fps= 30 q=22.0 size=   22528kB time=00:02:14.79 bitrate=1369.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:21.187 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4064 fps= 30 q=21.0 size=   22784kB time=00:02:15.30 bitrate=1379.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:21.187 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4079 fps= 30 q=21.0 size=   22784kB time=00:02:15.81 bitrate=1374.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:22.188 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4094 fps= 30 q=20.0 size=   22784kB time=00:02:16.32 bitrate=1369.1kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:22.188 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4109 fps= 30 q=21.0 size=   23040kB time=00:02:16.83 bitrate=1379.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:23.189 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4124 fps= 30 q=22.0 size=   23040kB time=00:02:17.34 bitrate=1374.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:23.189 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4139 fps= 30 q=21.0 size=   23296kB time=00:02:17.85 bitrate=1384.3kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:24.189 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4154 fps= 30 q=20.0 size=   23296kB time=00:02:18.36 bitrate=1379.2kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:24.189 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4170 fps= 30 q=21.0 size=   23296kB time=00:02:18.83 bitrate=1374.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:25.189 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4185 fps= 30 q=21.0 size=   23552kB time=00:02:19.34 bitrate=1384.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:25.190 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4200 fps= 30 q=21.0 size=   23552kB time=00:02:19.85 bitrate=1379.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:26.190 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4215 fps= 30 q=20.0 size=   23552kB time=00:02:20.36 bitrate=1374.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:26.190 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4230 fps= 30 q=21.0 size=   23808kB time=00:02:20.87 bitrate=1384.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:27.190 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4246 fps= 30 q=19.0 size=   23808kB time=00:02:21.38 bitrate=1379.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:27.191 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4261 fps= 30 q=18.0 size=   23808kB time=00:02:21.89 bitrate=1374.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:28.191 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4276 fps= 30 q=21.0 size=   24064kB time=00:02:22.36 bitrate=1384.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:28.191 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4291 fps= 30 q=18.0 size=   24064kB time=00:02:22.87 bitrate=1379.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:29.192 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4306 fps= 30 q=19.0 size=   24064kB time=00:02:23.38 bitrate=1374.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:29.192 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4321 fps= 30 q=18.0 size=   24320kB time=00:02:23.89 bitrate=1384.6kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:30.192 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4336 fps= 30 q=20.0 size=   24320kB time=00:02:24.40 bitrate=1379.7kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:30.192 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4351 fps= 30 q=19.0 size=   24320kB time=00:02:24.91 bitrate=1374.8kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:31.192 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4367 fps= 30 q=21.0 size=   24576kB time=00:02:25.42 bitrate=1384.4kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:31.192 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4382 fps= 30 q=20.0 size=   24576kB time=00:02:25.90 bitrate=1379.9kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:31.611 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: frame= 4393 fps= 30 q=-1.0 Lsize=   24921kB time=00:02:26.40 bitrate=1394.5kbits/s speed=   1x    
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: video:22534kB audio:2264kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.493249%
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] frame I:18    Avg QP:17.39  size: 36499
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] frame P:4375  Avg QP:19.98  size:  5124
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] mb I  I16..4: 100.0%  0.0%  0.0%
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] mb P  I16..4:  4.6%  0.0%  0.0%  P16..4: 22.2%  0.0%  0.0%  0.0%  0.0%    skip:73.2%
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] coded y,uvDC,uvAC intra: 8.2% 34.6% 3.8% inter: 6.5% 12.0% 0.7%
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] i16 v,h,dc,p: 44% 18% 15% 23%
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] i8c dc,h,v,p: 46% 22% 25%  8%
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [libx264 @ 0x5e9f8872ebc0] kb/s:1260.62
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: [aac @ 0x5e9f887306c0] Qavg: 1992.905
+Jibri 2026-03-05 22:34:31.612 INFO: [65] LoggingUtils$Companion$OutputLogger$1.invoke$lambda$0#42: Exiting normally, received signal 2.

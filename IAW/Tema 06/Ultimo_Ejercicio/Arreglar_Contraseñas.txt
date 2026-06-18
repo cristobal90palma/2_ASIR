@@ -1,0 +1,26 @@
+CÁRGATE LA INFORMACIÓN QUE HAY EN LA BASE DE DATOS
+
+
+SHOW DATABASES;
+
+USE wordpress;
+
+
+SHOW TABLES;
+
+SELECT user_login, user_email FROM wp_users WHERE ID = 1;
+
+UPDATE wp_users 
+SET user_pass = MD5('12345') 
+WHERE user_login = 'cristobal';
+
+
+
+-- Vacía los bloqueos temporales por intentos fallidos
+TRUNCATE TABLE wp_aiowps_login_lockdown;
+
+-- Vacía los bloqueos permanentes
+TRUNCATE TABLE wp_aiowps_permanent_block;
+
+-- Por si acaso, limpia el log de auditoría reciente
+TRUNCATE TABLE wp_aiowps_audit_log;

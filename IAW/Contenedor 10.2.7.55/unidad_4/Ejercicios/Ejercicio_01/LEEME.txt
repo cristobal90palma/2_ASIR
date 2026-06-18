@@ -1,0 +1,12 @@
+index.php
+   ↓ (form POST)
+login.php
+   ├── Credenciales OK → crea sesión y → secreta.php
+   └── Credenciales FAIL → error en sesión → index.php
+
+secreta.php
+   ├── Sesión activa → acceso permitido
+   └── Sin sesión → acceso DENEGADO
+
+logout.php
+ → Borra sesión → index.php

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<HTML lang="es">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>La web de Cristobal Suarez Abad</title>
+	</head>
+	<body>
+		<h1>La web de Cristobal Suarez Abad</h1>
+	<nav>
+	        <a href="documentos/">Memoria</a><br>
+	        <a href="capturas/">Capturas de pantalla</a><br>
+                <a href="webalumno.conf">Fichero de configuración</a><br>
+                <a href="privada/">Zona privada</a><br> 
+                <a href="/buscador">Buscador</a>
+        </nav>
+	</body>
+</HTML>

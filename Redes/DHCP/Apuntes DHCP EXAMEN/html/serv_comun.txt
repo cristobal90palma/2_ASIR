@@ -1,0 +1,46 @@
+##Configuración común
+
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+  not authoritative;
+}
+
+
+#●	LAN Switch1 172.30.14.0/23
+#●	LAN Switch2 172.30.7.192/27 ESTE NO SE CONFIGURA AQUÍ
+#●	LAN Switch3 192.168.7.224/28
+
+
+# SubNet 172.30.14.0/23
+subnet 172.30.14.0 netmask 255.255.254.0 {
+  option domain-name-servers 1.0.0.1, 7.7.5.5;
+  option domain-name "again.wego";
+  option routers 172.30.14.1;
+  pool {
+    failover peer "FAILOVER";
+    range 172.30.14.6 172.30.15.254;
+    default-lease-time 43200;
+    max-lease-time 86000;
+    host megalol-01 {
+      hardware ethernet 02:42:d2:70:03:00;
+      fixed-address 172.30.14.5;
+    }
+  }
+}
+
+# SubNet 192.168.7.224/28
+subnet 192.168.7.224 netmask 255.255.255.240 {
+  option domain-name-servers 1.0.0.1, 7.7.5.5;
+  option domain-name "again.wego";
+  option routers 192.168.7.225;
+  pool {
+    failover peer "FAILOVER";
+    range 192.168.7.231 192.168.7.238;
+    default-lease-time 43200;
+    max-lease-time 86000;
+    host megalol-02 {
+      hardware ethernet 02:42:97:2b:f7:00;
+      fixed-address 192.168.7.230;
+    }
+  }
+}

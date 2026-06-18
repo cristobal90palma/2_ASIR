@@ -1,0 +1,99 @@
+<!-- 
+ Generado por IA. El PHP al que va ligado es "calcular_salario.php"
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport: Esencial para la adaptación a diferentes dispositivos -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Salario Neto</title>
+</head>
+<body>
+
+    <!-- Contenedor principal de la aplicación -->
+    <div>
+        <!-- Título principal del formulario -->
+        <h1>Cálculo de Salario Neto</h1>
+        <p>Introduce los parámetros para determinar tu salario neto mensual.</p>
+
+        <!-- 
+          El formulario usa el método POST para enviar datos a 'calcular_salario.php'.
+          Este es el código crucial para la interacción con el backend.
+        -->
+        <form action="calcular_salario.php" method="POST">
+
+            <!-- 1. Campo: Salario Bruto Anual -->
+            <div>
+                <!-- El atributo 'for' enlaza la etiqueta con el 'id' del input -->
+                <label for="salario_bruto">
+                    Salario Bruto Anual (€)
+                </label>
+                <!-- 
+                  Input de tipo numérico:
+                  - name="salario_bruto": Nombre usado en PHP ($_POST['salario_bruto']).
+                  - id="salario_bruto": Usado para el enlace con la etiqueta (<label>).
+                  - required: Hace que el campo sea obligatorio.
+                  - min="0" step="0.01": Restricciones para valores positivos con decimales.
+                -->
+                <input type="number" name="salario_bruto" id="salario_bruto" required min="0" step="0.01"
+                       placeholder="Ej: 25000">
+            </div>
+
+            <!-- 2. Campo: Estado Civil (Select/Dropdown) -->
+            <div>
+                <label for="estado_civil">
+                    Estado Civil
+                </label>
+                <!-- 
+                  Select: Define un menú desplegable.
+                  - name="estado_civil": Nombre usado en PHP ($_POST['estado_civil']).
+                  - required: Campo obligatorio.
+                -->
+                <select name="estado_civil" id="estado_civil" required>
+                    <!-- Opción deshabilitada y seleccionada por defecto como placeholder -->
+                    <option value="" disabled selected>Selecciona tu estado</option>
+                    <option value="soltero">Soltero/a</option>
+                    <option value="casado">Casado/a</option>
+                    <option value="otro">Otro (Divorciado/a, Viudo/a, etc.)</option>
+                </select>
+            </div>
+            
+            <!-- 3. Campo: Hijos Menores de 25 a Cargo -->
+            <div>
+                <label for="num_hijos">
+                    Nº de Hijos Menores de 25 a Cargo
+                </label>
+                <!-- 
+                  Input de tipo numérico:
+                  - name="num_hijos": Nombre usado en PHP ($_POST['num_hijos']).
+                  - value="0": Valor inicial por defecto.
+                  - min="0": Solo permite números positivos.
+                -->
+                <input type="number" name="num_hijos" id="num_hijos" required min="0" value="0">
+                <p>Solo aplicable para la reducción si es "Casado/a".</p>
+            </div>
+
+            <!-- 4. Campo: Número de Pagas Anuales -->
+            <div>
+                <label for="num_pagas">
+                    Nº de Pagas Anuales
+                </label>
+                <!-- 
+                  Input de tipo numérico:
+                  - name="num_pagas": Nombre usado en PHP ($_POST['num_pagas']).
+                  - min="12" max="14" value="14": Restricciones y valor por defecto comunes.
+                -->
+                <input type="number" name="num_pagas" id="num_pagas" required min="12" max="14" value="14">
+            </div>
+
+            <!-- 5. Botón de Envío -->
+            <button type="submit">
+                Calcular Salario Neto
+            </button>
+            
+        </form>
+    </div>
+
+</body>
+</html>

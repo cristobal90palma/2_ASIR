@@ -1,0 +1,32 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  #(Servidor FOG Linux)
+  - job_name: 'fog-server'
+    static_configs:
+      - targets: ['10.2.7.5:9100']
+
+  # =========================================================================
+  # NUEVAS TAREAS DE RECOLECCIÓN DE MÉTRICAS (ACTIVIDAD 3)
+  # =========================================================================
+
+  # 1. Base de datos MariaDB (en el servidor FOG) usando exportador específico
+  - job_name: 'fog-mariadb'
+    static_configs:
+      - targets: ['10.2.7.5:9104']
+
+  # 2. Servidor Web Apache (en el servidor FOG) usando exportador específico
+  - job_name: 'fog-apache'
+    static_configs:
+      - targets: ['10.2.7.5:9117']
+
+  # 3. Cliente Ubuntu
+  - job_name: 'ubuntu-client'
+    static_configs:
+      - targets: ['10.2.7.127:9100'] # IP de tu nuevo cliente Ubuntu
+
+  # 4. Router Mikrotik
+  - job_name: 'mikrotik-metrics'
+    static_configs:
+      - targets: ['mikrotik-exporter:9090'] # Apunta directamente al contenedor por su red interna

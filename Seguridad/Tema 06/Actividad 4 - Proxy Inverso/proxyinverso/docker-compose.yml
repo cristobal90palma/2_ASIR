@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  # El Proxy Inverso (Nginx)
+  proxy:
+    image: nginx:alpine
+    container_name: reverse-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - red_interna
+
+  # Servidor Web 1
+  web1:
+    image: nginx:alpine
+    container_name: servidor-notas-a
+    volumes:
+      - ./html_a:/usr/share/nginx/html:ro
+    networks:
+      - red_interna
+
+  # Servidor Web 2
+  web2:
+    image: nginx:alpine
+    container_name: servidor-notas-b
+    volumes:
+      - ./html_b:/usr/share/nginx/html:ro
+    networks:
+      - red_interna
+
+networks:
+  red_interna:
+    driver: bridge

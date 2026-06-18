@@ -1,0 +1,139 @@
+100.48.114.98
+
+ssh -i labuser.pem ubuntu@im07.institutodh.net
+ssh -i labuser.pem ubuntu@100.48.114.98
+
+
+im07.institutodh.net
+
+meet.im07.institutodh.net media.im07.institutodh.net live.im07.institutodh.net
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\
+
+Instalar Docker y Docker Compose
+apt update && apt install docker.io -y && apt install docker-compose-v2 -y
+
+nano /etc/hosts
+
+127.0.1.1 im07.institutodh.net im07
+
+
+//////////
+
+127.0.0.1 localhost
+127.0.1.1 im07.institutodh.net im07
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
+////////////////
+
+Ejecutamos primero el NGINX Proxy Manager
+
+Primero hay que crear su red externa:
+docker network create nginx_network
+
+root@ip-172-31-6-53:/video_streaming/proxy# docker compose up -d
+
+http://100.48.114.98:81
+
+"admin"
+email: cristobal2590@gmail.com 
+pass: pcjabela
+
+
+\\\\\\\\\\\\\\\
+
+Ahora la de jellyfin_owncast
+
+root@ip-172-31-6-53:/video_streaming/jellyfin_owncast# nano docker-compose.yml
+
+modificar el archivo del script de recorder para poner el puerto 8081
+
+docker compose up -d
+
+
+100.48.114.98
+
+http://100.48.114.98:8096 Jellyfin --> root - 12345
+http://100.48.114.98:8081 Owncast
+
+
+Grabaciones de Owncast:
+
+Explicar conexión con OBS Studio
+Y con IRL PRO 
+
+Lo tengo en Capturas de Pantalla.
+
+IRL PRO: rtmp://100.48.114.98:1935/abc123
+
+
+La retransmisión debe ser de al menos 30 segundos para que lo empiece a grabar:
+
+Stream is online. Waiting 30 seconds before starting recording...
+Stream went offline during the wait period. Not starting recording.
+Stream is online. Waiting 30 seconds before starting recording...
+Stream went offline during the wait period. Not starting recording.
+Stream is online. Waiting 30 seconds before starting recording...
+
+
+\\\\\\\\\\
+
+
+
+JITSI. --> Guia de instalación docker
+
+https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-docker/
+
+apt install unzip
+
+
+
+De momento usaremos este, luego pasaremos a NGINX Proxy Manager
+https://100.48.114.98:8443
+
+¿Por qué usamos este? https://stackoverflow.com/questions/64760450/how-to-solve-your-browser-is-not-webrtc-compatible-error
+
+
+Podemos entrar: Mostrar la información sobre la Autenticación
+
+
+Crea tus usuarios:
+
+# Reemplaza 'cristobal' y 'tu_password' por lo que quieras
+docker compose exec prosody prosodyctl --config /config/prosody.cfg.lua register cristobal meet.jitsi tu_password
+
+
+docker compose exec prosody prosodyctl --config /config/prosody.cfg.lua register cristobal meet.jitsi pcjabela
+
+
+root@plantillacasa:/home/cristobal/jitsi/jitsi-docker-jitsi-meet-35879bb# docker compose exec prosody prosodyctl --config /config/prosody.cfg.lua register cristobal meet.jitsi pcjabela
+usermanager         info        User account created: cristobal@meet.jitsi
+
+
+
+
+
+
+\\\\\\\\\\
+4. ¿Cómo verificar quién tiene acceso?
+
+Si alguna vez olvidas qué usuarios has creado, usa este comando que mencionaba tu texto para listarlos todos:
+
+docker compose exec prosody find /config/data/meet%2ejitsi/accounts -type f -exec basename {} .dat \;
+
+
+
+Owncast recorder 
+docker logs -f owncast_recorder
+
+
+VLC: https://live.im07.institutodh.net/hls/stream.m3u8

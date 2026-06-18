@@ -1,0 +1,9 @@
+Instalación y configuración de Bind9 como servidor caché DNS
+
+En contenedor Proxmox:
+
+apt -y update && apt -y install bind9
+apt install dnsutils
+systemctl status bind9
+
+ls -l /etc/bind

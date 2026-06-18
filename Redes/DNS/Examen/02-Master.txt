@@ -1,0 +1,198 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Archivo para busquedas directas
+zone "sri-dns-07.edu" {
+        type master;
+        file "bd.sri-dns-07.edu"; // Debe estar en /var/cache/bind/
+        allow-update { none; };
+};
+
+zone "7.2.10.in-addr.arpa" {
+        type master;
+        file "10.2.7.rev";
+        allow-update { none; };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+ESCLAVO
+
+//nano /etc/bind/named.conf.local
+
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Archivo para busquedas directas
+zone "sri-dns-07.edu" {
+        type slave;
+        file "bd.sri-dns-07.edu"; // Debe estar en /var/cache/bind/
+        masters { 10.2.7.110; };
+		allow-notify { 10.2.7.110; };
+};
+
+// Archivo para busquedas inversas
+zone "7.2.10.in-addr.arpa" {
+        type slave;
+        file "10.2.7.rev"; // Debe estar en /var/cache/bind/
+        masters { 10.2.7.110; };
+		allow-notify { 10.2.7.110; };
+};
+
+
+
+
+COMPROBACIONES DESDE CLIENTE A ESCLAVO
+
+dig smtp2.sri-dns-07.edu
+dig smtp1.sri-dns-07.edu
+dig ftp.sri-dns-07.edu
+dig www.sri-dns-07.edu
+
+
+
+
+INVERSA:
+
+dig -x 10.2.7.110
+dig -x 10.2.7.120
+dig -x 10.2.7.51
+dig -x 10.2.7.50
+dig -x 10.2.7.52
+dig -x 10.2.7.53
+
+
+
+
+dig ut02.sri-dns-07.edu SOA
+
+nslookup -type=ANY sri-dns-07.edu 10.2.7.110
+
+
+
+DELEGADO:
+
+named.conf.local
+
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Archivo para busquedas directas
+zone "ut02.sri-dns-07.edu" {
+        type master;
+        file "bd.ut02.sri-dns-07.edu"; // Debe estar en /var/cache/bind/
+        allow-update { none; };
+};
+
+zone "7.1.14.in-addr.arp" {
+        type master;
+        file "14.1.7.rev";
+        allow-update { none; };
+};
+
+
+
+
+
+; Archivo bd.ut02.sri-dns-07.edu
+;
+; BIND data file for bd.retry.net
+;
+$TTL 1D
+@ IN SOA csa-del.ut02.sri-dns-07.edu. root.ut02.sri-dns-07.edu. (
+        2025103101 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN NS   csa-del.ut02.sri-dns-07.edu.
+
+; Correo
+
+        IN MX 10 smtpat0.ut02.sri-dns-07.edu.
+        IN MX 20 smtpat0.ut02.sri-dns-07.edu.
+
+; Directas
+
+csa-del IN A 10.2.17.130
+www IN A 14.1.7.30
+smtpat0 IN A 14.1.31
+smtpat4 IN A 14.1.32
+doom IN A 14.1.33
+
+; Alias o sinonimo
+ns IN CNAME csa-master
+w12 IN CNAME www
+correo01 IN CNAME smtpat0
+correo02 IN CNAME smtpat4
+carmack IN CNAME doom
+
+
+
+
+
+;ARCHIVO DE ZONA INVERSA
+$TTL 1D
+@   IN  SOA 7.1.14.in-addr.arp root.retry07.net. (
+        2025103101 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+       IN  NS  csa-del.ut02.sri-dns-07.edu.
+
+; Registros PTR
+30		IN	PTR	www
+31		IN	PTR	smtpat0
+32		IN	PTR	smtpat4
+33		IN	PTR	doom
+
+
+
+COMPROBACIONES DESDE CLIENTE A ESCLAVO
+
+dig smtpat0.ut02.sri-dns-07.edu
+dig smtpat4.ut02.sri-dns-07.edu
+dig doom.ut02.sri-dns-07.edu
+dig csa-del.ut02sri-dns-07.edu
+
+
+
+
+INVERSA:
+
+
+dig -x 10.2.7.130
+dig -x 14.1.7.30
+dig -x 14.1.7.31
+dig -x 14.1.7.32
+dig -x 14.1.7.33

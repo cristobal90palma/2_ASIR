@@ -1,0 +1,13 @@
+dn: cn=cristobal,ou=usuarios,dc=SUAREZ1,dc=abad2
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/cristobal
+uid: cristobal
+cn: cristobal
+userPassword: cristobal987
+uidNumber: 10003
+gidNumber: 10000
+sn: suarez
+mail: cristobal@sistemas.edu

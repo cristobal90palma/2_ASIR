@@ -1,0 +1,54 @@
+﻿# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+
+# localhost name resolution is handled within DNS itself.
+#	127.0.0.1       localhost
+#	::1             localhost
+
+10.2.8.210	2asir08.institutodh.net
+
+10.2.7.108  www.csa.dh
+10.2.7.108  www.sitio2.dh
+# Added by Docker Desktop
+172.16.40.105 host.docker.internal
+172.16.40.105 gateway.docker.internal
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section
+10.2.7.109 www.holamundo.dh
+127.0.0.1      Ejemplos.test        #laragon magic!   
+10.2.7.117 www.csa1.dh
+10.2.7.117 www.csa2.dh
+10.2.17.40 www.lawebdecristobal.com
+10.2.17.10 www.cristobalpubliczone.com
+10.2.17.10 www.cristobalprivatezone.com
+#Actividada IIS
+10.2.7.50 www.sitio1.local
+10.2.7.60 www.sitio1.local
+10.2.7.50 www.sitio2.local
+10.2.7.60 www.sitio3.local
+10.2.7.50 www.sitio4.local
+10.2.7.60 www.sitio4.local
+#### Examen IAW
+10.2.7.127 www.musicadh.es
+10.2.7.127 www.varaderodh.es
+10.2.7.35 www.cristobal.iawdh.es
+## Practica 6 de Redes - Web
+10.2.17.69 www.prueba.initiald.com
+10.2.17.69 www.test.initiald.com
+10.2.17.69 www.try.initiald.com

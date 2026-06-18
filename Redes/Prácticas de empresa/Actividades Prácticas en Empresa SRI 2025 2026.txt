@@ -1,0 +1,31 @@
+
+🛠️RA2. Auditoría y Documentación del servicio DHCP.
+
+●	ACT1. Inventariado de Pools, Scopes o Ámbitos: 
+Identifica los rangos de red tanto en redes cableadas como inalámbricas.
+ Básate en la configuración obtenida por los clientes o en capturas de tráfico. 
+ ¿Hay un pool para invitados en la Wi-Fi y otro para administración? 
+ ¿El tamaño es apropiado para el número de dispositivos? 
+ ¿el DNS asignado es local/interno o público? 
+ ¿observas opciones adicionales de DHCP en las concesiones (wins, bootp, tftp, ...) ?
+
+●	ACT2. Análisis de Direccionamiento Estático: Localiza qué dispositivos 
+(servidores, impresoras, cámaras) tienen IP fija concedida dinámicamente (reserva)
+ o fija manual. Si es posible, comprueba, verifica o deduce que están excluidas
+ correctamente del pool de DHCP.
+
+●	ACT3. Documentación del Tiempo de Concesión (Lease Time): Documenta para 
+cada pool el tiempo de concesión y evaluar si el tiempo de concesión es el adecuado,
+ en función del uso del pool, el número de dispositivos y su volatilidad. EJ: 
+ En una oficina con gente fija, 8 días está bien. En la Wi-Fi de una cafetería 
+ o zona de visitas, si pones 8 días, te quedas sin IPs en una mañana.
+
+●	ACT4. Documentación del servicio BOOTP: Usando tu equipo de trabajo o un portátil,
+ prueba el arranque en red en distintas subredes y documenta los servidores de arranque
+ disponibles en la red e investiga su finalidad (backup, clonado, S.O. para equipos sin disco, ...)
+
+●	ACT5. Detección de "Rogue DHCP Servers": A veces un empleado trae un router de su casa,
+ lo pincha a la red y empieza a dar IPs falsas. Usa herramientas de escaneo para detectar 
+ servidores DHCP no autorizados. Documenta tus pruebas y conclusiones.
+NOTA IMPORTANTE. Si en tus prácticas has estado administrando activamente servidor(es)
+ DHCP, aporta las evidencias de los trabajado en estas actividades.

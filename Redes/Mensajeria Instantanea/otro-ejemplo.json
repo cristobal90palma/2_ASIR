@@ -1,0 +1,97 @@
+{
+    "family": "ejabberd-v1",
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "dnsSearchDomains": [
+                "institutodh.net"
+            ],
+            "dnsServers": [
+                "1.1.1.1"
+            ],
+            "environment": [
+                {
+                    "name": "CTL_ON_CREATE",
+                    "value": "register admin im.institutodh.net  usuario"
+                }
+            ],
+            "essential": true,
+            "hostname": "im",
+            "image": "ghcr.io/processone/ejabberd",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ejabberd-v1",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [
+                {
+                    "containerPath": "/opt/ejabberd/conf/ejabberd.yml",
+                    "readOnly": false,
+                    "sourceVolume": "yml"
+                },
+                {
+                    "containerPath": "/opt/ejabberd/database",
+                    "readOnly": false,
+                    "sourceVolume": "database"
+                }
+            ],
+            "name": "ejabberd-ct",
+            "portMappings": [
+                {
+                    "appProtocol": "http",
+                    "containerPort": 5280,
+                    "hostPort": 5280,
+                    "name": "bosh",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5222,
+                    "hostPort": 5222,
+                    "name": "xmpp",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 5443,
+                    "hostPort": 5443,
+                    "name": "https5",
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::034434236872:role/LabRole",
+    "executionRoleArn": "arn:aws:iam::034434236872:role/LabRole",
+    "networkMode": "bridge",
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "/home/ubuntu/ejabberd.yml"
+            },
+            "name": "yml"
+        },
+        {
+            "host": {
+                "sourcePath": "/home/ubuntu/database"
+            },
+            "name": "database"
+        }
+    ],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "1600",
+    "memory": "1600",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "enableFaultInjection": false
+
+}

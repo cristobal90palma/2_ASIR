@@ -1,0 +1,4 @@
+dn: cn=miguel,ou=madrid,dc=sistemas,dc=edu
+changetype: modify
+replace: mail
+mail: miguelito@sistemas.edu

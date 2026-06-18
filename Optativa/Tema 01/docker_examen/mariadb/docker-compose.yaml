@@ -1,0 +1,37 @@
+services:
+    mariadb:
+      image: mariadb:latest
+      container_name: examen_db
+      restart: always
+      ports: 
+       - "3307:3306"
+      expose:
+       - "3307"
+      environment:
+       MYSQL_ROOT_PASSWORD: rootpass
+       MYSQL_DATABASE: examen_db
+       MYSQL_USER: usuario
+       MYSQL_PASSWORD: clave123
+      volumes:
+        - db_data:/etc/mysql/
+      networks: 
+        - examen_net
+    
+    php:
+        image: php_01
+        ports:
+        - "80:80"
+        expose:
+        - "80"
+        container_name: examen_php
+        restart: always
+        networks:
+         - examen_net
+    
+networks:
+ examen_net:
+
+volumes:
+ db_data:
+    
+    

@@ -1,0 +1,149 @@
+https://gemini.google.com/app/620cc0a1921f63b2
+
+http://192.168.1.137:8080/admin
+default user and password
+
+admin
+abc123
+
+https://owncast.online/docs/configuration/
+
+http://192.168.1.137:8080 --> Ver el directo
+
+
+
+
+
+Taller: Tu primera retransmisión en directo
+Fase 1: Configuración del "Cerebro" (Servidor Owncast en Docker)
+
+Antes de que los alumnos toquen nada, el servidor debe estar listo para recibir video. Usaremos el archivo docker-compose.yml que mencionamos antes.
+
+    Levanta el contenedor: docker-compose up -d.
+
+    Entra en el panel de control (ej: http://localhost:8080/admin).
+
+    Ve a Settings -> Server Config -> Streaming.
+
+    Copia la Stream Key (es la contraseña para poder emitir).
+
+Fase 2: Configuración del Emisor (OBS Studio)
+
+Diles a los alumnos que abran OBS Studio en sus portátiles. Este será su "estudio de televisión".
+
+    Escenas y Fuentes:
+
+        En el panel "Fuentes", diles que añadan una Captura de Vídeo (su webcam) y una Captura de Ventana (el tablero de ajedrez o el marcador de fútbol).
+
+    Ajustes de Emisión:
+
+        Ir a Ajustes -> Emisión.
+
+        Servicio: Personalizado.
+
+        Servidor: rtmp://[IP_DE_TU_SERVIDOR]:1935/live
+
+        Clave de transmisión: (La clave que copiaste en la Fase 1).
+
+    [!TIP] Dato técnico para el taller:
+    Explícales que el protocolo RTMP es el estándar de la industria. Es como una tubería de agua: OBS empuja el agua (video) y el servidor la reparte a los grifos (espectadores).
+	
+	
+	
+	
+	
+	Comprobar conexión por movil
+	
+	Contenedor para grabar automaticamente el streaming --- Si no, Jellyfin y su opcion de grabar TV Live
+	
+	
+	
+	
+Para ponerlo en Jellyfin
+http://192.168.1.137:8080/hls/stream.m3u8
+
+Aún no está. Creo que mejor usar un reverse proxy
+https://192.168.1.137:8080/hls/stream.m3u8
+
+
+
+
+
+En Jellyfin es mejor usar el archivo:
+
+Gemini ha dicho
+
+Para añadir este archivo a Jellyfin de la manera más limpia (especialmente trabajando con Docker), 
+lo ideal es guardarlo en una carpeta que Jellyfin ya pueda leer y luego apuntar a él desde la interfaz.
+
+Aquí tienes los pasos exactos para hacerlo:
+1. Guardar el archivo en el host (Tu PC/Servidor)
+
+Crea el archivo dentro de la carpeta que tienes mapeada como /config o /data en tu docker-compose.yml.
+
+Por ejemplo, si en tu ordenador la carpeta se llama ./jellyfin_config, haz esto:
+
+    Crea un nuevo archivo de texto llamado colegio.m3u.
+
+    Pega el contenido que pusiste arriba:
+    Plaintext
+
+    #EXTM3U
+    #EXTINF:-1 tvg-id="Owncast" tvg-name="Directo Colegio" tvg-logo="https://owncast.online/images/logo.png", Directo Colegio
+    http://192.168.1.137:8080/hls/stream.m3u8
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    volumes:
+      - ./jellyfin_config:/config
+      # Mapeo detallado por tipo de contenido
+      - ./biblioteca/Peliculas:/data/peliculas
+      - ./biblioteca/Series:/data/series
+      - ./biblioteca/Musica:/data/musica
+      - ./biblioteca/Libros:/data/libros
+      - ./biblioteca/Fotos_y_Videos:/data/videos_caseros
+      - ./biblioteca/Videos_Musicales:/data/videos_musicales
+      # El grabador escribirá aquí, y Jellyfin lo leerá como parte de la biblioteca
+      - ./biblioteca/Grabaciones_Vivas:/data/grabaciones_directos
+      # Directorio para los archivo .m3u
+      - ./biblioteca/live_files:/data/live_files
+    ports:
+      - "8096:8096"
+    restart: unless-stopped
+
+  owncast:
+    image: gabekangas/owncast:latest
+    container_name: owncast
+    ports:
+      - "1935:1935"
+      - "8080:8080"
+    volumes:
+      - ./owncast_data:/app/data
+    networks:
+      - cole_net
+
+  recorder:
+    build: ./recorder
+    container_name: owncast_recorder
+    depends_on:
+      - owncast
+    volumes:
+      # El grabador guarda los archivos directamente donde Jellyfin los busca
+      - ./biblioteca/Grabaciones_Vivas:/recordings
+    networks:
+      - cole_net
+    restart: always
+
+networks:
+  cole_net:
+    driver: bridge

@@ -1,0 +1,34 @@
+<Directory "/var/www/sitio2">
+	Options -Indexes
+</Directory> 
+
+ESTO HACE QUE NO INDEXE
+
+<Directory "/var/www/sitio2">
+	Options +Indexes
+</Directory> 
+
+ESTO HACE QUE SI INDEXE
+
+
+#############MULTIVIEWS
+
+<Directory "/var/www/sitio2">
+	Options +Indexes +Multiviews
+</Directory> 
+
+La opcion multiviews hace que coja el archivo del idioma en el que estamos
+
+
+
+REDIRECCIONES
+
+Redirect /iesdh "https://blogsaverroes.juntadeandalucia.es/institutodh/"
+
+Para imagenes, hay que dar permisos, porque están en una carpeta fuera de "sitio2"
+
+ENLACES SIMBOLICOS
+
+
+########Autentificacion
+

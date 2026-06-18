@@ -1,0 +1,2 @@
+ansible_user: root
+db_port: 5432

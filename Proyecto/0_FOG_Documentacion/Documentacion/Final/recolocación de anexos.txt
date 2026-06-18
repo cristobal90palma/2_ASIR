@@ -1,0 +1,37 @@
+4.1.1.	Configuración del servidor Ubuntu.
+
+4.1.1.1. IP Estática: Hemos establecido IP Estática y ruta a internet por 10.2.7.1
+4.1.1.2. Añadir unidad de almacenamiento al equipo: Hemos demostrado, con el sistema LVM, que expandir el almacenamiento del servidor es sencillo (sobre todo en proxmox) Cuidado en la vida real, porque la pérdida de una unidad puede afectar a todo el sistema
+4.1.1.3. Desactivar actualizaciones automáticas en Ubuntu: Hemos establecido que las actualizaciones automicas estén deshabilitadas --> Control de procesos y evitar que acaparen almacenamiento del servidor
+
+4.1.2.	Instalar FOG Project
+4.1.2.1.	Clonación del repositorio: Hemos seguido la guia oficial y hemos clonado el repositorio de github en el servidor
+4.1.2.2.	Ejecución del script de instalación: tras lo cual solo hay que ejecutar el script de instalación.
+
+No hemos activado HTTPS:
+Justificación de la no activación de HTTPS
+Aunque el uso de HTTPS es el estándar de seguridad actual, activarlo añade una capa de complejidad técnica que suele causar problemas en el arranque PXE.
+Razones por las que no lo he activado :
+•	Compatibilidad PXE: Muchos firmwares de tarjetas de red (especialmente en equipos antiguos de aulas) tienen dificultades para verificar certificados SSL durante el arranque por red.
+•	Gestión de Certificados: Si activas HTTPS, tendrías que instalar el certificado CA de FOG en cada imagen de sistema operativo que despliegues para que el fog-client pueda comunicarse sin errores.
+•	Red Interna Controlada: Al estar en una red privada gestionada por R1-ubuntu y Proxmox01, el riesgo de seguridad es menor comparado con un servidor expuesto directamente a Internet.
+-	Hostname: Se nos indica el nombre del host actual y si queremos cambiarlo. Según consideres necesario.
+
+
+
+4.1.3.	Configuración del servidor DHCP de FOG: Hemos realizado la configuración del servicio DHCP Server en el servidor FOG.
+Anular el servicio en la subred principal: Dado que ya existe otro servidor DHCP encargado de la red 10.2.7.0/24, debemos declarar dicha subred en nuestra configuración, pero mantenerla vacía. Esto evita que FOG intente asignar direcciones IP en ese segmento.
+Evitar conflictos de autoridad: Es fundamental incluir la directiva not authoritative. Esto asegura que nuestro servidor FOG no interfiera ni intente imponerse sobre el servidor DHCP principal que opera en esa subred.
+
+
+
+4.1.4.	Instalar y configurar DNSMASQ para permitir arrancar a equipos de la misma SubNET que el servidor FOG.
+Dar servicio en la misma red que actual el servidor DHCP de Proxmox
+
+
+4.1.5.	Configuración de VM en Proxmox para arranque por PXE: Como configurar las VMs en Proxmox para que puedan arrancar por PXE
+
+
+4.1.6.	Configuración de dispositivos de Red:
+
+Este si que es el troncho gordo

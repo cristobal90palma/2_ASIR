@@ -1,0 +1,27 @@
+
+
+https://gemini.google.com/app/29ec89ced2bea1b5
+https://chatgpt.com/c/696f4fd4-2434-832a-bdde-8f45ab45d419
+
+
+
+
+
+ssh-copy-id usuario@ip_linux
+ssh-copy-id -p 2222 usuario@10.2.7.31
+
+
+rdesktop -u usuario -p usuario 10.2.7.145
+
+rdesktop -u Administrador -p usuario.12345 -d empresa.local 10.2.7.66
+
+
+xfreerdp /u:UsuarioWindows /p:P@ssw0rd /v:ip_windows
+
+xfreerdp /u:usuario /p:usuario /v:10.2.7.145
+
+
+
+Conectar por VNC
+https://helpdocs.hostmyservers.fr/en/docs/cloud/linux/ubuntu-desktop-install/
+

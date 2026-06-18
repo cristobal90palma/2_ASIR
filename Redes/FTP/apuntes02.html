@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Guía ProFTPD Examen</title>
+    <style>
+        body { font-family: monospace; background-color: #1e1e1e; color: #d4d4d4; padding: 20px; line-height: 1.2; }
+        .header { color: #569cd6; font-weight: bold; }
+        .section-title { color: #ce9178; font-weight: bold; text-decoration: underline; margin-top: 20px; }
+        pre { background-color: #252526; padding: 15px; border-radius: 5px; border: 1px solid #333; overflow-x: auto; }
+        code { color: #9cdcfe; }
+        .comment { color: #6a9955; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+==============================================================================<br>
+GUÍA COMPLETA DE COMANDOS PARA EXAMEN PROFTPD (PROXMOX)<br>
+==============================================================================
+</div>
+
+<div class="section-title">PASO 1: INSTALACIÓN Y PREPARACIÓN DEL ENTORNO</div>
+<pre><code><span class="comment"># 1. Actualizar repositorios e instalar paquetes necesarios
+# Se instalan módulos de crypto (TLS) y utilidades (quota/ftpasswd)</span>
+apt update && apt install proftpd-basic proftpd-mod-crypto proftpd-mod-quotatab-file -y
+apt install proftpd-basic proftpd-mod-crypto -y
+
+<span class="comment"># 2. Asegurar que la IP secundaria (.222) existe para el servidor virtual
+# (Ejecuta esto solo si no tienes la IP configurada en la interfaz de red de Proxmox)</span>
+ip addr add 10.2.35.222/24 dev eth0
+
+<span class="comment"># 3. Crear estructura de carpetas para Logs (Evita errores al arrancar)</span>
+mkdir -p /var/log/proftpd
+touch /var/log/proftpd/xferlog
+touch /var/log/proftpd/proftpd.log
+chown -R proftpd:root /var/log/proftpd</code></pre>
+
+<div class="section-title">PASO 2: CREACIÓN DE USUARIOS Y GRUPOS (SISTEMA)</div>
+<pre><code><span class="comment"># Referencia: Puntos 7, 11, 12, 14, 16, 22 del examen
+
+# Usuario real 'reig' (sin shell para seguridad)</span>
+useradd -m -s /bin/false reig
+
+<span class="comment"># Usuario para cuotas 'tormenta'</span>
+useradd -m -s /bin/bash tormenta
+echo "tormenta:password123" | chpasswd
+
+<span class="comment"># Usuarios para bloquear</span>
+useradd -m magneto
+useradd -m mistica
+groupadd villanos
+useradd -m -g villanos veneno <span class="comment"># Usuario de prueba para el grupo villanos</span>
+
+<span class="comment"># Usuario base para Anónimo por defecto 'profesorx'</span>
+useradd -d /srv/px -s /bin/false profesorx
+echo "profesorx:usuario" | chpasswd
+mkdir -p /srv/px/secrets
+<span class="comment"># Asignar permisos (profesorx dueño para que FTP anónimo funcione)</span>
+chown -R profesorx:nogroup /srv/px
+
+<span class="comment"># Usuarios para el Servidor Virtual (.222)</span>
+useradd -m gandalf
+echo "gandalf:usuario" | chpasswd
+
+<span class="comment"># Usuario base para Anónimo Virtual 'balrog'</span>
+useradd -d /srv/abismo -s /bin/false balrog
+mkdir -p /srv/abismo/uploads
+mkdir -p /srv/abismo/mordor
+chown -R balrog:nogroup /srv/abismo
+<span class="comment"># Permisos especiales: uploads escribible, mordor bloqueado luego por conf</span>
+chmod 777 /srv/abismo/uploads</code></pre>
+
+<div class="section-title">PASO 3: USUARIOS VIRTUALES (LOBEZNO / XMEN)</div>
+<pre><code><span class="comment"># Referencia: Puntos 8, 9, 10 y</span>
+
+mkdir -p /etc/proftpd
+mkdir -p /srv/xmen
+
+<span class="comment"># Crear archivo de grupos virtuales (GID 2001)</span>
+ftpasswd --group --name=xmen --gid=2001 --file=/etc/proftpd/ftpd.group
+
+<span class="comment"># Crear usuario virtual 'lobezno'
+# Nota: --home=/srv/xmen define dónde entra.</span>
+ftpasswd --passwd --name=lobezno --uid=2001 --gid=2001 --home=/srv/xmen --shell=/bin/false --file=/etc/proftpd/ftpd.passwd --stdin
+<span class="comment"># (Te pedirá contraseña, escribe una sencilla como 'lobezno')
+
+# Asignar permisos al directorio de xmen</span>
+chown -R 2001:2001 /srv/xmen
+chmod 440 /etc/proftpd/ftpd.passwd /etc/proftpd/ftpd.group</code></pre>
+
+<div class="section-title">PASO 4: CONFIGURACIÓN DE CUOTAS (TORMENTA)</div>
+<pre><code><span class="comment"># Referencia: Punto 16 y sección Cuotas
+# Cálculo: 50GB = 53687091200 bytes | 1000GB = 1073741824000 bytes
+
+# 1. Crear las tablas</span>
+ftpquota --create-table --type=limit --table-path=/etc/proftpd/ftpquota.limittab
+ftpquota --create-table --type=tally --table-path=/etc/proftpd/ftpquota.tallytab
+
+<span class="comment"># 2. Definir los límites para 'tormenta'</span>
+ftpquota --add-record --type=limit --name=tormenta --quota-type=user \
+  --bytes-upload=53687091200 \
+  --bytes-download=1073741824000 \
+  --files-upload=50 \
+  --files-download=1000 \
+  --table-path=/etc/proftpd/ftpquota.limittab
+
+<span class="comment"># 3. Inicializar contador a cero</span>
+ftpquota --add-record --type=tally --name=tormenta --quota-type=user \
+  --bytes-upload=0 --bytes-download=0 --files-upload=0 --files-download=0 \
+  --table-path=/etc/proftpd/ftpquota.tallytab</code></pre>
+
+<div class="section-title">PASO 5: CERTIFICADOS TLS (SSL)</div>
+<pre><code><span class="comment"># Referencia: Punto 17 y sección TLS/SSL</span>
+
+mkdir -p /etc/proftpd/ssl
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/proftpd/ssl/proftpd.key.pem \
+  -out /etc/proftpd/ssl/proftpd.cert.pem \
+  -subj "/C=ES/ST=Alicante/L=Alicante/O=IT/CN=ftp.examen"</code></pre>
+
+<div class="section-title">PASO 6: CONFIGURACIÓN FINAL (MODIFICAR ARCHIVOS)</div>
+
+<h3>A) Editar /etc/proftpd/modules.conf</h3>
+<p>Asegúrate de que estas líneas NO tengan un '#' delante:</p>
+<pre><code>LoadModule mod_quotatab.c
+LoadModule mod_quotatab_file.c
+LoadModule mod_tls.c</code></pre>
+
+<h3>B) Editar /etc/proftpd/proftpd.conf</h3>
+<p>Borra todo el contenido y pega lo siguiente:</p>
+<pre><code>&gt; /etc/proftpd/proftpd.conf
+
+# 1. CARGA DE MÓDULOS (OBLIGATORIO QUE SEA LO PRIMERO)
+# Esto activa mod_tls y mod_quotatab
+Include /etc/proftpd/modules.conf
+
+# 2. CONFIGURACIÓN BÁSICA DEL SERVIDOR
+ServerName              "Servidor Examen"
+DefaultServer            on
+RequireValidShell        off
+# Prioridad de archivos de usuarios (Virtuales primero)
+AuthOrder                mod_auth_file.c mod_auth_unix.c
+
+# Carga de base de datos de usuarios virtuales
+AuthUserFile            /etc/proftpd/ftpd.passwd
+AuthGroupFile           /etc/proftpd/ftpd.group
+
+# Enjaular a todos los usuarios en su home
+DefaultRoot              ~
+
+# 3. SEGURIDAD Y BLOQUEOS GLOBALES
+&lt;Limit LOGIN&gt;
+    DenyUser magneto
+    DenyUser mistica
+    DenyGroup villanos
+&lt;/Limit&gt;
+
+# Impedir modo activo (Solo Pasivo) - Crucial para WinSCP
+&lt;Limit EPRT PORT&gt;
+    DenyAll
+&lt;/Limit&gt;
+PassivePorts            49152 49200
+
+# 4. LOGS GENERALES
+TransferLog             /var/log/proftpd/xferlog
+SystemLog               /var/log/proftpd/proftpd.log
+
+# 5. CONFIGURACIÓN TLS OBLIGATORIA (Integrada aquí directamente)
+&lt;IfModule mod_tls.c&gt;
+    TLSEngine           on
+    TLSLog              /var/log/proftpd/tls.log
+    TLSProtocol         TLSv1.2 TLSv1.3
+    
+    # Rutas verificadas en tus pasos anteriores
+    TLSRSACertificateFile       /etc/proftpd/ssl/proftpd.cert.pem
+    TLSRSACertificateKeyFile    /etc/proftpd/ssl/proftpd.key.pem
+    
+    TLSRequired         on
+    TLSVerifyClient     off
+    # Esta opción evita el error de reconexión en WinSCP
+    TLSOptions          NoSessionReuseRequired
+&lt;/IfModule&gt;
+
+# 6. CONFIGURACIÓN CUOTAS (TORMENTA)
+&lt;IfModule mod_quotatab.c&gt;
+    QuotaEngine         on
+    QuotaLog            /var/log/proftpd/quota.log
+    QuotaLimitTable     file:/etc/proftpd/ftpquota.limittab
+    QuotaTallyTable     file:/etc/proftpd/ftpquota.tallytab
+&lt;/IfModule&gt;
+
+# 7. SERVIDOR POR DEFECTO (.221) - ANÓNIMO PROFESORX
+&lt;Anonymous /srv/px&gt;
+    User                profesorx
+    Group               nogroup
+    UserAlias           anonymous profesorx
+
+    HideUser            root
+    &lt;Directory secrets&gt;
+        HideFiles       .*
+        &lt;Limit ALL&gt;
+            DenyAll
+        &lt;/Limit&gt;
+    &lt;/Directory&gt;
+&lt;/Anonymous&gt;
+
+# 8. SERVIDOR VIRTUAL (.222) - LORD OF THE RINGS
+&lt;VirtualHost 10.2.35.222&gt;
+    ServerName          "ftp.lordoftherings.tv"
+&lt;IfModule mod_tls.c&gt;
+    TLSEngine           on
+    TLSLog              /var/log/proftpd/tls.log
+    TLSProtocol         TLSv1.2 TLSv1.3
+    
+    # Rutas verificadas en tus pasos anteriores
+    TLSRSACertificateFile       /etc/proftpd/ssl/proftpd.cert.pem
+    TLSRSACertificateKeyFile    /etc/proftpd/ssl/proftpd.key.pem
+    
+    TLSRequired         on
+    TLSVerifyClient     off
+    # Esta opción evita el error de reconexión en WinSCP
+    TLSOptions          NoSessionReuseRequired
+&lt;/IfModule&gt;
+    TransferLog         /var/log/proftpd/virtual_xfer.log
+    ServerLog           /var/log/proftpd/virtual_server.log
+
+    MaxLoginAttempts    3
+    MaxClients          250
+    TimeoutLogin        30
+
+    # Solo Gandalf tiene acceso por LOGIN
+    &lt;Limit LOGIN&gt;
+        Order           Allow,Deny
+        AllowUser       gandalf
+        DenyAll
+    &lt;/Limit&gt;
+
+    # Configuración Anónima Balrog en el VirtualHost
+    &lt;Anonymous /srv/abismo&gt;
+        User            balrog
+        UserAlias       anonymous balrog
+        
+        &lt;Limit LOGIN&gt;
+            AllowAll
+        &lt;/Limit&gt;
+
+        HideGroup       xmen
+
+        &lt;Directory mordor&gt;
+            &lt;Limit ALL&gt;
+                DenyAll
+            &lt;/Limit&gt;
+        &lt;/Directory&gt;
+
+        &lt;Directory uploads&gt;
+            &lt;Limit STOR&gt;
+                AllowAll
+            &lt;/Limit&gt;
+        &lt;/Directory&gt;
+    &lt;/Anonymous&gt;
+&lt;/VirtualHost&gt;</code></pre>
+
+<p>No olvidar nano /etc/proftpd/modules.conf</p>
+<pre><code>LoadModule mod_radius.c
+LoadModule mod_quotatab.c
+LoadModule mod_quotatab_file.c</code></pre>
+
+<p>No olvidar nano /etc/proftpd/tls.conf</p>
+<pre><code>TLSEngine                               on
+TLSLog                      /var/log/proftpd/tls.log
+TLSProtocol                 TLSv1.2 TLSv1.3
+
+TLSRSACertificateFile /etc/ssl/certs/proftpd.crt
+TLSRSACertificateKeyFile /etc/ssl/private/proftpd.key
+TLSRequired                 on
+
+TLSVerifyClient             off
+TLSOptions                  NoSessionReuseRequired
+TLSRenegotiate              required off</code></pre>
+
+<div class="section-title">PASO 7: VALIDACIÓN Y REINICIO</div>
+<pre><code><span class="comment"># 1. Comprobar que no hay errores de escritura</span>
+proftpd -t
+
+<span class="comment"># 2. Reiniciar el servicio</span>
+systemctl restart proftpd
+
+<span class="comment"># 3. Comprobar que está corriendo</span>
+systemctl status proftpd</code></pre>
+
+<div class="section-title">PASO 8: PRUEBAS DE VERIFICACIÓN (LOGS Y CUOTAS)</div>
+<pre><code><span class="comment"># Para probar Cuotas y Logs, descarga algo con 'tormenta' desde lftp
+
+# Ver estado de cuotas</span>
+ftpquota --show-records --type=limit --table-path=/etc/proftpd/ftpquota.limittab
+
+<span class="comment"># Ver logs de transferencia</span>
+cat /var/log/proftpd/xferlog
+
+<span class="comment"># Comprobaciones que tormenta es tormentosa</span>
+ftpquota --show-records --type=limit --table-path=/etc/proftpd/ftpquota.limittab
+ftpquota --show-records --type=tally --table-path=/etc/proftpd/ftpquota.tallytab
+
+<span class="comment"># Meter archivos por winscp saco</span>
+ftpquota --show-records --type=tally --table-path=/etc/proftpd/ftpquota.tallytab</code></pre>
+
+<div class="header">
+==============================================================================
+</div>
+
+</body>
+</html>

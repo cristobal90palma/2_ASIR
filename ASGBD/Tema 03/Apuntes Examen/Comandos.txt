@@ -1,0 +1,657 @@
+Actividad 1
+
+1.-  Crea una base de datos llamada empresa.
+
+CREATE DATABASE empresa;
+
+LO HEMOS HECHO EN DBEAVER
+
+
+2.-  Crea tres usuarios con las opciones definidas:
+	●	admin_ventas
+	○	El usuario puede iniciar sesión con la contraseña ‘Audit$2025’
+	○	Puede crear bases de datos
+	○	Puede crear y gestionar roles
+	○	Hereda privilegios de roles asignados
+	○	Su cuenta expira el 31/12/2026
+
+
+CREATE USER admin_ventas
+WITH PASSWORD 'Audit$2025'
+     CREATEDB
+     CREATEROLE
+     INHERIT
+     VALID UNTIL '2026-12-31';
+	 
+	 
+	●	empleado_ventas
+	○	El usuario puede iniciar sesión con la contraseña ‘Empleado#2025’
+	○	Tiene un límite de 3 conexiones simultáneas
+	○	No puede crear roles ni bases de datos
+
+
+CREATE USER empleado_ventas
+WITH PASSWORD 'Empleado#2025'
+     NOCREATEDB
+     NOCREATEROLE
+     CONNECTION LIMIT 3;
+	 
+	 
+	●	auditor
+	○	El usuario puede iniciar sesión con la contraseña ‘Audit#2025’
+	○	No hereda permisos de otros roles
+	○	Solo puede tener una sesión activa
+
+CREATE USER auditor
+WITH PASSWORD 'Audit#2025'
+     NOINHERIT
+     CONNECTION LIMIT 8;
+	 
+	 
+	 
+3.- Crea un rol llamado ventas_grupo.
+	●	No puede iniciar sesión
+	●	Puede heredar privilegios
+	●	No puede crear bases de datos ni roles
+	●	No es superusuario ni tiene permisos de replicación
+	●	No puede omitir políticas de seguridad por filas
+
+CREATE ROLE ventas_grupo
+WITH NOLOGIN
+     INHERIT
+     NOCREATEDB
+     NOCREATEROLE
+     NOREPLICATION
+     NOSUPERUSER
+     NOBYPASSRLS;
+	 
+	 
+4.- Crea un rol llamado ventas_acceso
+	●	Puede iniciar sesión
+	●	Tiene una contraseña cifrada 'Ventas#2025'
+	●	Puede realizar hasta 10 conexiones simultáneas
+	●	Hereda privilegios de otros roles
+	●	No puede crear bases de datos ni roles
+	●	No es superusuario ni tiene permisos de replicación
+	●	No puede omitir políticas de seguridad 
+
+
+CREATE ROLE ventas_acceso
+WITH LOGIN
+     PASSWORD 'Ventas#2025'
+     CONNECTION LIMIT 10
+     INHERIT
+     NOCREATEDB
+     NOCREATEROLE
+     NOREPLICATION
+     NOSUPERUSER
+     NOBYPASSRLS;
+	 
+	 
+5.- Asocia empleado_ventas y admin_ventas al rol ventas_grupo. admin_ventas 
+tendrá permisos de revocación y asignación al role, empleado_ventas no.
+
+-- Asignación para empleado_ventas (sin capacidad de administrar el rol)
+GRANT ventas_grupo TO empleado_ventas;
+
+-- Asignación para admin_ventas (con capacidad de administrar el rol - WITH ADMIN OPTION)
+GRANT ventas_grupo TO admin_ventas WITH ADMIN OPTION;
+
+
+
+6.- Crea una tabla con el usuario empleado_ventas, y luego intenta eliminar
+ el usuario. ¿Qué ocurre? ¿Cómo podrías eliminar el usuario? 
+ ¿Qué consecuencias tendría?
+
+Previamente, desde un usuario administrador debemos darle permisos de 
+creación de tablas en esquema public al usuario:
+
+sudo -i -u postgres psql
+\c empresa;
+GRANT CREATE ON SCHEMA public TO empleado_ventas;
+
+
+
+
+El usuario crea la tabla:
+
+CREATE TABLE public.menu (
+	id varchar NOT NULL,
+	plato varchar NULL,
+	precio varchar NULL,
+	CONSTRAINT restaurante_pk PRIMARY KEY (id)
+);
+
+
+
+
+Borrar al usuario. Desde una sesión de administrador:
+
+DROP ROLE empleado_ventas;
+
+postgres=# DROP ROLE empleado_ventas;
+ERROR:  role "empleado_ventas" cannot be dropped because some objects depend on it
+DETALLE:  privileges for schema public
+2 objects in database empresa
+
+
+Transferimos la propiedad de todo lo del usuario a otro:
+
+
+\c empresa;
+
+Hay que conectarse a todas las bases de datos donde tenga algo el usuario
+y luego ejecutar los siguientes comandos para quitar cualquier privilegio.
+
+
+
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM empleado_ventas;
+REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM empleado_ventas;
+REVOKE ALL ON ALL FUNCTIONS IN SCHEMA public FROM empleado_ventas;
+REVOKE ALL ON SCHEMA public FROM empleado_ventas;
+
+
+Ahora eliminamos al usuario
+DROP USER empleado_ventas;
+
+
+Consecuencias: Ya no nos podemos conectar a la base de datos con 
+sus credenciales.
+
+Y parece ser que la tabla que creó tampoco existe.
+
+\dt
+
+
+
+
+
+
+
+Actividad 2 - Creación de vistas personalizadas 
+
+REHACER ESTO, PERO EN LA BASE DE DATOS VENTAS.
+https://gemini.google.com/app/de46c0e7b910d198
+
+Creación de tablas y datos base
+	1.	Crea una base de datos para el área de ventas llamada ventas_db
+	
+	CREATE DATABASE ventas_db;
+-- Conéctate a la nueva base de datos para crear las tablas
+\c ventas_db;
+	
+CREATE DATABASE ventas_db;
+	2.	Crea las tablas e inserta algunos registros de ejemplo:
+		○	clientes (id, nombre, dni, telefono, email, saldo )
+		
+	-- Tabla clientes
+CREATE TABLE clientes (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    dni VARCHAR(15) UNIQUE,
+    telefono VARCHAR(20),
+    email VARCHAR(100),
+    saldo NUMERIC(10, 2) DEFAULT 0.00
+);
+
+
+		○	pedidos (id, id_cliente, fecha, total, estado   )
+		
+	-- Tabla pedidos
+CREATE TABLE pedidos (
+    id SERIAL PRIMARY KEY,
+    id_cliente INTEGER REFERENCES clientes(id),
+    fecha DATE DEFAULT CURRENT_DATE,
+    total NUMERIC(10, 2) NOT NULL,
+    estado VARCHAR(50)
+);
+
+	3.	Inserta algunos registros de ejemplo:
+	
+-- Inserción en clientes
+INSERT INTO clientes (nombre, dni, telefono, email, saldo) VALUES
+('Perro Sanchez', '12345678A', '600111222', 'perrete@psoe.com', -9999999.00),
+('Donaldo Trumpino', '98765432B', '600333444', 'trump@usa.com', 5000000.00),
+('Vladimiro Putinino', '11223344C', '600555666', 'ervladi@ruski.com', 1.00);
+
+-- Inserción en pedidos
+INSERT INTO pedidos (id_cliente, total, estado) VALUES
+(1, 150.00, 'Entregado'),
+(1, 350.50, 'En Proceso'),
+(2, 75.25, 'Pendiente'),
+(3, 1200.00, 'Entregado');
+
+
+	4.	Verifica el contenido:
+
+ESTÁN HECHOS LOS PANTALLAZOS:
+
+SELECT * FROM clientes;
+SELECT * FROM pedidos;
+
+
+
+Creación de vistas personalizadas
+5.	Los administradores deben tener acceso total a los datos de clientes
+ y pedidos, con el número de pedidos y total de todos los pedidos
+ 
+CREATE VIEW vista_admin_ventas AS
+SELECT
+    c.id AS cliente_id,
+    c.nombre,
+    c.dni,
+    c.telefono,
+    c.email,
+    c.saldo,
+    COUNT(p.id) AS numero_pedidos,
+    COALESCE(SUM(p.total), 0) AS total_gastado
+FROM
+    clientes c
+LEFT JOIN
+    pedidos p ON c.id = p.id_cliente
+GROUP BY
+    c.id, c.nombre, c.dni, c.telefono, c.email, c.saldo;
+	
+
+Para usarla haces: SELECT * from vista_admin_ventas;
+
+ 
+6.	Los empleados solo deben ver información de contacto y saldo, sin DNI ni email.
+
+CREATE VIEW vista_empleado_ventas AS
+SELECT
+    id,
+    nombre,
+    telefono,
+    saldo
+FROM
+    clientes;
+
+Para usarla haces: select * from vista_empleado_ventas;
+
+7.	El auditor puede consultar datos pero sin información personal identificable.
+
+CREATE VIEW vista_auditor AS
+SELECT
+    c.id AS cliente_id,
+    c.saldo,
+    p.id AS pedido_id,
+    p.fecha,
+    p.total,
+    p.estado
+FROM
+    clientes c
+LEFT JOIN
+    pedidos p ON c.id = p.id_cliente;
+	
+Para usarla haces: select * from vista_auditor;
+
+
+
+
+Asignación de permisos a usuarios
+8.	Concede permisos de lectura sobre las vistas a cada role o usuarios:
+
+-- 1. Asignar la vista de administración al usuario admin_ventas
+GRANT SELECT ON vista_admin_ventas TO admin_ventas;
+o
+GRANT SELECT ON TABLE public.vista_admin_ventas TO admin_ventas;
+
+-- 2. Asignar la vista de empleados al usuario empleado_ventas (o mejor, al rol ventas_grupo)
+GRANT SELECT ON vista_empleado_ventas TO empleado_ventas;
+o
+GRANT SELECT ON TABLE public.vista_auditor TO auditor;
+
+-- 3. Asignar la vista de auditoría al usuario auditor
+GRANT SELECT ON vista_auditor TO auditor;
+o 
+GRANT SELECT ON TABLE public.vista_empleado_ventas TO empleado_ventas;
+
+
+
+9.	Revoca permisos directos sobre las tablas base, para que solo puedan acceder a través de las vistas
+
+ACTUALMENTE EL ÚNICO QUE TIENE PERMISOS SOBRE LAS TABLAS ES EL USUARIO "segurisimo".
+HAcemos una conexión con el usuario "admin_ventas" y vemos que no es capaz de acceder a las
+tablas (ninguna).
+
+-- Revocar todos los permisos de SELECT, INSERT, UPDATE, DELETE en las tablas a PUBLIC
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
+
+-- El rol ventas_grupo incluye a admin_ventas y empleado_ventas, así que revocamos por si acaso
+REVOKE ALL ON clientes FROM ventas_grupo;
+REVOKE ALL ON pedidos FROM ventas_grupo;
+REVOKE ALL ON clientes FROM auditor;
+REVOKE ALL ON pedidos FROM auditor;
+
+
+10.	Comprueba que cada usuario solo puede acceder a su vista correspondiente:
+
+
+Funcionan: PANTALLAZOS
+
+SELECT * from vista_admin_ventas;
+select * from vista_empleado_ventas;
+select * from vista_auditor;
+
+
+Ampliación
+11.	Crea una nueva vista vista_clientes_negativos que muestre solo clientes
+ con saldo menor que 0.
+ 
+ CREATE VIEW vista_clientes_negativos AS
+SELECT
+    id,
+    nombre,
+    telefono,
+    saldo
+FROM
+    clientes
+WHERE
+    saldo < 0;
+ 
+ 
+
+12.	Asigna esta vista al rol ventas_acceso para que todos los usuarios de 
+ventas puedan consultarla.
+
+
+GRANT SELECT ON vista_clientes_negativos TO ventas_acceso;
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+Actividad 3 – Sinónimos y alias
+Creación de sinónimos simulados
+ Recuerda: PostgreSQL no tiene el comando CREATE SYNONYM (como Oracle o 
+ SQL Server).
+ 
+ 
+●	Crea una vista simple que actúe como alias vista_clientes_admin  de la 
+tabla clientes:
+
+CREATE VIEW vista_clientes_admin AS
+SELECT *
+FROM public.clientes;
+
+●	Crea otra vista que funcione como sinónimo de la vista
+ vista_clientes_admin:
+
+CREATE VIEW vca_sinonimo AS
+SELECT *
+FROM vista_clientes_admin;
+
+●	Crea un alias más complejo para la vista de empleados, que renombre
+ columnas
+Permisos y pruebas de acceso
+
+CREATE VIEW ventas_contacto AS
+SELECT
+    id AS cliente_id,
+    nombre AS nombre_cliente,
+    telefono AS contacto_principal,
+    saldo AS deuda_o_credito
+FROM
+    vista_empleado_ventas;
+
+
+●	Concede permisos de lectura sobre los alias a los usuarios o roles que
+ consideres.
+ 
+ -- 1. Permisos para los aliases de acceso total
+GRANT SELECT ON vista_clientes_admin TO admin_ventas;
+GRANT SELECT ON vca_sinonimo TO admin_ventas;
+
+-- 2. Permisos para el alias de contacto (basado en la vista de empleados)
+GRANT SELECT ON ventas_contacto TO ventas_grupo;
+ 
+●	Comprueba la diferencia entre un usuario con permisos y sin permisos
+
+SELECT * FROM vista_clientes_admin;
+SELECT * FROM vca_sinonimo;
+
+
+
+LAS DOS ÚLTIMAS FOTOS.
+
+
+
+
+\\\\\\\\\\\\\Actividad 4
+
+
+Actividad 4 – Gestión de privilegios (criterios d–g)
+Comprobación previa
+●	Lista los privilegios actuales sobre todas las tablas y vistas:
+
+-- \dp es un metacomando útil en psql. Muestra los permisos por objeto.
+
+\dp *.*	
+	
+
+●	Comprueba también los roles y sus pertenencias:
+
+
+-- Muestra la pertenencia de los roles (quién es miembro de quién)
+\du
+
+Asignación y prueba de privilegios
+●	Sobre la tabla clientes
+○	Concede privilegios de manipulación a ventas_grupo sobre clientes
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.clientes TO ventas_grupo;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.clientes TO admin_ventas;
+
+○	Da permisos de eliminación solo al usuario admin_ventas:
+
+REVOKE DELETE ON public.clientes TO empleado_ventas;
+GRANT DELETE ON public.clientes TO admin_ventas;
+
+○	Revoca explícitamente el permiso de eliminación a empleado_ventas:
+
+REVOKE DELETE ON public.clientes FROM empleado_ventas;
+
+○	Verifica el efecto práctico:
+
+Desde el usuario admin_ventas:
+
+
+DELETE FROM public.clientes
+WHERE id=3;
+
+En teoría podemos borrarlo, pero no nos deja porque está siendo usada en otra tabla.
+
+
+Desde el usuario empleado_ventas:
+
+DELETE FROM public.clientes
+WHERE id=3;
+
+A este NO LE DEJA POR LOS PERMISOS
+
+Agrupación de privilegios y rol de solo lectura
+
+
+●	Crea un rol de solo lectura:
+
+CREATE ROLE solo_lectura NOLOGIN;
+
+●	Concede privilegios de lectura sobre todas las tablas y vistas actuales:
+
+-- GRANT SELECT en todas las tablas
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO solo_lectura;
+
+-- GRANT USAGE en el esquema para poder acceder a los objetos
+GRANT USAGE ON SCHEMA public TO solo_lectura;
+
+●	Haz que los nuevos objetos creados también sean legibles por este rol:
+
+
+-- Para las tablas que cree el usuario 'postgres' (o el usuario que ejecute esto)
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO solo_lectura;
+
+-- Si tienes otros usuarios que crean objetos (ej. admin_ventas), deberías ejecutar esto para ellos:
+-- ALTER DEFAULT PRIVILEGES FOR ROLE admin_ventas IN SCHEMA public GRANT SELECT ON TABLES TO solo_lectura;
+
+●	Asigna el rol al usuario auditor:
+
+GRANT solo_lectura TO auditor;
+
+●	Comprueba que el usuario auditor hereda los permisos:
+
+-- Desde la sesión del auditor, ejecuta:
+SELECT * FROM public.clientes;  -- Debe tener éxito
+SELECT * FROM pedidos;          -- Debe tener éxito
+
+●	Inicia sesión como auditor y prueba:
+
+Gestión dinámica de privilegios
+Sobre la tabla clientes:
+●	Elimina los permisos del grupo de ventas:
+
+REVOKE ALL ON public.clientes FROM ventas_grupo;
+
+●	Observa el efecto
+
+SELECT * FROM public.clientes;
+FOTAZO
+
+
+
+●	Añade privilegios de consulta
+
+GRANT SELECT ON public.clientes TO ventas_grupo;
+
+●	Comprueba si el permiso vuelve a estar disponible.
+
+SELECT * FROM public.clientes;
+FOTAZO
+
+Privilegios sobre esquemas
+●	Crea un nuevo esquema llamado pruebas:
+
+CREATE SCHEMA pruebas;
+
+●	Concede a ventas_grupo permiso para usar el esquema pero no para
+ crear objetos
+ 
+ GRANT USAGE ON SCHEMA pruebas TO ventas_grupo;
+
+●	Intenta crear una tabla dentro del esquema con empleado_ventas y
+ verifica el resultado.
+ 
+ DEBE DAR ERROR:
+ 
+●	Da permisos para crear
+
+GRANT CREATE ON SCHEMA pruebas TO ventas_grupo;
+
+●	Vuelve a probar y observa la diferencia.
+
+AHORA SI PUEDE
+
+Auditoría final de roles y privilegios
+●	Consulta todos los privilegios otorgados a cada usuario:
+
+FOTAZOS
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\Actividad 5
+
+
+Actividad 5 – Seguridad y cumplimiento 
+1.	Configuración de políticas de seguridad
+
+○	Activa el registro (logging_collector = on) y revisa el archivo postgresql.conf.
+
+
+Para activar el registro de actividad (logs):
+
+    Localiza el archivo postgresql.conf (típicamente en el directorio de datos de PostgreSQL).
+
+    Edita el archivo y asegúrate de que el parámetro esté configurado así:
+	
+	# Archivo postgresql.conf
+logging_collector = on
+
+	Opcional: Puedes configurar otros parámetros de log para mayor detalle,
+	como registrar conexiones:
+	
+	log_connections = on
+log_disconnections = on
+log_statement = 'none' # Puedes cambiar a 'all' para registrar todas las consultas,
+ pero genera logs muy grandes.
+	
+	Reinicia el servicio de PostgreSQL para que los cambios surtan efecto.
+
+○	Cambia la política de autenticación de md5 a scram-sha-256 
+en pg_hba.conf.
+
+
+
+
+2.	Auditoría de accesos
+
+○	Conéctate con distintos usuarios y revisa los logs.
+
+Conexiones exitosas: 
+
+Para saber donde está localizado los logs. 
+
+Te metes en postgresql
+
+Encuentra el Directorio de Datos (PGDATA): SHOW data_directory;
+Verifica el Directorio de Logs: SHOW log_directory;
+Determina el Nombre del Archivo de Log Actual (si el servidor está en ejecución): SELECT pg_current_logfile();
+
+En mi caso:
+
+/var/lib/postgresql/16/main/log/
+
+
+○	Identifica intentos fallidos de conexión. Explica que ves
+
+
+FOTAZO: ejemplo de Perro Sanchez
+
+
+3.	Comprobación de seguridad
+
+○	Verifica los privilegios de cada usuario (\du y \z).
+
+FOTAZOS
+
+-- Muestra el resumen de roles y atributos (login, superuser, createdb, etc.)
+\du
+
+-- Muestra permisos de acceso (ACLs) sobre tablas y vistas en el esquema public
+-- Esto valida que el acceso se haga solo a través de las vistas.
+\z public.*
+
+○	Elabora un informe final indicando qué medidas garantizan la seguridad.
+
+
+
+
+https://gemini.google.com/app/de46c0e7b910d198
+
+Medida Aplicada,Principio de Seguridad Garantizado
+"Vistas Personalizadas (vista_empleado_ventas, vista_auditor)","Principio de Mínimo Privilegio (PoLP): Cada usuario solo accede a las columnas y datos esenciales para su función, ocultando información sensible (DNI, Email)."
+Revocación de Permisos Directos (REVOKE ALL ON public.clientes...),"Acceso Controlado: Se fuerza a los usuarios a usar las vistas, asegurando que las políticas de filtrado y exposición de datos se cumplan."
+"Restricción de Conexiones (CONNECTION LIMIT 1 para auditor, CONNECTION LIMIT 3 para empleado_ventas)",Control de Recursos y Seguridad de Sesión: Previene el abuso o el uso excesivo de recursos por parte de cuentas individuales.
+Asignación de Permisos de Manipulación Detallada,"Segregación de Deberes: Solo admin_ventas tiene el poder de eliminar registros, mientras que empleado_ventas solo puede insertar/actualizar."
+Rol solo_lectura,Gestión Eficiente de Permisos: Centraliza y simplifica la concesión de acceso de solo lectura para la auditoría.
+Autenticación scram-sha-256,"Seguridad Criptográfica: Mejora la seguridad de las contraseñas almacenadas, haciéndolas menos susceptibles a ataques que la política md5."
+Registro de Actividad (logging_collector = on),"Auditoría y Trazabilidad: Permite detectar y rastrear intentos fallidos, accesos no autorizados y actividades sospechosas, garantizando el cumplimiento."
+
+
+

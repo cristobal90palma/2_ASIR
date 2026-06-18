@@ -1,0 +1,39 @@
+3.1.5. Diagrama de casos de usos (UML)
+
+El diagrama de casos de uso UML representa las principales interacciones entre el Administrador y el sistema FOG Project. Se ha diseñado para mostrar los flujos operativos clave necesarios para la gestión del parque informático del instituto.
+
+[Image 2.png: USE CASE DIAGRAM - FOG PROJECT SYSTEM]
+
+Descripción de los componentes principales del diagrama:
+
+    Actor: El principal actor del sistema es el Administrador, quien tiene acceso completo a la interfaz web de gestión de FOG Project.
+
+    Casos de Uso Principales (Asociaciones Directas): Representan las acciones directas que el administrador puede ejecutar desde el panel de control.
+
+        Manage Hosts (Gestión de Equipos): Permite al administrador añadir, editar o eliminar equipos en el inventario. Se han detallado sub-funciones para resaltar la capacidad de gestión mediante direcciones MAC.
+
+        Manage Images (Gestión de Imágenes): Cubre la administración del ciclo de vida de las imágenes de sistemas operativos (crear, subir, descargar y eliminar).
+
+        Schedule Deployment (Programación de Despliegues): Permite al administrador automatizar tareas de clonación pesadas fuera de las horas lectivas.
+
+        Manage Groups (Gestión de Grupos): Facilita la agrupación lógica de equipos, como por ejemplo todas las aulas de un mismo curso, para aplicar acciones colectivas.
+
+        Configure System Settings (Configuración del Sistema): Proporciona acceso a parámetros críticos del servidor y de la red.
+
+        Manage Users and Permissions: Controla el acceso a la plataforma.
+
+    Casos de Uso Críticos con Relaciones '<<include>>': Estas relaciones indican que un caso de uso incluye obligatoriamente la funcionalidad de otro.
+
+        Capture Image y Deploy Image (Capturar y Desplegar): Ambas tareas operativas críticas dependen y por tanto incluyen la funcionalidad Boot Host via PXE (Arrancar Equipo por PXE). Esto subraya que no puede haber captura o despliegue sin que el equipo arranque primero a través de la red. Además, también incluyen la tarea de Select Target Host (Seleccionar Equipo de Destino).
+
+    Infraestructura de Sistema (Actores Externos): El diagrama incluye actores externos para mostrar las dependencias clave de la red y del almacenamiento de datos.
+
+        PC (Cliente): Representa el equipo final. Muestra una relación de arranque por red con el caso de uso Boot Host via PXE. También interactúa con el caso de uso Execute Assigned Task, demostrando cómo el equipo cliente es el ejecutor de las tareas programadas por el administrador.
+
+        Database (MariaDB): El motor de base de datos se presenta como un actor externo con asociaciones directas a los casos de uso Manage Hosts, Manage Images, y Schedule Deployment, enfatizando la persistencia de los datos de inventario y tareas.
+
+        R1-ubuntu (DHCP Relay/Router): Se incluye explícitamente como un actor para mostrar que la red segmentada del instituto depende de este nodo para el funcionamiento correcto del servicio de arranque por red a través de múltiples subredes.
+
+Conclusión del Diseño:
+
+Con la finalización de los diagramas de clases y casos de uso UML, junto con la descripción de la arquitectura de red ajustada a la topología real del I.E.S. Delgado Hernández, queda validada la viabilidad del diseño. El sistema propuesto es robusto, transparente y responde directamente a las necesidades operativas de la administración de sistemas informáticos en red en el instituto.

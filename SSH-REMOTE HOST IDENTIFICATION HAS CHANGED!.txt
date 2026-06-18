@@ -1,0 +1,31 @@
+C:\Users\Cristobal>ssh cristobal@192.168.1.145
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ED25519 key sent by the remote host is
+SHA256:XLJyu2qCks0XbVpcRbJKOrRrDwo4qkBg7Xp5IhvbzLw.
+Please contact your system administrator.
+Add correct host key in C:\\Users\\Cristobal/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in C:\\Users\\Cristobal/.ssh/known_hosts:123
+Host key for 192.168.1.145 has changed and you have requested strict checking.
+Host key verification failed.
+
+
+
+\\\\\\\\\\\\\\\\\\
+
+Solución rápida:
+
+ssh-keygen -R 192.168.1.145
+
+Ese comando eliminará automáticamente la clave antigua para esa IP.
+
+
+Solución manual:
+
+notepad C:\Users\Cristobal\.ssh\known_hosts
+
+Ve a la linea donde estan los datos de la IP correspondiente, borralos, guarda y cierra el archivo. 

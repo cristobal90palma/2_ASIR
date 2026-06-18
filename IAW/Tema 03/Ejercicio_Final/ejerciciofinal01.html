@@ -1,0 +1,97 @@
+//El HTML lo ha generado ha sido generado con IA.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Curriculum Vitae</title>
+</head>
+<body>
+
+<h1>Solicitud de empleo</h1>
+<form action="formulario.php" method="POST" enctype="multipart/form-data">
+
+    <h2>Solicitud de empleo</h2>
+
+    <label for="puesto">Puesto solicitado:</label>
+    <select name="puesto" id="puesto" required>
+        <option value="">-- Selecciona un puesto --</option>
+        <option value="Administrador de sistemas">Administrador de sistemas</option>
+        <option value="Técnico de redes">Técnico de redes</option>
+        <option value="Programador PHP">Programador PHP</option>
+        <option value="Soporte técnico">Soporte técnico</option>
+    </select>
+    <br><br>
+
+    <label for="ec">Fecha de envío:</label>
+    <input type="date" name="fecha_envio" id="fecha_envio" required>
+    <br><br>
+
+    <h2>Datos personales</h2>
+
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required><br><br>
+
+    <label>Apellidos:</label>
+    <input type="text" name="apellidos" required><br><br>
+
+    <label>Edad:</label>
+    <input type="number" name="edad" min="1" required><br><br>
+
+    <label>Fecha de nacimiento:</label>
+    <input type="date" name="fecha_nacimiento" required><br><br>
+
+    <label>Nacionalidad:</label>
+    <select name="nacionalidad" required>
+        <option value="España">España</option>
+        <option value="Francia">Francia</option>
+        <option value="Italia">Italia</option>
+        <option value="Portugal">Portugal</option>
+    </select>
+    <br><br>
+
+    <label>Género:</label><br>
+    <input type="radio" name="genero" value="Masculino" required> Masculino<br>
+    <input type="radio" name="genero" value="Femenino"> Femenino<br><br>
+
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" required><br><br>
+
+    <label>Municipio:</label>
+    <input type="text" name="municipio" required><br><br>
+
+    <label>Provincia:</label>
+    <select name="provincia" required>
+        <option value="Huelva">Huelva</option>
+        <option value="Sevilla">Sevilla</option>
+        <option value="Cádiz">Cádiz</option>
+        <option value="Málaga">Málaga</option>
+        <option value="Córdoba">Córdoba</option>
+        <option value="Jaén">Jaén</option>
+        <option value="Granada">Granada</option>
+        <option value="Almería">Almería</option>
+    </select>
+    <br><br>
+
+    <label>Calle:</label>
+    <input type="text" name="calle" required><br><br>
+
+    <label>Correo electrónico:</label>
+    <input type="email" name="email" required><br><br>
+
+    <label>Estado civil:</label><br>
+    <input type="radio" name="estado_civil" value="Soltero" required> Soltero<br>
+    <input type="radio" name="estado_civil" value="Casado"> Casado<br>
+    <input type="radio" name="estado_civil" value="Pareja de hecho"> Pareja de hecho<br>
+    <input type="radio" name="estado_civil" value="Divorciado"> Divorciado<br><br>
+
+    <label>Algo sobre el estudiante:</label><br>
+    <textarea name="descripcion" rows="5" cols="40" required></textarea><br><br>
+
+    <label>Adjuntar archivo:</label>
+    <input type="file" name="archivo"><br><br>
+
+    <input type="submit" value="Enviar">
+
+</form>
+</body>
+</html>

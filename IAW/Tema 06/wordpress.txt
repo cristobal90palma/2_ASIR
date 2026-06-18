@@ -1,0 +1,68 @@
+https://blogsaverroes.juntadeandalucia.es/institutodh/wp-admin
+
+
+
+en la base de datos, creamos una base de datos especifico para el wordpress
+
+create user 'wp_user'@'localhost' IDENTIFIED BY 'wp_user';
+
+grant all privileges on wordpress.* to 'wp_user'@'localhost';
+
+flush privileges;
+
+
+
+
+curl -O https://wordpress.org/latest.tar.gz
+
+
+tar xvzf latest.tar.gz
+
+
+cp -r wordpress/* /var/www/html/wordpress/
+
+
+
+chown -R www-data:www-data wordpress
+
+
+/var/www/html# find /var/www/html/wordpress/ -type d -exec chmod 750 {} \;
+/var/www/html# find /var/www/html/wordpress/ -type d -exec chmod 640 {} \;
+
+
+
+hacerle una copiu de seguridad y configurarlo:
+-rw-r-----  1 www-data www-data  3339 Feb  3 13:40 wp-config-sample.php
+
+
+cp wp-config-sample.php wp-config.php
+
+nano wp-config.php
+
+
+
+define( 'DB_NAME', 'wordpress' );
+
+/** Database username */
+define( 'DB_USER', 'wp_user' );
+
+/** Database password */
+define( 'DB_PASSWORD', 'wp_user' );
+
+/** Database hostname */
+define( 'DB_HOST', 'localhost' );
+
+/** Database charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8mb4' );
+
+/** The database collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
+
+
+TEN MUCHO CUIDAD CON ESO
+chown www-data:www-data wp-config.php
+
+http://10.2.7.65/wordpress/wp-config.php
+
+nano /etc/apache2/sites-enabled/000-default.conf
+

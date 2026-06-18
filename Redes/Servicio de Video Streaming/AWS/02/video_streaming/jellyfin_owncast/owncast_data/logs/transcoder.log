@@ -1,0 +1,50 @@
+ffmpeg started on 2026-03-03 at 10:47:57
+Report written to "data/logs/transcoder.log"
+Log level: 32
+Command line:
+/usr/bin/ffmpeg -hide_banner -loglevel warning -fflags +genpts -flags +cgop -i /app/data/tmp/offline-v2.ts2987752191 -map v:0 -c:v:0 libx264 -b:v:0 1008k -maxrate:v:0 1088k -g:v:0 120 -keyint_min:v:0 120 -r:v:0 24 -x264-params:v:0 "scenecut=0:open_gop=0" -bufsize:v:0 1088k -profile:v:0 high -map "a:0?" -c:a:0 copy -preset veryfast -var_stream_map v:0,a:0 -f hls -hls_time 5 -hls_list_size 5 -hls_flags program_date_time+independent_segments -hls_playlist_type event -segment_format_options "mpegts_flags=mpegts_copyts=1" -tune zerolatency -pix_fmt yuv420p -sc_threshold 0 -master_pl_name stream.m3u8 -hls_segment_filename "http://127.0.0.1:43263/%v/stream-offline-%d.ts" -max_muxing_queue_size 400 -method PUT "http://127.0.0.1:43263/%v/stream.m3u8"
+Input #0, mpegts, from '/app/data/tmp/offline-v2.ts2987752191':
+  Duration: 00:00:08.10, start: 1.420333, bitrate: 732 kb/s
+  Program 1 
+    Metadata:
+      service_name    : Service01
+      service_provider: FFmpeg
+  Stream #0:0[0x100]: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240], 24 fps, 24 tbr, 90k tbn, start 1.483333
+  Stream #0:1[0x101](eng): Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp, 4 kb/s, start 1.420333
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> h264 (libx264))
+  Stream #0:1 -> #0:1 (copy)
+Press [q] to stop, [?] for help
+[libx264 @ 0x79a84b0fe400] using SAR=1/1
+[libx264 @ 0x79a84b0fe400] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x79a84b0fe400] profile High, level 3.0, 4:2:0, 8-bit
+[libx264 @ 0x79a84b0fe400] 264 - core 164 r3108 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=2 lookahead_threads=2 sliced_threads=1 slices=2 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=0 weightp=1 keyint=120 keyint_min=61 scenecut=0 intra_refresh=0 rc_lookahead=0 rc=abr mbtree=0 bitrate=1008 ratetol=1.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 vbv_maxrate=1088 vbv_bufsize=1088 nal_hrd=none filler=0 ip_ratio=1.40 aq=1:1.00
+Output #0, hls, to 'http://127.0.0.1:43263/%v/stream.m3u8':
+  Metadata:
+    encoder         : Lavf62.3.100
+  Stream #0:0: Video: h264, yuv420p(tv, progressive), 854x480 [SAR 1:1 DAR 427:240], q=2-31, 1008 kb/s, 24 fps, 90k tbn
+    Metadata:
+      encoder         : Lavc62.11.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 1088000/0/1008000 buffer size: 1088000 vbv_delay: N/A
+  Stream #0:1(eng): Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp, 4 kb/s
+frame=   76 fps=0.0 q=11.0 size=N/A time=00:00:03.16 bitrate=N/A dup=2 drop=0 speed=6.33x elapsed=0:00:00.50    [hls @ 0x79a851740600] Opening 'http://127.0.0.1:43263/0/stream-offline-0.ts' for writing
+[hls @ 0x79a851740600] Opening 'http://127.0.0.1:43263/0/stream.m3u8' for writing
+[hls @ 0x79a851740600] Opening 'http://127.0.0.1:43263/stream.m3u8' for writing
+frame=  176 fps=176 q=0.0 size=N/A time=00:00:07.33 bitrate=N/A dup=2 drop=0 speed=7.32x elapsed=0:00:01.00    [hls @ 0x79a851740600] Opening 'http://127.0.0.1:43263/0/stream-offline-1.ts' for writing
+[hls @ 0x79a851740600] Opening 'http://127.0.0.1:43263/0/stream.m3u8' for writing
+[hls @ 0x79a851740600] Opening 'http://127.0.0.1:43263/stream.m3u8' for writing
+[out#0/hls @ 0x79a84f4eb0c0] video:713KiB audio:5KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame=  195 fps=183 q=0.0 Lsize=N/A time=00:00:08.12 bitrate=N/A dup=2 drop=0 speed=7.62x elapsed=0:00:01.06    
+[libx264 @ 0x79a84b0fe400] frame I:2     Avg QP: 5.26  size: 11724
+[libx264 @ 0x79a84b0fe400] frame P:193   Avg QP: 4.01  size:  3659
+[libx264 @ 0x79a84b0fe400] mb I  I16..4: 85.6%  1.2% 13.2%
+[libx264 @ 0x79a84b0fe400] mb P  I16..4:  8.7%  0.2%  0.2%  P16..4:  8.0%  2.7%  2.1%  0.0%  0.0%    skip:78.1%
+[libx264 @ 0x79a84b0fe400] 8x8 transform intra:2.2% inter:4.5%
+[libx264 @ 0x79a84b0fe400] coded y,uvDC,uvAC intra: 9.6% 14.1% 12.6% inter: 6.2% 5.7% 3.8%
+[libx264 @ 0x79a84b0fe400] i16 v,h,dc,p: 92%  3%  3%  1%
+[libx264 @ 0x79a84b0fe400] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 30% 20% 30%  2%  5%  7%  2%  2%  2%
+[libx264 @ 0x79a84b0fe400] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 28% 20% 26%  4%  7%  5%  4%  3%  3%
+[libx264 @ 0x79a84b0fe400] i8c dc,h,v,p: 89%  4%  5%  3%
+[libx264 @ 0x79a84b0fe400] Weighted P-Frames: Y:3.6% UV:0.5%
+[libx264 @ 0x79a84b0fe400] kb/s:718.35

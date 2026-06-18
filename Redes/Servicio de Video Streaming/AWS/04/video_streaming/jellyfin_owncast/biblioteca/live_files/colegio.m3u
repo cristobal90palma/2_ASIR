@@ -1,0 +1,3 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="Owncast" tvg-name="Directo Colegio" tvg-logo="https://owncast.online/images/logo.png", Directo Colegio
+https://live.im07.institutodh.net/hls/stream.m3u8

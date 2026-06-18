@@ -1,0 +1,7 @@
+time="2026-03-05T17:03:02Z" level=info msg="Owncast v0.2.4-linux-64bit (7929580b98a6a84806b62f97c04306c17217ba38)"
+time="2026-03-05T17:03:02Z" level=info msg="Initializing ActivityPub outbound worker pool with 10 workers for 0 followers"
+time="2026-03-05T17:03:02Z" level=info msg="Web server is listening on port 8080."
+time="2026-03-05T17:03:02Z" level=info msg="Configure this server by visiting /admin."
+time="2026-03-05T17:03:56Z" level=info msg="Inbound stream connected from 92.191.14.43:38934"
+time="2026-03-05T17:03:56Z" level=info msg="Processing video using codec x264 with 1 output qualities configured."
+time="2026-03-05T17:07:44Z" level=info msg="Inbound stream disconnected."

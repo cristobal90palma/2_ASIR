@@ -1,0 +1,4 @@
+Te posicionas donde está el ejecutable de VBoxManage.exe
+
+.\VBoxManage.exe setproperty machinefolder D:\Vagrant\VirtualBoxVagrantVMs
+setx VAGRANT_HOME D:\Vagrant\.vagrant.d

@@ -1,0 +1,12 @@
+ansible_user: ansible
+ansible_password: password
+empresa: TechCorp
+
+# Ejercicio 3
+log_path: /tmp/techcorp_audit.txt
+audit_team:
+  - auditor1
+  - auditor2
+  - auditor3
+# Password de sudo para nodos
+ansible_become_password: password

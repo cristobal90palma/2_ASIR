@@ -1,0 +1,537 @@
+Jibri 2026-02-28 14:25:33.618 INFO: [1] MainKt.handleCommandLineArgs#188: Jibri run with args [--config, /etc/jitsi/jibri/config.json]
+Jibri 2026-02-28 14:25:33.983 INFO: [1] MainKt.setupLegacyConfig#213: Checking legacy config file /etc/jitsi/jibri/config.json
+Jibri 2026-02-28 14:25:34.004 INFO: [1] MainKt.setupLegacyConfig#216: Legacy config file /etc/jitsi/jibri/config.json doesn't exist
+Jibri 2026-02-28 14:25:36.246 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  LambdaSupplier: 'JibriConfig::jibriId'
+  ConfigSourceSupplier: key: 'jibri.id', type: 'kotlin.String', source: 'config'
+Jibri 2026-02-28 14:25:36.249 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: LambdaSupplier: Trying to retrieve value via JibriConfig::jibriId
+Jibri 2026-02-28 14:25:36.260 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via LambdaSupplier: 'JibriConfig::jibriId': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$Error: class java.lang.NullPointerException
+Jibri 2026-02-28 14:25:36.263 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.id' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:25:36.379 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value jibri-877365067 for key 'jibri.id' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:25:36.381 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.id', type: 'kotlin.String', source: 'config'
+Jibri 2026-02-28 14:25:36.382 INFO: [1] MainKt.main#55: Jibri starting up with id jibri-877365067
+Jibri 2026-02-28 14:25:36.494 FINE: [1] MetricsContainer.registerCounter#160: Counter 'sessions_started' was renamed to 'sessions_started_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.507 FINE: [1] MetricsContainer.registerCounter#160: Counter 'sessions_stopped' was renamed to 'sessions_stopped_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.507 FINE: [1] MetricsContainer.registerCounter#160: Counter 'errors' was renamed to 'errors_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.508 FINE: [1] MetricsContainer.registerCounter#160: Counter 'busy' was renamed to 'busy_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.509 FINE: [1] MetricsContainer.registerCounter#160: Counter 'xmpp_connected' was renamed to 'xmpp_connected_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.510 FINE: [1] MetricsContainer.registerCounter#160: Counter 'xmpp_reconnecting' was renamed to 'xmpp_reconnecting_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.510 FINE: [1] MetricsContainer.registerCounter#160: Counter 'xmpp_reconnection_failed' was renamed to 'xmpp_reconnection_failed_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.511 FINE: [1] MetricsContainer.registerCounter#160: Counter 'xmpp_ping_failed' was renamed to 'xmpp_ping_failed_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.511 FINE: [1] MetricsContainer.registerCounter#160: Counter 'xmpp_closed' was renamed to 'xmpp_closed_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.511 FINE: [1] MetricsContainer.registerCounter#160: Counter 'xmpp_closed_on_error' was renamed to 'xmpp_closed_on_error_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.512 FINE: [1] MetricsContainer.registerCounter#160: Counter 'stopped_on_xmpp_closed' was renamed to 'stopped_on_xmpp_closed_total' to ensure consistent metric naming.
+Jibri 2026-02-28 14:25:36.518 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  LambdaSupplier: 'JibriConfig::enableStatsD'
+  ConfigSourceSupplier: key: 'jibri.stats.enable-stats-d', type: 'kotlin.Boolean', source: 'config'
+Jibri 2026-02-28 14:25:36.519 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: LambdaSupplier: Trying to retrieve value via JibriConfig::enableStatsD
+Jibri 2026-02-28 14:25:36.520 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via LambdaSupplier: 'JibriConfig::enableStatsD': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$Error: class java.lang.NullPointerException
+Jibri 2026-02-28 14:25:36.521 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.stats.enable-stats-d' from source 'config' as type kotlin.Boolean
+Jibri 2026-02-28 14:25:36.555 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value true for key 'jibri.stats.enable-stats-d' from source 'config' as type kotlin.Boolean
+Jibri 2026-02-28 14:25:36.557 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.stats.enable-stats-d', type: 'kotlin.Boolean', source: 'config'
+Jibri 2026-02-28 14:25:36.599 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.stats.host' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:25:36.603 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value localhost for key 'jibri.stats.host' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:25:36.603 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.stats.port' from source 'config' as type kotlin.Int
+Jibri 2026-02-28 14:25:36.608 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value 8125 for key 'jibri.stats.port' from source 'config' as type kotlin.Int
+Jibri 2026-02-28 14:25:36.658 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  ConfigSourceSupplier: key: 'jibri.webhook.subscribers', type: 'kotlin.collections.List<kotlin.String>', source: 'config'
+Jibri 2026-02-28 14:25:36.661 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.webhook.subscribers' from source 'config' as type kotlin.collections.List<kotlin.String>
+Jibri 2026-02-28 14:25:36.673 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value [] for key 'jibri.webhook.subscribers' from source 'config' as type kotlin.collections.List<kotlin.String>
+Jibri 2026-02-28 14:25:36.676 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.webhook.subscribers', type: 'kotlin.collections.List<kotlin.String>', source: 'config'
+Jibri 2026-02-28 14:25:37.877 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.jwt-info' from source 'config' as type com.typesafe.config.ConfigObject
+Jibri 2026-02-28 14:25:37.900 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value SimpleConfigObject({}) for key 'jibri.jwt-info' from source 'config' as type com.typesafe.config.ConfigObject
+Jibri 2026-02-28 14:25:37.901 INFO: [1] JwtInfo$Companion.fromConfig#40: got jwtConfig: {}
+
+Jibri 2026-02-28 14:25:37.902 INFO: [1] JwtInfo$Companion.fromConfig#50: Unable to create JwtInfo: com.typesafe.config.ConfigException$Missing: reference.conf @ jar:file:/opt/jitsi/jibri/jibri.jar!/reference.conf: 158: No configuration setting found for key 'signing-key-path'
+Jibri 2026-02-28 14:25:37.918 FINE: [1] RefreshingProperty.getValue#44: Refreshing property jwt (not yet initialized or expired)...
+Jibri 2026-02-28 14:25:38.208 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  ConfigSourceSupplier: key: 'internal_http_port', type: 'kotlin.Int', source: 'command line args'
+  ConfigSourceSupplier: key: 'jibri.api.http.internal-api-port', type: 'kotlin.Int', source: 'config'
+Jibri 2026-02-28 14:25:38.210 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'internal_http_port' from source 'command line args' as type kotlin.Int
+Jibri 2026-02-28 14:25:38.212 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via ConfigSourceSupplier: key: 'internal_http_port', type: 'kotlin.Int', source: 'command line args': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$NotFound: not found
+Jibri 2026-02-28 14:25:38.214 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.api.http.internal-api-port' from source 'config' as type kotlin.Int
+Jibri 2026-02-28 14:25:38.215 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value 3333 for key 'jibri.api.http.internal-api-port' from source 'config' as type kotlin.Int
+Jibri 2026-02-28 14:25:38.217 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.api.http.internal-api-port', type: 'kotlin.Int', source: 'config'
+Jibri 2026-02-28 14:25:38.220 INFO: [1] MainKt.main#128: Using port 3333 for internal HTTP API
+Jibri 2026-02-28 14:25:38.256 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:25:38.824 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  LambdaSupplier: 'JibriConfig::xmppEnvironments'
+  TypeConvertingSupplier: converting value from ConfigSourceSupplier: key: 'jibri.api.xmpp.environments', type: 'kotlin.collections.List<com.typesafe.config.Config>', source: 'config'
+Jibri 2026-02-28 14:25:38.825 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: LambdaSupplier: Trying to retrieve value via JibriConfig::xmppEnvironments
+Jibri 2026-02-28 14:25:38.825 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via LambdaSupplier: 'JibriConfig::xmppEnvironments': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$NotFound: Considering empty XMPP envs list as not found
+Jibri 2026-02-28 14:25:38.825 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.api.xmpp.environments' from source 'config' as type kotlin.collections.List<com.typesafe.config.Config>
+Jibri 2026-02-28 14:25:38.829 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value [Config(SimpleConfigObject({"base-url":"https://192.168.1.137:8443","call-login":{"domain":"hidden.meet.jitsi","password":"b78ace711a99f9028380b035e6ae3966","username":"recorder"},"control-login":{"domain":"auth.meet.jitsi","password":"67ffd4edc59919ea2917a32e53a3f529","port":"5222","username":"jibri"},"control-muc":{"domain":"internal-muc.meet.jitsi","nickname":"jibri-877365067","room-name":"jibribrewery"},"name":"<no value>-0","strip-from-room-domain":"muc.","trust-all-xmpp-certs":true,"usage-timeout":"0","xmpp-domain":"meet.jitsi","xmpp-server-hosts":["xmpp.meet.jitsi"]}))] for key 'jibri.api.xmpp.environments' from source 'config' as type kotlin.collections.List<com.typesafe.config.Config>
+Jibri 2026-02-28 14:25:38.859 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: TypeConvertingSupplier: Converted value type from ConfigSourceSupplier: key: 'jibri.api.xmpp.environments', type: 'kotlin.collections.List<com.typesafe.config.Config>', source: 'config' to [XmppEnvironmentConfig(name=<no value>-0, xmppServerHosts=[xmpp.meet.jitsi], xmppDomain=meet.jitsi, baseUrl=https://192.168.1.137:8443, controlLogin=XmppCredentials(domain=auth.meet.jitsi, port=5222, username=jibri, password=*****), controlMuc=XmppMuc(domain=internal-muc.meet.jitsi, roomName=jibribrewery, nickname=jibri-877365067), sipControlMuc=null, callLogin=XmppCredentials(domain=hidden.meet.jitsi, port=null, username=recorder, password=*****), stripFromRoomDomain=muc., usageTimeoutMins=0, trustAllXmppCerts=true, securityMode=null)]
+Jibri 2026-02-28 14:25:38.860 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via TypeConvertingSupplier: converting value from ConfigSourceSupplier: key: 'jibri.api.xmpp.environments', type: 'kotlin.collections.List<com.typesafe.config.Config>', source: 'config'
+Jibri 2026-02-28 14:25:39.156 INFO: [1] XmppApi.updatePresence#202: Jibri reports its status is now JibriStatus(busyStatus=IDLE, health=OverallHealth(healthStatus=HEALTHY, details={})), publishing presence to connections
+Jibri 2026-02-28 14:25:39.160 FINE: [1] MucClientManager.setPresenceExtension#160: Setting a presence extension: org.jitsi.xmpp.extensions.jibri.JibriStatusPacketExt@5f481b73
+Jibri 2026-02-28 14:25:39.168 INFO: [1] XmppApi.start#149: Connecting to xmpp environment on xmpp.meet.jitsi with config XmppEnvironmentConfig(name=<no value>-0, xmppServerHosts=[xmpp.meet.jitsi], xmppDomain=meet.jitsi, baseUrl=https://192.168.1.137:8443, controlLogin=XmppCredentials(domain=auth.meet.jitsi, port=5222, username=jibri, password=*****), controlMuc=XmppMuc(domain=internal-muc.meet.jitsi, roomName=jibribrewery, nickname=jibri-877365067), sipControlMuc=null, callLogin=XmppCredentials(domain=hidden.meet.jitsi, port=null, username=recorder, password=*****), stripFromRoomDomain=muc., usageTimeoutMins=0, trustAllXmppCerts=true, securityMode=null)
+Jibri 2026-02-28 14:25:39.169 INFO: [1] XmppApi.start#167: The trustAllXmppCerts config is enabled for this domain, all XMPP server provided certificates will be accepted
+Jibri 2026-02-28 14:25:39.196 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  ConfigSourceSupplier: key: 'http_api_port', type: 'kotlin.Int', source: 'command line args'
+  ConfigSourceSupplier: key: 'jibri.api.http.external-api-port', type: 'kotlin.Int', source: 'config'
+Jibri 2026-02-28 14:25:39.198 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'http_api_port' from source 'command line args' as type kotlin.Int
+Jibri 2026-02-28 14:25:39.199 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via ConfigSourceSupplier: key: 'http_api_port', type: 'kotlin.Int', source: 'command line args': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$NotFound: not found
+Jibri 2026-02-28 14:25:39.199 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.api.http.external-api-port' from source 'config' as type kotlin.Int
+Jibri 2026-02-28 14:25:39.202 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value 2222 for key 'jibri.api.http.external-api-port' from source 'config' as type kotlin.Int
+Jibri 2026-02-28 14:25:39.203 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.api.http.external-api-port', type: 'kotlin.Int', source: 'config'
+Jibri 2026-02-28 14:25:39.204 INFO: [1] MainKt.main#154: Using port 2222 for HTTP API
+Jibri 2026-02-28 14:25:39.214 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.stats.prometheus.enabled' from source 'config' as type kotlin.Boolean
+Jibri 2026-02-28 14:25:39.216 INFO: [34] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient.initializeConnectAndJoin#300: Initializing a new MucClient for [ org.jitsi.xmpp.mucclient.MucClientConfiguration id=xmpp.meet.jitsi domain=auth.meet.jitsi hostname=xmpp.meet.jitsi port=5222 username=jibri mucs=[jibribrewery@internal-muc.meet.jitsi] mucNickname=jibri-877365067 disableCertificateVerification=true]
+Jibri 2026-02-28 14:25:39.218 FINE: [1] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value false for key 'jibri.stats.prometheus.enabled' from source 'config' as type kotlin.Boolean
+Jibri 2026-02-28 14:25:39.245 WARNING: [34] MucClient.createXMPPTCPConnectionConfiguration#119: Disabling certificate verification!
+Jibri 2026-02-28 14:25:39.275 INFO: [34] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient.initializeConnectAndJoin#401: Dispatching a thread to connect and login.
+Jibri 2026-02-28 14:25:39.548 FINE: [34] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-connected:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:25:39.558 INFO: [34] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$2.connected#338: Connected. isSmEnabled:false isSmAvailable:false isSmResumptionPossible:false
+Jibri 2026-02-28 14:25:39.559 INFO: [34] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient.lambda$getConnectAndLoginCallable$9#703: Logging in.
+Jibri 2026-02-28 14:25:39.734 INFO: [34] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$2.authenticated#351: Authenticated, resumed=false
+Jibri 2026-02-28 14:25:39.738 FINE: [34] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$MucWrapper.resetLastPresenceSent#901: Resetting lastPresenceSent
+Jibri 2026-02-28 14:25:39.768 INFO: [34] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$MucWrapper.join#826: Joined MUC: jibribrewery@internal-muc.meet.jitsi
+Jibri 2026-02-28 14:25:39.794 FINE: [47] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element busy-status from namespace http://jitsi.org/protocol/jibri
+Jibri 2026-02-28 14:25:39.798 FINE: [47] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element health-status from namespace http://jitsi.org/protocol/health
+Jibri 2026-02-28 14:26:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:27:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:28:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:29:38.199 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:30:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:31:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:32:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:33:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:34:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:35:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:36:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:37:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:38:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:39:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:40:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:41:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:42:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:43:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:44:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:45:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:46:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:47:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:48:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:49:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:49:51.511 FINE: [57] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$3.handleIQRequest#565: Received an IQ with type set: IQ Stanza (jibri http://jitsi.org/protocol/jibri) [to=jibri@auth.meet.jitsi/XybBUBdLaeVX,from=jibribrewery@internal-muc.meet.jitsi/focus,id=amlicmlAYXV0aC5tZWV0LmppdHNpL1h5YkJVQmRMYWVWWAAyS0U3WC0zNDkAj303dck7j2c=,type=set,]
+Jibri 2026-02-28 14:49:51.513 INFO: [57] XmppApi.handleJibriIq#229: Received JibriIq <iq xmlns='jabber:client' to='jibri@auth.meet.jitsi/XybBUBdLaeVX' from='jibribrewery@internal-muc.meet.jitsi/focus' id='amlicmlAYXV0aC5tZWV0LmppdHNpL1h5YkJVQmRMYWVWWAAyS0U3WC0zNDkAj303dck7j2c=' type='set'><jibri xmlns='http://jitsi.org/protocol/jibri' action='start' recording_mode='file' room='casa@muc.meet.jitsi' session_id='4cd131a2-8de7-4ba5-9135-0608726c038c' app_data='{"file_recording_metadata":{"share":true}}'/></iq> from environment [MucClient id=xmpp.meet.jitsi hostname=xmpp.meet.jitsi]
+Jibri 2026-02-28 14:49:51.514 INFO: [57] XmppApi.handleStartJibriIq#261: Received start request, starting service
+Jibri 2026-02-28 14:49:51.653 INFO: [57] XmppApi.handleStartService#372: Parsed call url info: CallUrlInfo(baseUrl=https://192.168.1.137:8443, callName=casa, urlParams=[])
+Jibri 2026-02-28 14:49:51.655 INFO: [57] JibriManager.startFileRecording#128: Starting a file recording with params: FileRecordingRequestParams(callParams=CallParams(callUrlInfo=CallUrlInfo(baseUrl=https://192.168.1.137:8443, callName=casa, urlParams=[]), email='', passcode=null, callStatsUsernameOverride=, displayName=), sessionId=4cd131a2-8de7-4ba5-9135-0608726c038c, callLoginParams=XmppCredentials(domain=hidden.meet.jitsi, port=null, username=recorder, password=*****))
+Jibri 2026-02-28 14:49:51.719 FINE: [57] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FfmpegCapturer.<init>#76: Detected OS: LINUX
+Jibri 2026-02-28 14:49:51.733 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.call-status-checks.default-call-empty-timeout' from source 'config' as type java.time.Duration
+Jibri 2026-02-28 14:49:51.745 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value PT30S for key 'jibri.call-status-checks.default-call-empty-timeout' from source 'config' as type java.time.Duration
+Jibri 2026-02-28 14:49:51.754 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.chrome.flags' from source 'config' as type kotlin.collections.List<kotlin.String>
+Jibri 2026-02-28 14:49:51.755 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value [--use-fake-ui-for-media-stream, --start-maximized, --kiosk, --enabled, --autoplay-policy=no-user-gesture-required, --ignore-certificate-errors] for key 'jibri.chrome.flags' from source 'config' as type kotlin.collections.List<kotlin.String>
+Jibri 2026-02-28 14:49:55.815 INFO: [57] org.openqa.selenium.remote.ProtocolHandshake.createSession: Detected dialect: OSS
+Jibri 2026-02-28 14:49:55.834 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  LambdaSupplier: 'JibriConfig::recordingDirectory'
+  ConfigSourceSupplier: key: 'jibri.recording.recordings-directory', type: 'kotlin.String', source: 'config'
+Jibri 2026-02-28 14:49:55.835 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: LambdaSupplier: Trying to retrieve value via JibriConfig::recordingDirectory
+Jibri 2026-02-28 14:49:55.835 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via LambdaSupplier: 'JibriConfig::recordingDirectory': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$Error: class java.lang.NullPointerException
+Jibri 2026-02-28 14:49:55.836 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.recording.recordings-directory' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:49:55.838 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value /config/recordings for key 'jibri.recording.recordings-directory' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:49:55.838 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.recording.recordings-directory', type: 'kotlin.String', source: 'config'
+Jibri 2026-02-28 14:49:55.839 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  LambdaSupplier: 'JibriConfig::finalizeRecordingScriptPath'
+  ConfigSourceSupplier: key: 'jibri.recording.finalize-script', type: 'kotlin.String', source: 'config'
+Jibri 2026-02-28 14:49:55.839 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: LambdaSupplier: Trying to retrieve value via JibriConfig::finalizeRecordingScriptPath
+Jibri 2026-02-28 14:49:55.840 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via LambdaSupplier: 'JibriConfig::finalizeRecordingScriptPath': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$Error: class java.lang.NullPointerException
+Jibri 2026-02-28 14:49:55.840 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.recording.finalize-script' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:49:55.841 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value /path/to/finalize for key 'jibri.recording.finalize-script' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:49:55.842 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.recording.finalize-script', type: 'kotlin.String', source: 'config'
+Jibri 2026-02-28 14:49:55.842 INFO: [57] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FileRecordingJibriService.<init>#134: Writing recording to /config/recordings/4cd131a2-8de7-4ba5-9135-0608726c038c, finalize script path /path/to/finalize
+Jibri 2026-02-28 14:49:55.844 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.ffmpeg.recording-extension' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:49:55.845 FINE: [57] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value mp4 for key 'jibri.ffmpeg.recording-extension' from source 'config' as type kotlin.String
+Jibri 2026-02-28 14:49:55.848 FINE: [57] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: start:recording
+Jibri 2026-02-28 14:49:55.849 INFO: [57] JibriStatusManager$special$$inlined$observable$1.afterChange#75: Busy status has changed: IDLE -> BUSY
+Jibri 2026-02-28 14:49:55.850 FINE: [57] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:49:55.850 INFO: [57] XmppApi.updatePresence#202: Jibri reports its status is now JibriStatus(busyStatus=BUSY, health=OverallHealth(healthStatus=HEALTHY, details={})), publishing presence to connections
+Jibri 2026-02-28 14:49:55.851 FINE: [57] MucClientManager.setPresenceExtension#160: Setting a presence extension: org.jitsi.xmpp.extensions.jibri.JibriStatusPacketExt@25e81698
+Jibri 2026-02-28 14:49:55.851 FINE: [57] MucClientManager.saveExtension#185: Replacing presence extension: org.jitsi.xmpp.extensions.jibri.JibriStatusPacketExt@5f481b73
+Jibri 2026-02-28 14:49:55.853 INFO: [57] XmppApi.handleStartJibriIq#274: Sending 'pending' response to start IQ
+Jibri 2026-02-28 14:49:55.857 FINE: [47] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element busy-status from namespace http://jitsi.org/protocol/jibri
+Jibri 2026-02-28 14:49:55.858 FINE: [47] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element health-status from namespace http://jitsi.org/protocol/health
+Jibri 2026-02-28 14:49:55.868 INFO: [70] AbstractPageObject.visit#32: Visiting url https://192.168.1.137:8443/casa#config.analytics.disabled=true&config.disableInitialGUM=true&config.externalConnectUrl=null&config.iAmRecorder=true&config.p2p.enabled=false&config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.requireDisplayName=false&config.startWithAudioMuted=true&config.startWithVideoMuted=true&interfaceConfig.APP_NAME="Jibri"&config.useHostPageLocalStorage=true&appData.localStorageContent="{\"displayname\":\"\",\"email\":\"\",\"callStatsUserName\":\"jibri-877365067\",\"xmpp_username_override\":\"recorder@hidden.meet.jitsi\",\"xmpp_password_override\":\"b78ace711a99f9028380b035e6ae3966\"}"
+Jibri 2026-02-28 14:50:04.484 INFO: [70] AbstractPageObject.visit#38: Waited 8.611276667s for driver to load page
+Jibri 2026-02-28 14:50:04.625 FINE: [70] CallPage$visit$1$1.invoke#58: Not joined yet: Cannot read properties of undefined (reading 'isJoined')
+Jibri 2026-02-28 14:50:06.148 INFO: [70] CallPage.visit#71: Waited 1.659949905s to join the conference
+Jibri 2026-02-28 14:50:06.150 INFO: [70] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] EmptyCallStatusCheck.<init>#26: Starting empty call check with a timeout of PT30S
+Jibri 2026-02-28 14:50:06.192 INFO: [70] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.onSeleniumStateChange#208: Transitioning from state Starting up to Running
+Jibri 2026-02-28 14:50:06.194 INFO: [70] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FileRecordingJibriService$start$1.invoke#168: Selenium joined the call, starting the capturer
+Jibri 2026-02-28 14:50:06.241 FINE: [70] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.ffmpeg.command-linux-recording' from source 'config' as type kotlin.collections.List<kotlin.String>
+Jibri 2026-02-28 14:50:06.244 FINE: [70] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value [ffmpeg, -y, -v, info, -f, x11grab, -draw_mouse, 0, -r, 30, -s, 1280x720, -thread_queue_size, 4096, -i, :0.0+0,0, -f, pulse, -thread_queue_size, 4096, -i, default, -acodec, aac, -strict, -2, -ar, 44100, -b:a, 128k, -af, aresample=async=1, -c:v, libx264, -pix_fmt, yuv420p, -r, 30, -crf, 25, -preset, ultrafast, -profile:v, main, -level, 3.1, -timestamp, now, -f, mp4] for key 'jibri.ffmpeg.command-linux-recording' from source 'config' as type kotlin.collections.List<kotlin.String>
+Jibri 2026-02-28 14:50:06.245 INFO: [70] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSubprocess.launch#42: Starting ffmpeg with command ffmpeg -y -v info -f x11grab -draw_mouse 0 -r 30 -s 1280x720 -thread_queue_size 4096 -i :0.0+0,0 -f pulse -thread_queue_size 4096 -i default -acodec aac -strict -2 -ar 44100 -b:a 128k -af aresample=async=1 -c:v libx264 -pix_fmt yuv420p -r 30 -crf 25 -preset ultrafast -profile:v main -level 3.1 -timestamp now -f mp4 /config/recordings/4cd131a2-8de7-4ba5-9135-0608726c038c/casa_2026-02-28-14-49-55.mp4 ([ffmpeg, -y, -v, info, -f, x11grab, -draw_mouse, 0, -r, 30, -s, 1280x720, -thread_queue_size, 4096, -i, :0.0+0,0, -f, pulse, -thread_queue_size, 4096, -i, default, -acodec, aac, -strict, -2, -ar, 44100, -b:a, 128k, -af, aresample=async=1, -c:v, libx264, -pix_fmt, yuv420p, -r, 30, -crf, 25, -preset, ultrafast, -profile:v, main, -level, 3.1, -timestamp, now, -f, mp4, /config/recordings/4cd131a2-8de7-4ba5-9135-0608726c038c/casa_2026-02-28-14-49-55.mp4])
+Jibri 2026-02-28 14:50:11.321 FINE: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] ProcessStatePublisher$startProcessAliveChecks$1.invoke#86: Process ffmpeg hasn't written in 2 seconds, publishing periodic update
+Jibri 2026-02-28 14:50:13.320 FINE: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] ProcessStatePublisher$startProcessAliveChecks$1.invoke#86: Process ffmpeg hasn't written in 2 seconds, publishing periodic update
+Jibri 2026-02-28 14:50:15.320 FINE: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] ProcessStatePublisher$startProcessAliveChecks$1.invoke#86: Process ffmpeg hasn't written in 2 seconds, publishing periodic update
+Jibri 2026-02-28 14:50:18.781 INFO: [73] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FfmpegCapturer.onFfmpegStateMachineStateChange#130: Ffmpeg capturer transitioning from state Starting up to Running
+Jibri 2026-02-28 14:50:18.782 INFO: [73] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] StatefulJibriService.onServiceStateChange#39: File recording service transitioning from state Starting up to Running
+Jibri 2026-02-28 14:50:18.783 INFO: [73] XmppApi$createServiceStatusHandler$1.invoke#327: Current service started up successfully, sending on iq <iq xmlns='jabber:client' to='jibribrewery@internal-muc.meet.jitsi/focus' id='58RZ9-56' type='set'><jibri xmlns='http://jitsi.org/protocol/jibri' status='on'/></iq>
+Jibri 2026-02-28 14:50:21.321 INFO: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] MediaReceivedStatusCheck.run#46: Jibri client receive bitrates: {audio={download=0, upload=0}, download=0, upload=0, video={download=0, upload=0}}, num participants: 2, numMutedParticipants: 0, numJigasis: 0, numHiddenParticipants: 0, all clients muted? false
+Jibri 2026-02-28 14:50:21.322 FINE: [20] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.call-status-checks.all-muted-timeout' from source 'config' as type java.time.Duration
+Jibri 2026-02-28 14:50:21.323 FINE: [20] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value PT10M for key 'jibri.call-status-checks.all-muted-timeout' from source 'config' as type java.time.Duration
+Jibri 2026-02-28 14:50:21.325 FINE: [20] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.call-status-checks.no-media-timeout' from source 'config' as type java.time.Duration
+Jibri 2026-02-28 14:50:21.328 FINE: [20] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value PT3M for key 'jibri.call-status-checks.no-media-timeout' from source 'config' as type java.time.Duration
+Jibri 2026-02-28 14:50:36.239 INFO: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] MediaReceivedStatusCheck.run#46: Jibri client receive bitrates: {audio={download=25, upload=0}, download=338, upload=0, video={download=313, upload=0}}, num participants: 2, numMutedParticipants: 0, numJigasis: 0, numHiddenParticipants: 0, all clients muted? false
+Jibri 2026-02-28 14:50:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:50:51.234 INFO: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] MediaReceivedStatusCheck.run#46: Jibri client receive bitrates: {audio={download=26, upload=0}, download=417, upload=0, video={download=391, upload=0}}, num participants: 2, numMutedParticipants: 0, numJigasis: 0, numHiddenParticipants: 0, all clients muted? false
+Jibri 2026-02-28 14:51:06.289 INFO: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] MediaReceivedStatusCheck.run#46: Jibri client receive bitrates: {audio={download=25, upload=0}, download=622, upload=0, video={download=597, upload=0}}, num participants: 2, numMutedParticipants: 0, numJigasis: 0, numHiddenParticipants: 0, all clients muted? false
+Jibri 2026-02-28 14:51:21.273 INFO: [20] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] MediaReceivedStatusCheck.run#46: Jibri client receive bitrates: {audio={download=25, upload=0}, download=545, upload=0, video={download=520, upload=0}}, num participants: 2, numMutedParticipants: 0, numJigasis: 0, numHiddenParticipants: 0, all clients muted? false
+Jibri 2026-02-28 14:51:30.335 FINE: [59] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$3.handleIQRequest#565: Received an IQ with type set: IQ Stanza (jibri http://jitsi.org/protocol/jibri) [to=jibri@auth.meet.jitsi/XybBUBdLaeVX,from=jibribrewery@internal-muc.meet.jitsi/focus,id=amlicmlAYXV0aC5tZWV0LmppdHNpL1h5YkJVQmRMYWVWWAAyS0U3WC0zNzkAj303dck7j2c=,type=set,]
+Jibri 2026-02-28 14:51:30.336 INFO: [59] XmppApi.handleJibriIq#229: Received JibriIq <iq xmlns='jabber:client' to='jibri@auth.meet.jitsi/XybBUBdLaeVX' from='jibribrewery@internal-muc.meet.jitsi/focus' id='amlicmlAYXV0aC5tZWV0LmppdHNpL1h5YkJVQmRMYWVWWAAyS0U3WC0zNzkAj303dck7j2c=' type='set'><jibri xmlns='http://jitsi.org/protocol/jibri' action='stop' session_id='4cd131a2-8de7-4ba5-9135-0608726c038c'/></iq> from environment [MucClient id=xmpp.meet.jitsi hostname=xmpp.meet.jitsi]
+Jibri 2026-02-28 14:51:30.337 FINE: [59] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: stop:recording
+Jibri 2026-02-28 14:51:30.337 INFO: [59] JibriManager.stopService#250: Stopping the current service
+Jibri 2026-02-28 14:51:30.337 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FileRecordingJibriService.stop#182: Stopping capturer
+Jibri 2026-02-28 14:51:30.338 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSubprocess.stop#75: Stopping ffmpeg process
+Jibri 2026-02-28 14:51:30.843 INFO: [73] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FfmpegCapturer.onFfmpegStateMachineStateChange#130: Ffmpeg capturer transitioning from state Running to Finished
+Jibri 2026-02-28 14:51:30.844 INFO: [73] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] StatefulJibriService.onServiceStateChange#39: File recording service transitioning from state Running to Finished
+Jibri 2026-02-28 14:51:30.846 INFO: [73] XmppApi$createServiceStatusHandler$1.invoke#320: Current service finished, sending off iq <iq xmlns='jabber:client' to='jibribrewery@internal-muc.meet.jitsi/focus' id='58RZ9-61' type='set'><jibri xmlns='http://jitsi.org/protocol/jibri' status='off'/></iq>
+Jibri 2026-02-28 14:51:31.154 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSubprocess.stop#89: ffmpeg exited with value 255
+Jibri 2026-02-28 14:51:31.155 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FileRecordingJibriService.stop#184: Quitting selenium
+Jibri 2026-02-28 14:51:31.193 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FileRecordingJibriService.stop#211: Participants in this recording: []
+Jibri 2026-02-28 14:51:31.275 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#340: Leaving call and quitting browser
+Jibri 2026-02-28 14:51:31.276 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#343: Recurring call status checks cancelled
+Jibri 2026-02-28 14:51:31.410 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#349: Got 9 log entries for type browser
+Jibri 2026-02-28 14:51:31.525 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#349: Got 1113 log entries for type driver
+Jibri 2026-02-28 14:51:31.795 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#349: Got 0 log entries for type client
+Jibri 2026-02-28 14:51:31.795 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#358: Leaving web call
+Jibri 2026-02-28 14:51:32.076 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#365: Quitting chrome driver
+Jibri 2026-02-28 14:51:32.216 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] JibriSelenium.leaveCallAndQuitBrowser#367: Chrome driver quit
+Jibri 2026-02-28 14:51:32.217 INFO: [59] [session_id=4cd131a2-8de7-4ba5-9135-0608726c038c] FileRecordingJibriService.stop#232: Finalizing the recording
+Jibri 2026-02-28 14:51:32.217 INFO: [59] JibriServiceFinalizeCommandRunner.doFinalize#44: Finalizing the jibri service operation using command [/path/to/finalize, /config/recordings/4cd131a2-8de7-4ba5-9135-0608726c038c]
+Jibri 2026-02-28 14:51:32.219 SEVERE: [59] JibriServiceFinalizeCommandRunner.doFinalize#63: Failed to run finalize script
+java.io.IOException: Cannot run program "/path/to/finalize": error=2, No such file or directory
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1143)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)
+	at org.jitsi.jibri.util.ProcessWrapper.start(ProcessWrapper.kt:88)
+	at org.jitsi.jibri.service.impl.JibriServiceFinalizeCommandRunner.doFinalize(JibriServiceFinalizeCommandRunner.kt:47)
+	at org.jitsi.jibri.service.impl.FileRecordingJibriService.stop(FileRecordingJibriService.kt:233)
+	at org.jitsi.jibri.JibriManager.stopService(JibriManager.kt:253)
+	at org.jitsi.jibri.api.xmpp.XmppApi.handleStopJibriIq(XmppApi.kt:343)
+	at org.jitsi.jibri.api.xmpp.XmppApi.handleJibriIq(XmppApi.kt:237)
+	at org.jitsi.jibri.api.xmpp.XmppApi.handleIq(XmppApi.kt:218)
+	at org.jitsi.xmpp.mucclient.MucClient.handleIq(MucClient.java:603)
+	at org.jitsi.xmpp.mucclient.MucClient$3.handleIQRequest(MucClient.java:566)
+	at org.jivesoftware.smack.AbstractXMPPConnection$3.run(AbstractXMPPConnection.java:1567)
+	at org.jivesoftware.smack.AbstractXMPPConnection$10.run(AbstractXMPPConnection.java:2156)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.io.IOException: error=2, No such file or directory
+	at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:314)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:244)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1110)
+	... 15 more
+Jibri 2026-02-28 14:51:32.221 FINE: [59] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: checking for value via suppliers:
+  LambdaSupplier: 'JibriConfig::singleUseMode'
+  ConfigSourceSupplier: key: 'jibri.single-use-mode', type: 'kotlin.Boolean', source: 'config'
+Jibri 2026-02-28 14:51:32.222 FINE: [59] MainKt$setupMetaconfigLogger$1.debug#234: LambdaSupplier: Trying to retrieve value via JibriConfig::singleUseMode
+Jibri 2026-02-28 14:51:32.222 FINE: [59] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: failed to find value via LambdaSupplier: 'JibriConfig::singleUseMode': org.jitsi.metaconfig.ConfigException$UnableToRetrieve$Error: class java.lang.NullPointerException
+Jibri 2026-02-28 14:51:32.222 FINE: [59] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Trying to retrieve key 'jibri.single-use-mode' from source 'config' as type kotlin.Boolean
+Jibri 2026-02-28 14:51:32.223 FINE: [59] MainKt$setupMetaconfigLogger$1.debug#234: ConfigSourceSupplier: Found value false for key 'jibri.single-use-mode' from source 'config' as type kotlin.Boolean
+Jibri 2026-02-28 14:51:32.223 FINE: [59] MainKt$setupMetaconfigLogger$1.debug#234: FallbackSupplier: value found via ConfigSourceSupplier: key: 'jibri.single-use-mode', type: 'kotlin.Boolean', source: 'config'
+Jibri 2026-02-28 14:51:32.223 INFO: [59] JibriStatusManager$special$$inlined$observable$1.afterChange#75: Busy status has changed: BUSY -> IDLE
+Jibri 2026-02-28 14:51:32.224 FINE: [59] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:51:32.224 INFO: [59] XmppApi.updatePresence#202: Jibri reports its status is now JibriStatus(busyStatus=IDLE, health=OverallHealth(healthStatus=HEALTHY, details={})), publishing presence to connections
+Jibri 2026-02-28 14:51:32.224 FINE: [59] MucClientManager.setPresenceExtension#160: Setting a presence extension: org.jitsi.xmpp.extensions.jibri.JibriStatusPacketExt@77f7e48f
+Jibri 2026-02-28 14:51:32.224 FINE: [59] MucClientManager.saveExtension#185: Replacing presence extension: org.jitsi.xmpp.extensions.jibri.JibriStatusPacketExt@25e81698
+Jibri 2026-02-28 14:51:32.226 INFO: [73] JibriManager.stopService#246: No service active, ignoring stop
+Jibri 2026-02-28 14:51:32.229 FINE: [47] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element busy-status from namespace http://jitsi.org/protocol/jibri
+Jibri 2026-02-28 14:51:32.230 FINE: [47] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element health-status from namespace http://jitsi.org/protocol/health
+Jibri 2026-02-28 14:51:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:52:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:53:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:54:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:55:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:56:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:57:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:58:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 14:58:52.418 WARNING: [82] org.jivesoftware.smack.AbstractXMPPConnection.callConnectionClosedOnErrorListener: Connection XMPPTCPConnection[jibri@auth.meet.jitsi/XybBUBdLaeVX] (0) closed with error
+org.jivesoftware.smack.xml.XmlPullParserException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,13689]
+Message: XML document structures must start and end within the same entity.
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:193)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.parsePackets(XMPPTCPConnection.java:1143)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.access$700(XMPPTCPConnection.java:916)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader$1.run(XMPPTCPConnection.java:939)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,13689]
+Message: XML document structures must start and end within the same entity.
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:191)
+	... 4 more
+Jibri 2026-02-28 14:58:52.423 FINE: [82] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-closed-on-error:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:52.424 WARNING: [82] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$2.connectionClosedOnError#392: Closed on error:
+org.jivesoftware.smack.xml.XmlPullParserException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,13689]
+Message: XML document structures must start and end within the same entity.
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:193)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.parsePackets(XMPPTCPConnection.java:1143)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.access$700(XMPPTCPConnection.java:916)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader$1.run(XMPPTCPConnection.java:939)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,13689]
+Message: XML document structures must start and end within the same entity.
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:191)
+	... 4 more
+Jibri 2026-02-28 14:58:53.424 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:53.425 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:58:53.425 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:53.425 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:58:53.428 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:53.428 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:58:54.429 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:54.429 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:58:54.429 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:54.429 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:58:54.430 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:54.430 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:58:55.431 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:55.431 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:58:55.431 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:55.431 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:58:55.432 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:55.432 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:58:56.433 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:56.433 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:58:56.433 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:58:56.434 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:15.841 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:15.842 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:16.843 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:16.843 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:16.843 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:16.843 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:16.845 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:16.845 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:17.845 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:17.846 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:17.846 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:17.846 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:17.847 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:17.847 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:18.848 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:18.848 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:18.848 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:18.848 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:18.849 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:18.850 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:19.850 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:19.850 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:19.850 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:19.851 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:19.851 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:19.852 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:20.852 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:20.853 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:20.853 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:20.853 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:20.854 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:20.854 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:21.854 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:21.855 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:21.855 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:21.855 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:21.856 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:21.856 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:22.856 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:22.857 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:22.857 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:22.857 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:22.859 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:22.859 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.5:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:23.859 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:23.860 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:23.860 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:23.860 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 14:59:23.995 FINE: [83] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-connected:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 14:59:23.995 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$2.connected#338: Connected. isSmEnabled:true isSmAvailable:false isSmResumptionPossible:true
+Jibri 2026-02-28 14:59:24.074 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$2.authenticated#351: Authenticated, resumed=false
+Jibri 2026-02-28 14:59:24.074 FINE: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$MucWrapper.resetLastPresenceSent#901: Resetting lastPresenceSent
+Jibri 2026-02-28 14:59:24.075 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$MucWrapper.join#806: Leaving a MUC we already occupy.
+Jibri 2026-02-28 14:59:24.075 WARNING: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$MucWrapper.leave#781: Error while trying to leave a MUC: 
+org.jivesoftware.smackx.muc.MultiUserChatException$MucNotJoinedException: Client not currently joined jibribrewery@internal-muc.meet.jitsi
+	at org.jivesoftware.smackx.muc.MultiUserChat.leave(MultiUserChat.java:769)
+	at org.jitsi.xmpp.mucclient.MucClient$MucWrapper.leave(MucClient.java:777)
+	at org.jitsi.xmpp.mucclient.MucClient$MucWrapper.join(MucClient.java:807)
+	at org.jitsi.xmpp.mucclient.MucClient.joinMucs(MucClient.java:422)
+	at org.jitsi.xmpp.mucclient.MucClient$2.authenticated(MucClient.java:357)
+	at org.jivesoftware.smack.AbstractXMPPConnection.callConnectionAuthenticatedListener(AbstractXMPPConnection.java:1713)
+	at org.jivesoftware.smack.AbstractXMPPConnection.afterSuccessfulLogin(AbstractXMPPConnection.java:787)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.afterSuccessfulLogin(XMPPTCPConnection.java:372)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.loginInternal(XMPPTCPConnection.java:470)
+	at org.jivesoftware.smack.AbstractXMPPConnection.login(AbstractXMPPConnection.java:637)
+	at org.jivesoftware.smack.AbstractXMPPConnection.login(AbstractXMPPConnection.java:594)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:287)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 14:59:24.091 INFO: [83] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$MucWrapper.join#826: Joined MUC: jibribrewery@internal-muc.meet.jitsi
+Jibri 2026-02-28 14:59:24.107 FINE: [85] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element busy-status from namespace http://jitsi.org/protocol/jibri
+Jibri 2026-02-28 14:59:24.107 FINE: [85] org.jitsi.xmpp.extensions.DefaultPacketExtensionProvider.parse: Could not find a provider for element health-status from namespace http://jitsi.org/protocol/health
+Jibri 2026-02-28 14:59:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:00:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:01:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:02:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:03:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:04:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:05:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:06:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:07:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:08:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:09:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:10:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:11:38.199 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:12:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:13:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:14:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:15:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:16:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:17:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status
+Jibri 2026-02-28 15:18:31.275 WARNING: [99] org.jivesoftware.smack.AbstractXMPPConnection.callConnectionClosedOnErrorListener: Connection XMPPTCPConnection[jibri@auth.meet.jitsi/n6YtLsE0R3dL] (0) closed with error
+org.jivesoftware.smack.xml.XmlPullParserException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,7088]
+Message: XML document structures must start and end within the same entity.
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:193)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.parsePackets(XMPPTCPConnection.java:1143)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.access$700(XMPPTCPConnection.java:916)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader$1.run(XMPPTCPConnection.java:939)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,7088]
+Message: XML document structures must start and end within the same entity.
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:191)
+	... 4 more
+Jibri 2026-02-28 15:18:31.278 FINE: [99] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-closed-on-error:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:31.279 WARNING: [99] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$2.connectionClosedOnError#392: Closed on error:
+org.jivesoftware.smack.xml.XmlPullParserException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,7088]
+Message: XML document structures must start and end within the same entity.
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:193)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.parsePackets(XMPPTCPConnection.java:1143)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader.access$700(XMPPTCPConnection.java:916)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection$PacketReader$1.run(XMPPTCPConnection.java:939)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,7088]
+Message: XML document structures must start and end within the same entity.
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at org.jivesoftware.smack.xml.stax.StaxXmlPullParser.next(StaxXmlPullParser.java:191)
+	... 4 more
+Jibri 2026-02-28 15:18:32.279 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:32.280 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:32.280 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:32.280 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:32.282 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:32.282 WARNING: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.3:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 15:18:33.283 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:33.283 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:33.283 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:33.283 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:33.284 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:33.284 WARNING: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.3:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 15:18:34.285 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:34.285 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:34.285 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:34.286 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:34.286 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnection-failed:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:34.286 WARNING: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectionFailed#231: Reconnection failed: 
+org.jivesoftware.smack.SmackException$EndpointConnectionException: The following addresses failed: 'RFC 6120 A/AAAA Endpoint + [xmpp.meet.jitsi:5222] (xmpp.meet.jitsi/172.18.0.3:5222)' failed because: java.net.ConnectException: Connection refused
+	at org.jivesoftware.smack.SmackException$EndpointConnectionException.from(SmackException.java:334)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectUsingConfiguration(XMPPTCPConnection.java:664)
+	at org.jivesoftware.smack.tcp.XMPPTCPConnection.connectInternal(XMPPTCPConnection.java:849)
+	at org.jivesoftware.smack.AbstractXMPPConnection.connect(AbstractXMPPConnection.java:525)
+	at org.jivesoftware.smack.ReconnectionManager$2.run(ReconnectionManager.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Jibri 2026-02-28 15:18:35.287 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:35.287 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:35.287 FINE: [100] JibriMetrics.incrementStatsDCounter#41: Incrementing statsd counter: xmpp-reconnecting:xmpp_server_host:xmpp.meet.jitsi
+Jibri 2026-02-28 15:18:35.288 INFO: [100] [hostname=xmpp.meet.jitsi id=xmpp.meet.jitsi] MucClient$1.reconnectingIn#224: Reconnecting in 0
+Jibri 2026-02-28 15:18:38.198 FINE: [20] WebhookClient$updateStatus$1.invokeSuspend#86: Updating 0 subscribers of status

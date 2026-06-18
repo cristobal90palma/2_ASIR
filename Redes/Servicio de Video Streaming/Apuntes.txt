@@ -1,0 +1,59 @@
+nginx proxy manager:
+
+admin
+12345678
+
+
+becario
+12345
+
+root
+12345
+
+ssh -i labsuser.pem ubuntu@im07.institutodh.net
+
+Owncast
+https://live.im07.institutodh.net 
+
+Jitsi Meet
+https://meet.im07.institutodh.net
+https://meet.im07.institutodh.net/fondo_del_mar/ 
+
+Jellyfin
+https://media.im07.institutodh.net 
+
+
+Nginx Proxy Manager
+http://44.215.160.182:81
+
+
+docker ps --format "{{.Names}}"
+docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+
+
+rtmp://44.215.160.182:1935/live
+abc123
+
+
+
+Ver usuarios:
+docker exec jitsi-docker-jitsi-meet-35879bb-prosody-1 find /config/data/meet%2ejitsi/accounts -type f -exec basename {} .dat \;
+Añadir usuario:
+docker exec jitsi-docker-jitsi-meet-35879bb-prosody-1 prosodyctl --config /config/prosody.cfg.lua register TheDesiredUsername meet.jitsi TheDesiredPassword
+Borrar usuario:
+docker exec jitsi-docker-jitsi-meet-35879bb-prosody-1 prosodyctl --config /config/prosody.cfg.lua unregister TheDesiredUsername meet.jitsi
+
+
+
+
+Acción	Atajo
+Send thumbs up reaction	Alt + T
+Send clap reaction	Alt + C
+Send laugh reaction	Alt + L
+Send surprised reaction	Alt + O
+Send boo reaction	Alt + B
+Send silence reaction	Alt + S
+Send love reaction	Alt + H
+
+Repositorio de Diego
+https://github.com/diegojfdez?tab=repositories

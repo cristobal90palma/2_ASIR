@@ -1,0 +1,17 @@
+TAREA 3 Carpetas personales, carpetas compartidas y servicios de impresión
+
+Actividad 1: Crear carpetas personales y carpetas compartidas para los usuarios
+
+    Consigue que los usuarios del grupo Contabilidad dispongan de una carpeta compartida en el servidor. (2,5 puntos)
+        Se creará una carpeta en el directorio raíz de la unidad C con el nombre folders-con y en su interior deberán existir una carpeta por cada usuario del grupo.
+    Crea, dentro de folders-con una nueva subcarpeta con el nombre Contabilidad y realiza todas las tareas necesarias para que los usuarios del grupo Contabilidad puedan acceder a ella como un espacio de almacenamiento compartido.  (2,5 puntos)
+
+Actividad 2: Compartir una impresora del controlador de dominio (4 puntos)
+
+    Descargar el programa clawPDF (https://github.com/clawsoftware/clawPDF).
+    Instalarlo de forma local en el controlador del dominio para crear una impresora virtual. La impresora tendrá como nombre almacen-prn.
+    Realizar los pasos necesarios para compartir la impresora con todos los usuarios del grupo Almacen.
+    Inicia sesión con una cuenta de usuario del grupo Almacen y comprueba que la impresión funciona correctamente desde cualquier programa del sistema.
+    Comprueba qué ocurre cuando tratamos de imprimir desde una cuenta de usuario que no pertenezca al mencionado grupo.
+
+(1 punto) --> Presentación y documentación de la tarea

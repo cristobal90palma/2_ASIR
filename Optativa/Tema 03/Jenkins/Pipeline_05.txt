@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'NOMPRE_PIPELINE')
+        // FIX: Changed 'strin' to 'string'
+        string(name: 'ID_JOB')
+    }
+    stages {
+        // FIX: Changed 'stagre' to 'stage'
+        stage ("Hola mundo") {
+            steps {
+                // The 'script' block is optional here, but safe to keep.
+                script {
+                    sh "echo 'hola mundo'"
+                }
+            }
+        }
+        // FIX: Changed 'stagre' to 'stage'
+        stage("Print params") {
+            steps {
+                // The 'script' block is optional here, but safe to keep.
+                script {
+                    // Parameters are accessed via the global 'params' object
+                    // but since they have simple names, direct shell access often works too.
+                    sh "echo The pipeline name is: ${params.NOMPRE_PIPELINE}"
+                    sh "echo The job ID is: ${params.ID_JOB}"
+                }
+            }
+        }
+    }
+}

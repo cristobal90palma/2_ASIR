@@ -1,0 +1,4 @@
+dn: cn=ASIR1,ou=grupos,dc=SUAREZ1,dc=abad2
+objectClass: posixGroup
+gidNumber: 10002
+cn: ASIR1

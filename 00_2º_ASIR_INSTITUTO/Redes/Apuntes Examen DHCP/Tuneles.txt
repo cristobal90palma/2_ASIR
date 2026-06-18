@@ -1,0 +1,15 @@
+ssh -p 22 root@10.2.7.50 -R 10.2.7.50:1080:192.168.1.1:80 -fN
+
+ssh -p 22 "usuario"@"pc_con_acceso" -R "pc_con_acceso":1080:"pc_del_diagrama":80 -fN
+
+Comprueba en "pc_con_acceso" que está escuchando por el puerto: ss -ltnp | grep 1080
+
+Tiene que salir algo así:
+
+Si ves 0.0.0.0:1080 o 10.2.7.50:1080 = está escuchando en la interfaz pública y podrás conectarte desde otra máquina a 10.2.7.50:1080.
+
+Si aparece 127.0.0.1:1080 solo está ligado a localhost — entonces solo desde el propio 10.2.7.50 podrás usar curl http://127.0.0.1:1080.
+
+Ahora puedes poner la ip del pc_con_acceso en el navegador así:
+
+http://10.2.7.50:1080

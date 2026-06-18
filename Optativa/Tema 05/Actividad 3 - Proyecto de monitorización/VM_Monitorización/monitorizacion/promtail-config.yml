@@ -1,0 +1,40 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: rsyslog-alertas
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: rsyslog_criticos
+      __path__: /var/log/ALERTA_TOTAL.log # Archivo que rellenará Rsyslog localmente
+
+## CONFIGURACIÓN PARA CUANDO MIKROTIK NO ENVIABA LOS LOGS
+## A ALERTA_TOTAL.log
+# === NUEVO JOB PARA EXPONER MIKROTIK ===
+- job_name: mikrotik-error-critical
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: mikrotik_errores
+      dispositivo: mikrotik
+      __path__: /var/log/remote/10.2.7.3/system,error,critical.log
+
+# === NUEVO JOB PARA EXPONER MIKROTIK ===
+- job_name: mikrotik-warnings
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: mikrotik_warnings
+      dispositivo: mikrotik
+      __path__: /var/log/remote/10.2.7.3/script,warning.log

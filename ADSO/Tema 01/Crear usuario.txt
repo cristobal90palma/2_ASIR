@@ -1,0 +1,97 @@
+
+COMANDOS:
+
+Para cargar los ficheros:
+   ldapadd -x -D cn=admin,dc=SUAREZ1,dc=abad2 -w "usuario.12345" -f 
+
+Para borrar una entrada
+   ldapdelete -x -W -D cn=admin,dc=SUAREZ1,dc=abad2 "ou=desorganizados,dc=SUAREZ1,dc=abad2"
+   
+   ldapdelete -x -W -D cn=admin,dc=SUAREZ1,dc=abad2 "cn=genterara,ou=grupos,dc=SUAREZ1,dc=abad2"
+
+Para hacer una busqueda de una entrada:
+   ldapsearch -xLLL -b dc=sistemas,dc=edu uid=santi
+o también
+   ldapsearch -xLLL -b dc=sistemas,dc=edu cn=profesores
+
+Para realizar modificaciones:
+   ldapmodify -x -D cn=admin,dc=SUAREZ1,dc=abad2 -w "usuario.12345" -f modificacion.ldif
+
+Para generar las claves para los usuarios
+   slappasswd
+
+
+\\\Listar el homeDirectory de todos los usuarios
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 '(objectClass=posixAccount)' homeDirectory
+
+
+\\\\\\\Mostrar el uidNumber del usuario que tiene tus iniciales
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 uid=csa uidNumber
+
+
+
+
+
+
+ldapadd -x -D "cn=admin,dc=SUAREZ1,dc=abad2" -w "usuario.12345" -f usuariocorreo.ldif
+
+
+
+dn: uid=kike,ou=usuarios,dc=SUAREZ1,dc=abad2
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+cn: kike
+sn: suarez
+uid: kike
+uidNumber: 100987
+gidNumber: 1035
+homeDirectory: /home/kike
+loginShell: /bin/bash
+mail: kike@SUAREZ1.abad2
+userPassword: usuario.12345
+
+
+
+COMANDOS:
+
+Para cargar los ficheros:
+   ldapadd -x -D cn=admin,dc=SUAREZ1,dc=abad2 -W -f unidades_organizativas.ldif
+
+Para borrar una entrada:
+   ldapdelete -x -W -D cn=admin,dc=SUAREZ1,dc=abad2 "ou=sevilla,dc=SUAREZ1,dc=abad2"
+
+Para hacer una busqueda de una entrada:
+   ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 uid=santi
+o también
+   ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 cn=profesores
+
+Para realizar modificaciones:
+   ldapmodify -x -D cn=admin,dc=SUAREZ1,dc=abad2 -W -f modificacion.ldif
+
+Para generar las claves para los usuarios
+   slappasswd
+   
+   
+   
+   
+crear grupos
+
+dn: cn=genterara,ou=grupos,dc=SUAREZ1,dc=abad2
+objectClass: posixGroup
+gidNumber: 10050
+cn: genterara
+
+sudo ldapadd -x -D cn=admin,dc=SUAREZ1,dc=abad2 -w "usuario.12345" -f ARCHIVO.ldif
+
+
+
+crear OU
+
+dn: ou=desorganizados,dc=SUAREZ1,dc=abad2
+objectClass: organizationalUnit
+ou: desorganizados
+
+sudo ldapadd -x -D cn=admin,dc=SUAREZ1,dc=abad2 -w "usuario.12345" -f

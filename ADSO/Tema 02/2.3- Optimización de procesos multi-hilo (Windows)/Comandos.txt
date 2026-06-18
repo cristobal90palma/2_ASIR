@@ -1,0 +1,182 @@
+1)Identificación inicial:
+
+    Utiliza PowerShell para identificar los procesos que ejecuta la aplicación de 
+	ofimática (Excel) y sus hilos asociados. 
+	Documenta cuántos hilos están activos 
+	por cada proceso y qué consumo de CPU y memoria tienen. (Get-Process | Select Name,Id,Threads)
+
+Get-Process -Name Excel | Select-Object Name, Id, @{Name="Hilos_Activos";Expression={$_.Threads.Count}}, CPU, WorkingSet | Format-Table -AutoSize
+
+
+Resultado: https://gemini.google.com/app/fa41aedc31b3680c
+Name    Id Hilos_Activos      CPU WorkingSet
+----    -- -------------      --- ----------
+EXCEL 1480            40 5,078125  177041408
+
+
+\\\\\\\\\\\\\\\\
+
+Creación de carga controlada:
+
+    Crea dos scripts del powerShell para ejecutar dos procesos intensivos al mismo tiempo:
+        Uno con cálculo (por ejemplo, un script de PowerShell que calcule el factorial de un numero).
+		
+		# Script de cálculo intensivo (Factorial)
+function Get-Factorial($n) {
+    $result = [System.Numerics.BigInteger] 1
+    for ($i = 2; $i -le $n; $i++) {
+        $result = $result * $i
+    }
+    return $result
+}
+
+$start_time = Get-Date
+Write-Host "Iniciando cálculo intensivo..."
+# Aumentamos el número a un valor que debería forzar un tiempo de ejecución mayor
+# (El tiempo exacto variará por sistema)
+Get-Factorial 80000 | Out-Null
+$end_time = Get-Date
+$duration = $end_time - $start_time
+Write-Host "Cálculo completado en: $($duration.TotalSeconds) segundos."
+
+
+
+		
+		
+		
+        Otro con lectura/escritura en disco (por ejemplo, copiar varios archivos grandes, una copia de seguridad).
+		
+		# Script de I/O intensivo (Copia de archivos)
+$sourceFile = "Z:\debian-13.0.0-amd64-netinst.iso" # ¡Asegúrate de que este archivo exista!
+$destinationDir = "Z:\prueba_proceso" # ¡Asegúrate de que esta carpeta exista!
+$copyCount = 3 # Número de copias
+
+Write-Host "Iniciando operación I/O intensiva..."
+
+Measure-Command {
+    for ($i = 1; $i -le $copyCount; $i++) {
+        $destinationPath = Join-Path -Path $destinationDir -ChildPath "Copia_$i_$(Get-Date -Format 'HHmmss').dat"
+        Copy-Item -Path $sourceFile -Destination $destinationPath -Force
+        Write-Host "Copia $i completada."
+    }
+} | ForEach-Object {
+    Write-Host "Operación de copia completada en: $($_.TotalSeconds) segundos."
+}
+		
+    Observa cómo Windows distribuye los recursos entre ambos.
+	
+	FOTO A Administrador de Tareas
+	
+    Ve cambiando las prioridades de los proceso para ver como afecta al rendimiento del sistema.
+	
+	
+	Identifica los IDs de los procesos (PID) mientras se ejecutan.
+	Get-Process -Name powershell
+
+Priorizar I/O: Cambia la prioridad del proceso de cálculo a Baja (Low) para ver si el proceso de I/O termina más rápido o si la interfaz de usuario del sistema se vuelve más ágil.
+
+$pid_calculo = (Get-Process -Name powershell -Id 4700).Id # Reemplaza <PID_calculo>
+[System.Diagnostics.Process]::GetProcessById($pid_calculo).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::Idle
+
+
+O puedes usar: 
+
+(Get-Process -Id 4700).PriorityClass = "Idle"         # prioridad mínima
+(Get-Process -Id 4700).PriorityClass = "BelowNormal"  # ligeramente baja
+(Get-Process -Id 4700).PriorityClass = "Normal"
+(Get-Process -Id 4700).PriorityClass = "AboveNormal"
+(Get-Process -Id 4700).PriorityClass = "High"
+
+
+
+
+
+\\\\\\\\\\\\\\
+Trabajo (Job Object):
+
+    Agrupa varios procesos bajo un mismo “Job” utilizando PowerShell (New-Job).
+    Limita su uso de CPU o memoria y analiza el resultado.
+    Explica qué ventajas tiene gestionar un grupo de procesos como un único trabajo.
+
+(El control centralizado sobre grupos de procesos relacionados es ideal para servidores o entornos multiusuario).
+
+
+
+
+
+Crear un Job que agrupe varios procesos
+
+Por ejemplo, lanzamos notepad, calc y mspaint bajo un mismo Job:
+
+# Crear un Job que lanza varios procesos
+$job = Start-Job -ScriptBlock {
+    # Guardamos los procesos en variables para control
+    $proc1 = Start-Process notepad -PassThru
+    $proc2 = Start-Process calc -PassThru
+    $proc3 = Start-Process mspaint -PassThru
+
+    # Mantener el Job activo para poder monitorizarlo
+    Start-Sleep -Seconds 60
+}
+
+
+-PassThru devuelve el objeto del proceso para poder acceder a sus propiedades.
+
+Start-Sleep mantiene el Job activo para poder monitorear recursos.
+
+
+
+Limitar uso de CPU/memoria
+
+PowerShell no puede limitar directamente la CPU de un proceso, pero podemos usar Job Objects de Windows o asignar afinidad de CPU y prioridad:
+
+# Obtener procesos lanzados por el Job
+$jobProcesses = Get-Process | Where-Object { $_.ProcessName -in "notepad","calc","mspaint" }
+
+foreach ($p in $jobProcesses) {
+    # Limitar afinidad a 1 CPU
+    $p.ProcessorAffinity = 1
+
+    # Cambiar prioridad (Reduce consumo de CPU)
+    $p.PriorityClass = "BelowNormal"
+}
+
+
+
+ProcessorAffinity limita en qué núcleo de CPU puede ejecutarse.
+
+PriorityClass reduce el impacto sobre el resto del sistema.
+
+Para memoria, se puede monitorizar y alertar si excede cierto valor, aunque PowerShell no restringe memoria directamente.
+
+
+
+# Ver el estado del Job
+Get-Job
+
+# Recibir salida del Job (si hay)
+Receive-Job -Id $job.Id
+
+# Analizar uso de CPU y memoria de los procesos del Job
+$jobProcesses | Select-Object Name, Id, CPU, WS
+
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\
+Registro y monitorización:
+
+    Activa el Monitor de recursos y 
+	Process Explorer para registrar los valores
+	de CPU, memoria e hilos de ambos procesos.
+	
+	Monitor de recursos: resmon.exe
+	
+	Process Explorer: https://learn.microsoft.com/es-es/sysinternals/downloads/process-explorer
+	
+	
+    Guarda un log con la evolución de cada proceso (inicio, consumo, prioridad, fin). Este archivo te permitirá comprobar los consumos antes y después de cambiar las prioridades.

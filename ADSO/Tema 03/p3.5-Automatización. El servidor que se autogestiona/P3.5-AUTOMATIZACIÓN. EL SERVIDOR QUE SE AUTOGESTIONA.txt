@@ -1,0 +1,140 @@
+https://chatgpt.com/c/695f92d8-dc7c-832c-ad66-27600cf4c31f 
+
+
+PS C:\Users\Administrador>
+>> Get-ADComputer WIN-Q9RNRM3S3QT
+
+
+DistinguishedName : CN=WIN-Q9RNRM3S3QT,OU=Domain Controllers,DC=empresa,DC=local
+DNSHostName       : WIN-Q9RNRM3S3QT.empresa.local
+Enabled           : True
+Name              : WIN-Q9RNRM3S3QT
+ObjectClass       : computer
+ObjectGUID        : 46adc2a3-b835-4825-ab0a-60005e8e6586
+SamAccountName    : WIN-Q9RNRM3S3QT$
+SID               : S-1-5-21-3792348340-206745076-2787125278-1000
+UserPrincipalName :
+
+
+New-ADServiceAccount `
+ -Name gmsa_automation `
+ -DNSHostName WIN-Q9RNRM3S3QT.empresa.local `
+ -PrincipalsAllowedToRetrieveManagedPassword "WIN-Q9RNRM3S3QT$"
+
+
+PS C:\Users\Administrador> New-ADServiceAccount `
+ -Name gmsa_automation `
+ -DNSHostName WIN-Q9RNRM3S3QT.empresa.local `
+ -PrincipalsAllowedToRetrieveManagedPassword "WIN-Q9RNRM3S3QT$"
+
+New-ADServiceAccount : La clave no existe
+En línea: 1 Carácter: 1
++ New-ADServiceAccount `
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (CN=gmsa_automat...mpresa,DC=local:String) [New-ADServiceAccount], ADException
+    + FullyQualifiedErrorId : ActiveDirectoryServer:-2146893811,Microsoft.ActiveDirectory.Management.Commands.NewADServiceAccount
+ 
+ 
+>> Add-KdsRootKey -EffectiveImmediately
+
+Guid
+----
+73ba6226-01d3-f5fd-74fa-6033ab299813
+
+
+PS C:\Users\Administrador>
+>> Get-KdsRootKey
+
+
+AttributeOfWrongFormat :
+KeyValue               : {241, 63, 21, 121...}
+EffectiveTime          : 10/01/2026 17:48:40
+CreationTime           : 10/01/2026 17:48:40
+IsFormatValid          : True
+DomainController       : CN=WIN-Q9RNRM3S3QT,OU=Domain Controllers,DC=empresa,DC=local
+ServerConfiguration    : Microsoft.KeyDistributionService.Cmdlets.KdsServerConfiguration
+KeyId                  : 0926e8e5-731b-6021-32db-8e0fea8aec51
+VersionNumber          : 1
+
+AttributeOfWrongFormat :
+KeyValue               : {79, 169, 149, 174...}
+EffectiveTime          : 10/01/2026 18:00:22
+CreationTime           : 10/01/2026 18:00:22
+IsFormatValid          : True
+DomainController       : CN=WIN-Q9RNRM3S3QT,OU=Domain Controllers,DC=empresa,DC=local
+ServerConfiguration    : Microsoft.KeyDistributionService.Cmdlets.KdsServerConfiguration
+KeyId                  : 73ba6226-01d3-f5fd-74fa-6033ab299813
+VersionNumber          : 1
+
+
+
+
+PS C:\Users\Administrador> New-ADServiceAccount `
+ -Name gmsa_automation `
+ -DNSHostName WIN-Q9RNRM3S3QT.empresa.local `
+ -PrincipalsAllowedToRetrieveManagedPassword "WIN-Q9RNRM3S3QT$"
+
+New-ADServiceAccount : La clave no existe
+En línea: 1 Carácter: 1
++ New-ADServiceAccount `
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (CN=gmsa_automat...mpresa,DC=local:String) [New-ADServiceAccount], ADException
+    + FullyQualifiedErrorId : ActiveDirectoryServer:-2146893811,Microsoft.ActiveDirectory.Management.Commands.NewADServiceAccount
+	
+	
+	
+	
+PS C:\Users\Administrador>
+>> Add-KdsRootKey -EffectiveTime ((Get-Date).AddHours(-10))
+
+Guid
+----
+865a7a3b-decd-ac79-c079-48a6482bc90e
+
+
+
+# 1. Definir el nombre de la tarea y la cuenta
+$TaskName = "Respaldo_Semanal_Historial"
+$gMSA = "TUDOMINIO\gmsa_automation"
+
+# 2. Crear la configuración de seguridad para la gMSA
+# Usamos LogonType 'Password' pero sin pasarle contraseña (así funciona gMSA)
+$Principal = New-ScheduledTaskPrincipal -UserId $gMSA -LogonType Password -RunLevel Highest
+
+# 3. Aplicar el cambio a la tarea existente
+Set-ScheduledTask -TaskName $TaskName -Principal $Principal
+
+
+
+# 1. Definir los datos confirmados
+$TaskName = "Limpiar"
+# Importante: Usa el nombre corto de tu dominio (EMPRESA) seguido del nombre con $
+$gMSA = "EMPRESA\gmsa_automation$" 
+
+# 2. Crear el objeto de seguridad
+$Principal = New-ScheduledTaskPrincipal -UserId $gMSA -LogonType Password -RunLevel Highest
+
+# 3. Aplicar a la tarea
+Set-ScheduledTask -TaskName $TaskName -Principal $Principal
+
+
+
+-ExecutionPolicy Bypass -File "C:\Automation\scripts\m2_servicio.ps1"
+
+-	Ahora el Task Scheduler.
+
+Powershell y opción:
+-ExecutionPolicy Bypass -File "C:\Automation\scripts\m3_usuarios.ps1"
+
+
+Ahora debemos otorgársela al usuario de servicio.
+# 1. Definir los datos confirmados
+$TaskName = "Usuarios"
+# Importante: Usa el nombre corto de tu dominio (EMPRESA) seguido del nombre con $
+$gMSA = "EMPRESA\gmsa_automation$" 
+
+# 2. Crear el objeto de seguridad
+$Principal = New-ScheduledTaskPrincipal -UserId $gMSA -LogonType Password -RunLevel Highest
+
+# 3. Aplicar a la tarea
+Set-ScheduledTask -TaskName $TaskName -Principal $Principal

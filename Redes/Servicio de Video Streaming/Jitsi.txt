@@ -1,0 +1,162 @@
+https://gemini.google.com/app/773d1512b4e474af
+
+https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-docker/
+
+
+
+en el archivo .env:
+
+# VITAL PARA EVITAR FALLOS DE CONEXIÓN EN VIDEOCONFERENCIA
+PUBLIC_URL=https://192.168.1.137:8443
+JVB_ADVERTISE_IPS=192.168.1.137
+
+
+
+
+sudo modprobe snd-aloop
+# Para que no se borre al reiniciar el PC:
+echo "snd-aloop" | sudo tee -a /etc/modules
+
+sudo modprobe snd-aloop
+
+PROBLEMA POR ESTAR EN AWS:
+
+root@ip-172-31-42-182:/video_streaming/jitsi/jitsi-docker-jitsi-meet-35879bb# sudo modprobe snd-aloop
+modprobe: FATAL: Module snd-aloop not found in directory /lib/modules/6.14.0-1018-aws
+
+sudo apt update
+sudo apt install -y linux-modules-extra-$(uname -r)
+sudo depmod -a
+
+reboot now
+
+
+logs de recording:
+
+docker logs -f jitsi-docker-jitsi-meet-35879bb-jibri-1
+
+
+
+
+.envRECORDING_LOCAL_SERVER
+Funciona Recording en LOCAL y en el Servidor. --> Con HTTPS Sin certificar.
+También funciona Documento Compartido --> Se exportan en importan en icono --> <---
+
+
+Puedo grabar en local y en servidor, pero no los dos a la vez
+
+
+
+
+
+
+AÑADIR BACKGROUNDS POR LOS LOLES --> Archivos 
+
+
+
+
+
+Autenticación básica en .env
+
+
+#
+# Authentication configuration (see handbook for details)
+#
+
+# Enable authentication (will ask for login and password to join the meeting)
+ENABLE_AUTH=1
+
+# Enable guest access (if authentication is enabled, this allows for users to be held in lobby until registered user lets them in)
+ENABLE_GUESTS=1
+
+# Select authentication type: internal, jwt, ldap or matrix
+AUTH_TYPE=internal
+
+#Enable auto login. 0 Disabled. 1 Enabled
+ENABLE_AUTO_LOGIN=0
+
+#Select session timeout value for an authenticated user
+JICOFO_AUTH_LIFETIME=24 hours
+
+
+
+Reinicia contenedores: docker compose -f docker-compose.yml -f whiteboard.yml -f etherpad.yml -f jibri.yml up -d
+
+Crea tus usuarios:
+
+# Reemplaza 'cristobal' y 'tu_password' por lo que quieras
+docker compose exec prosody prosodyctl --config /config/prosody.cfg.lua register cristobal meet.jitsi tu_password
+
+
+docker compose exec prosody prosodyctl --config /config/prosody.cfg.lua register cristobal meet.jitsi pcjabela
+
+docker compose exec prosody prosodyctl --config /config/prosody.cfg.lua register cepeda meet.jitsi 12345
+
+
+
+root@plantillacasa:/home/cristobal/jitsi/jitsi-docker-jitsi-meet-35879bb# docker compose exec prosody prosodyctl --config /config/prosody.cfg.lua register cristobal meet.jitsi pcjabela
+usermanager         info        User account created: cristobal@meet.jitsi
+
+
+Comprobar usuarios:
+
+docker compose exec jitsi-docker-jitsi-meet-35879bb-prosody-1 find /config/data/meet%2ejitsi/accounts -type f -exec basename {} .dat \;
+
+
+
+\\\\\\\\\\
+4. ¿Cómo verificar quién tiene acceso?
+
+Si alguna vez olvidas qué usuarios has creado, usa este comando que mencionaba tu texto para listarlos todos:
+
+docker compose exec prosody find /config/data/meet%2ejitsi/accounts -type f -exec basename {} .dat \;
+
+
+Internal authentication
+
+The default authentication mode (internal) uses XMPP credentials to authenticate users. To enable it you have to enable authentication with ENABLE_AUTH and set AUTH_TYPE to internal, then configure the settings you can see below.
+
+Internal users must be created with the prosodyctl utility in the prosody container. In order to do that, first, execute a shell in the corresponding container:
+
+docker compose exec prosody /bin/bash
+
+Once in the container, run the following command to create a user:
+
+prosodyctl --config /config/prosody.cfg.lua register TheDesiredUsername meet.jitsi TheDesiredPassword
+
+Note that the command produces no output.
+
+To delete a user, run the following command in the container:
+
+prosodyctl --config /config/prosody.cfg.lua unregister TheDesiredUsername meet.jitsi
+
+To list all users, run the following command in the container:
+
+find /config/data/meet%2ejitsi/accounts -type f -exec basename {} .dat \;
+
+
+
+
+
+
+\\\\\\\\\\\\ Para Live Streaming
+
+https://jitsi.org/blog/live-streaming-with-jitsi-and-youtube/
+
+
+
+
+/////////////////
+
+Pararlos: 
+
+docker compose -f docker-compose.yml -f whiteboard.yml -f etherpad.yml -f jibri.yml down
+
+
+
+Error:
+
+https://stackoverflow.com/questions/64760450/how-to-solve-your-browser-is-not-webrtc-compatible-error
+
+
+https://stackoverflow.com/questions/65168702/jitsi-meet-you-have-been-disconnected

@@ -1,0 +1,69 @@
+mongodb01	10.2.30.10
+mongodb02	10.2.30.20
+mongodb03	10.2.30.30
+
+
+Instalar mongodb
+
+Seguimos guia:
+https://www.datacamp.com/tutorial/install-mongodb-on-ubuntu
+
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
+
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+
+sudo apt-get update
+
+sudo apt-get install -y mongodb-org
+
+
+
+SI TE DA UN PROBLEMA COMO EL SIGUIENTE: HAZ UN upgrade --> Cuidado: puede tardar mucho con internet lento.
+[root@server2asir usuario]$sudo apt-get install -y mongodb-org
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias... Hecho
+Leyendo la información de estado... Hecho
+No se pudieron instalar algunos paquetes. Esto puede significar que
+usted pidió una situación imposible o, si está usando la distribución
+inestable, que algunos paquetes necesarios aún no se han creado o se
+han sacado de «Incoming».
+La siguiente información puede ayudar a resolver la situación:
+
+Los siguientes paquetes tienen dependencias incumplidas:
+ mongodb-org-mongos : Depende: libc6 (>= 2.38) pero 2.35-0ubuntu3.6 va a ser instalado
+                      Depende: libcurl4t64 (>= 7.16.2) pero no es instalable
+                      Depende: libssl3t64 (>= 3.0.0) pero no es instalable
+ mongodb-org-server : Depende: libc6 (>= 2.38) pero 2.35-0ubuntu3.6 va a ser instalado
+                      Depende: libcurl4t64 (>= 7.16.2) pero no es instalable
+                      Depende: libssl3t64 (>= 3.0.0) pero no es instalable
+E: No se pudieron corregir los problemas, usted ha retenido paquetes rotos.
+
+NO FUNCIONA, LIMPIAR PAQUETES ROTOS:
+
+sudo apt remove mongodb-org mongodb-org-server mongodb-org-mongos
+
+
+
+
+# Borra cualquier list-file de MongoDB existente que pudiera apuntar a una versión incorrecta
+sudo rm /etc/apt/sources.list.d/mongodb-org-*.list
+
+# Agrega la clave GPG para la versión 6.0 (si no la tienes ya)
+curl -fsSL https://pgp.mongodb.com/server-6.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
+
+# Añade el repositorio 6.0, compatible con "jammy" (22.04)
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+
+
+
+apt update
+
+sudo apt install -y mongodb-org
+
+systemctl start mongod
+systemctl enable mongod
+systemctl status mongod
+
+
+hostnamectl set-hostname mongodb01

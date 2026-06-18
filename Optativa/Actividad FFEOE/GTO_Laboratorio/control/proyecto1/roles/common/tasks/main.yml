@@ -1,0 +1,51 @@
+---
+# 1. Preparacion del sistema
+- name: Actualizar el cache de apt (equivalente a apt update)
+  apt:
+    update_cache: yes
+  become: yes
+
+# 2. Instalacion de paquetes usando Bucle
+- name: Instalar herramientas de seguridad y monitoreo
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ seguridad_paquetes }}"
+  become: yes
+
+# 3. Configuracion de Red (Hardening de Firewall)
+# IMPORTANTE: El "allow 22" debe ir SIEMPRE antes de "enabled"
+- name: Permitir trafico SSH (Puerto 22) para no perder la conexion
+  ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+  become: yes
+
+# LO HE TENIDO QUE DEJAR COMENTADO PORQUE ME PARA LOS CONTENEDORES
+- name: Configurar politica por defecto y habilitar UFW
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming
+  become: yes
+  when: ansible_distribution == "Ubuntu"  # Uso de condicional
+
+# 4. Hardening de SSH
+- name: Deshabilitar el acceso root por SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+  become: yes
+  notify: Reiniciar SSH  # Uso de Handler
+
+# 5. Verificacion y Registro
+- name: Verificar estado del firewall
+  command: ufw status
+  register: ufw_result  # Uso de Register
+  become: yes
+
+- name: Mostrar el estado del firewall en la consola
+  debug:
+    msg: "El estado del firewall es: {{ ufw_result.stdout }}"

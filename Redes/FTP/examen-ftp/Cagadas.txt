@@ -1,0 +1,249 @@
+SERVIDOR FTP POR DEFECTO:
+
+a.	 (0.5 ptos.) Crea un usuario real con tu primer apellido 
+de manera que pueda conectarse al servicio FTP pero 
+no obtener una shell en el sistema. Crea el usuario 
+virtual lobezno que pertenezca al grupo virtual xmen.
+
+
+1) Primera cagada:
+
+Se me olvidó poner esto en el proftpd.conf:
+
+# CARGAR EL MODULO DE AUTENTICACION PARA LOS PODER USAR USUARIO
+VIRTUAL
+<IfModule mod_auth_file.c>
+# AUTENTICACION POR FICHERO (USUARIO VIRTUAL) Y UNIX (USUARIOS MAQUINA)
+AuthOrder mod_auth_file.c mod_auth_unix.c
+# FICHERO PARA AUTENTICACION POR FICHERO
+AuthUserFile /etc/proftpd/ftpd.passwd
+# FICHERO PARA AUTENTICACION DE GRUPO POR FICHERO
+AuthGroupFile /etc/proftpd/ftpd.group
+</IfModule>
+
+
+
+b.	(0.5 ptos.) Haz que los usuarios estén enjaulados por 
+defecto. Los usuarios del grupo xmen irán a la 
+carpeta /srv/xmen .
+
+
+2) Segunda cagada:
+Los usuarios del grupo xmen irán a la carpeta /srv/xmen
+
+DefaultRoot /srv/xmen xmen
+
+
+
+
+c.	(0.5 ptos.) Impide el acceso al usuario magneto y 
+mistica; y a los usuarios del grupo villanos.
+
+3) Tercera cagada:
+
+Impide el acceso al usuario magneto y mistica; y a los usuarios del grupo villanos.
+
+<Limit LOGIN>
+	DenyUser magneto
+	DenyUser mistica
+	DenyUser villanos
+	AllowAll
+</Limit>
+
+
+
+d.	(0.5 ptos.) Impide el modo activo y personaliza los logs. 
+
+ESTE ESTÁ BIEN.
+
+
+
+
+e.	(1 ptos.) Habilita el acceso anónimo asociado al usuario
+ profesorx, sirviendo la carpeta /srv/px. 
+ Oculta la carpeta secrets. Los archivos de 
+ root deben quedar ocultos.
+
+4) Cuarta cagada:
+
+Habilita el acceso anónimo asociado al usuario profesorx,
+ sirviendo la carpeta /srv/px. Oculta la carpeta secrets.
+ Los archivos de root deben quedar ocultos.
+ 
+¿Hace falta crear al usuario profesorx?
+Andrés lo ha creado.
+
+useradd -d /srv/px -s /bin/false profesorx
+mkdir -p /srv/px/secrets
+chown -R profesorx:profesorx /srv/px
+
+
+
+
+
+<Anonymous /srv/px>
+	User profesorx
+	Group nogroup
+	UserAlias anonymous profesorx
+	RequireValidShell off
+	
+	
+	<Directory secrets>
+		HideUser profesorx
+		<Limit ALL>
+			IgnonerHidden on
+		</Limit>
+	</Directory>
+	
+	HideUser root
+	
+</Anonymous>
+
+
+
+
+f.	(0.75 ptos.) El usuario real tormenta tendrá establecidas
+ cuotas de disco, de tipo: Límite Subida: 50GB, 
+ Límite Descarga: 1000GB, Límite Nº Total ficheros 
+ Subidos: 50, Límite Nº Total ficheros 
+ Descargados: 1000 Prueba a descargar algo 
+ y comprueba los contadores.
+ 
+ 
+
+
+5) Quinta cagada:
+Punto f primer ejercicio. Lo del tallytab.
+
+Puede que sea por esto:
+
+<IfModule mod_quotatab.c>
+	QuotaEngine on
+	QuotaLog /var/log/proftpd/quota.log
+	# For more information on using files for storing the limit and tally
+	# table quota data, please see the mod_quotatab_file documentation.
+	<IfModule mod_quotatab_file.c>
+		QuotaLimitTable file:/etc/proftpd/ftpquota.limittab
+		QuotaTallyTable file:/etc/proftpd/ftpquota.tallytab
+	</IfModule>
+</IfModule>
+
+
+Creo que <IfModule mod_quotatab_file.c> no es necesario. Andrés no lo tiene.
+
+
+
+
+
+g.	(0.75 ptos.) Configurar acceso seguro TLS habilitado y
+ obligatorio.
+ 
+ 
+6) Sexta Cagada:
+
+El Tema del TLS no se porqué no funciona. Tengo lo mismo que Andrés
+
+\\\\\\\\\\\\\\\\\\º
+
+Sitio VIRTUAL
+
+2.	(5 ptos.)  Crea un sitio virtual ftp para el dominio
+ ftp.lordoftherings.tv , asociado a la ip .222, 
+ (0.5 ptos.) personaliza y comprueba:
+ 
+ESTE PARECE QUE BIEN.
+ 
+ 
+a.	(0.75 ptos.) Sólo acceso anónimo asociado a usuario 
+balrog permitido, carpeta de acceso de anónimo /srv/abismo.
+
+
+7) Cagada:
+Sólo acceso anónimo asociado a usuario balrog permitido, carpeta de acceso de anónimo /srv/abismo.
+
+
+TODO MAL:
+
+<Anonymous /srv/abismo>
+	User balrog
+	Group nogroup
+	UserAlias anonymous balrog
+	
+	<Directory mordor>
+		<Limit ALL>
+			DenyAll
+		</Limit>
+	</Directory>
+	
+	<Directory uploads>
+		<Limit STOR>
+			AllowAll
+		</Limit>
+	</Directory>
+</Anonymous>
+
+
+
+b.	(0.75 ptos.) Impide el acceso al servicio FTP  a TODOS 
+los usuarios de la máquina salvo a gandalf. 
+Oculta los archivos del grupo xmen
+
+8)
+
+Impide el acceso al servicio FTP a TODOS los usuarios de
+la máquina salvo a gandalf. Oculta los archivos del grupo xmen
+
+
+HideGroup xmen
+
+<Limit LOGIN>
+	Order Allow,Deny
+	AllowUser gandalf
+	AllowUser balrog
+	DenyAll
+</Limit>
+
+
+c.	(0.5 ptos.) Impide el acceso al directorio mordor y a su contenido.
+
+
+9) 
+
+Impide el acceso al directorio mordor y a su contenido.
+
+<Directory mordor>
+	<Limit ALL>
+		DenyAll
+	</Limit>
+</Directory>
+
+
+
+
+d.	(0.75 ptos.) Nombre del servidor y Logs de transferencias y servidor virtual personalizados.
+
+Nombre del servidor y Logs de transferencias y 
+servidor virtual personalizados.
+
+Este si está bien.
+
+
+
+e.	(0.75 ptos.) Máximos intentos de login a 3 y se permiten 250 clientes conectados  a la vez como máximo. Tiempo máximo de login 30 segundos.
+Máximos intentos de login a 3 y se permiten 250 clientes
+ conectados  a la vez como máximo. Tiempo máximo de
+ login 30 segundos.
+ 
+Este si está bien.
+
+
+f.	(0.5 ptos.) Carpeta para subida de archivos a /srv/abismo/uploads
+10)
+
+Carpeta para subida de archivos a /srv/abismo/uploads
+
+<Directory uploads>
+	<Limit STOR>
+		AllowAll
+	</Limit>
+</Directory>

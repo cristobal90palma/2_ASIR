@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+
+    environment {
+        API_TOKEN = "12345-SECURE-TOKEN"   // Ejemplo de token
+    }
+
+    stages {
+
+        stage('Build & Test') {
+            steps {
+                echo "Compilando código fuente..."
+                echo "Tests pasados correctamente."
+            }
+        }
+
+        stage('Aprobación de Pase a Producción') {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    input message: "¿Deseas desplegar a Producción?"
+                }
+            }
+        }
+
+        stage('Llamada a Despliegue') {
+            steps {
+                echo "Autorizando con token seguro: ${API_TOKEN}"
+
+                // Llamada al JOB HIJO Backend_Deploy
+                build job: 'Backend_Deploy',
+                      wait: true,
+                      parameters: [
+                          string(name: 'VERSION', value: '1.0.0'),
+                          string(name: 'AUTOR', value: 'Administrador')
+                      ]
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "El orquestador finalizó con éxito. El job hijo debería haberse ejecutado."
+        }
+        failure {
+            echo "El orquestador falló. El job hijo no se ejecutó o falló en su ejecución."
+        }
+        aborted {
+            echo "El orquestador fue abortado. No se completó el proceso."
+        }
+    }
+}

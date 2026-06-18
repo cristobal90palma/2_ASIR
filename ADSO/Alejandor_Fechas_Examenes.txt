@@ -1,0 +1,20 @@
+Seguridad Miercoles
+
+Tipo test 50 preguntas --> Guia unidad 6 y 5 
+
+Actividad IP table (Cuando se termine el primero) --> Apuntes e internet NO IA. (Ejercicio Teórico: se puede usar maquina si queremos estar seguros).
+
+
+Se deben aprobar ambos
+
+
+Fechas examenes Mayo:
+
+Seguridad: 15/5 Tipo Test (tema 7)
+
+Base de datos: 15/5 Práctico (Tema 6 PLSQL).
+
+Optativa: 21/5 ¿¿Práctico??
+
+
+

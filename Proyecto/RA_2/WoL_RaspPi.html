@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación WoL Relay - ASIR</title>
+    <style>
+        :root {
+            --primary-color: #005f73;
+            --secondary-color: #0a9396;
+            --accent-color: #94d2bd;
+            --text-color: #333;
+            --code-bg: #2d2d2d;
+            --code-text: #f8f8f2;
+            --bg-color: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            background-color: #fff;
+            height: 100vh;
+            position: fixed;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        nav h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-bottom: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 270px; /* Width of nav + padding */
+            padding: 40px;
+            max-width: 900px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        h1 {
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* Project Meta / Author Box */
+        .project-meta {
+            background-color: #e3f2fd; /* Light Blue */
+            border: 1px solid #90caf9;
+            border-left: 5px solid #1976d2;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .project-meta h4 {
+            margin-top: 0;
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+
+        .project-meta p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+
+        /* Code Blocks */
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .inline-code {
+            background-color: #e0e0e0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #d63384;
+        }
+
+        /* Alerts/Notes */
+        .alert {
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-left: 5px solid #27ae60;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Diagram Placeholder */
+        .diagram {
+            border: 2px dashed #ccc;
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+            main {
+                margin-left: 0;
+                padding: 20px;
+            }
+            body {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h3>Índice</h3>
+        <ul>
+            <li><a href="#intro">1. Introducción y Arquitectura</a></li>
+            <li><a href="#requisitos">2. Requisitos Previos</a></li>
+            <li><a href="#raspberry">3. Configuración del Relay (RPi)</a></li>
+            <li><a href="#proxmox">4. Configuración del Servidor (Proxmox)</a></li>
+            <li><a href="#script">5. Script de Automatización</a></li>
+            <li><a href="#bios">6. Configuración de Clientes (BIOS)</a></li>
+            <li><a href="#troubleshooting">7. Solución de Problemas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 id="intro">Sistema de Encendido Remoto (WoL Relay)</h1>
+        
+        <div class="project-meta">
+            <h4>Ficha Técnica del Procedimiento</h4>
+            <p><strong>Autor:</strong> Prof. Pablo Camacho Carrellán</p>
+            <p><strong>Departamento:</strong> Informática y Comunicaciones</p>
+            <p><strong>Propósito:</strong> Automatización de encendido para gestión de backups en infraestructura educativa.</p>
+            <p><strong>Contexto:</strong> Despliegue de imágenes para <strong>proyectos desarrollados por el alumnado de ASIR</strong> (Administración de Sistemas Informáticos en Red).</p>
+        </div>
+
+        <p>Documentación técnica para el despliegue de imágenes y encendido remoto en infraestructura educativa (Contexto: Red Andared Corporativo).</p>
+
+        <div class="alert">
+            <strong>Objetivo:</strong> Permitir que el servidor Proxmox (ubicado en VLAN de Servidores) encienda los equipos del aula (VLAN Alumnos) saltando las restricciones de Broadcast de la red corporativa.
+        </div>
+
+        <h3>Arquitectura Lógica</h3>
+        <div class="diagram">
+            <strong>[Servidor Proxmox]</strong> <br>
+            <em>(VLAN Servidores)</em><br>
+            ⬇️<br>
+            <span style="font-size: 0.8em;">Conexión SSH Unicast (Puerto 22)</span><br>
+            ⬇️<br>
+            <strong>[Raspberry Pi Relay]</strong> <br>
+            <em>(VLAN Aula - Conectada por Cable)</em><br>
+            ⬇️<br>
+            <span style="font-size: 0.8em;">Magic Packet Broadcast (Capa 2)</span><br>
+            ⬇️<br>
+            <strong>[PCs Alumnos ASIR]</strong>
+        </div>
+
+        <h2 id="requisitos">2. Requisitos Previos</h2>
+        <ul>
+            <li><strong>Servidor Proxmox:</strong> Con acceso a la red del centro.</li>
+            <li><strong>Raspberry Pi:</strong> Modelo 3, 4 o Zero (con adaptador Ethernet). Conectada por cable a la red del aula.</li>
+            <li><strong>Red:</strong> Cableada (Ethernet). Evitar Wi-Fi para WoL.</li>
+            <li><strong>Listado de MACs:</strong> Direcciones físicas de las tarjetas de red de los alumnos.</li>
+        </ul>
+
+        <h2 id="raspberry">3. Configuración del Relay (Raspberry Pi)</h2>
+        <p>La Raspberry actuará como el "agente infiltrado" en el aula.</p>
+
+        <div class="step-container">
+            <p><span class="step-number">1</span> <strong>Instalación de herramientas:</strong> Accede a la terminal de la RPi e instala el paquete necesario.</p>
+            <pre><code>sudo apt update
+sudo apt install wakeonlan</code></pre>
+
+            <p><span class="step-number">2</span> <strong>Fijar IP (Opcional pero recomendado):</strong> Asegura que la RPi siempre tenga la misma IP para que Proxmox la encuentre.</p>
+            <pre><code># Editar /etc/dhcpcd.conf
+interface eth0
+static ip_address=192.168.X.250/24
+static routers=192.168.X.1
+static domain_name_servers=192.168.X.1</code></pre>
+        </div>
+
+        <h2 id="proxmox">4. Configuración del Servidor (Proxmox)</h2>
+        <p>Configuramos la confianza SSH para no requerir contraseñas.</p>
+
+        <p>En la consola de <strong>Proxmox</strong>:</p>
+        <pre><code># 1. Generar claves (si no existen)
+ssh-keygen -t rsa
+
+# 2. Copiar clave a la Raspberry Pi
+# Sustituir 'pi' por el usuario de la RPi y la IP correspondiente
+ssh-copy-id pi@192.168.X.250</code></pre>
+
+        <div class="alert alert-warning">
+            <strong>Prueba:</strong> Ejecuta <code>ssh pi@192.168.X.250</code> desde Proxmox. Debería entrar sin pedir contraseña.
+        </div>
+
+        <h2 id="script">5. Script de Automatización</h2>
+        <p>Este script reside en Proxmox. Lee un archivo de texto con las MACs y envía la orden a la Raspberry.</p>
+
+        <h3>5.1 Archivo de MACs (<code>lista_aula1.txt</code>)</h3>
+        <pre><code>00:11:22:33:44:55
+AA:BB:CC:DD:EE:FF
+12:34:56:78:90:AB</code></pre>
+
+        <h3>5.2 Script Maestro (<code>wol_aula.sh</code>)</h3>
+        <pre><code>#!/bin/bash
+
+# --- CONFIGURACIÓN ---
+RPI_USER="pi"
+RPI_IP="192.168.X.250"     # IP de la Raspberry en el aula
+MAC_FILE="lista_aula1.txt" # Archivo con las MACs
+BROADCAST="192.168.X.255"  # Dirección de Broadcast del aula
+# ---------------------
+
+echo "[INFO] Conectando con Agente WoL en $RPI_IP..."
+
+while IFS= read -r mac; do
+    # Ignorar líneas vacías
+    if [[ ! -z "$mac" ]]; then
+        echo " > Despertando: $mac"
+        # Ejecución remota del comando wakeonlan forzando interfaz
+        ssh $RPI_USER@$RPI_IP "wakeonlan -i $BROADCAST $mac"
+    fi
+done < "$MAC_FILE"
+
+echo "[FIN] Secuencia completada."</code></pre>
+        <p>Recuerda dar permisos de ejecución: <span class="inline-code">chmod +x wol_aula.sh</span></p>
+
+        <h2 id="bios">6. Configuración de Clientes (BIOS/UEFI)</h2>
+        <p>Para que funcione, los PCs de los alumnos deben estar configurados correctamente.</p>
+        <ul>
+            <li><strong>Power Management:</strong> "Resume by Alarm" o "Wake Up on LAN" -> <span class="inline-code">ENABLED</span>.</li>
+            <li><strong>Deep Sleep / Low Power Mode:</strong> Debe estar <span class="inline-code">DISABLED</span>.</li>
+            <li><strong>Boot Order (Para despliegue):</strong> Habilitar <span class="inline-code">PXE / Network Boot</span> como primera opción (o después del USB).</li>
+        </ul>
+
+        <h2 id="troubleshooting">7. Solución de Problemas</h2>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; border-color: #ddd;">
+            <tr style="background-color: #f2f2f2;">
+                <th>Síntoma</th>
+                <th>Causa Probable</th>
+                <th>Solución</th>
+            </tr>
+            <tr>
+                <td>El script falla al conectar SSH</td>
+                <td>Claves no copiadas o IP incorrecta</td>
+                <td>Verificar <code>ssh-copy-id</code> y que la RPi tenga IP estática.</td>
+            </tr>
+            <tr>
+                <td>El comando se envía pero el PC no arranca</td>
+                <td>Broadcast incorrecto o BIOS mal configurada</td>
+                <td>Forzar la IP de broadcast en el comando (<code>-i 192.168.X.255</code>) y revisar "Deep Sleep" en BIOS.</td>
+            </tr>
+            <tr>
+                <td>Solo arrancan algunos equipos</td>
+                <td>Cableado defectuoso</td>
+                <td>Verificar que la luz del puerto Ethernet del PC parpadea (naranja/verde) incluso apagado.</td>
+            </tr>
+        </table>
+
+        <footer>
+            <p><strong>Autor:</strong> Prof. Pablo Camacho Carrellán | <strong>Ciclo:</strong> ASIR</p>
+            <p>Documentación generada para uso interno académico.</p>
+        </footer>
+    </main>
+
+</body>
+</html>

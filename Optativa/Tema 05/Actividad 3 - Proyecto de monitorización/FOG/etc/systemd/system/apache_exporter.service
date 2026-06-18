@@ -1,0 +1,10 @@
+[Unit]
+Description=Apache Exporter
+After=network.target
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/apache_exporter --scrape_uri="http://localhost/server-status?auto"
+
+[Install]
+WantedBy=multi-user.target

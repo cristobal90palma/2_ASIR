@@ -1,0 +1,42 @@
+TAREA 4: Subdominios, Bosques, DNS, DHCP y Sincronización Dominio
+
+
+
+Actividad 1: Añadir un subdominio a un dominio existente (1,5 puntos)
+
+    Crea una nueva máquina virtual e instala en ella la versión de Windows Server, con interfaz gráfica, con la que estés trabajando.
+    Realizar la configuración inicial de la máquina anterior atendiendo a las siguientes pautas:
+            La configuración de red deberá tener una IP fija.
+            El nombre del equipo deberá estar formado por tus iniciales, seguidas del texto «DOMSEC».
+    Añade el rol Servicios de dominio de Active Directory al nuevo equipo.
+    Promociona el equipo para que actúe como subdominio del dominio principal. El nuevo elemento se llamará ‘hijo‘.
+    Comprueba que todo esta creado correctamente.
+
+Actividad 2: Relaciones entre dominios (2 puntos)
+
+    Crea una nueva máquina virtual e instala en ella la versión de Windows Server con interfaz gráfica, con la que estés trabajando.
+    Realizar la configuración inicial de la máquina anterior, según las siguientes pautas:
+        Añade el rol Servicios de dominio de Active Directory y todas las características relacionadas.
+        La configuración de red deberá tener una IP fija.
+        El nombre del equipo deberá estar formado por tus iniciales, seguidas del texto «ARBOL».
+        Asegúrate de que la zona horaria es correcta y de que la fecha y la hora se sincronicen de manera automática con un servidor horario de Internet.
+    Promociona el nuevo equipo como controlador de dominio de un nuevo dominio en un bosque nuevo. El nombre del nuevo dominio se formara con tus iniciales seguidas del texto «-nuevo.local».
+    Configura los reenviadores de los servidores DNS en los dos controladores de dominio.
+    Establece una relación de confianza bidireccional y transitiva, a nivel de bosque, entre ambos bosques.
+    Comprueba que todo esta creado correctamente.
+
+Actividad 3: Servidor DNS (1,5 puntos)
+
+    Debes configurar DNS para que funcione correctamente el Directorio Activo en tu servidor principal. Debes comprobar que el servidor está funcionando correctamente como servicio DNS en la red.    
+    Da de alta en DNS al menos un Host para un cliente Windows.     
+
+Actividad 4: Servidor DHCP (2 puntos)
+
+    Configura DHCP para que tu servidor principal pueda funcionar de manera autónoma en una red. Realiza una reserva para un cliente Windows.
+    Une un cliente Windows al dominio. Comprueba que aparece reflejado en él. El cliente debe coincidir con el host en el DNS y con la reserva en el DHCP.      
+
+Actividad 5: Replicación y sincronización dominio (2 puntos)
+
+    En otra máquina Windows Server, configura una réplica del dominio principal del cual estes trabajando, verificando que ambos servidores se están replicando en ambas direcciones (puedes crear un objeto y chequear que se crea también en la otra máquina). Además, para que la réplica sea completa en todos los servicios, crea un failover cluster del servicio DHCP en esta nueva máquina.
+
+(1 punto) --> Presentación y documentación de la tarea

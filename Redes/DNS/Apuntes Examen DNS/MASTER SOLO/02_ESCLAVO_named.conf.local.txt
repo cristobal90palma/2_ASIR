@@ -1,0 +1,36 @@
+//nano etc/bind/named.conf.local
+
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Archivo para busquedas directas
+zone "retry07.net" {
+        type slave;
+        file "bd.retry07.net"; // Debe estar en /var/cache/bind/
+        masters { 10.2.17.5; };
+		allow-notify { 10.2.17.5; };
+};
+
+// Archivo para busquedas inversas
+zone "111.16.172.in-addr.arpa" {
+        type slave;
+        file "172.16.111.rev";
+        masters { 10.2.17.5; };
+		allow-notify { 10.2.17.5; };
+};
+
+
+zone "17.2.10.in-addr.arpa" {
+        type slave;
+        file "10.2.17.rev";
+        masters { 10.2.17.5; };
+		allow-notify { 10.2.17.5; };
+};
+
+//named-checkconf etc/bind/named.conf.local

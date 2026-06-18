@@ -1,0 +1,49 @@
+POWERSHELL
+https://gemini.google.com/app/2e9e57195d94ed73
+
+https://www.progress.com/es/blogs/como-usar-tareas-programadas-para-automatizar-la-transferencia-de-archivos
+
+
+CopyFiles.ps1
+
+param(
+    [string]$SourcePath,
+    [string]$DestinationPath
+)
+
+# Generar un sello de tiempo (ejemplo: 2023-10-27_22-00)
+$Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm"
+
+# Crear una subcarpeta nueva con la fecha dentro del destino de red
+$FullDestinationPath = Join-Path -Path $DestinationPath -ChildPath "Backup_$Timestamp"
+
+# Crear la carpeta y copiar los archivos
+New-Item -ItemType Directory -Path $FullDestinationPath -Force
+Copy-Item -Path $SourcePath -Destination $FullDestinationPath -Recurse
+
+
+
+
+Ahora en otro script, que ejecutaremos una sola vez:
+
+
+# 1. Definir las rutas de origen (Usuario) y destino (Servidor)
+$Origen = "C:\Users\Administrador\Documents\fuente"  # Cambia por la carpeta del usuario
+$Destino = "C:\Users\Administrador\Documents\destino" # Cambia por tu ruta de red
+
+# 2. Configurar la acción
+# Usamos el script que modificamos en el Paso 1
+$Action = New-ScheduledTaskAction -Execute 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe' `
+-Argument "-NonInteractive -NoLogo -NoProfile -File 'C:\Users\Administrador\Documents\CopyFiles.ps1' -SourcePath '$Origen' -DestinationPath '$Destino'"
+
+# 3. Configurar el Gatillo (Todos los viernes a las 10:00 PM)
+# -Weekly indica semanal, -DaysOfWeek Friday indica el día
+$Trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Friday -At '10:00PM'
+
+# 4. Registrar la tarea en el sistema
+Register-ScheduledTask -TaskName "Respaldo_Semanal_Historial" `
+-Action $Action `
+-Trigger $Trigger `
+-User "Administrador" `
+-Password "usuario.12345" `
+-Settings (New-ScheduledTaskSettingsSet)

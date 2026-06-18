@@ -1,0 +1,372 @@
+{"Protocol":1,"Id":"81001b89d9f08e0614aeb0526807d669","Path":"http://192.168.1.137:8080/hls/stream.m3u8","EncoderPath":null,"EncoderProtocol":null,"Type":0,"Container":null,"Size":null,"Name":null,"IsRemote":false,"ETag":null,"RunTimeTicks":null,"ReadAtNativeFramerate":true,"IgnoreDts":true,"IgnoreIndex":false,"GenPtsInput":false,"SupportsTranscoding":true,"SupportsDirectStream":false,"SupportsDirectPlay":true,"IsInfiniteStream":true,"UseMostCompatibleTranscodingProfile":true,"RequiresOpening":true,"OpenToken":null,"RequiresClosing":true,"LiveStreamId":"e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_81001b89d9f08e0614aeb0526807d669","BufferMs":null,"RequiresLooping":false,"SupportsProbing":true,"VideoType":null,"IsoType":null,"Video3DFormat":null,"MediaStreams":[{"Codec":null,"CodecTag":null,"Language":null,"ColorRange":null,"ColorSpace":null,"ColorTransfer":null,"ColorPrimaries":null,"DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":null,"CodecTimeBase":null,"Title":null,"Hdr10PlusPresentFlag":null,"VideoRange":1,"VideoRangeType":1,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":null,"LocalizedForced":null,"LocalizedExternal":null,"LocalizedHearingImpaired":null,"DisplayTitle":"SDR","NalLengthSize":null,"IsInterlaced":true,"IsAVC":null,"ChannelLayout":null,"BitRate":20000000,"BitDepth":null,"RefFrames":null,"PacketLength":null,"Channels":null,"SampleRate":null,"IsDefault":false,"IsForced":false,"IsHearingImpaired":false,"Height":null,"Width":null,"AverageFrameRate":null,"RealFrameRate":null,"ReferenceFrameRate":null,"Profile":null,"Type":1,"AspectRatio":null,"Index":-1,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":null,"Level":null,"IsAnamorphic":null},{"Codec":null,"CodecTag":null,"Language":null,"ColorRange":null,"ColorSpace":null,"ColorTransfer":null,"ColorPrimaries":null,"DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":null,"CodecTimeBase":null,"Title":null,"Hdr10PlusPresentFlag":null,"VideoRange":0,"VideoRangeType":0,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":null,"LocalizedForced":null,"LocalizedExternal":null,"LocalizedHearingImpaired":null,"DisplayTitle":"","NalLengthSize":null,"IsInterlaced":false,"IsAVC":null,"ChannelLayout":null,"BitRate":null,"BitDepth":null,"RefFrames":null,"PacketLength":null,"Channels":null,"SampleRate":null,"IsDefault":false,"IsForced":false,"IsHearingImpaired":false,"Height":null,"Width":null,"AverageFrameRate":null,"RealFrameRate":null,"ReferenceFrameRate":null,"Profile":null,"Type":0,"AspectRatio":null,"Index":-1,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":null,"Level":null,"IsAnamorphic":null}],"MediaAttachments":[],"Formats":[],"Bitrate":20000000,"FallbackMaxStreamingBitrate":30000000,"Timestamp":null,"RequiredHttpHeaders":{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"},"TranscodingUrl":null,"TranscodingSubProtocol":0,"TranscodingContainer":null,"AnalyzeDurationMs":3000,"DefaultAudioStreamIndex":null,"DefaultSubtitleStreamIndex":null,"HasSegments":false}
+
+/usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 3000000 -probesize 1G -user_agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" -re -fflags +igndts  -i "http://192.168.1.137:8080/hls/stream.m3u8" -map_metadata -1 -map_chapters -1 -threads 0 -sn -codec:v:0 libx264 -preset superfast -crf 23 -maxrate 20000000 -bufsize 40000000 -profile:v:0 high -level 51 -x264opts:0 subme=0:me_range=16:rc_lookahead=10:me=hex:open_gop=0 -force_key_frames:0 "expr:gte(t,n_forced*3)" -sc_threshold:v:0 0 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,yadif=0:-1:0,format=yuv420p" -flags -global_header -codec:a:0 libfdk_aac -ab 384000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type mpegts -start_number 0 -hls_base_url "hls/f9363603a95f4685b0f1375d8c1db5ac/" -hls_segment_filename "/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac%d.ts" -hls_playlist_type event -hls_list_size 0 -y "/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8"
+
+
+ffmpeg version 7.1.3-Jellyfin Copyright (c) 2000-2025 the FFmpeg developers
+  built with gcc 14 (Debian 14.2.0-19)
+  configuration: --prefix=/usr/lib/jellyfin-ffmpeg --target-os=linux --extra-version=Jellyfin --disable-doc --disable-ffplay --disable-static --disable-libxcb --disable-sdl2 --disable-xlib --enable-lto=auto --enable-gpl --enable-version3 --enable-shared --enable-gmp --enable-gnutls --enable-chromaprint --enable-opencl --enable-libdrm --enable-libxml2 --enable-libass --enable-libfreetype --enable-libfribidi --enable-libfontconfig --enable-libharfbuzz --enable-libbluray --enable-libmp3lame --enable-libopus --enable-libtheora --enable-libvorbis --enable-libopenmpt --enable-libdav1d --enable-libsvtav1 --enable-libwebp --enable-libvpx --enable-libx264 --enable-libx265 --enable-libzvbi --enable-libzimg --enable-libfdk-aac --arch=amd64 --enable-libshaderc --enable-libplacebo --enable-vulkan --enable-vaapi --enable-amf --enable-libvpl --enable-ffnvcodec --enable-cuda --enable-cuda-llvm --enable-cuvid --enable-nvdec --enable-nvenc
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+mime type is not rfc8216 compliant
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:37.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:40.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:43.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:46.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:49.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:52.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:55.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:58.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:01.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:04.610+0000')
+[hls @ 0x7100728b4000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-376.ts' for reading
+[hls @ 0x7100728b4000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-377.ts' for reading
+Input #0, hls, from 'http://192.168.1.137:8080/hls/stream.m3u8':
+  Duration: N/A, start: 1129.400000, bitrate: N/A
+  Program 0 
+    Metadata:
+      variant_bitrate : 1289024
+  Stream #0:0: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p(tv, bt709), 1272x720 [SAR 1:1 DAR 53:30], 24 fps, 24 tbr, 90k tbn
+      Metadata:
+        variant_bitrate : 1289024
+  Stream #0:1: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+      Metadata:
+        variant_bitrate : 1289024
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> h264 (libx264))
+  Stream #0:1 -> #0:1 (aac (native) -> aac (libfdk_aac))
+Press [q] to stop, [?] for help
+[libx264 @ 0x710072958f80] using SAR=1/1
+[libx264 @ 0x710072958f80] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2
+[libx264 @ 0x710072958f80] profile High, level 5.1, 4:2:0, 8-bit
+[libx264 @ 0x710072958f80] 264 - core 164 r3108 31e19f9 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:0:0 analyse=0x3:0x3 me=hex subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=3 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=24 scenecut=0 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=0 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 vbv_maxrate=20000 vbv_bufsize=40000 crf_max=0.0 nal_hrd=none filler=0 ip_ratio=1.40 pb_ratio=1.30 aq=1:1.00
+Output #0, hls, to '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: h264, yuv420p(tv, bt709, progressive), 1272x720 [SAR 1:1 DAR 53:30], q=2-31, 24 fps, 90k tbn
+      Metadata:
+        encoder         : Lavc61.19.101 libx264
+      Side data:
+        cpb: bitrate max/min/avg: 20000000/0/0 buffer size: 40000000 vbv_delay: N/A
+  Stream #0:1: Audio: aac, 48000 Hz, stereo, s16, 384 kb/s
+      Metadata:
+        encoder         : Lavc61.19.101 libfdk_aac
+      Side data:
+        cpb: bitrate max/min/avg: 384000/384000/384000 buffer size: 0 vbv_delay: N/A
+frame=    4 fps=0.0 q=19.0 size=N/A time=00:00:00.00 bitrate=N/A speed=   0x    
+frame=   16 fps= 16 q=19.0 size=N/A time=00:00:00.50 bitrate=N/A speed= 0.5x    
+frame=   28 fps= 19 q=19.0 size=N/A time=00:00:01.00 bitrate=N/A speed=0.666x    
+frame=   40 fps= 20 q=19.0 size=N/A time=00:00:01.50 bitrate=N/A speed=0.75x    
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-378.ts' for reading
+frame=   52 fps= 21 q=19.0 size=N/A time=00:00:02.00 bitrate=N/A speed= 0.8x    
+frame=   64 fps= 21 q=19.0 size=N/A time=00:00:02.50 bitrate=N/A speed=0.833x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac0.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=   76 fps= 22 q=19.0 size=N/A time=00:00:03.00 bitrate=N/A speed=0.857x    
+frame=   88 fps= 22 q=19.0 size=N/A time=00:00:03.50 bitrate=N/A speed=0.875x    
+frame=  100 fps= 22 q=19.0 size=N/A time=00:00:04.00 bitrate=N/A speed=0.888x    
+frame=  112 fps= 22 q=19.0 size=N/A time=00:00:04.50 bitrate=N/A speed= 0.9x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:43.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:46.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:49.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:52.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:55.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:58.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:01.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:04.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:07.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:10.610+0000')
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-379.ts' for reading
+frame=  124 fps= 23 q=19.0 size=N/A time=00:00:05.00 bitrate=N/A speed=0.909x    
+frame=  136 fps= 23 q=19.0 size=N/A time=00:00:05.50 bitrate=N/A speed=0.916x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac1.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  148 fps= 23 q=19.0 size=N/A time=00:00:06.00 bitrate=N/A speed=0.923x    
+frame=  160 fps= 23 q=19.0 size=N/A time=00:00:06.50 bitrate=N/A speed=0.928x    
+frame=  172 fps= 23 q=19.0 size=N/A time=00:00:07.00 bitrate=N/A speed=0.933x    
+frame=  184 fps= 23 q=19.0 size=N/A time=00:00:07.50 bitrate=N/A speed=0.937x    
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-380.ts' for reading
+frame=  196 fps= 23 q=19.0 size=N/A time=00:00:08.00 bitrate=N/A speed=0.941x    
+frame=  208 fps= 23 q=19.0 size=N/A time=00:00:08.50 bitrate=N/A speed=0.944x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac2.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  220 fps= 23 q=20.0 size=N/A time=00:00:09.00 bitrate=N/A speed=0.947x    
+frame=  232 fps= 23 q=19.0 size=N/A time=00:00:09.50 bitrate=N/A speed=0.949x    
+frame=  244 fps= 23 q=20.0 size=N/A time=00:00:10.00 bitrate=N/A speed=0.952x    
+frame=  256 fps= 23 q=21.0 size=N/A time=00:00:10.50 bitrate=N/A speed=0.954x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:49.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:52.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:55.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:58.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:01.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:04.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:07.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:10.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:13.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:16.610+0000')
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-381.ts' for reading
+frame=  269 fps= 23 q=22.0 size=N/A time=00:00:11.04 bitrate=N/A speed=0.96x    
+frame=  281 fps= 23 q=21.0 size=N/A time=00:00:11.54 bitrate=N/A speed=0.961x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac3.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  293 fps= 23 q=21.0 size=N/A time=00:00:12.04 bitrate=N/A speed=0.963x    
+frame=  304 fps= 23 q=19.0 size=N/A time=00:00:12.50 bitrate=N/A speed=0.961x    
+frame=  316 fps= 23 q=19.0 size=N/A time=00:00:13.00 bitrate=N/A speed=0.962x    
+frame=  328 fps= 23 q=19.0 size=N/A time=00:00:13.50 bitrate=N/A speed=0.964x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:52.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:55.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:58.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:01.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:04.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:07.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:10.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:13.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:16.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:19.610+0000')
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-382.ts' for reading
+frame=  341 fps= 24 q=20.0 size=N/A time=00:00:14.04 bitrate=N/A speed=0.968x    
+frame=  353 fps= 24 q=20.0 size=N/A time=00:00:14.54 bitrate=N/A speed=0.969x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac4.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  365 fps= 24 q=21.0 size=N/A time=00:00:15.04 bitrate=N/A speed=0.97x    
+frame=  376 fps= 23 q=19.0 size=N/A time=00:00:15.50 bitrate=N/A speed=0.968x    
+frame=  388 fps= 24 q=19.0 size=N/A time=00:00:16.00 bitrate=N/A speed=0.969x    
+frame=  400 fps= 24 q=18.0 size=N/A time=00:00:16.50 bitrate=N/A speed=0.97x    
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-383.ts' for reading
+frame=  413 fps= 24 q=20.0 size=N/A time=00:00:17.04 bitrate=N/A speed=0.973x    
+frame=  424 fps= 24 q=19.0 size=N/A time=00:00:17.50 bitrate=N/A speed=0.972x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac5.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  436 fps= 24 q=22.0 size=N/A time=00:00:18.00 bitrate=N/A speed=0.972x    
+frame=  448 fps= 24 q=24.0 size=N/A time=00:00:18.50 bitrate=N/A speed=0.973x    
+frame=  460 fps= 24 q=22.0 size=N/A time=00:00:19.00 bitrate=N/A speed=0.974x    
+frame=  473 fps= 24 q=21.0 size=N/A time=00:00:19.54 bitrate=N/A speed=0.977x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:38:58.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:01.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:04.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:07.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:10.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:13.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:16.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:19.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:22.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:25.610+0000')
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-384.ts' for reading
+frame=  485 fps= 24 q=20.0 size=N/A time=00:00:20.04 bitrate=N/A speed=0.977x    
+frame=  497 fps= 24 q=19.0 size=N/A time=00:00:20.54 bitrate=N/A speed=0.978x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac6.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  509 fps= 24 q=21.0 size=N/A time=00:00:21.04 bitrate=N/A speed=0.978x    
+frame=  521 fps= 24 q=20.0 size=N/A time=00:00:21.54 bitrate=N/A speed=0.979x    
+frame=  532 fps= 24 q=19.0 size=N/A time=00:00:22.00 bitrate=N/A speed=0.977x    
+frame=  544 fps= 24 q=20.0 size=N/A time=00:00:22.50 bitrate=N/A speed=0.978x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:01.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:04.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:07.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:10.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:13.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:16.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:19.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:22.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:25.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:28.610+0000')
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-385.ts' for reading
+frame=  557 fps= 24 q=20.0 size=N/A time=00:00:23.04 bitrate=N/A speed=0.98x    
+frame=  568 fps= 24 q=20.0 size=N/A time=00:00:23.50 bitrate=N/A speed=0.979x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac7.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  580 fps= 24 q=20.0 size=N/A time=00:00:24.00 bitrate=N/A speed=0.979x    
+frame=  592 fps= 24 q=19.0 size=N/A time=00:00:24.50 bitrate=N/A speed=0.979x    
+frame=  605 fps= 24 q=20.0 size=N/A time=00:00:25.04 bitrate=N/A speed=0.981x    
+frame=  617 fps= 24 q=21.0 size=N/A time=00:00:25.54 bitrate=N/A speed=0.982x    
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-386.ts' for reading
+frame=  629 fps= 24 q=21.0 size=N/A time=00:00:26.04 bitrate=N/A speed=0.982x    
+frame=  641 fps= 24 q=20.0 size=N/A time=00:00:26.54 bitrate=N/A speed=0.982x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac8.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  653 fps= 24 q=21.0 size=N/A time=00:00:27.04 bitrate=N/A speed=0.983x    
+frame=  665 fps= 24 q=22.0 size=N/A time=00:00:27.54 bitrate=N/A speed=0.983x    
+frame=  676 fps= 24 q=22.0 size=N/A time=00:00:28.04 bitrate=N/A speed=0.983x    
+frame=  688 fps= 24 q=22.0 size=N/A time=00:00:28.50 bitrate=N/A speed=0.982x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:07.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:10.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:13.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:16.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:19.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:22.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:25.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:28.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:31.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:34.610+0000')
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-387.ts' for reading
+frame=  701 fps= 24 q=22.0 size=N/A time=00:00:29.04 bitrate=N/A speed=0.984x    
+frame=  713 fps= 24 q=22.0 size=N/A time=00:00:29.54 bitrate=N/A speed=0.984x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac9.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  725 fps= 24 q=21.0 size=N/A time=00:00:30.04 bitrate=N/A speed=0.984x    
+frame=  737 fps= 24 q=20.0 size=N/A time=00:00:30.54 bitrate=N/A speed=0.985x    
+frame=  748 fps= 24 q=19.0 size=N/A time=00:00:31.00 bitrate=N/A speed=0.984x    
+frame=  760 fps= 24 q=18.0 size=N/A time=00:00:31.50 bitrate=N/A speed=0.984x    
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-388.ts' for reading
+frame=  773 fps= 24 q=20.0 size=N/A time=00:00:32.04 bitrate=N/A speed=0.985x    
+frame=  785 fps= 24 q=20.0 size=N/A time=00:00:32.54 bitrate=N/A speed=0.986x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac10.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  797 fps= 24 q=21.0 size=N/A time=00:00:33.04 bitrate=N/A speed=0.986x    
+frame=  808 fps= 24 q=19.0 size=N/A time=00:00:33.50 bitrate=N/A speed=0.985x    
+frame=  820 fps= 24 q=19.0 size=N/A time=00:00:34.00 bitrate=N/A speed=0.985x    
+frame=  833 fps= 24 q=20.0 size=N/A time=00:00:34.54 bitrate=N/A speed=0.986x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:13.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:16.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:19.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:22.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:25.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:28.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:31.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:34.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:37.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:40.610+0000')
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-389.ts' for reading
+frame=  845 fps= 24 q=20.0 size=N/A time=00:00:35.04 bitrate=N/A speed=0.987x    
+frame=  857 fps= 24 q=20.0 size=N/A time=00:00:35.54 bitrate=N/A speed=0.987x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac11.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  869 fps= 24 q=21.0 size=N/A time=00:00:36.04 bitrate=N/A speed=0.987x    
+frame=  881 fps= 24 q=20.0 size=N/A time=00:00:36.54 bitrate=N/A speed=0.987x    
+frame=  892 fps= 24 q=19.0 size=N/A time=00:00:37.00 bitrate=N/A speed=0.986x    
+frame=  904 fps= 24 q=21.0 size=N/A time=00:00:37.50 bitrate=N/A speed=0.986x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:16.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:19.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:22.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:25.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:28.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:31.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:34.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:37.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:40.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:43.610+0000')
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-390.ts' for reading
+frame=  917 fps= 24 q=22.0 size=N/A time=00:00:38.04 bitrate=N/A speed=0.988x    
+frame=  929 fps= 24 q=22.0 size=N/A time=00:00:38.54 bitrate=N/A speed=0.988x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac12.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame=  941 fps= 24 q=21.0 size=N/A time=00:00:39.04 bitrate=N/A speed=0.988x    
+frame=  952 fps= 24 q=22.0 size=N/A time=00:00:39.50 bitrate=N/A speed=0.987x    
+frame=  965 fps= 24 q=21.0 size=N/A time=00:00:40.04 bitrate=N/A speed=0.988x    
+frame=  977 fps= 24 q=21.0 size=N/A time=00:00:40.54 bitrate=N/A speed=0.988x    
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-391.ts' for reading
+frame=  989 fps= 24 q=21.0 size=N/A time=00:00:41.04 bitrate=N/A speed=0.988x    
+frame= 1001 fps= 24 q=22.0 size=N/A time=00:00:41.54 bitrate=N/A speed=0.989x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac13.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame= 1013 fps= 24 q=21.0 size=N/A time=00:00:42.04 bitrate=N/A speed=0.989x    
+frame= 1025 fps= 24 q=21.0 size=N/A time=00:00:42.54 bitrate=N/A speed=0.989x    
+frame= 1037 fps= 24 q=20.0 size=N/A time=00:00:43.04 bitrate=N/A speed=0.989x    
+frame= 1048 fps= 24 q=19.0 size=N/A time=00:00:43.50 bitrate=N/A speed=0.988x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:22.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:25.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:28.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:31.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:34.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:37.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:40.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:43.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:46.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:49.610+0000')
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-392.ts' for reading
+frame= 1061 fps= 24 q=20.0 size=N/A time=00:00:44.04 bitrate=N/A speed=0.989x    
+frame= 1073 fps= 24 q=20.0 size=N/A time=00:00:44.54 bitrate=N/A speed=0.989x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac14.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame= 1085 fps= 24 q=21.0 size=N/A time=00:00:45.04 bitrate=N/A speed=0.989x    
+frame= 1097 fps= 24 q=21.0 size=N/A time=00:00:45.54 bitrate=N/A speed=0.989x    
+frame= 1109 fps= 24 q=20.0 size=N/A time=00:00:46.04 bitrate=N/A speed=0.99x    
+frame= 1120 fps= 24 q=19.0 size=N/A time=00:00:46.50 bitrate=N/A speed=0.989x    
+[http @ 0x7100728bf000] Opening 'http://192.168.1.137:8080/hls/0/stream.m3u8' for reading
+[hls @ 0x7100728b4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:25.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:28.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:31.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:34.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:37.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:40.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:43.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:46.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:49.610+0000')
+[hls @ 0x7100728b4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-01T09:39:52.610+0000')
+[http @ 0x7100728c5000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-393.ts' for reading
+frame= 1133 fps= 24 q=20.0 size=N/A time=00:00:47.04 bitrate=N/A speed=0.99x    
+frame= 1145 fps= 24 q=20.0 size=N/A time=00:00:47.54 bitrate=N/A speed=0.99x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac15.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame= 1157 fps= 24 q=21.0 size=N/A time=00:00:48.04 bitrate=N/A speed=0.99x    
+frame= 1168 fps= 24 q=19.0 size=N/A time=00:00:48.50 bitrate=N/A speed=0.989x    
+frame= 1181 fps= 24 q=20.0 size=N/A time=00:00:49.04 bitrate=N/A speed=0.99x    
+frame= 1193 fps= 24 q=20.0 size=N/A time=00:00:49.54 bitrate=N/A speed=0.99x    
+[http @ 0x7100728c2000] Opening 'http://192.168.1.137:8080/hls/0/stream-vuLpWydDRz-394.ts' for reading
+frame= 1205 fps= 24 q=20.0 size=N/A time=00:00:50.04 bitrate=N/A speed=0.99x    
+frame= 1217 fps= 24 q=20.0 size=N/A time=00:00:50.54 bitrate=N/A speed=0.99x    
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac16.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+frame= 1229 fps= 24 q=21.0 size=N/A time=00:00:51.04 bitrate=N/A speed=0.99x    
+frame= 1241 fps= 24 q=20.0 size=N/A time=00:00:51.54 bitrate=N/A speed=0.991x    
+
+[q] command received. Exiting.
+
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac17.ts' for writing
+[hls @ 0x7100728b6d00] Opening '/cache/transcodes/f9363603a95f4685b0f1375d8c1db5ac.m3u8.tmp' for writing
+[out#0/hls @ 0x710072881a00] video:8898KiB audio:2488KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 1273 fps= 24 q=-1.0 Lsize=N/A time=00:00:52.87 bitrate=N/A speed=   1x    
+[libx264 @ 0x710072958f80] frame I:18    Avg QP: 8.99  size: 27236
+[libx264 @ 0x710072958f80] frame P:323   Avg QP:10.48  size: 13378
+[libx264 @ 0x710072958f80] frame B:932   Avg QP:12.49  size:  4613
+[libx264 @ 0x710072958f80] consecutive B-frames:  1.6%  0.8%  4.9% 92.7%
+[libx264 @ 0x710072958f80] mb I  I16..4: 41.6% 42.6% 15.8%
+[libx264 @ 0x710072958f80] mb P  I16..4: 22.9% 16.1%  2.2%  P16..4: 33.4%  0.0%  0.0%  0.0%  0.0%    skip:25.4%
+[libx264 @ 0x710072958f80] mb B  I16..4:  2.2%  1.0%  0.1%  B16..8: 25.1%  0.0%  0.0%  direct:18.7%  skip:52.9%  L0:49.4% L1:45.6% BI: 5.0%
+[libx264 @ 0x710072958f80] 8x8 transform intra:38.0% inter:15.5%
+[libx264 @ 0x710072958f80] coded y,uvDC,uvAC intra: 22.9% 44.9% 21.2% inter: 4.3% 27.9% 0.6%
+[libx264 @ 0x710072958f80] i16 v,h,dc,p: 61% 19% 13%  7%
+[libx264 @ 0x710072958f80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 27% 14% 31%  6%  5%  5%  3%  5%  3%
+[libx264 @ 0x710072958f80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 36% 19% 21%  6%  4%  4%  3%  3%  4%
+[libx264 @ 0x710072958f80] i8c dc,h,v,p: 59% 17% 20%  5%
+[libx264 @ 0x710072958f80] Weighted P-Frames: Y:2.8% UV:0.6%
+[libx264 @ 0x710072958f80] kb/s:1374.18

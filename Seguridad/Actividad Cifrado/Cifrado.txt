@@ -1,0 +1,89 @@
+Vamos a realizar esta tarea en una máquina Linux. Muestrame los pasos a seguir
+
+
+Instala OpenSSL si no lo tienes instalado (windows o linux)
+
+apt update
+apt install openssl -y
+openssl version
+
+
+TAREA 1: Clave Simétrica con OpenSSL
+
+Este ejercicio nos ayudará a entender el funcionamiento del cifrado simétrico usando OpenSSL.
+
+    Crea un archivo de texto llamado mensaje.txt con un mensaje breve: tu nombre.
+	
+	nano minombre.txt
+	
+    Usa el comando openssl para cifrar este archivo con el algoritmo AES-256. 
+	El mensaje cifrado debe llamarse mensaje_cifrado.txt
+	Has debido de crear una clave de cifrado. Guárdala en un archivo llamado clave.txt
+
+    
+	
+	Guarcamos la clave: openssl rand -base64 23 > clave.txt
+Obsoleto:	Generamos el archivo cifrado con la clave: openssl enc -aes-256-cbc -salt -in minombre.txt -out mensaje_cifrado.txt -pass file:./clave.txt
+Nuevo:		openssl enc -aes-256-cbc -salt -pbkdf2 -in minombre.txt -out mensaje_cifrado.txt -pass file:./clave.txt
+
+	Descifra el mensaje generando un archivo llamado mensaje_descifrado.txt
+	
+Obsoleto: Desciframos el mensaje: openssl enc -d -aes-256-cbc -in mensaje_cifrado.txt -out mensaje_descifrado.txt -pass file:./clave.txt
+Nuevo: openssl enc -d -aes-256-cbc -pbkdf2 -in mensaje_cifrado.txt -out mensaje_descifrado.txt -pass file:./clave.txt
+
+
+    ¿Por qué es necesario proteger la clave de cifrado?
+	
+	Porque cualquiera que obtenga la clave podrá descifrar los datos cifrados.
+En el cifrado simétrico, la misma clave sirve para cifrar y descifrar, por lo tanto es el punto más vulnerable.
+
+    ¿Qué sucede si la clave se pierde o es interceptada?
+	
+	Si se pierde no podremos descifrar los mensajes encriptados.
+	Si es interceptada nuestros mensajeres estará a merced del atacante.
+
+TAREA 2: Cifrado asimétrico con OpenSSL
+
+    Este ejercicio nos ayudará a entender el funcionamiento del cifrado asimétrico usando OpenSSL.
+    Crea un archivo de texto llamado mensaje_asimétrico.txt con un mensaje breve: tu nombre.
+	
+	echo "Cristobal" > mensaje_asimetrico.txt
+
+	
+    Genera un par de claves RSA (pública y privada). Para ello, usa el comando genpkey
+	para generar la clave privada, y, a partir de esta, genera la clave pública.
+	Obtendrás 2 archivos con extensión .pem
+	
+clave privada:	openssl genpkey -algorithm RSA -out clave_privada.pem -pkeyopt rsa_keygen_bits:2048
+clave publica: openssl rsa -pubout -in clave_privada.pem -out clave_publica.pem
+
+	
+    Cifra el archivo mensaje_asimétrico.txt usando la clave pública, generando un archivo
+	que se llame mensaje_asimétrico_cifrado.txt.
+	
+Obsoleto:	openssl rsautl -encrypt -pubin -inkey clave_publica.pem -in mensaje_asimetrico.txt -out mensaje_asimetrico_cifrado.txt
+Nuevo:	openssl pkeyutl -encrypt -pubin -inkey clave_publica.pem -in mensaje_asimetrico.txt -out mensaje_asimetrico_cifrado.txt
+	
+    Descifra el archivo usando la clave privada, generando un archivo llamado mensaje_asimétrico_descifrado.txt
+
+Obsoleto: openssl rsautl -decrypt -inkey clave_privada.pem -in mensaje_asimetrico_cifrado.txt -out mensaje_asimetrico_descifrado.txt
+Nuevo: 	  openssl pkeyutl -decrypt -inkey clave_privada.pem -in mensaje_asimetrico_cifrado.txt -out mensaje_asimetrico_descifrado.txt
+
+
+    ¿Por qué el cifrado asimétrico es más seguro para la transmisión de datos entre dos partes desconocidas?
+	
+	Porque no hay que compartir la clave privada, solo es necesario distribuir la pública.
+	
+	En este caso hemos encriptado con la pública y desencriptado con la privada.
+	
+	Ejemplo: "Francisco" me ha dado su clave pública para que yo pueda cifrar un mensaje solo para él y mandarselo.
+		Una vez que le llega a "Francisco", el, con su clave privada lo desencripta. Solo él puede desencriptarla.
+		
+		
+		Otra función sería la de "no repudio": Usas tu propia clave privada para cifrar un mensaje, se lo mandas a alguien a quien le hayas dado tu clave pública. Al solo poder ser descifrado con esa clave, el destinatario sabe con certeza que eres tú y nadie más quien ha mandado ese mensaje.
+	
+    ¿Qué ventaja tiene este método en comparación con el cifrado simétrico?
+	
+	Al necesitar dos claves, no es necesario compartir la clave privada (con la cuál certificas que eres tú quien encripta y envía el mensaje). Solo se comparte la clave pública, la cuál solo permite al destinatario descrifrar los mensajes del remitente.
+	
+	

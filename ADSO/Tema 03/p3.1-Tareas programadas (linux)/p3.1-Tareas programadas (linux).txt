@@ -1,0 +1,131 @@
+apt install at
+
+
+[root@server2asir usuario]$at 12:00
+warning: commands will be executed using /bin/sh
+at Tue Dec 16 12:00:00 2025
+at> ps -f > procesos.txt #### ahora haces Ctrl+D
+at> <EOT>
+job 1 at Tue Dec 16 12:00:00 2025
+
+
+/etc/at.allow: Lista los usuarios que tienen permitido usar at.
+
+/etc/at.deny: Lista los usuarios que tienen prohibido usar at.
+
+Nota: Si at.allow existe, solo los usuarios listados ahí pueden usarlo. Si no existe, se consulta at.deny. Si ninguno existe, dependiendo de la distribución, solo el root podría usarlo.
+
+[root@server2asir usuario]$cat /etc/at.deny
+alias
+backup
+bin
+daemon
+ftp
+games
+gnats
+guest
+irc
+lp
+mail
+man
+nobody
+operator
+proxy
+qmaild
+qmaill
+qmailp
+qmailq
+qmailr
+qmails
+sync
+sys
+www-data
+
+
+
+
+
+COMANDO CRON:
+
+
+1)
+
+Creamos la carpeta descarga y nos bajamos algo.
+
+mkdir Descargas
+
+wget https://downloads.mongodb.com/compass/mongodb-compass-1.48.1-win32-x64.exe
+
+
+
+
+crontab -e
+
+elegimos nano
+
+ponemos al final del archivo
+
+00 12 * * * tar -czf /opt/backup_descargas_$(date +\%F).tar.gz /home/usuario/Descargas
+
+
+
+2) 
+
+[root@server2asir Descargas]$nano /etc/cron
+cron.d/       cron.daily/   cron.hourly/  cron.monthly/ crontab       cron.weekly/
+
+
+Simplemente hay que crear un script en cada uno de los directorios
+
+hourly/
+registro_recursos.sh
+
+Muestra la memoria libre y la fecha. Lo guarda en un archivo.
+
+#!/bin/bash
+# Sincroniza la hora y registra el uso de RAM
+date >> /var/log/recursos_sistema.log
+free -m >> /var/log/recursos_sistema.log
+echo "---" >> /var/log/recursos_sistema.log
+
+
+cron.daily/
+limpieza_sistema.sh
+
+#!/bin/bash
+# Limpiar caché de paquetes (ejemplo para APT)
+apt-get clean
+# Borrar archivos en /tmp con más de 7 días de antigüedad
+find /tmp -type f -atime +7 -delete
+
+
+
+
+cron.weekly/
+reporte_usuarios.sh
+
+#!/bin/bash
+# Generar un informe de accesos de la última semana
+echo "Reporte semanal de accesos - $(date)" >> /var/log/reporte_accesos.txt
+last --since -7days >> /var/log/reporte_accesos.txt
+echo "-------------------------------------------------" >> /var/log/reporte_accesos.txt
+
+
+cron.monthly/
+backup_config.sh
+
+#!/bin/bash
+# Hacer copia de seguridad de la carpeta de configuración de red
+FECHA=$(date +%Y-%m)
+tar -czf /root/backup_network_$FECHA.tar.gz /etc/network/ 2>/dev/null
+
+
+
+
+3) UI Task Scheduler
+
+Usa webmin ya que està instalado.
+
+
+Scheduled Cron Jobs
+

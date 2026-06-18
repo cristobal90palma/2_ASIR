@@ -1,0 +1,100 @@
+Para verificar que el trabajo reflejado en los documentos se corresponde con la realidad técnica, se requiere:
+
+    >>
+
+    Vídeo Explicativo: Una grabación donde mostréis el estado actual de la implementación del proyecto
+	(configuraciones, despliegues, servicios funcionando, etc.).
+    >>
+
+    Documentación (Memoria): Entrega de los Apartados 1, 2 y 3 de la memoria, 
+	siguiendo estrictamente todos los puntos del índice incluido en el archivo
+	"Plantilla Elaboración Módulo Proyecto ASIR".
+    >>
+
+    Fecha límite: Viernes, 20 de marzo.
+    >> Realizar entrega en esta tarea.
+
+
+Hasta el 20 de marzo: Vídeo de implementación + Documentación (Capítulos 1, 2 y 3).
+
+
+
+
+
+
+    Consulta realizada correctamente
+
+Gemini ha dicho
+
+Para completar la entrega del 20 de marzo, aquí tienes la correspondencia de los puntos requeridos en la Memoria (Apartados 1, 2 y 3) según la plantilla oficial y lo que ya has desarrollado en tus tareas anteriores:
+1. Introducción
+
+Este apartado está prácticamente completo gracias a la Tarea 1.
+
+    1.1 Descripción: Se encuentra en el apartado 1.1 y 1.2 de la Tarea 1, donde describes el núcleo tecnológico (FOG Project) y los sistemas implicados.
+
+    1.2 Objetivos generales: Se detallan en el apartado 2.1 de la Tarea 1.
+
+    1.3 Motivaciones personales: NO ESTÁN EN TRABAJOS ANTERIORES. (Debes redactar por qué elegiste este proyecto).
+
+2. Estudio de viabilidad
+
+Este bloque está muy avanzado entre las Tareas 1, 2 y 3.
+
+    2.1 Estudio de la situación actual:
+
+        2.1.1 Contexto: Se describe en la Tarea 3 (Fase de Análisis) y Tarea 1 (Sistemas implicados).
+
+        2.1.2 Lógica del sistema: Explicado en la Tarea 1 bajo "Tecnologías y herramientas" y en la Tarea 3 bajo "Diseño".
+
+        2.1.3 Descripción física: Se detalla en la Tarea 1 (Sistemas, servicios e infraestructuras) y Tarea 4 (Recursos de hardware).
+
+        2.1.4 Normativa, legislación y licencias: Mencionado en la Tarea 1 (licencia GNU GPLv3) y Tarea 4 (Ubuntu Server 22.04 LTS con GPL).
+
+    2.2 Requisitos del sistema:
+
+        2.2.1 Requisitos: Definidos en la Tarea 3 (Análisis) y Tarea 5 (Criterios de validación).
+
+        2.2.2 Restricciones del sistema: Mencionadas en la Tarea 1 (Alcance: lo que queda fuera) y Tarea 2 (Dificultades técnicas).
+
+        2.2.3 Catalogación y priorización de los requisitos: NO ESTÁN EN TRABAJOS ANTERIORES. (Debes listar qué requisitos son críticos, importantes o deseables).
+
+    2.3 Alternativas y selección de la solución:
+
+        2.3.1 Alternativa 1 / 2.3.2 Alternativa 2: Mencionado brevemente en la Tarea 1 (como Microsoft WDS o Clonezilla). Necesitas desarrollarlas un poco más.
+
+        2.3.3 Elección y Conclusiones: Justificado en la Tarea 1 al comparar con soluciones similares y en la Tarea 2.
+
+    2.4 Planificación del proyecto - Diagrama de Gantt:
+
+        2.4.1 Recursos / 2.4.2 Tareas / 2.4.3 Planificación temporal: Todo esto se encuentra detallado en la Tarea 3 y Tarea 4.
+
+    2.5 Evaluación de riesgos:
+
+        2.5.1 Lista de riesgos / 2.5.2 Plan de contingencia: Se mencionan dificultades en la Tarea 2, pero un listado formal como tal NO ESTÁ EN TRABAJOS ANTERIORES..
+
+    2.6 Presupuesto (Estudio de Viabilidad): Desarrollado en la Tarea 2 (Identificación de costes y subvenciones).
+
+3. Diseño
+
+Este apartado requiere esquemas técnicos que has mencionado pero que debes incluir formalmente.
+
+    3.1 Descripción del diseño:
+
+        3.1.1 Selección de la arquitectura física / 3.1.2 Selección de la arquitectura de red: Descrito en la Tarea 3 y Tarea 4 (servidor en Proxmox, subnets).
+
+        3.1.3 Selección de base de datos: Mencionado en la Tarea 1 y Tarea 4 (MariaDB/MySQL).
+
+        3.1.4 Diagrama de Clases (UML): NO ESTÁ EN TRABAJOS ANTERIORES. (Aunque mencionas el diseño de estructura de datos en la Tarea 3, falta el diagrama visual).
+
+        3.1.5 Diagrama de casos de usos (UML): NO ESTÁ EN TRABAJOS ANTERIORES. (Debes dibujar la interacción del Administrador/Técnico con el sistema FOG).
+
+Resumen de lo que te falta redactar o crear:
+
+    Motivaciones personales (1.3).
+
+    Priorización de requisitos (2.2.3).
+
+    Evaluación de riesgos y Plan de contingencia (2.5).
+
+    Diagramas UML de Clases y Casos de Uso (3.1.4 y 3.1.5).

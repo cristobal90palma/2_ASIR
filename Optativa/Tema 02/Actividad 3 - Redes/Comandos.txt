@@ -1,0 +1,170 @@
+Actividad 3 - Redes
+
+1) Vamos a probar las distintas configuración de redes en Vagrant
+
+Parte 1 - Proyecto base (NAT por defecto)
+
+    Crea una máquina virtual a partir del box ubuntu/jammy64
+
+En el vagrantfile ponemos:
+
+  config.vm.box = "ubuntu/jammy64"
+  
+  ups, no nos habíamos bajado la box. Se lo baja automaticamente cuando hacemos
+  vagrant up
+
+     Visualiza las interfaces de red y las ips usadas.
+    ¿Tienes acceso a internet?
+	
+	vagrant ssh
+	
+	ping x.uk
+	tenemos acceso a internet
+	ip a
+	10.0.2.15/24
+	interfaz: enp0s3:
+	
+	
+\\\\\\\\\\\\\\\
+
+Parte 2 - Red privada (Host-only)
+
+    Configura red privada con ip fija
+	
+	modificamos el vagrantfile:
+	
+	config.vm.network "private_network", ip: "192.168.50.65"
+	
+    Recarga la máquina virtual.
+	
+	vagrant reload
+	
+	SALTARAN ALGUNOS CAMBIOS DE VIRTUALBOX
+	
+     Visualiza las interfaces de red y las ips usadas.
+	 
+	 Mantiene la anterior y además la nueva:
+	 enp0s8: 192.168.50.65/24
+	 
+    ¿Tienes acceso a internet?
+	
+	¿Tienes acceso a internet? Sí, la VM seguirá teniendo acceso a Internet a través de la interfaz eth0 (NAT),
+	ya que esa configuración sigue activa por defecto.
+	
+	
+	
+	
+    ¿Puedes acceder a esta máquina virtual desde otro equipo?
+	
+	
+	Podemos hacerle ping desde el host u otra VM de Vagrant que esté en la misma red de NAT
+	
+	Con las VM del Proxmox del instituto no podemos.
+	
+	No podemos acceder a ella desde otro equipo.
+	Lo he probado con una VM que esta en modo bridge y no es capaz de acceder a ella.
+	
+	
+	
+\\\\\\\\\\\\\\\
+
+Parte 3 - Reenvío de puertos 
+
+    Crea un aprovisionamiento instalando nginx
+	
+	Vamos a hacerlo por el método del archivo, parace mas limpio:
+	Creamos archivo "install_nginx.sh"
+	y metemos: 
+	
+	install_nginx.sh
+	
+	#!/bin/bash
+echo "Instalando Nginx..."
+sudo apt update
+sudo apt install -y nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+echo "He instalado nginx, como mola."
+
+
+Modificamos el vagrantfile
+
+  config.vm.provision "shell", path: "install_nginx.sh"
+	
+    Mapea el puerto host y guest
+	
+	config.vm.network "forwarded_port", guest: 80, host: 8080
+	SOLO HAY QUE DESCOMENTARLO.
+	
+	hacemos "vagrant provision" para la provision
+	y "vagrant reload" para los puertos
+	
+	Por el tema de los puertos hay que hacer verificación en VIRTUALBOX
+	
+    Desde el host accede a la web
+	
+	http://localhost:8080
+	
+	FUNCIONA.
+	
+	
+	
+    Provocad una colisión cambiando host: 8080 a host: 80. ¿Qué avisa Vagrant? 
+	
+	==> default: You are trying to forward to privileged ports (ports <= 1024). Most
+==> default: operating systems restrict this to only privileged process (typically
+==> default: processes running as an administrative user). This is a warning in case
+==> default: the port forwarding doesn't work. If any problems occur, please try a
+==> default: port higher than 1024.
+	
+	
+	
+	
+	
+	Activad auto_correct y anotad el nuevo puerto.
+	
+   config.vm.network "forwarded_port", guest: 80, host: 80, auto_correct: true
+   
+   Me redirige el puerto al 2201
+   He tenido que poner un servicio en el puerto 80, porque automaticamente no me lo redirige si está libre.
+   
+   ==> default: Clearing any previously set forwarded ports...
+==> default: Fixed port collision for 80 => 80. Now on port 2201.
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+    default: Adapter 2: hostonly
+==> default: Forwarding ports...
+    default: 80 (guest) => 2201 (host) (adapter 1)
+    default: 22 (guest) => 2222 (host) (adapter 1)
+   
+   
+\\\\\\\\\\\\\\\\\\\\\
+
+Parte 4 - Red pública (bridged)
+
+    Añadir adaptador puente para que la VM sea un “equipo más” en la LAN del aula
+	
+	Modificamos vagrantfile
+	
+	config.vm.network "public_network"
+	
+	
+    Recarga la máquina virtual.
+	
+	vagrant reload
+	
+	DEMASIADAS INTERFACES VOY A QUITAR ALGUNA
+	
+    Visualiza las interfaces de red y las ips usadas.
+	
+enp0s8: 192.168.1.33/24	
+
+    ¿Tienes acceso a internet?
+	Si
+    ¿Puedes acceder a esta máquina virtual desde otro equipo?
+	Puedo hacerle ping
+
+   
+
+

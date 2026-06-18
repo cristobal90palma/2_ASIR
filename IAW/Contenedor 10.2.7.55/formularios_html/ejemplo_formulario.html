@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de formulario</title>
+</head>
+<body>
+    <form method="post" action="ejemplo_formulario.php">
+    <label>Nombre </label><input type="text" name="nombre" required><br/><br/>
+    <label>Email </label><input type="text" name="email" required><br/><br/>
+    <label>Contraseña-1 </label><input type="password" name="pass1"><br/><br/>
+    <label>Contraseña-2 </label><input type="password" name="pass2"><br/><br/>
+    <label>Preferencias</label>
+    <input type="checkbox" name="informatica"><label>Informatica</label>
+    <input type="checkbox" name="telefonia"><label>Telefonía</label>
+    <input type="checkbox" name="comunicaciones"><label>Comunicaciones</label><br/><br/>
+    <label>Envío</label>
+    <input type="radio" name="envio" value="email"/><label>Email</label>
+    <input type="radio" name="envio" value="SMS"/><label>SMS</label>
+    <input type="radio" name="envio" value="Whatsapp"/><label>Whatsapp</label>
+    <br/><br/>
+    <select name="provincia">
+        <option value="0">--Seleccione--</option>
+        <option value="HU">Huelva</option>
+        <option value="SE">Sevilla</option>
+        <option value="CA">Cádiz</option>
+    </select><br/><br/>
+    
+    <input type="submit" name="Enviar">
+    
+    
+    </form>
+</body>
+</html>

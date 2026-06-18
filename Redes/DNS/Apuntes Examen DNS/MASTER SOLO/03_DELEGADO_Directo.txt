@@ -1,0 +1,41 @@
+; nano /var/cache/bind/sz.retry07.net
+
+
+; Archivo bd.sz.retry07.net
+;
+; BIND data file for bd.sz.retry07.net
+;
+$TTL 1D
+@ IN SOA dnscsa03.sz.retry07.net. root.sz.retry07.net. (
+        2025102501 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+		IN NS	dnscsa03.sz.retry07.net.
+
+; Correo
+
+        IN MX 10 mx64.sz.retry07.net.
+        IN MX 20 mx360.sz.retry07.net.
+
+; Directas
+
+dnscsa03 IN A 10.2.17.130
+www IN A 192.168.100.10
+mx64 IN A 192.168.100.11
+mx360 IN A 192.168.100.12
+carmack IN A 192.168.100.13
+romero IN A 192.168.100.14
+
+; Alias o sinonimo
+dns3 IN CNAME dnscsa03
+web IN CNAME www
+nintendo IN CNAME mx64
+xbox IN CNAME mx360
+doom IN CNAME carmack
+quake IN CNAME romero
+
+;named-checkzone sz.retry07.net. /var/cache/bind/sz.retry07.net

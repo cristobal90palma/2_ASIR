@@ -1,0 +1,1 @@
+2026/03/02 11:40:28 [error] 202#202: *84 "/var/www/html/bins/index.html" is not found (2: No such file or directory), client: 204.76.203.18, server: localhost-nginx-proxy-manager, request: "GET /bins/ HTTP/1.1", host: "100.48.114.98:80"

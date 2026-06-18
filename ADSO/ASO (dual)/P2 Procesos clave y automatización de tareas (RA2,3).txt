@@ -1,0 +1,107 @@
+P2 Procesos clave y automatización de tareas (RA2,3)
+
+
+
+Analiza los procesos habituales del sistema operativo utilizado en la empresa
+ y documenta su función y relación con el funcionamiento del sistema. 
+ Investiga qué tareas del sistema están automatizadas en la empresa y
+ documenta su finalidad y funcionamiento.
+
+TAREAS:
+
+    Identifica:
+
+        Procesos clave en servidores o equipos cliente.
+
+        Procesos con el arranque del sistema.
+
+        Medidas de seguridad ante procesos anómalos.
+
+        Copias, limpiezas, sincronizaciones, scripts, tareas programadas.
+        Frecuencia, herramienta usada y medidas de seguridad.
+
+    Describe:
+
+        Qué está bien y que puede suponer un problema.
+
+        Como podrá mejorarse la seguridad.
+        Qué tareas podrian automatizarse (elabora una una propuesta)
+
+    Elabora:
+
+        Tabla de procesos relevantes y su función.
+
+    Redacta:
+
+        Un documento descriptivo en el que expliques la situacion actual
+		con respecto a este tema esplicando las fortalezas y debilidades
+		(DAFO) y en el que propongas tu plan de mejora para una mayor 
+		automatizacion de las tareas en la empresa.
+		
+		
+Criterios de calificación
+Rúbrica
+Identificación los procesos clave reales	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Descripción adecuada de los proceso	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Análisis DAFO	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Propuesta de automatización	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Informe técnico	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Contextualización en la empresa	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Capacidad de análisis real y propuestas razonable y utiles	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+

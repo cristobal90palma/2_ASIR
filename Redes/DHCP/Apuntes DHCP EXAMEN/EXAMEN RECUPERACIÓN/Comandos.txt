@@ -1,0 +1,164 @@
+El direccionamiento de las LANs será:
+LAN Switch1 10.10.X*2.0/23
+LAN Switch2 10.12.X.32/27
+LAN Switch3 10.8.X.96/28
+donde X es vuestro número de lista.
+
+\\\\\\\\\\\
+LAN Switch1 10.10.14.0/23
+
+LAN Switch1 10.10.14.1/23
+
+
+\\\\\\\\\\
+LAN Switch2 10.12.7.32/27
+
+LAN Switch2 10.12.7.33/27
+
+
+\\\\\\\\\
+LAN Switch3 10.8.7.96/28
+
+LAN Switch3 10.8.7.97/28
+
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.1.3/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.1
+        - to: 10.10.14.0/23
+          via: 192.168.1.2
+        - to: 10.12.7.32/27
+          via: 192.168.1.2
+        - to: 10.8.7.96/28
+          via: 192.168.1.2
+      nameservers:
+        addresses:
+          - 172.16.200.1
+          - 8.8.8.8
+		  
+		  
+		  
+
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.1.4/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.1
+        - to: 10.10.14.0/23
+          via: 192.168.1.2
+        - to: 10.12.7.32/27
+          via: 192.168.1.2
+        - to: 10.8.7.96/28
+          via: 192.168.1.2
+      nameservers:
+        addresses:
+          - 172.16.200.1
+          - 8.8.8.8
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+#CONFIGURACIÓN DE ((DHCP-PRIM))
+
+failover peer "FAILOVER" {
+  primary;
+  address 192.168.1.3;
+  port 647;
+  peer address 192.168.1.4;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+  mclt 1800;
+  split 128;
+}
+
+
+#CONFIGURACIÓN DE ((DHCP-SECOND))
+
+failover peer "FAILOVER" {
+  secondary;
+  address 192.168.1.4;
+  port 647;
+  peer address 192.168.1.3;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+}
+
+
+######PARTE EN COMÚN
+
+
+
+
+
+
+##Configuración común
+
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+  not authoritative;
+}
+
+
+#LAN Switch1 10.10.14.0/23
+#LAN Switch2 10.12.7.32/27
+
+# SubNet 10.10.14.0/23
+subnet 10.10.14.0 netmask 255.255.254.0 {
+  option domain-name-servers 9.9.9.9, 7.7.5.5;
+  option domain-name "make.it";
+  option routers 10.10.14.1;
+  pool {
+    failover peer "FAILOVER";
+    range 10.10.14.5 10.10.15.254;
+    default-lease-time 64800;
+    max-lease-time 86000;
+    host megalol-01 {
+      hardware ethernet 02:42:d2:70:03:00;
+      fixed-address 10.10.14.4;
+    }
+  }
+}
+
+# SubNet 10.12.7.32/27
+subnet 10.12.7.32 netmask 255.255.255.224 {
+  option domain-name-servers 9.9.9.9, 7.7.5.5;
+  option domain-name "make.it";
+  option routers 10.12.7.33;
+  pool {
+    failover peer "FAILOVER";
+    range 10.12.7.39 10.12.7.62;
+    default-lease-time 64800;
+    max-lease-time 86000;
+    host megalol-02 {
+      hardware ethernet 02:42:97:2b:f7:00;
+      fixed-address 10.12.7.40;
+    }
+  }
+}

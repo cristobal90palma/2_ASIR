@@ -1,0 +1,145 @@
+Detalles de los servidores utilizados:
+
+    Servidor primario: nombre — mongodb01, IP 10.2.17.80
+    Servidor secundario: nombre — mongodb02, IP 10.2.17.85
+    Servidor secundario: nombre — mongodb03, IP 10.2.17.90
+
+hostnamectl set-hostname mongodb01
+
+
+https://www.swhosting.com/en/comunidad/manual/how-to-install-mongodb-on-your-linux-server
+
+Para instalar mongo
+
+sudo apt update
+sudo apt install -y gnupg curl
+curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
+sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] \
+https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
+sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+sudo apt update
+sudo apt install -y mongodb-org
+
+
+
+
+
+
+    En el paso 1 de configuración del cluster sustituyelo por esto
+
+Añade estas líneas en /etc/mongod.conf en todos los nodos.
+
+replication:
+  replSetName: "rs0"
+
+net:
+  bindIp: localhost, domainname (en mi caso "suarez.abad")
+  
+  
+Una vez puesto, usa:
+
+systemctl start mongod
+systemctl status mongod
+
+
+Luego usa:
+
+mongosh
+
+para entrar en la shell de mongo y mete:
+
+
+
+rs.initiate( {
+_id: "rs0",
+members: [
+{ _id: 0, host: "mongodb01.suarez.abad:27017" },
+{ _id: 1, host: "mongodb02.suarez.abad:27017" },
+{ _id: 2, host: "mongodb03.suarez.abad:27017" },
+]
+})
+
+
+rs.initiate( {
+_id: "rs0",
+members: [
+{ _id: 0, host: "10.2.17.80:27017" },
+{ _id: 1, host: "10.2.17.85:27017" },
+{ _id: 2, host: "10.2.17.90:27017" },
+]
+})
+
+
+
+
+
+
+
+
+
+
+
+1. Inicie MongoDB en todos los servidores:
+mongod --replSet "rs0" –bind_ip localhost,server_name
+
+Ejemplo: mongod --replSet "rs0" --bind_ip localhost,mongodb01
+
+
+Copied
+
+"rs0": nombre de la réplica (elija otro nombre si es necesario)
+server_name — nombre de un servidor en el que se inicia MongoDB.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\\\\\\\\\lo de los comandos:
+Instalar mongodb-CLI con "apt": https://www.mongodb.com/docs/mongocli/current/install/
+
+Prerequisites
+
+	-To install the MongoDB CLI using Apt, you must install gnupg:
+
+	sudo apt-get install gnupg
+	
+
+Procedure
+1
+Import the public key used by apt.
+
+From a terminal, issue the following command to import the MongoDB public GPG Key from https://www.mongodb.org/static/pgp/server-6.0.asc
+
+.
+
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\\\\\\\\\VERIFICAR MongoDB : dpkg -l | grep mongo
+

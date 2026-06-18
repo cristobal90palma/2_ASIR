@@ -1,0 +1,175 @@
+Nos descargamos el repositorio:
+
+wget https://github.com/datacharmer/test_db/releases/download/v1.0.7/test_db-1.0.7.tar.gz
+
+o 
+
+git clone https://github.com/datacharmer/test_db
+
+
+Descomprimimos con: tar -xvzf test_db-1.0.7.tar.gz
+
+Entramos en mysql con un usuario con todos los privilegios.
+sudo mysql -u root -p
+
+Y ejecutamos el script:
+
+source /home/cristobal/test_db/employees.sql;
+
+
+Lo que me ha tardado:
++---------------------+
+| data_load_time_diff |
++---------------------+
+| 00:01:20            |
++---------------------+
+1 row in set (0,01 sec)
+
+
+
+Los comandos que aparecen en la fuente se ejecutan desde fuera, hay que indicar usuario:
+
+sudo mysql -u root -p < employees.sql
+
+# Si quieres probar con MD5
+sudo mysql -t -u root -p < test_employees_md5.sql
+
+# O si prefieres SHA
+sudo mysql -t -u root -p < test_employees_sha.sql
+
+
+
+
+2) 
+
+
+
+    Crea un usuario para monitoreo:
+
+SERGIO le ha dado GRANT ALL PRIVILEGES Y YA ESTÁ.
+GRANT ALL PRIVILEGES ON *.* TO 'pmm'@'%';
+
+CREATE USER 'pmm'@'%' IDENTIFIED BY 'pass_segura_pmm';
+
+GRANT SELECT, PROCESS, SUPER, REPLICATION CLIENT, RELOAD ON *.* TO 'pmm'@'%';
+
+GRANT BACKUP_ADMIN, OBSERVER, SERVICE_CONNECTION_ADMIN ON *.* TO 'pmm'@'%'; 
+
+FLUSH PRIVILEGES;
+
+
+OBSERVER da un error. mejor hacer esa parte así:
+
+GRANT BACKUP_ADMIN ON *.* TO 'pmm'@'%';
+GRANT SERVICE_CONNECTION_ADMIN ON *.* TO 'pmm'@'%';
+
+
+
+-- Estos otorgan acceso a las métricas de rendimiento que PMM necesita
+GRANT SELECT ON performance_schema.* TO 'pmm'@'%';
+GRANT SHOW DATABASES, SHOW VIEW ON *.* TO 'pmm'@'%';
+
+-- Si necesitas visibilidad sobre la replicación (que suele ser para lo que piden OBSERVER)
+GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'pmm'@'%';
+
+
+
+Comprobamos con: SHOW GRANTS FOR 'pmm'@'%';
+
+
+
+
+
+3)
+
+cambia las opciones de conexión a la base de datos en docker-compose.yml
+
+
+      DB_HOST: 10.2.7.101       
+      DB_USER: pmm             
+      DB_PASS: pass_segura_pmm
+	  
+pon los tres archivos en el mismo directorio: el compose, el dockerfile y el script.
+
+
+4)
+
+Desde dentro mysql: ==> SHOW GLOBAL STATUS; //NO ENTIENDO LO QUE PONE.
+
+Desde fuera de mysql:
+
+
+mysqladmin -u root -p status -i 1
+
+Uptime: 2250  Threads: 2  Questions: 368  Slow queries: 7  Opens: 227  Flush tables: 3  Open tables: 140  Queries per second avg: 0.163
+
+
+htop
+
+
+
+
+
+
+
+
+
+
+
+https://www.tecmint.com/monitor-mysql-performance-with-netdata/
+
+
+
+wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh && sh /tmp/netdata-kickstart.sh
+
+sudo systemctl start netdata
+sudo systemctl status netdata
+sudo systemctl enable netdata
+
+
+
+Netdata listens on port 19999 by default, you will use this port to access the web UI. So, open the port on your system firewall.
+
+sudo firewall-cmd --permanent --add-port=19999/tcp
+sudo firewall-cmd --reload 
+
+
+http://10.2.7.101:19999/
+
+
+
+
+sudo cat /var/lib/netdata/netdata_random_session_id
+
+c167fc82-8661-465a-8c0a-bc02d411bae0
+
+
+
+
+
+
+
+
+
+
+Percona
+
+Connect MySQL databases to PMM
+https://docs.percona.com/percoa-monitoring-and-management/3/install-pmm/install-pmm-client/connect-database/mysql/mysql.html
+
+
+
+
+Cambiar password del admin
+
+docker exec -it pmm-server2 change-admin-password admin
+
+
+Crear un servicio: conectar MySQL con Percona
+docker exec -it pmm-server2 pmm-admin add mysql --server-url=https://admin:admin@127.0.0.1:443 --server-insecure-tls --username=pmm --password=pass_segura_pmm --host=10.2.7.101 --port=3306 --query-source=perfschema mysql-ataque
+
+
+
+Percona - Docker
+
+https://docs.percona.com/percona-monitoring-and-management/2/setting-up/server/docker.html

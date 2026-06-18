@@ -1,0 +1,37 @@
+zpool offline Aprobado_General gptid/4a7b67a0-4ea3-11f1-9bf2-bc2411155624
+
+
+zpool status
+
+discos:
+
+ pool: Aprobado_General
+ state: ONLINEconfig:
+        NAME                                            STATE     READ WRITE CKS
+UM        Aprobado_General                                ONLINE       0     0
+ 0          raidz1-0                                      ONLINE       0     0
+ 0
+            gptid/4a936aff-4ea3-11f1-9bf2-bc2411155624  ONLINE       0     0
+ 0
+            gptid/4a7b67a0-4ea3-11f1-9bf2-bc2411155624  ONLINE       0     0
+ 0
+            gptid/4a9e0e3b-4ea3-11f1-9bf2-bc2411155624  ONLINE       0     0
+ 0
+
+errors: No known data errors
+
+  pool: boot-pool
+
+
+mesg | tail
+
+
+
+
+
+
+VAMOS A QUITARLO DEL POOL
+zpool offline Aprobado_General gptid/4a936aff-4ea3-11f1-9bf2-bc2411155624
+
+
+zpool status

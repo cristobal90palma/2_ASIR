@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test ASO con Respuestas Correctas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #27ae60;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            background-color: #e8f8f5;
+            padding: 10px;
+            border-left: 5px solid #2ecc71;
+            margin-top: 30px;
+            border-radius: 0 4px 4px 0;
+        }
+        .question-card {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .question-text {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            padding: 8px 12px;
+            margin: 6px 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #7f8c8d;
+        }
+        /* Estilos para marcar respuestas */
+        li.correct, span.correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724 !important;
+            font-weight: bold;
+        }
+        li.correct::after, span.correct::after {
+            content: " ✔ (Correcta)";
+            font-size: 0.9em;
+            margin-left: 8px;
+        }
+        .true-false {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            color: #7f8c8d;
+        }
+        .highlight {
+            background-color: #fcf8e3;
+            border-left: 3px solid #f0ad4e;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-style: italic;
+            color: #8a6d3b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Evaluaciones de ASO (Con Respuestas Correctas)</h1>
+
+    <h2>Test Evaluación Tema 5: Servicios de Impresión</h2>
+    
+    <div class="question-card">
+        <div class="question-text">1.- Un grupo de impresión (print pool) consiste en asociar una única impresora lógica a múltiples dispositivos físicos idénticos mediante diferentes puertos.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">2.- ¿Qué servicio se utilizó en Linux para administrar impresoras vía web?</div>
+        <ul>
+            <li>a. Apache</li>
+            <li class="correct">b. CUPS</li>
+            <li>c. Bind</li>
+            <li>d. Samba</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">3.- ¿Qué puerto utiliza normalmente la impresión RAW o JetDirect?</div>
+        <ul>
+            <li>a. 25</li>
+            <li>b. 80</li>
+            <li>c. 631</li>
+            <li class="correct">d. 9100</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">4.- La documentación técnica de un servidor de impresión puede omitir los nombres de las impresoras lógicas y sus direcciones IP, ya que el sistema las detecta automáticamente.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">5.- El formato PostScript y el formato PCL son lenguajes de descripción de páginas estándar que garantizan la interoperabilidad de impresión entre sistemas diferentes.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">6.- Un cliente Linux intenta enviar un trabajo de impresión a una impresora compartida en un servidor Windows Server. La conexión falla y el análisis de tráfico de red revela paquetes del protocolo SMB (puerto TCP 445) devolviendo un código de error de acceso denegado. ¿Qué problema de configuración en el servidor explica este fallo de integración híbrida?</div>
+        <ul>
+            <li>a. El puerto TCP 445 se encuentra reservado en exclusiva para servicios de directorio, bloqueando por diseño el tráfico de impresión.</li>
+            <li>b. El servicio de impresión del cliente no es capaz de interpretar controladores de impresión de tipo V4.</li>
+            <li class="correct">c. El cliente Linux no se está autenticando correctamente o la cuenta de invitado está deshabilitada, impidiendo el acceso al recurso compartido de la impresora y al recurso oculto IPC$.</li>
+            <li>d. El servidor Windows tiene deshabilitado el subsistema de impresión basado en entornos web.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">7.- En los sistemas operativos modernos, el Administrador de Dispositivos es la única herramienta gráfica que permite pausar la cola de impresión de una impresora local.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">8.- En sistemas Linux, el comando lpstat permite verificar el estado actual de las colas de impresión y los servidores de impresión disponibles.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">9.- El puerto TCP 9100 se asocia comúnmente con el protocolo Raw (AppSocket) para la comunicación directa de datos de impresión hacia el dispositivo.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">10.- Para permitir la administración remota de CUPS a través de su entorno web, se debe modificar la directiva de acceso en el archivo de configuración cupsd.conf.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">11.- Puerto de SMB/CIFS:</div>
+        <ul>
+            <li class="correct">a. 445</li>
+            <li>b. 8080</li>
+            <li>c. 53</li>
+            <li>d. 631</li>
+            <li>e. 1433</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">12.- El comando cancel (en Linux) o Remove-PrintJob (en PowerShell) sirven para eliminar o purgar un trabajo de impresión que se encuentra retenido en la cola.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">13.- ¿Qué protocolo ofrece mayor seguridad al cifrar las comunicaciones de impresión?</div>
+        <ul>
+            <li>a. NetBIOS</li>
+            <li>b. RAW</li>
+            <li>c. LPD</li>
+            <li class="correct">d. IPPS</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">14.- ¿Qué puerto utiliza habitualmente el protocolo IPP?</div>
+        <ul>
+            <li>a. 515</li>
+            <li class="correct">b. 631</li>
+            <li>c. 445</li>
+            <li>d. 9100</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">15.- ¿Cuál es el propósito y la función diferenciada de los archivos temporales con extensión .SPL y .SHD generados por el spooler de Windows durante el ciclo de un trabajo de impresión?</div>
+        <ul>
+            <li>a. El archivo .SPL almacena las ACL y credenciales de seguridad del propietario; el archivo .SHD contiene los datos binarios del documento a imprimir.</li>
+            <li>b. El archivo .SHD guarda registros logs destinados a herramientas de monitorización de red; el .SPL es una copia del controlador del fabricante.</li>
+            <li class="correct">c. El archivo .SPL (Spool) contiene los datos del trabajo de impresión propiamente dichos; el archivo .SHD (Shadow) contiene la información de control, como el propietario, la prioridad y la configuración del trabajo.</li>
+            <li>d. Son archivos utilizados exclusivamente para la sincronización y replicación de colas hacia servidores de impresión secundarios en entornos Linux.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">16.- Al configurar un grupo de impresión, el usuario debe elegir manualmente cuál de las impresoras físicas libres procesará su documento en cada envío.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false net">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">17.- ¿Qué herramienta se usa para análisis de la red?</div>
+        <ul>
+            <li>a. LAM</li>
+            <li class="correct">b. Wireshark</li>
+            <li>c. VirtualBox</li>
+            <li>d. Gparted</li>
+            <li>e. Apache</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">18.- En un entorno de red Windows, un usuario requiere pausar, reanudar y cancelar trabajos de impresión enviados por otros empleados en una impresora específica. ¿Qué permiso mínimo se le debe otorgar en la configuración de seguridad de dicha impresora lógica?</div>
+        <ul>
+            <li>a. Imprimir (Print).</li>
+            <li>b. Control Total (Full Control).</li>
+            <li class="correct">c. Administrar documentos (Manage Documents).</li>
+            <li>d. Administrar impresoras (Manage Printers).</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">19.- ¿Cuál es la función principal de un servidor de impresión?</div>
+        <ul>
+            <li>a. Gestionar máquinas virtuales</li>
+            <li class="correct">b. Centralizar y administrar trabajos de impresión en red</li>
+            <li>c. Servir páginas web corporativas</li>
+            <li>d. Administrar bases de datos</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">20.- Al monitorizar la red con un analizador de protocolos, se detecta tráfico saliente periódico desde una máquina cliente hacia el puerto UDP 631 de un servidor de impresión Linux, transportando texto plano con información de las impresoras disponibles. ¿A qué mecanismo de red corresponde este tráfico?</div>
+        <ul>
+            <li>a. Al protocolo IPPS gestionando de forma síncrona el intercambio de certificados de clave pública.</li>
+            <li class="correct">b. Al proceso de difusión heredado de CUPS (CUPS Browsing) mediante el cual los servidores y clientes anuncian o descubren impresoras compartidas en la subred local.</li>
+            <li>c. A un intento de vulneración de la seguridad por denegación de servicio contra el servidor web de administración.</li>
+            <li>d. Al mecanismo de sincronización remota de colas del protocolo estándar Line Printer Remote (LPR).</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">21.- Tras ejecutar el comando lpstat -o en un servidor Linux, se observan varios trabajos retenidos en la cola con el estado "held". ¿Qué comando de línea de comandos se debe utilizar para liberar inmediatamente un trabajo específico con identificador printer-100 y permitir su impresión?</div>
+        <ul>
+            <li>a. cupsenable --release printer-100</li>
+            <li>b. lprelease printer-100</li>
+            <li class="correct">c. lpenable printer-100</li>
+            <li>d. lpadmin -p printer -c resume</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">22.- El spooler de impresión elimina la necesidad de memoria interna en la impresora física, ya que procesa todos los documentos directamente en la pantalla del cliente.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">23.- Se configura la característica de Impresión en Internet en un servidor Windows a través del servidor web IIS. Si un cliente de otro sistema operativo mapea la impresora utilizando una URL con la extensión printer, ¿qué protocolo subyacente se emplea para la transferencia y control de los trabajos?</div>
+        <ul>
+            <li class="correct">a. IPP (Internet Printing Protocol) encapsulado en HTTP/HTTPS.</li>
+            <li>b. LPR/LPD encapsulado en llamadas a procedimientos remotos (RPC).</li>
+            <li>c. SMB v3 mapeado sobre un canal web sin estado.</li>
+            <li>d. RAW puro con negociación de seguridad TLS.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">24.- La consola de Administración de Impresión (Print Management) de Windows permite gestionar controladores, puertos y servidores de impresión de forma centralizada.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">25.- CUPS (Common Unix Printing System) proporciona una interfaz de administración web accesible por defecto a través de la dirección http://localhost:631.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">26.- Al compartir impresoras en red en entornos heterogéneos, el servidor puede almacenar los controladores (drivers) específicos para diferentes sistemas operativos de los clientes.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">27.- Un servidor de impresión centraliza la gestión de los trabajos, permitiendo administrar prioridades y almacenar las tareas en una cola en lugar de enviarlas directamente al hardware.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">28.- Clasificar impresoras lógicas por ubicación o departamento facilita a los usuarios de la red la búsqueda y selección del dispositivo adecuado en el directorio.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">29.- Con el fin de mitigar ataques de denegación de servicio (DoS) y prevenir la saturación del almacenamiento, un administrador de sistemas Linux desea limitar el tamaño máximo de cualquier solicitud o trabajo de impresión entrante a 50 Megabytes. ¿Qué directiva debe añadir en cupsd.conf?</div>
+        <ul>
+            <li>a. MaxJobSize 50m</li>
+            <li class="correct">b. MaxRequestSize 52428800</li>
+            <li>c. BufferSize 50000000</li>
+            <li>d. LimitRequestBody 51200</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">30.- Se requiere configurar un servidor de impresión Linux para que mantenga un registro histórico de los trabajos finalizados, pero eliminando de forma automática los archivos reales del documento pasadas unas horas. ¿Qué directivas combinadas en cupsd.conf regulan este comportamiento temporal?</div>
+        <ul>
+            <li>a. Establecer el parámetro global MaxJobs con un valor de asignación cero dentro de printers.conf.</li>
+            <li class="correct">b. Las directivas de retención de trabajos, específicamente regulando los valores de PreserveJobHistory y PreserveJobFiles.</li>
+            <li>c. lprm -B en combinación con tareas programadas de limpieza en el demonio del sistema.</li>
+            <li>d. Configurar modificadores de tiempo en la directiva de control de colas PurgeJobData.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">31.- El protocolo IPP (Internet Printing Protocol) utiliza por defecto el puerto TCP 631 y permite la gestión y el envío de trabajos de impresión a través de redes IP.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">32.- Ver colas de impresión en Linux. Elige el comando correcto:</div>
+        <ul>
+            <li class="correct">a. lpstat</li>
+            <li>b. chmod</li>
+            <li>c. ifconfig</li>
+            <li>d. grep</li>
+            <li>e. ldapsearch</li>
+            <li>f. slapcat</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">33.- Si un usuario intenta enviar un documento a una impresora compartida en un servidor Windows, y ni el usuario ni los grupos a los que pertenece tienen asignados permisos explícitos (ni Permitir, ni Denegar) en las propiedades de seguridad de esa impresora lógica, ¿cómo responde el sistema operativo?</div>
+        <ul>
+            <li>a. El trabajo es aceptado en la cola pero se marca en estado pausado de forma indefinida hasta la intervención del administrador.</li>
+            <li>b. El trabajo se imprime correctamente, pero el sistema oculta la identidad del propietario en los registros de auditoría por motivos de privacidad.</li>
+            <li class="correct">c. El sistema deniega el acceso al recurso compartido impidiendo mapear la impresora o enviar el trabajo, aplicando el principio de denegación implícita.</li>
+            <li>d. El documento se procesa omitiendo las prioridades de la cola y asignándole el nivel de salida más bajo de forma automática.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">34.- Para que un cliente Windows utilice una impresora compartida por un servidor Linux mediante CUPS, es obligatorio instalar Samba si se utiliza el protocolo IPP.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">35.- La cola de impresión de una impresora en un servidor Windows se encuentra bloqueada debido a un trabajo corrupto. Al intentar cancelarlo desde la interfaz gráfica, el estado se queda permanentemente en "Eliminando...". ¿Cuál es el procedimiento técnico correcto mediante comandos para solucionar la incidencia?</div>
+        <ul>
+            <li>a. Reiniciar las reglas de filtrado de red mediante netsh advfirewall reset para cerrar los sockets TCP residuales.</li>
+            <li>b. Forzar la purga del hardware mediante la instrucción wmic printer where name='Nombre_Impresora' delete.</li>
+            <li class="correct">c. Detener el servicio de cola de impresión (Spooler), eliminar los archivos .SHD y .SPL situados en el directorio %systemroot%\System32\Spool\Printers\ y volver a iniciar el servicio.</li>
+            <li>d. Ejecutar net stop cups, vaciar el directorio /var/spool/cups/ y levantar el servicio con net start cups.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">36.- Un usuario envía un documento a un servidor de impresión. El trabajo se procesa en la cola del servidor, pero la impresora física produce hojas infinitas con caracteres extraños y símbolos de código binario ilegibles. ¿A qué anomalía técnica responde este problema?</div>
+        <ul>
+            <li>a. A una incompatibilidad en la capa de red debido al uso del protocolo LPR en lugar del puerto RAW.</li>
+            <li>b. A que el cortafuegos del servidor ha alterado los bits de paridad en las tramas TCP durante la transferencia.</li>
+            <li>c. A un conflicto de permisos a nivel de sistema de archivos en el directorio temporal del spooler.</li>
+            <li class="correct">d. A que el controlador (driver) configurado en la impresora lógica del servidor no coincide con el lenguaje de descripción de página (PDL, como PCL o PostScript) que soporta el hardware.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">37.- URL de administración CUPS:</div>
+        <ul>
+            <li>a. ftp://IP:21</li>
+            <li>b. https://IP:3389</li>
+            <li class="correct">c. http://IP-servidor:631</li>
+            <li>d. http://IP:445</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">38.- Registrar la asignación de puertos, las cuotas de impresión por grupo y las versiones de los controladores instalados forma parte de una correcta documentación del servicio.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">39.- Se requiere auditar la seguridad perimetral de un servidor de impresión basado en CUPS. Si los clientes de la red interna imprimen utilizando el protocolo Internet Printing Protocol sobre un canal seguro HTTPS, ¿qué puerto o puertos específicos de entrada deben mantenerse abiertos en el cortafuegos del servidor?</div>
+        <ul>
+            <li>a. TCP 445 y TCP 515.</li>
+            <li class="correct">b. TCP 443 únicamente.</li>
+            <li>c. TCP 631 únicamente.</li>
+            <li>d. TCP 631 y UDP 631 simultáneamente.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">40.- Una impresora lógica es una representación de software en el sistema operativo que actúa como intermediaria entre el usuario y el dispositivo físico de impresión.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">41.- En el archivo de configuración principal de un servidor de impresión Linux (/etc/cups/cupsd.conf), se localiza un bloque de directivas "Location /" configurado con "Order allow,deny" y "Allow 192.168.1.0/24". ¿Qué comportamiento establece esta configuración respecto al acceso al servidor?</div>
+        <ul>
+            <li class="correct">a. Permite el acceso a la raíz de la interfaz web de administración únicamente a las peticiones que provengan de la subred 192.168.1.0/24, aplicando una denegación implícita al resto.</li>
+            <li>b. Fuerza a que todas las conexiones procedentes de la subred 192.168.1.0/24 utilicen obligatoriamente el puerto seguro de cifrado web.</li>
+            <li>c. Permite enviar trabajos de impresión a los clientes de la red 192.168.1.0/24, pero restringe por completo el acceso a cualquier interfaz web corporativa.</li>
+            <li>d. Permite el acceso global desde cualquier red pública, excepto a las direcciones IP contenidas en el rango 192.168.1.0/24.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">42.- Al analizar el rendimiento de un cliente de red que envía trabajos de gran tamaño a un servidor de impresión mediante el protocolo RAW (JetDirect), se detecta una degradación notable del servicio. El analizador de protocolos muestra tráfico constante hacia el puerto TCP 9100. ¿Cuál es la causa técnica principal de este comportamiento?</div>
+        <ul>
+            <li>a. El cortafuegos del sistema operativo realiza una inspección de estado síncrona en cada trama de la capa LPD/LPR del puerto 9100.</li>
+            <li>b. El puerto 9100 obliga al cliente a realizar una negociación de cifrado por software asíncrona que sobrecarga la CPU.</li>
+            <li>c. El servidor encapsula de forma obligatoria las peticiones RAW dentro de cabeceras HTTP POST, duplicando el tamaño de los paquetes.</li>
+            <li class="correct">d. El protocolo RAW carece de un control de flujo avanzado y spooling intermedio eficiente en este puerto, manteniendo un socket TCP bidireccional abierto que satura el hilo de red.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">43.- El protocolo LPD/LPR es un estándar moderno que ha reemplazado por completo a IPP... [Incompleto en documento original]</div>
+        <span class="highlight">Pregunta con datos insuficientes en el PDF de origen</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">46.- Con el objetivo de cumplir con una auditoría de seguridad informática, se requiere habilitar el registro detallado (logs) de todas las conexiones, transacciones e intentos de administración en la interfaz web de un servidor CUPS. ¿Qué directiva y archivo deben modificarse?</div>
+        <ul>
+            <li>a. Activar el parámetro AuditLevel 2 en el archivo /etc/cups/printers.conf.</li>
+            <li>b. Configurar la ruta AccessLog /var/log/cups/page_log dentro del archivo /etc/printcap.</li>
+            <li>c. Modificar la directiva WebDebug False a WebDebug True en el archivo /etc/cups/interfaces.conf.</li>
+            <li class="correct">d. Cambiar la directiva LogLevel warn a LogLevel debug en el archivo /etc/cups/cupsd.conf.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">47.- Qué comando usarías para cancelar impresión Linux:</div>
+        <ul>
+            <li>a. killprint</li>
+            <li class="correct">b. cancel</li>
+            <li>c. deletejob</li>
+            <li>d. rmprint</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">48.- Un administrador de sistemas Linux ejecuta en la terminal el comando lpadmin -p IMP_RED -u allow:g:tecnicos. ¿Qué efecto exacto tiene esta acción sobre la directiva de control de accesos del servicio?</div>
+        <span class="highlight">Texto de opciones truncado en origen: Restringe el envío exclusivamente al grupo 'tecnicos'</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">50.- Al configurar una impresora lógica, es imposible asignarle un controlador (driver) que no coincida exactamente con la marca física del dispositivo conectado.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">51.- En un sistema operativo de servidor Windows, se configura un único dispositivo físico de impresión asociado a tres impresoras lógicas distintas con prioridades diferentes (99, 50 y 1). If the printing queue gets saturated, how does the spooler manage the output order?</div>
+        <ul>
+            <li>a. Los trabajos de la impresora con mayor prioridad interrumpen y pausan de inmediato cualquier documento de menor prioridad que ya esté imprimiéndose.</li>
+            <li>b. El spooler descarta automáticamente los trabajos de menor prioridad si el uso de la memoria RAM del servicio de impresión supera el 85%.</li>
+            <li class="correct">c. Los trabajos de mayor prioridad se posicionan al principio de la cola de espera, pero no interrumpen un trabajo de menor prioridad cuyo renderizado físico ya haya comenzado.</li>
+            <li>d. La prioridad asignada solo afecta... [Truncado]</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">54.- Al configurar una impresora compartida en un servidor Windows en una red corporativa heterogénea, el administrador instala controladores adicionales (Additional Drivers) para arquitecturas x86 y x64. ¿Qué ventaja operativa aporta esta acción?</div>
+        <ul>
+            <li class="correct">a. Permite que los clientes de la red con diferentes arquitecturas de procesador descarguen e instalen automáticamente el controlador correcto al conectarse a la impresora (Point and Print).</li>
+            <li>b. Realiza una conversión dinámica en tiempo real de formatos nativos de Windows a código PostScript estándar.</li>
+            <li>c. Permite que los servidores basados en Linux importen automáticamente archivos PPD a través del protocolo de compartición de archivos del servidor.</li>
+            <li>d. Habilita la agregación de enlaces (bonding) en los puertos lógicos para duplicar el ancho de banda de la impresora física.</li>
+        </ul>
+    </div>
+
+
+    <h2>Test Evaluación Tema 6: Almacenamiento Compartido en Red</h2>
+
+    <div class="question-card">
+        <div class="question-text">1.- Dos sistemas operativos diferentes pueden comunicarse en red local aunque tengan configuradas subredes e IPs totalmente incompatibles.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">2.- Compartir una impresora en red solo es útil si todos los ordenadores de la oficina utilizan exactamente la misma versión del sistema operativo.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">3.- Para garantizar la seguridad, el acceso de invitados (guest) sin contraseña debe activarse por defecto en todos los recursos compartidos de la red.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">4.- Tras realizar modificaciones o añadir nuevas líneas en el archivo /etc/exports de un servidor NFS, ¿qué comando permite aplicar los cambios en caliente de manera inmediata sin reiniciar por completo el servicio del sistema?</div>
+        <ul>
+            <li>a. ip a</li>
+            <li class="correct">b. exportfs -r</li>
+            <li>c. systemctl status nfs-kernel-server</li>
+            <li>d. smbstatus</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">5.- Los permisos de "Solo Lectura" en una carpeta compartida impiden que un usuario cliente modifique o elimine los archivos contenidos en ella.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">6.- Al definir restricciones de acceso en el archivo smb.conf, ¿cómo se especifica correctamente que un recurso está disponible únicamente para los miembros de un grupo del sistema operativo Linux en la directiva valid users?</div>
+        <ul>
+            <li class="correct">a. valid users = @alumnos</li>
+            <li>b. valid users = alumnos</li>
+            <li>c. valid users = group.alumnos</li>
+            <li>d. valid users = %alumnos</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">7.- El protocolo SMB/CIFS permite configurar permisos a nivel de recurso compartido y también a nivel de sistema de archivos (permisos NTFS/POSIX).</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">8.- En un cliente Linux, se desea realizar el montaje manual de un directorio remoto compartido por un servidor NFS (con IP 192.168.1.50) en un punto de montaje local llamado /mnt/remoto. ¿Cuál es el comando correcto?</div>
+        <ul>
+            <li>a. mount /ruta/compartida //192.168.1.50/mnt/remoto</li>
+            <li>b. connect nfs://192.168.1.50/ruta/compartida -> /mnt/remoto</li>
+            <li>c. smbclient //192.168.1.50/ruta/compartida /mnt/remoto</li>
+            <li class="correct">d. mount -t nfs 192.168.1.50:/ruta/compartida /mnt/remoto</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">9.- Registrar los cambios y las contraseñas de administrador en texto plano dentro de un documento público es una buena práctica de documentación.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">10.- En el archivo de configuración de Samba (smb.conf), el parámetro writable = yes permite a los usuarios con acceso guardar cambios en el recurso.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">11.- En un equipo de trabajo con SO mixto, es imposible que usuarios de Linux y Windows editen de forma colaborativa archivos guardados en un NAS.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">12.- En un entorno empresarial heterogéneo, el almacenamiento centralizado de archivos reduce la duplicidad de datos y facilita las copias de seguridad.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">13.- ¿Cuál es el propósito principal de instalar una herramienta de gestión como Webmin en la administración de servidores Linux?</div>
+        <ul>
+            <li>a. Reemplazar los protocolos de red NFS y Samba por un protocolo de transferencia propietario.</li>
+            <li>b. Actuar como un software de firewall perimetral para detectar malware en tránsito.</li>
+            <li>c. Cifrar automáticamente los discos duros de las estaciones de trabajo cliente.</li>
+            <li class="correct">d. Proporcionar una interfaz gráfica basada en navegador web para configurar servicios, usuarios y parámetros del sistema sin depender exclusivamente de la terminal de comandos.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">14.- Al crear, modificar o gestionar carpetas compartidas de Samba o NFS utilizando una interfaz gráfica web de administración como Webmin, ¿qué ocurre internamente a nivel de sistema operativo en el servidor?</div>
+        <ul>
+            <li>a. La herramienta compila un nuevo núcleo del sistema operativo de manera transparente.</li>
+            <li>b. Los parámetros se guardan exclusivamente en una base de datos en la nube ajena al servidor local.</li>
+            <li>c. Se bloquea permanentemente el acceso a la edición manual por terminal de comandos.</li>
+            <li class="correct">d. La herramienta escribe y modifica de forma automatizada las directivas correspondientes dentro de los archivos de configuración reales del servicio (smb.conf o /etc/exports).</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">15.- Para comprobar de forma remota qué recursos compartidos o directorios tiene exportados activamente un servidor NFS desde un equipo cliente Linux, ¿qué comando de diagnóstico debe ejecutarse?</div>
+        <ul>
+            <li class="correct">a. showmount -e [IP_DEL_SERVIDOR]</li>
+            <li>b. ping [IP_DEL_SERVIDOR]</li>
+            <li>c. smbstatus</li>
+            <li>d. testparm -v</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">16.- Mapear una unidad de red en Windows es una forma de comprobar que el acceso al recurso compartido del servidor funciona correctamente.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">17.- Un directorio local de Linux configurado para compartirse por red tiene asignados permisos POSIX estándar drwxr-xr-x (755). Si en el archivo de configuración del servicio de red (Samba o NFS) se establece que un determinado grupo tiene permisos de escritura, ¿qué sucederá cuando un usuario de ese grupo intente crear un archivo desde la red?</div>
+        <ul>
+            <li>a. El sistema cliente experimentará un bloqueo debido a una incompatibilidad crítica de controladores.</li>
+            <li>b. Podrá crear el archivo con éxito ya que las directivas del servicio de red tienen prioridad sobre el sistema de archivos local.</li>
+            <li>c. El archivo se creará, pero el sistema operativo lo eliminará de forma automática inmediatamente.</li>
+            <li class="correct">d. El servidor denegará la operación (Permission Denied) debido a que los permisos locales del sistema de archivos de Linux restringen la escritura y prevalecen sobre el servicio.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">18.- Al configurar un servicio en Linux, es necesario reiniciar el demonio del servicio (o recargar su configuración) para que los cambios surtan efecto.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">19.- El protocolo FTP es la mejor opción para la edición directa y simultánea de documentos de oficina compartidos en tiempo real dentro de una red local.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">20.- Para compartir una carpeta en Windows, es obligatorio utilizar la línea de comandos de PowerShell, ya que la interfaz gráfica no lo permite.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">21.- Para acceder de manera predeterminada a la consola de administración web de Webmin desde un equipo cliente en la red, ¿qué combinación de protocolo de transporte y puerto debe especificarse en el navegador?</div>
+        <ul>
+            <li>a. https://IP_SERVIDOR:3000</li>
+            <li class="correct">b. https://IP_SERVIDOR:10000</li>
+            <li>c. http://IP_SERVIDOR:80</li>
+            <li>d. ftp://IP_SERVIDOR:21</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">22.- Si se requiere que los montajes de directorios NFS en un cliente Linux permanezcan activos de forma persistentente tras reiniciar o apagar el equipo, ¿en qué archivo de configuración del cliente deben declararse de forma estática?</div>
+        <ul>
+            <li>a. /etc/exports</li>
+            <li class="correct">b. /etc/fstab</li>
+            <li>c. /etc/samba/smb.conf</li>
+            <li>d. /etc/hosts</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">23.- ¿Qué protocolo de nivel de aplicación utiliza de forma nativa un cliente Microsoft Windows para realizar el descubrimiento de recursos e interoperar en la transferencia de archivos con un servidor Samba en Linux?</div>
+        <ul>
+            <li>a. DHCP (Dynamic Host Configuration Protocol)</li>
+            <li class="correct">b. SMB/CIFS (Server Message Block)</li>
+            <li>c. SSH (Secure Shell)</li>
+            <li>d. NFS (Network File System)</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">24.- Un grupo de trabajo puede acceder a una impresora conectada a un servidor Linux desde clientes Windows si se configura correctamente el servicio CUPS con Samba.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">25.- Tras crear un nuevo usuario en el sistema operativo Linux mediante comandos tradicionales, este no puede autenticarse desde un cliente de red al intentar acceder a un recurso privado de Samba. ¿Qué paso administrativo previo es obligatorio realizar en el servidor?</div>
+        <ul>
+            <li>a. Registrar al usuario en el archivo de configuración /etc/exports.</li>
+            <li class="correct">b. Asignar al usuario una contraseña específica para el servicio Samba mediante el comando smbpasswd -a.</li>
+            <li>c. Forzar el cambio del nombre de usuario a mayúsculas en el servidor.</li>
+            <li>d. Reiniciar el resolvedor de nombres de DNS en el equipo cliente.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">26.- Al verificar el estado de un servicio de red mediante la herramienta de administración del sistema, el comando systemctl status [nombre_servicio] reporta que se encuentra en estado inactive (dead). ¿Qué interpretación correcta se debe hacer y cómo se corrige?</div>
+        <ul>
+            <li class="correct">a. El proceso del demonio del servicio está detenido, se debe iniciar ejecutando el comando sudo systemctl start [nombre_servicio].</li>
+            <li>b. El servicio opera de forma correcta en segundo plano y no requiere ninguna acción correctora.</li>
+            <li>c. La sintaxis del comando es errónea ya que el diagnóstico de servicios activos requiere el uso de ping.</li>
+            <li>d. Se ha detectado una corrupción física en el sistema de archivos que exige el formateo inmediato de la unidad.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">27.- NFS (Network File System) es un protocolo diseñado originalmente para sistemas Windows y no tiene soporte nativo en sistemas Unix/Linux.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">28.- Para exportar un directorio en el archivo /etc/exports con permisos de solo lectura para una subred específica (por ejemplo, 192.168.1.0/24), ¿cuál es la sintaxis exacta y correcta que exige el protocolo NFS?</div>
+        <ul>
+            <li>a. /ruta/directorio (ro,sync) 192.168.1.0/24</li>
+            <li>b. /ruta/directorio =192.168.1.0/24 [read-only]</li>
+            <li class="correct">c. /ruta/directorio 192.168.1.0/24(ro,sync)</li>
+            <li>d. 192.168.1.0/24:/ruta/directorio ro</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">29.- ¿Qué información específica y de utilidad para el diagnóstico proporciona la ejecución del comando smbstatus en la terminal de un servidor Linux?</div>
+        <ul>
+            <li>a. Permite restablecer de forma masiva las directivas de seguridad globales del dominio.</li>
+            <li class="correct">b. Informa detalladamente y en tiempo real sobre las conexiones activas de los clientes, las identidades de usuario autenticadas y los recursos o archivos bloqueados en uso.</li>
+            <li>c. Realiza un análisis del espacio de almacenamiento disponible y la fragmentación de los discos.</li>
+            <li>d. Muestra las reglas de filtrado y los puertos bloqueados actualmente por el cortafuegos del sistema.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">30.- Al configurar una exportación en el archivo /etc/exports de un servidor NFS, ¿qué opción debe incluirse explícitamente entre paréntesis para habilitar permisos de lectura y escritura a los clientes autorizados?</div>
+        <ul>
+            <li>a. mode = 7777</li>
+            <li>b. writable</li>
+            <li>c. read-write</li>
+            <li class="correct">d. rw</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">31.- En un archivo de configuración de orquestación o despliegue en contenedores, se define la siguiente directiva para exponer un servicio web de red: ports: - 8080:3000 ¿A través de qué puerto del sistema anfitrión (host) deberán conectarse los clientes en su navegador?</div>
+        <ul>
+            <li>a. 80</li>
+            <li>b. 3000</li>
+            <li class="correct">c. 8080</li>
+            <li>d. Ninguno, la directiva genera un error crítico de inicialización.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">32.- La documentación técnica de una instalación de red debe incluir las direcciones IP, las rutas de los recursos y los permisos asignados.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">33.- Si un servicio está correctamente iniciado en el servidor, los clientes siempre podrán acceder, sin importar las reglas del cortafuegos (firewall).</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">34.- Para configurar una carpeta compartida en Samba de manera que cualquier usuario de la red (incluidos invitados sin cuenta autenticada) pueda acceder únicamente en modo lectura, ¿qué combinación de directivas es la correcta en smb.conf?</div>
+        <ul>
+            <li class="correct">a. read only = yes y guest ok = yes</li>
+            <li>b. public = no y write list = all</li>
+            <li>c. browseable = no y guest account = root</li>
+            <li>d. writable = yes y guest only = no</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">35.- ¿Cuál es la función principal de la herramienta de terminal testparm en la administración del servicio Samba?</div>
+        <ul>
+            <li class="correct">a. Analizar el archivo smb.conf en busca de errores sintácticos o directivas mal escritas antes de aplicar los cambios.</li>
+            <li>b. Forzar el montaje automático de los recursos compartidos en los clientes.</li>
+            <li>c. Sincronizar las cuentas de usuario locales con un directorio activo externo.</li>
+            <li>d. Evaluar el ancho de banda y la velocidad de transferencia en la red.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">36.- El comando ping utiliza el protocolo ICMP y sirve para verificar la conectividad de red entre una máquina Windows y una máquina Linux.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">37.- En la sección [global] del archivo smb.conf, ¿qué implicación técnica tiene establecer la directiva security = user?</div>
+        <ul>
+            <li>a. Desactiva por completo el filtrado de acceso basado en grupos de usuarios de Linux.</li>
+            <li class="correct">b. Obliga al cliente a proveer un nombre de usuario y contraseña válidos que el servidor Samba validará contra su propia base de datos local.</li>
+            <li>c. Permite el acceso libre a cualquier usuario sin necesidad de proporcionar credenciales.</li>
+            <li>d. Delega la seguridad y la autenticación exclusivamente en un servidor NFS externo.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">38.- La necesidad de compartir archivos entre Linux y Windows en una red local surge únicamente cuando los sistemas operativos usan el mismo sistema de archivos nativo (como EXT4).</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">39.- La herramienta smbclient en Linux permite listar y verificar los recursos compartidos disponibles en un servidor Windows o Samba.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">40.- Un cliente de red experimenta una congelación prolongada de la terminal al intentar montar un recurso compartido que finaliza con el error Connection timed out (Tiempo de espera agotado). Si previamente se verificó la conectividad básica mediante comandos de eco (ping), ¿cuál es la causa más probable del fallo en el entorno del servidor?</div>
+        <ul>
+            <li class="correct">a. Un cortafuegos activo (ufw o iptables) en el servidor está bloqueando o descartando el tráfico dirigido a los puertos de escucha específicos del servicio de archivos (como el puerto TCP 2049 para NFS).</li>
+            <li>b. Las credenciales de acceso de los usuarios han expirado localmente en el servidor de identidades.</li>
+            <li>c. El directorio destinado como punto de montaje local en el cliente ha sido modificado en sus atributos de solo lectura.</li>
+            <li>d. El archivo principal de configuración del servicio contiene un error tipográfico insalvable en la definición de la ruta.</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">41.- Si un equipo Windows no puede hacer ping a uno Linux, la única causa posible es que los sistemas operativos son incompatibles entre sí.</div>
+        <span class="true-false">Verdadero</span>
+        <span class="true-false correct">Falso</span>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">42.- El servicio Samba se utiliza principalmente para que los sistemas Linux puedan integrarse y compartir recursos en redes de Microsoft Windows.</div>
+        <span class="true-false correct">Verdadero</span>
+        <span class="true-false">Falso</span>
+    </div>
+
+</div>
+
+</body>
+</html>

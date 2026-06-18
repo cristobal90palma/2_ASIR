@@ -1,0 +1,61 @@
+https://gemini.google.com/app/d63f4b95527292b7
+
+Desde una cuenta de Administrador del Dominio
+
+1. Agregar el usuario al grupo "Usuarios de escritorio remoto" local
+
+Este es el método más común si solo necesitas dar acceso a un equipo específico. 
+Debes hacerlo en el equipo al que intentas conectarte:
+
+IMPORTANTE: Desde una cuenta de Administrador del Dominio
+
+    Presiona Win + R, escribe lusrmgr.msc y pulsa Enter.
+
+    Ve a la carpeta Grupos.
+
+    Busca el grupo Usuarios de escritorio remoto (Remote Desktop Users).
+
+    Haz clic derecho, selecciona Agregar... y escribe el nombre del usuario del dominio.
+
+    Guarda los cambios y reintenta la conexión.
+
+2. Verificar Propiedades del Sistema
+
+Asegúrate de que la opción de permitir conexiones esté activa en el equipo de destino:
+
+    Ve a Configuración > Sistema > Escritorio remoto.
+
+    Confirma que esté Activado.
+
+    Haz clic en Seleccionar usuarios que pueden tener acceso remoto a este equipo.
+
+    Asegúrate de que el usuario o el grupo al que pertenece aparezca en la lista.
+	
+
+\\\\\\\\\\\\\\\
+
+3. Configuración mediante GPO (Para muchos equipos)
+
+Si eres el administrador y quieres permitir esto de forma masiva en el dominio, debes revisar la Directiva de Grupo:
+
+    Abre el Editor de Administración de Directivas de Grupo.
+
+    Navega a: Configuración del equipo > Configuración de Windows > Configuración de seguridad > Directivas locales > Asignación de derechos de usuario.
+
+    Busca la directiva: Permitir el inicio de sesión a través de Servicios de escritorio remoto.
+
+    Asegúrate de que el grupo Usuarios de escritorio remoto (o el usuario específico) esté incluido allí.
+	
+	
+\\\\\\\\\\\\\\\
+
+
+4. ¿Es un Controlador de Dominio?
+
+Si intentas conectar por RDP a un Domain Controller (DC), por defecto solo 
+los Administradores de Dominio pueden hacerlo. Para permitir a un usuario común:
+
+    Deberás modificar la GPO de Default Domain Controllers Policy siguiendo la 
+	ruta del punto anterior y agregando al usuario específicamente. 
+	Ten cuidado, esto suele ser un riesgo de seguridad.
+	

@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # --- TU SERVICIO DE ESTRÉS (sysbench) ---
+  sysbench-stress:
+    build: .
+    container_name: sysbench_attacker
+    #network_mode: "host" 
+    environment:
+      DB_HOST: 10.2.7.101       
+      DB_PORT: 3306             
+      DB_USER: pmm             
+      DB_PASS: pass_segura_pmm
+      DB_NAME: employees        
+      THREADS: 16       
+      TIME: 60          
+      TABLES: 10        
+      TABLE_SIZE: 100000 
+    networks:
+      - mi-red-local  # Ambos deben estar en la misma red para verse
+
+  # --- NUEVO SERVICIO: PERCONA MONITORING AND MANAGEMENT ---
+  pmm-server:
+    image: percona/pmm-server:latest
+    container_name: pmm-server
+    #hostname: pmm-server
+    restart: always
+    # Exponemos los puertos para ver el panel web
+    ports:
+      - "8080:80"   # Acceso HTTP
+      - "8443:443" # Acceso HTTPS
+    # Volumen para que no pierdas los datos de las gráficas al reiniciar
+    volumes:
+      - pmm-data:/srv
+    networks:
+      - mi-red-local  # Ambos deben estar en la misma red para verse
+
+networks:
+  mi-red-local:      # Definición de la red
+    driver: bridge   # Tipo de red (por defecto es bridge)
+
+volumes:
+  pmm-data:

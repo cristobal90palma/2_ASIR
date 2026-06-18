@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plantillas Examen DNS</title>
+</head>
+<body>
+    <h1>Plantillas Examen DNS</h1>
+	
+	<p>A veces un contenedor no hace ping a nombres (DNS no va)<br>
+		Prueba si hace ping a nombre servidor DNS<br>
+		Prueba si hace ping a IP de servidor DNS<br>
+		Prueba si servidor DNS puede hacerle PING.<br>
+		Si nada más funciona. Borra contenedor y haz uno nuevo.</p>
+	
+	<p>En los contenedores Proxmox, el hostname se modifica en el apartado DNS: En la parte de arriba.<br>
+En el contenedor DNS maestro, en la sección DNS, debes indicar dominio e ip del contenedor.</p>
+	
+	<h2>Comandos instalación y comprobación BIND9</h2>
+	<a href="COMANDOS_GUIAS.txt">Comandos y Guías</a>
+	<p>apt -y update && apt -y install bind9 && apt install dnsutils<br>
+	systemctl status bind9<br>
+	systemctl status named<br>
+	ls -l /etc/bind</p>
+	
+	<h2>Comandos para aplicar configuraciones</h2>
+	systemctl restart named<br>
+	systemctl restart bind9<br>
+	systemctl reload named<br>
+	systemctl reload bind9</p>
+	
+	<h2>Comandos comprobación de archivos</h2>
+	<p>Archivos ".conf": <b>named-checkconf /etc/bind/named.conf.options</b><br>
+	Archivos de búsqueda:<br>
+	Directa: <b>named-checkzone retry07.net. /var/cache/bind/bd.retry07.net</b><br>
+	Indirecta: <b>named-checkzone 111.16.172.in-addr.arp. /var/cache/bind/172.16.111.rev</b>
+	
+	</p>
+	
+	<h2>Propiedad de los ficheros</h2>
+	<p>NOTA: el dueño de los ficheros de zona debe ser bind:bind, se cambia con:<br>
+		<b>chown bind:bind nombre_de_fichero</b><br>
+			Ejemplo: <b>chown bind:bind /var/cache/bind/*</b></p>
+
+	<h2>Configuración Servidor DNS (Solo uno)</h2>
+	
+	<a href="01_MASTER_SOLO_named.conf.options.txt">named.conf.options</a><br><br>
+	<a href="01_MASTER_SOLO_named.conf.local.txt">named.conf.local</a><br><br>
+	<a href="01_MASTER_SOLO_Directa.txt">Búsqueda Directa</a><br><br>
+	<a href="01_MASTER_SOLO_Indirecta_01.txt">Búsqueda Indirecta 01</a><br><br>
+	<a href="01_MASTER_SOLO_Indirecta_02.txt">Búsqueda Indirecta 02</a><br><br>
+	
+	<p><b>RECUERDA HACER SYSTEMCTL PARA CARGAR CONFIGURACIONES</b></p>
+	
+	<h2>Configuración de MASTER y ESCLAVO</h2>
+	<p>EN EL SERVIDOR DNS MASTER SE PONEN EN LOS ARCHIVOS DE 
+	BÚSQUEDA DIRECTA E INVERSA LA INFORMACIÓN SOBRE EL SEGUNDO SERVIDOR.<br><br>
+	NO HACE FALTA CREAR ESOS ARCHIVOS EN EL ESCLAVO PORQUE CUANDO
+	SE SINCRONICEN, ESOS ARCHIVOS SE CREARÁN AUTOMÁTICAMENTE.<br><br>
+	TAMBIÉN EN EL /etc/bind/named.conf.local se especifica el allow-notify y allow-transfer
+	poniendo la ip del esclavo.</p>
+	
+	<a href="02_MASTER_named.conf.local.txt">MAESTRO: named.conf.local</a><br><br>
+	<a href="02_MASTER_Directa.txt">MAESTRO: DIRECTA</a><br><br>
+	<a href="02_MASTER_Inversa_01.txt">MAESTRO: INVERSA 01</a><br><br>
+	<a href="02_MASTER_Inversa_02.txt">MAESTRO: INVERSA 02</a><br><br>
+	<p>Ahora le toca al ESCLAVO: Recuerda instalar paquetería.<br>
+	En el contenedor proxmox, en la sección DNS poner dominio e IP del DNS Server maestro y del esclavo.<br>
+	No hace falta crear en el ESCLAVO los archivos de búsqueda DIRECTA e INVERSA, porque cuando se sincronicen<br>
+	aparecerán automáticamente</p>
+	<a href="02_ESCLAVO_named.conf.options.txt">MAESTRO: named.conf.options</a><br><br>
+	<a href="02_ESCLAVO_named.conf.local.txt">MAESTRO: named.conf.local</a><br><br>
+	
+	<h2>Configuración de Servidor Delegado: The Pro and Easy Way by Andrés</h2>
+	
+	<a href="03_MASTER_Directa.txt">MAESTRO: DIRECTA</a><br><br>
+	<p>Ahora pasamos al delegado: RECUERDA INSTALAR PAQUETERÍA</p>
+	<a href="03_DELEGADO_named.conf.options.txt">DELEGADO: named.conf.options</a><br><br>
+	<a href="03_DELEGADO_named.conf.local.txt">DELEGADO: named.conf.local</a><br><br>
+	<a href="03_DELEGADO_Directo.txt">DELEGADO: DIRECTO</a><br><br>
+	<a href="03_DELEGADO_Inversa_01.txt">DELEGADO: INVERSA</a><br><br>
+
+
+</body>
+</html>

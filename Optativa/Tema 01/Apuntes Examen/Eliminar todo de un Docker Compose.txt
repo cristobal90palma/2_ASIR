@@ -1,0 +1,3 @@
+docker compose down -v
+
+https://labex.io/tutorials/docker-using-the-docker-compose-down-command-effectively-400128

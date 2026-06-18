@@ -1,0 +1,91 @@
+Descargar el fichero docker-compose.yml desde la imagen oficial de Bitnami Rails:
+https://hub.docker.com/r/bitnami/rails/
+
+
+Modificarlo para que la aplicación sea accesible en el puerto 8001 del host.
+
+curl -LO https://raw.githubusercontent.com/bitnami/containers/main/bitnami/rails/docker-compose.yml
+
+
+
+Modificarlo para que la aplicación sea accesible en el puerto 8001 del host.
+
+
+1) docker-compose.yml
+
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=myapp_development
+      - MARIADB_USER=rails
+      - MARIADB_PASSWORD=rails
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - railsnet
+
+  myapp:
+    image: ruby:3.3
+    container_name: myapp
+    ports:
+      - "8001:3000"
+    depends_on:
+      - mariadb
+    working_dir: /app
+    volumes:
+      - ./myapp:/app
+    command: bash -c "bundle install && rails server -b 0.0.0.0"
+    networks:
+      - railsnet
+
+volumes:
+  mariadb_data:
+
+networks:
+  railsnet:
+    driver: bridge
+
+
+\\\\\\\\\\\\\\
+
+
+Pasos para ponerlo en marcha
+1️⃣ Crea el directorio:
+
+mkdir -p /home/usuario/docker_compose/RubyOnRails/myapp
+cd /home/usuario/docker_compose/RubyOnRails
+
+2️⃣ Genera un proyecto Rails dentro del contenedor:
+
+docker run --rm -v $(pwd)/myapp:/app -w /app ruby:3.3 bash -c "gem install rails && rails new . --database=mysql"
+
+
+3️⃣ Edita myapp/config/database.yml y cambia la parte de development así:
+
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: myapp_development
+  username: rails
+  password: rails
+  host: mariadb
+
+
+4️⃣ Arranca todo:
+
+
+docker compose up -d
+
+
+
+5️⃣ Accede desde tu navegador:
+
+Ipdelservidor:8001
+
+Ejemplo: http://10.2.17.10:8001/
+

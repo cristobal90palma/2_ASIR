@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apuntes - Tema 04 Acceso remoto</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1 { color: #2C3E50; border-bottom: 2px solid #3498DB; padding-bottom: 10px; }
+        h2 { color: #34495E; margin-top: 30px; border-bottom: 1px dashed #BDC3C7; padding-bottom: 5px; }
+        h3 { color: #2980B9; margin-top: 20px; }
+        .content-list { list-style-type: none; padding: 0; }
+        .content-list li { margin-bottom: 5px; }
+        ul, ol { margin-left: 20px; }
+        ul li, ol li { margin-bottom: 10px; }
+        .definition { margin-left: 20px; border-left: 3px solid #E74C3C; padding-left: 10px; background-color: #F8F9F9; }
+        .note { background-color: #ECF0F1; padding: 10px; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h1>Apuntes</h1>
+    <h2>Tema 04 Acceso remoto</h2>
+
+    <div id="contenido">
+        <h2>Contenido</h2>
+        <ul class="content-list">
+            <li>Escenarios típicos con conexión a redes públicas. (pág. 2)</li>
+            <li>Arquitecturas de Red Habituales. (pág. 2)</li>
+            <li>Amenazas Comunes en Sistemas Expuestos. (pág. 3)</li>
+            <li>Técnicas de Fortificación para Sistemas Expuestos. (pág. 4)</li>
+            <li>Clasificación de zonas de riesgo según seguridad perimetral (pág. 5)</li>
+            <li>Capas de Seguridad Perimetral (pág. 5)</li>
+            <li>Principios de seguridad perimetral (pág. 6)</li>
+            <li>Riesgos por Zona. (pág. 7)</li>
+            <li>Protocolos seguros de comunicación. (pág. 8)</li>
+            <li>Protocolos seguros y su propósito. (pág. 8)</li>
+            <li>Migración a Protocolos Seguros. (pág. 9)</li>
+            <li>Certificados Digitales: Pilares de la Confianza Online. (pág. 10)</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div id="escenarios_arquitecturas">
+        <h2>Escenarios típicos con conexión a redes públicas</h2>
+        
+        <h3>Arquitecturas de Red Habituales</h3>
+        <p>Las empresas adoptan diversas arquitecturas para asegurar la conectividad y proteger sus datos. Aquí exploramos cuatro de las más comunes:</p>
+        
+        <ul>
+            <li>
+                <strong>Red Corporativa a Internet</strong>
+                <p class="definition">Configuración básica donde la red interna se conecta directamente a Internet, generalmente protegida por un **firewall perimetral**.</p>
+            </li>
+            <li>
+                <strong>Red con DMZ (Zona Desmilitarizada)</strong> 
+
+[Image of Network Architecture with DMZ]
+
+                <ul>
+                    <li>Se coloca una zona intermedia (la <strong>DMZ</strong>) para los servidores que deben ser accesibles desde Internet, como una web o un servidor de correo.</li>
+                    <li>Si son atacados los servidores, no pueden entrar directamente a la red interna, porque están separados por un firewall.</li>
+                    <li>La red interna no puede ser accedida desde internet.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Red Híbrida (Local + Nube)</strong>
+                <p class="definition">Una empresa usa sus propios equipos y servidores en el edificio (local) y además usa servicios en Internet (**nube**), todo funcionando junto.</p>
+            </li>
+            <li>
+                <strong>Sedes Remotas con VPN</strong>
+                <p class="definition">Permite conectarse de forma segura a la red corporativa a través de **túneles VPN cifrados**.</p>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div id="amenazas">
+        <h2>Amenazas Comunes en Sistemas Expuestos</h2>
+        <p>Cuando un sistema está directamente accesible desde Internet, se convierte en un blanco potencial para una variedad de ataques.</p>
+
+        <ul>
+            <li>
+                <strong>Escaneos Masivos</strong>
+                <p class="definition">Técnicas de reconocimiento (como Nmap o Shodan) para descubrir puertos abiertos, servicios activos y vulnerabilidades potenciales en los sistemas. Son el primer paso para un ataque.</p>
+            </li>
+            <li>
+                <strong>Ataques de Fuerza Bruta</strong>
+                <p class="definition">Intentos automatizados y repetitivos para adivinar credenciales (contraseñas, claves) probando miles de combinaciones. Un método muy común para obtener acceso no autorizado.</p>
+            </li>
+            <li>
+                <strong>Sniffing y MiTM (Man-in-the-Middle)</strong>
+                <p class="definition">El "sniffing" intercepta el tráfico de red, mientras que "Man-in-the-Middle" permite al atacante interponerse en una comunicación, leerla y modificarla sin ser detectado, comprometiendo la confidencialidad.</p>
+            </li>
+            <li>
+                <strong>Vulnerabilidades en Servicios Públicos</strong>
+                <p class="definition">Fallos de seguridad en aplicaciones o servicios expuestos (FTP, RDP, HTTP, SSH) que pueden ser explotados.</p>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div id="fortificacion">
+        <h2>Técnicas de Fortificación para Sistemas Expuestos</h2>
+        <p>Para proteger los sistemas accesibles desde internet, es crucial implementar diversas estrategias de seguridad que reduzcan la superficie de ataque y mitiguen los riesgos.</p>
+
+        <ul>
+            <li>
+                <strong>Firewall Perimetral</strong>
+                <p class="definition">Una barrera de seguridad esencial que controla el tráfico de red entre la red interna y externa, aplicando reglas predefinidas para permitir o denegar comunicaciones.</p>
+            </li>
+            <li>
+                <strong>NAT / PAT</strong>
+                <ul style="list-style-type: square;">
+                    <li><strong>NAT</strong>: Cambia IP privada por IP pública.</li>
+                    <li><strong>PAT</strong>: Cambia IP y también usa puertos para diferenciar a cada equipo.</li>
+                </ul>
+                <p class="definition">Oculta la topología interna y hace que los sistemas internos sean inaccesibles directamente desde internet.</p>
+            </li>
+            <li>
+                <strong>IDS / IPS</strong>
+                <p class="definition">Los Sistemas de Detección de Intrusos (<strong>IDS</strong>) y Prevención de Intrusos (<strong>IPS</strong>) monitorizan el tráfico de red en busca de actividades maliciosas o violaciones de políticas, alertando o bloqueando las amenazas en tiempo real. Ej: Suricata, Cisco Firepower, ...</p>
+            </li>
+            <li>
+                <strong>Segmentación de Red (VLANs)</strong> 
+
+[Image of Network Segmentation using VLANs]
+
+                <ul>
+                    <li>Divide la red en subredes lógicas más pequeñas (<strong>VLANs</strong>).</li>
+                    <li>Limita el impacto de una posible brecha.</li>
+                    <li>Aísla diferentes tipos de tráfico y sistemas, como servidores, usuarios o DMZ.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Bastionado de Servidores</strong>
+                <p class="definition">Es el proceso de hacer un servidor más seguro antes de ponerlo en Internet.</p>
+                <p>Consiste en cosas como:</p>
+                <ul>
+                    <li>Quitar lo que no se usa (servicios, programas…).</li>
+                    <li>Configurar bien lo que sí se usa (por ejemplo, SSH, Apache, …).</li>
+                    <li>Actualizar el servidor para cerrar fallos.</li>
+                    <li>Controlar quién puede entrar y cómo (contraseñas fuertes, claves, firewall…).</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div id="seguridad_perimetral">
+        <h2>Clasificación de zonas de riesgo según seguridad perimetral</h2>
+
+        <h3>Capas de Seguridad Perimetral</h3>
+        <p>La seguridad perimetral divide una red en distintas zonas, cada una con un nivel de confianza y protección diferente, creando una <strong>defensa en profundidad</strong>.  Esta segmentación es fundamental para contener posibles brechas y limitar el acceso de amenazas a los recursos más valiosos de la organización.</p>
+
+        <h3>Principios de seguridad perimetral</h3>
+        <p>Este enfoque clasifica la red en áreas con diferentes niveles de confianza y acceso.</p>
+        <ul>
+            <li>
+                <strong>Segmentación de Red</strong>
+                <p class="definition">Divide la infraestructura en zonas aisladas, desde las más débiles y expuestas hasta las más fuertes y protegidas. El acceso entre ellas está estrictamente controlado.</p>
+            </li>
+            <li>
+                <strong>Principio de Mínimo Privilegio</strong>
+                <p class="definition">En cada zona, se otorga a usuarios y sistemas solo el acceso necesario para realizar sus funciones, reduciendo la superficie de ataque y el impacto de una posible brecha.</p>
+            </li>
+            <li>
+                <strong>Control Estricto de Tráfico</strong>
+                <p class="definition">Se definen políticas claras sobre qué tipo de tráfico se permite entre zonas, utilizando firewalls y otros dispositivos de seguridad para aplicar estas reglas.</p>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div id="riesgos_zona">
+        <h2>Riesgos por Zona</h2>
+        <ul>
+            <li>
+                <strong>Exposición Directa a Internet</strong>
+                <p class="definition">Los sistemas y servicios directamente accesibles desde la red pública son blancos constantes de ataques, explotaciones de vulnerabilidades y escaneos maliciosos.</p>
+            </li>
+            <li>
+                <strong>Riesgos de Dispositivos Móviles</strong>
+                <p class="definition">La salida de dispositivos (portátiles, smartphones) fuera del perímetro controlado introduce riesgos de pérdida, robo, conexiones inseguras a redes públicas y propagación de malware.</p>
+            </li>
+            <li>
+                <strong>Accesos Remotos y Teletrabajo</strong>
+                <p class="definition">La conexión a la red corporativa desde ubicaciones externas (VPN, RDP) abre vectores de ataque como credenciales débiles, dispositivos personales no seguros y redes domésticas comprometidas.</p>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div id="protocolos_seguros">
+        <h2>Protocolos seguros de comunicación</h2>
+
+        <h3>Protocolos seguros y su propósito</h3>
+        <p>La implementación de protocolos de comunicación seguros es fundamental para proteger la confidencialidad, integridad y disponibilidad de la información en sistemas expuestos a redes públicas.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Protocolo Seguro</th>
+                    <th>Propósito</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>HTTPS</strong></td>
+                    <td>Asegura la comunicación en la web, cifrando los datos entre el navegador y el servidor.</td>
+                </tr>
+                <tr>
+                    <td><strong>SSH</strong></td>
+                    <td>Permite la administración remota segura de servidores y equipos, con autenticación robusta y cifrado.</td>
+                </tr>
+                <tr>
+                    <td><strong>SFTP / SCP</strong></td>
+                    <td>Para la transferencia segura de archivos sobre SSH, garantizando la privacidad y la integridad de los datos.</td>
+                </tr>
+                <tr>
+                    <td><strong>IPsec</strong></td>
+                    <td>Crea túneles de VPN seguros entre redes (site-to-site) o entre un host y una red (host-to-network).</td>
+                </tr>
+                <tr>
+                    <td><strong>OpenVPN / WireGuard</strong></td>
+                    <td>Soluciones VPN modernas y flexibles para crear conexiones seguras punto a punto o acceso remoto.</td>
+                </tr>
+                <tr>
+                    <td><strong>SMTP(S), IMAP(S), POP3(S)</strong></td>
+                    <td>Extensiones seguras de los protocolos de correo electrónico para cifrar las comunicaciones y proteger los mensajes.</td>
+                </tr>
+                <tr>
+                    <td><strong>Escritorio remoto de Windows</strong></td>
+                    <td>Asegura el acceso remoto al escritorio, requiriendo autenticación antes de establecer una sesión completa.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Migración a Protocolos Seguros</h3>
+        <p class="note">La evolución de las amenazas cibernéticas exige el abandono de protocolos heredados e inseguros en favor de alternativas que garanticen la confidencialidad e integridad de la información.</p>
+    </div>
+
+    <hr>
+
+    <div id="certificados_digitales">
+        <h2>Certificados Digitales: Pilares de la Confianza Online</h2>
+        <p>Los **certificados digitales** son credenciales electrónicas que vinculan la identidad de una entidad (persona, servidor, organización) con un par de claves criptográficas, garantizando la autenticidad y seguridad en las comunicaciones.</p>
+
+        <ul>
+            <li>
+                <strong>Autoridad de Certificación (CA)</strong>
+                <ul>
+                    <li>Entidad de confianza que emite y valida los certificados, confirmando la identidad del titular.</li>
+                    <li>Garantiza que la clave pública pertenece a quien dice ser.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Autenticación y Confidencialidad</strong>
+                <p class="definition">Permiten verificar la identidad de servidores y clientes, y cifrar la información para que solo los destinatarios autorizados puedan leerla, protegiendo la privacidad.</p>
+            </li>
+            <li>
+                <strong>Handshake TLS</strong> 
+                <p class="definition">Proceso inicial donde cliente y servidor negocian parámetros de seguridad, intercambian certificados y establecen una clave de sesión simétrica para la comunicación cifrada.</p>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"StartTimeUtc":"2026-03-02T11:38:13.3290467Z","EndTimeUtc":"2026-03-02T11:38:13.3397392Z","Status":"Completed","Name":"Tarea de limpieza de datos del usuario","Key":"CleanupUserDataTask","Id":"8240e309407dbbf43c99d30a6cbd239e"}

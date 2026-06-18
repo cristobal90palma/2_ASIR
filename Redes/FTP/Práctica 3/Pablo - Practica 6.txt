@@ -1,0 +1,334 @@
+1: /// Crea usuarios que puedan conectarse al servicio FTP pero no obtener una shell en el servidor. Asegúrate de que al conectarse los usuarios no pueden salir de sus directorios home.  (Bien mediante ftpusers, bien mediante Limit) ///
+
+# Ya te la sabes rey
+
+sudo apt update
+sudo apt install proftpd -y
+
+sudo systemctl status proftpd
+
+# Crea 2, uno cámbialo un poquito
+mkdir /home/pablo
+useradd -d /home/pablo -s /bin/false pablo
+chown -R pablo /home/pablo
+passwd pablo
+
+
+mkdir /home/evilpablo
+useradd -d /home/evilpablo -s /bin/false evilpablo
+chown -R evilpablo /home/evilpablo
+passwd evilpablo
+
+
+
+# Entra al archivo:
+nano /etc/proftpd/proftpd.conf
+
+<Limit LOGIN>
+AllowUser pablo
+DenyAll
+</Limit>
+RequireValidShell off
+
+AccessGrantMsg "¡Welcome back!"
+AccessDenyMsg "Access Denied! Are you pablo?"
+
+
+Variantes del mensaje:
+
+Que hay socio? Entra Hombre, no seas tímido!
+
+Tu contraseña estan incorrecta como un spoiler de onepiece, fuera!
+
+
+
+Lo siento chaval, hoy no entras! jajajajajaja!
+
+# Checkea sintaxis
+
+sudo proftpd -t
+
+# Reinicia
+
+sudo systemctl restart proftpd
+
+
+
+2: /// Los usuarios del grupo onepiece irán a la carpeta /srv/onepiece Impide el acceso al usuario drmaligno. Personaliza los logs.///
+# Ve al archivo de config:
+
+sudo nano /etc/proftpd/proftpd.conf
+
+# Descomenta
+DefaultRoot ~
+RequiredValidShell off
+
+# Checkea sintaxis:
+sudo proftpd -t
+# Reinicia el servicio este de mierda
+sudo systemctl restart proftpd
+
+
+
+# Añadimos usuario maligno
+
+sudo useradd -s /usr/sbin/nologin drmaligno
+sudo passwd drmaligno
+echo "drmaligno" | sudo tee -a /etc/ftpusers
+
+# Subir el archivo ahora mejor que después
+
+sudo touch archivo.txt
+
+ftp 10.2.12.100 (Ipv4)
+put archivo.txt
+get archivo.txt
+
+# Creamos el grupo, con carpeta, permisos, etc...
+sudo groupadd onepiece
+sudo mkdir -p /srv/onepiece
+sudo chown :onepiece /srv/onepiece
+sudo chmod 770 /srv/onepiece
+
+# Vuelve al archivo de config:
+sudo nano /etc/proftpd/proftpd.conf
+
+
+# Logs personalizados, pégalos
+
+SystemLog /var/log/proftpd/proftpd.log
+TransferLog /var/log/proftpd/xfer.log
+
+# Ya te la sabes
+sudo proftpd -t
+
+sudo systemctl restart proftpd
+
+
+
+3: /// Habilita el acceso anónimo con el usuario anonftp, sirviendo la carpeta /srv/aa. Oculta la carpeta hidden ///
+
+# Añade el usuario:
+sudo useradd -d /srv/aa -s /usr/sbin/nologin anonftp
+sudo mkdir -p /srv/aa/hidden
+sudo chown -R anonftp:nogroup /srv/aa
+
+# Vete al archivo de config:
+sudo nano /etc/proftpd/proftpd.conf
+
+
+# Añadimos el bloque para permitir acceso anónimo:
+<Anonymous /srv/aa>
+  User anonftp
+  Group nogroup
+  <Directory /srv/aa/hidden>
+    <Limit ALL>
+      DenyAll
+    </Limit>
+  </Directory>
+</Anonymous>
+
+
+# Ya te la sabes
+sudo proftpd -t
+
+sudo systemctl restart proftpd
+
+
+# Comprobar acceso anonimo, tienes que comentar la directiva limit login
+ftp 10.2.12.100
+anonftp
+sin contraseña
+
+4: /// Acceso seguro TLS habilitado y obligatorio. ///
+
+# Generamos certificado y key:
+sudo openssl req -x509 -nodes -newkey rsa:2048 \
+-keyout /etc/ssl/private/proftpd.key \
+-out /etc/ssl/certs/proftpd.crt -days 365
+
+#Entramos al archivo de tls
+sudo nano /etc/proftpd/tls.conf
+# Descomentar lo siguiente:
+TLSEngine   
+TLSLog    
+TLSProtocol 
+TLSRSACertificateFile  
+TLSRSACertificateKeyFile 
+TLSRequired 
+
+# al archivo de  config:
+sudo nano /etc/proftpd/proftpd.conf
+
+# Añadimos esto:
+Include /etc/proftpd/tls.conf
+
+# Entramos al archivo modules
+sudo nano /etc/proftpd/modules.conf
+
+descomentar LoadModule mod_tls.c
+
+# Instala paquetito
+sudo apt install proftpd-mod-crypto -y
+
+# mira a ver si existe mod_tls.so
+ls /usr/lib/proftpd/mod_tls.so
+
+
+
+
+# Verifica los logs (no es obligatorio)
+sudo journalctl -xe | grep proftpd
+
+# Crea los logs de TLS
+sudo touch /var/log/proftpd/tls.log
+
+# Permisos para el cert y la key
+sudo chown proftpd:nogroup /etc/ssl/private/proftpd.key
+sudo chmod 600 /etc/ssl/private/proftpd.key
+
+# Ambos existen
+ls -l /etc/ssl/private/proftpd.key
+ls -l /etc/ssl/certs/proftpd.crt
+
+chmod 0640 /etc/ssl/private/proftpd.key 
+chmod 0640 /etc/ssl/certs/proftpd.crt
+chown proftpd:nogroup /etc/ssl/private/proftpd.key
+chown proftpd:nogroup /etc/ssl/certs/proftpd.crt
+
+
+# Ahora si:
+sudo proftpd -t
+
+
+sudo systemctl restart proftpd
+
+
+5, 6 y 7: SE HACE TODO DE UNA
+
+/// Crea un sitio virtual ftp para el dominio ftp.repaso.es puerto 21 y personaliza:  la carpeta por defecto a /srv/virtual, acceso anónimo permitido asociado el usuario anon2, denegados los usuarios del servidor salvo pepe, el directorio /srv/virtual/private no debe estar accesible con el acceso anónimo.
+Impide ataques de “adivinación de contraseñas” limitando el número máximo de intentos de autenticación permitidos a 2, el número máximo de clientes a 50 y el tiempo máximo de login a 10 segundos.
+ Logs personalizados del servidor virtual ///
+
+# Cra carpeta, usuario y permisos
+sudo mkdir -p /srv/virtual/private
+sudo useradd -d /srv/virtual -s /usr/sbin/nologin anon2
+sudo chown -R anon2:nogroup /srv/virtual
+
+# Venga, pa dentro
+sudo nano /etc/proftpd/proftpd.conf
+
+<VirtualHost 0.0.0.0>
+  ServerName "ftp.repaso.es"
+  Port 21
+  DefaultRoot /srv/virtual
+
+<IfModule mod_tls.c>
+  TLSEngine on
+  TLSProtocol TLSv1.2 TLSv1.3
+  TLSRSACertificateFile /etc/ssl/certs/proftpd.crt
+  TLSRSACertificateKeyFile /etc/ssl/private/proftpd.key
+  TLSOptions NoSessionReuseRequired
+  TLSRequired on
+</IfModule>
+
+RequireValidShell Off
+
+  <Anonymous /srv/virtual>
+    User anon2
+    Group nogroup
+    <Directory /srv/virtual/private>
+      <Limit ALL>
+        DenyAll
+      </Limit>
+    </Directory>
+  </Anonymous>
+
+  <Limit LOGIN>
+    AllowUser pepe
+    DenyAll
+  </Limit>
+
+  MaxLoginAttempts 2
+  MaxClients 50
+  TimeoutLogin 10
+
+</VirtualHost>
+  SystemLog /var/log/proftpd/virtual.log
+  TransferLog /var/log/proftpd/virtual_xfer.log
+
+SocketBindTight on
+Borrar DefaultServer On
+puerto 21
+
+
+sudo proftpd -t
+
+sudo systemctl restart proftpd
+sudo ss -tlnp | grep proftpd
+
+
+
+
+# Tienes que añadir al usuario del virtualhost:
+
+mkdir /home/pepe
+useradd -d /home/pepe -s /bin/false pepe
+chown -R pepe /home/pepe
+passwd pepe
+
+7: /// Prueba desde distintos clientes gráficos y de consola a descargas ficheros, tanto binarios como de texto y tanto en modo activo como pasivo, de ambos servidores ftp //
+
+WinSCP:
+Protocolo: FTP
+Encriptación: TLS/SSL Explicito
+Hostname: 10.2.12.100 
+usuario: pablo
+Contraseña: 1 (en mi caso)
+
+
+
+lftp
+sudo apt install lftp
+# CUIDADO , LOS ARCHIVOS LOS TIENES QUE CREAR ANTES DE METERTE EN ESTE FREGAO
+
+lftp -u pablo ftp://10.2.12.100
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+put archivo.txt
+get archivo.txt
+
+lftp -u pepe ftp.repaso.es
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+
+lftp :~> set ftp:passive-mode yes
+lftp :~> set ftp:passive-mode no
+lftp :~> set ftp:passive-mode
+curl:
+sudo apt install curl -y
+# Subir archivo
+curl --ftp-ssl -u pablo:1 -T Balatro.txt ftp://10.2.12.100/
+
+# Descargar el archivo
+curl --ftp-ssl -u pablo:1 -o archivo.txt ftp://10.2.12.100/archivo.txt
+
+
+# Si no te sale, verifica los logs
+sudo tail -f /var/log/proftpd/proftpd.log
+
+
+
+Made by: 🐕🐶Pablo🐕🐶
+
+
+
+
+
+
+
+
+
+
+
+

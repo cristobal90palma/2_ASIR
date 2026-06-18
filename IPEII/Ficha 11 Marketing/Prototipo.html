@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBS: Presentación de Soluciones de BackUp</title>
+    <style>
+        /* Estilos Generales de la Presentación */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .presentation-container {
+            width: 100%;
+            max-width: 1280px; /* Tamaño profesional amplio */
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .slide {
+            min-height: 720px; /* CAMBIO CLAVE: Usa min-height para evitar recortes si el contenido es largo */
+            background: #ffffff;
+            padding: 50px 70px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            page-break-after: always;
+            position: relative; /* Necesario para posicionar el logo en la esquina */
+        }
+
+        /* Colores Corporativos */
+        :root {
+            --primary-color: #0056b3; /* Azul oscuro corporativo */
+            --secondary-color: #FF9900; /* Naranja/Ámbar de contraste */
+            --text-color: #333333;
+            --light-text: #666666;
+        }
+
+        /* Estilos de Tipografía */
+        h1 {
+            color: var(--primary-color);
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            padding-bottom: 10px;
+            border-bottom: 4px solid var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.6em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.15em;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .list-icon {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .list-icon li {
+            font-size: 1.2em;
+            line-height: 2.0;
+            padding-left: 35px;
+            position: relative;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .list-icon li:before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: 900;
+            font-size: 1.5em;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Estilos de Diapositivas Específicas */
+        .slide-title {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #003d7a 100%);
+            color: white;
+        }
+
+        .slide-title h1 {
+            color: white;
+            font-size: 5em;
+            border-bottom: 8px solid var(--secondary-color);
+            padding-bottom: 20px;
+        }
+
+        .slide-title p {
+            color: #c0d9f9;
+            font-size: 1.8em;
+            margin-top: 30px;
+        }
+
+        /* Estilo para el logo grande en diapositivas de título/cierre */
+        .slide-title .main-logo {
+            width: 200px; /* Ajusta el tamaño según sea necesario */
+            height: auto;
+            margin-bottom: 30px; /* Espacio antes del texto */
+        }
+
+        /* Estilo para el logo pequeño en las demás diapositivas */
+        .slide .top-right-logo {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            width: 80px; /* Tamaño del logo pequeño */
+            height: auto;
+        }
+
+        .footer-sbs {
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: var(--light-text);
+        }
+
+        .two-columns-flex {
+            display: flex;
+            gap: 40px;
+            flex: 1;
+        }
+
+        .column-flex {
+            flex: 1;
+        }
+
+        .problem-box {
+            background-color: #fbecec;
+            border: 2px solid #e57373;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .problem-box strong {
+            color: #d32f2f;
+            font-size: 1.3em;
+        }
+        
+        .value-prop {
+            background-color: #e6f7ff;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .value-prop p {
+            font-size: 1.3em;
+            font-style: italic;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+
+    <!-- Diapositiva 1: Título y Problema -->
+    <div class="slide slide-title">
+        <!-- Logo grande para la diapositiva de título -->
+        <img src="Soluciones_BackUp_Suarez.png" alt="Logo SBS" class="main-logo">
+        <p style="font-weight: 700;">SOLUCIONES DE BACKUP SUÁREZ</p>
+        <h1>SBS</h1>
+        <p>Protegiendo la Continuidad de su Negocio, a la Medida de su PYME.</p>
+        <p style="margin-top: 40px; font-style: italic; font-weight: 500;">"Watching your BackUp"</p>
+    </div>
+
+    <!-- Diapositiva 2: El Problema de la PYME -->
+    <div class="slide">
+        <!-- Logo pequeño en la esquina superior derecha -->
+        <img src="Soluciones_BackUp_Suarez.png" alt="Logo SBS" class="top-right-logo">
+        <h2>01 | El Riesgo: ¿Qué Pasa si Pierde sus Datos?</h2>
+        
+        <p>Las PYMES manejan información crítica. Un ataque, un robo o un accidente no solo es una pérdida técnica, es una <strong>amenaza directa a la continuidad de su negocio</strong>.</p>
+        
+        <div class="two-columns-flex" style="margin-top: 40px;">
+            <div class="column-flex problem-box">
+                <p><strong>Riesgos Comunes:</strong></p>
+                <ul>
+                    <li>Ataques Informáticos y Ransomware.</li>
+                    <li>Robo de Hardware o Fallo de Equipos.</li>
+                    <li>Incendios, Inundaciones o Accidentes.</li>
+                    <li>Sanciones por Incumplimiento de LOPD.</li>
+                </ul>
+            </div>
+            <div class="column-flex">
+                <h3>Su Necesidad Básica</h3>
+                <p>Usted necesita <strong>salvaguardar los datos</strong> de sus servidores y puestos de trabajo de forma robusta y, crucialmente, **cumplir con la estricta normativa de protección de datos**.</p>
+                <div class="value-prop">
+                    <p>Necesita Alta Calidad y Seguridad, pero a un Precio Asequible.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-sbs"><span>SBS | Presentación de Ventas</span><span>Diapositiva 2</span></div>
+    </div>
+
+    <!-- Diapositiva 3: Nuestra Propuesta de Valor y Posicionamiento -->
+    <div class="slide">
+        <!-- Logo pequeño en la esquina superior derecha -->
+        <img src="Soluciones_BackUp_Suarez.png" alt="Logo SBS" class="top-right-logo">
+        <h2>02 | La Propuesta de Valor SBS: Calidad Alta, Precio Medio</h2>
+        
+        <p>Hemos diseñado nuestras soluciones pensando en la economía de la PYME, sin comprometer la seguridad que exige su negocio.</p>
+
+        <div class="two-columns-flex" style="margin-top: 20px;">
+            <div class="column-flex">
+                <h3>El Eje de Nuestro Posicionamiento</h3>
+                <ul class="list-icon">
+                    <li><strong>Calidad Alta:</strong> Productos robustos y seguros, con diseño a medida.</li>
+                    <li><strong>Precio Medio:</strong> Tarifas competitivas que permiten una buena inversión sin grandes desembolsos.</li>
+                    <li><strong>Valor Percibido:</strong> Inversión inteligente: Máxima calidad al precio justo.</li>
+                </ul>
+                <p style="margin-top: 20px;"><strong>Nos diferenciamos</strong> de las grandes corporaciones (AWS/Azure) ofreciendo un trato más cercano y soluciones 100% ajustadas a sus requisitos.</p>
+            </div>
+            <div class="column-flex">
+                <h3>Nuestros Productos y Servicios</h3>
+                
+                <h4 style="color: var(--primary-color); font-weight: 700; margin-top: 15px; margin-bottom: 5px;">1. Servicio de Backup en la Nube (Suscripción)</h4>
+                <p style="font-size: 1em;">Almacenamiento escalable para copias de seguridad en nuestros servidores. Tarifa ajustada a la capacidad y ancho de banda.</p>
+
+                <h4 style="color: var(--primary-color); font-weight: 700; margin-top: 15px; margin-bottom: 5px;">2. Servicio de Instalación "On-Site" (Proyecto)</h4>
+                <p style="font-size: 1em;">Asesoría e instalación de un servidor de copias de seguridad en sus propias instalaciones. Incluye diseño y montaje.</p>
+                
+                <h4 style="color: var(--primary-color); font-weight: 700; margin-top: 15px; margin-bottom: 5px;">3. Soluciones Híbridas</h4>
+                <p style="font-size: 1em;">Combinación de Nube y On-Site para máxima redundancia y seguridad.</p>
+            </div>
+        </div>
+
+        <div class="footer-sbs"><span>SBS | Presentación de Ventas</span><span>Diapositiva 3</span></div>
+    </div>
+
+    <!-- Diapositiva 4: Diferenciadores Clave y Valor Añadido -->
+    <div class="slide">
+        <!-- Logo pequeño en la esquina superior derecha -->
+        <img src="Soluciones_BackUp_Suarez.png" alt="Logo SBS" class="top-right-logo">
+        <h2>03 | El Valor Añadido de SBS: Más Allá del Backup</h2>
+
+        <div class="two-columns-flex">
+            <div class="column-flex">
+                <h3>Servicios Exclusivos Incluidos</h3>
+                <ul class="list-icon">
+                    <li><strong>Asesoría LOPD:</strong> Le ayudamos a cumplir con la Ley de Protección de Datos. (Un servicio crucial para evitar sanciones).</li>
+                    <li><strong>Encriptación On-Site:</strong> Servicio para prevenir el acceso a datos en caso de robo físico del hardware.</li>
+                    <li><strong>Soporte Técnico 24 Horas (1er Año Gratis):</strong> Asistencia inmediata cuando más lo necesita.</li>
+                    <li><strong>Cursos de Formación:</strong> Capacitación para sus empleados en el uso y mantenimiento del software.</li>
+                </ul>
+            </div>
+            <div class="column-flex" style="border-left: 1px dashed #ccc; padding-left: 40px;">
+                <h3>Compromiso y Flexibilidad</h3>
+                
+                <h4 style="color: var(--primary-color);">Garantías y Soporte</h4>
+                <ul style="list-style: disc; padding-left: 20px;">
+                    <li style="font-size: 1.1em; line-height: 1.7;"><strong>Garantía de 2 años</strong> para instalaciones "on-site".</li>
+                    <li style="font-size: 1.1em; line-height: 1.7;">Soporte técnico escalable tras el primer año gratuito.</li>
+                    <li style="font-size: 1.1em; line-height: 1.7;">Financiación a plazos para proyectos de instalación.</li>
+                </ul>
+
+                <h4 style="color: var(--primary-color); margin-top: 25px;">Nuestra Promoción "Gancho"</h4>
+                <p style="font-size: 1.1em; background-color: #fff8e1; padding: 10px; border-radius: 4px;">
+                    <strong>Asesoría Inicial GRATUITA:</strong> Permítanos evaluar sus necesidades "on-site" a precio simbólico o nulo. Conozca nuestra calidad sin compromiso y descubra el alcance de su proyecto.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-sbs"><span>SBS | Presentación de Ventas</span><span>Diapositiva 4</span></div>
+    </div>
+    
+    <!-- Diapositiva 5: Atención al Cliente y Próximos Pasos -->
+    <div class="slide">
+        <!-- Logo pequeño en la esquina superior derecha -->
+        <img src="Soluciones_BackUp_Suarez.png" alt="Logo SBS" class="top-right-logo">
+        <h2>04 | Relación a Largo Plazo: Su Partner de Confianza</h2>
+        
+        <h3>Fidelización y Post-Venta</h3>
+        <p>No solo vendemos un producto, construimos una relación. Nuestro objetivo es ser su socio tecnológico a largo plazo.</p>
+
+        <div class="two-columns-flex" style="margin-top: 30px;">
+            <div class="column-flex">
+                <h4 style="color: var(--primary-color);">Atención al Cliente Dedicada</h4>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px; font-weight: bold;"><span style="color: var(--secondary-color); margin-right: 10px;">•</span> Soporte Técnico 24 horas.</li>
+                    <li style="margin-bottom: 10px; font-weight: bold;"><span style="color: var(--secondary-color); margin-right: 10px;">•</span> Gestión profesional de reclamaciones y sugerencias.</li>
+                    <li style="margin-bottom: 10px; font-weight: bold;"><span style="color: var(--secondary-color); margin-right: 10px;">•</span> Personal orientado a la satisfacción del cliente.</li>
+                </ul>
+                
+                <h4 style="color: var(--primary-color); margin-top: 25px;">Planes de Lealtad</h4>
+                <p>Ofrecemos bonificaciones y descuentos (ej. meses gratuitos) a aquellos clientes que mantengan su fidelidad a la compañía a lo largo del tiempo.</p>
+            </div>
+            <div class="column-flex" style="background-color: #f7f7f7; padding: 20px; border-radius: 8px;">
+                <h4 style="color: var(--secondary-color);">Próximos Pasos - ¡Comencemos!</h4>
+                <p style="font-size: 1.2em; color: var(--text-color);">Le invitamos a dar el primer paso hacia una infraestructura más segura y robusta.</p>
+                <ul style="list-style: disc; padding-left: 20px;">
+                    <li style="font-size: 1.1em; line-height: 1.7;"><strong>Paso 1:</strong> Solicite su Asesoría "Gancho" gratuita/simbólica.</li>
+                    <li style="font-size: 1.1em; line-height: 1.7;"><strong>Paso 2:</strong> Definamos la solución perfecta (Nube, On-Site o Híbrida).</li>
+                    <li style="font-size: 1.1em; line-height: 1.7;"><strong>Paso 3:</strong> Implementación y capacitación de su equipo.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-sbs"><span>SBS | Presentación de Ventas</span><span>Diapositiva 5</span></div>
+    </div>
+    
+    <!-- Diapositiva 6: Cierre y Contacto -->
+    <div class="slide slide-title">
+        <!-- Logo grande para la diapositiva de cierre -->
+        <img src="Soluciones_BackUp_Suarez.png" alt="Logo SBS" class="main-logo">
+        <h1 style="font-size: 4em; border-bottom: none; margin-bottom: 0;">SBS: Soluciones de BackUp Suárez</h1>
+        <h2 style="color: white; border-bottom: none; margin-top: 15px; font-size: 2em; font-style: italic; margin-bottom: 40px;">"Soluciones de Backup a Medida y Soporte 24h. Alta Calidad a
+un precio inigualable"</h2>
+        
+        <!-- Sección de Contacto -->
+        <div style="text-align: left; max-width: 650px; width: 100%; padding: 20px; background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+            <p style="font-size: 1.3em; color: white; font-weight: 700; margin-bottom: 25px; text-align: center;">DETALLES DE CONTACTO</p>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px 20px;">
+                <!-- Fila 1: Web -->
+                <span style="color: var(--secondary-color); font-weight: 700; font-size: 1.1em;">🌐 Sitio Web:</span>
+                <a href="https://sbs.com" style="color: white; text-decoration: underline; font-size: 1.1em;">https://sbs.com</a>
+
+                <!-- Fila 2: Teléfono -->
+                <span style="color: var(--secondary-color); font-weight: 700; font-size: 1.1em;">📞 Teléfono (24h):</span>
+                <span style="color: white; font-size: 1.1em;">612 789 456</span>
+
+                <!-- Fila 3: Email -->
+                <span style="color: var(--secondary-color); font-weight: 700; font-size: 1.1em;">✉️ Email:</span>
+                <a href="mailto:info@sbs.com" style="color: white; text-decoration: underline; font-size: 1.1em;">info@sbs.com</a>
+            </div>
+            
+            <!-- Fila 4: Localización (completa) -->
+            <div style="margin-top: 25px; text-align: center;">
+                <span style="color: var(--secondary-color); font-weight: 700; display: block; font-size: 1.1em; margin-bottom: 5px;">📍 Localización:</span>
+                <span style="color: white; font-size: 1.1em;">Calle Seusted Nº23 Polígono La Dehesa, La Palma del Condado (Huelva).</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

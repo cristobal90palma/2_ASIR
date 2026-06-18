@@ -1,0 +1,11 @@
+
+
+https://gemini.google.com/app/158467b4b7bad1da
+
+mongodump --host "rs0/mongodb01,mongodb02,mongodb03" --db Prueba01 --out /backups/mongobackup_$(date +%F) --username usuario --password Usuario.25 --authenticationDatabase admin
+
+
+mongorestore --host "rs0/mongodb01,mongodb02,mongodb03" --db Prueba01 --username usuario --password Usuario.25 --authenticationDatabase admin /backups/mongobackup_2025-11-11/Prueba01
+
+
+

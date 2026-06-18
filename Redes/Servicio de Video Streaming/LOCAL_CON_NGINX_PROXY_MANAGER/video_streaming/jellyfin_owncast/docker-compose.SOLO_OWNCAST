@@ -1,0 +1,10 @@
+services:
+  owncast:
+    image: gabekangas/owncast:latest
+    container_name: owncast
+    restart: unless-stopped
+    ports:
+      - "1935:1935" # Puerto para recibir el video (RTMP)
+      - "8080:8080" # Puerto para ver la web del streaming
+    volumes:
+      - ./owncast_data:/app/data

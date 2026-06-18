@@ -1,0 +1,526 @@
+1) Comprobar si un número es par o impar
+
+<?php
+    echo "Dame un valor: ";
+    $a = rtrim(fgets(STDIN));
+
+    if ($a%2==0) {
+        echo "El número ".$a." es par\n";
+    } else {
+        echo "El número ".$a." es impar\n";
+    }
+
+?>
+
+
+
+///////////////////////
+
+2) Realiza un programa que tenga dos variables y nos indique si la suma de los números
+ es mayor que el producto de ellos o al contrario.
+ 
+ <?php
+
+    echo "Dame un número: ";
+    $a = rtrim(fgets(STDIN));
+
+    echo "Dame otro número: ";
+    $b = rtrim(fgets(STDIN));
+
+
+    $sum = $a + $b;
+    $mul = $a * $b;
+
+    if ($sum > $mul) {
+        echo "La suma de los números es mayor que su multiplicación\n";
+    } else {
+        echo "La suma de los números NO es mayor que su multiplicación\n";
+    }
+
+?>
+
+///////////
+
+Ejercicio de notas:
+
+<?php
+    echo "Dame un número: ";
+    $nota = rtrim(fgets(STDIN));
+
+    if ($nota < 0 and $nota > 10) {
+        echo "Debe ser un número entre 0 y 10\n";
+    } elseif ($nota >= 0 and $nota < 5) {
+        echo "Has suspendido\n";
+    } elseif ($nota >= 5 and $nota < 7) {
+        echo "Tienes un Bien\n";
+    } elseif ($nota >= 7 and $nota < 9) {
+        echo "Tienes un Notable\n";
+    } elseif ($nota >= 9 and $nota <= 10) {
+        echo "Tienes un Sobresaliente\n";
+    } else {
+        echo "Ha habido un error. Prueba de nuevo.\n";
+    }
+
+?>
+
+
+
+/////////////////////
+Dar los buenos días, tardes o noches:
+
+<?php
+
+
+ # Obtiene la hora actual como cadena "HHMM" --> Ejemplo: 2230 para las 22:30 horas
+$time_str = date('Hi');
+
+
+# Usamos "int" para convertir el valor de la variable anterior (que php entiende como un string) a un número, en este caso entero.
+$time_int = (int)$time_str;
+
+#Mostramos la hora.
+echo "$time_int\n";
+
+if ($time_int >= 730 && $time_int <= 1400) {
+    echo "Buenos días\n";
+} elseif ($time_int >= 1401 && $time_int <= 2030) { 
+    echo "Buenas tardes\n";
+} elseif (($time_int >= 2031 && $time_int <= 2359) || ($time_int >= 0 && $time_int <= 729)) {
+    echo "Buenas noches\n";
+
+    # https://www.php.net/manual/es/language.operators.logical.php "||" es un "or".
+
+     # para cualquier otro valor
+} else {
+    echo "Hora no válida\n";
+}
+
+?>
+
+
+////////////////
+
+Comprobar si un año es bisiesto.
+
+<?php
+
+echo "Introduce un año: ";
+$anio = intval(trim(fgets(STDIN)));  // Lee el año introducido por el usuario
+
+// Variable lógica (booleana)
+$esBisiesto = false;
+
+// Regla: divisible por 400, o divisible por 4 pero no por 100
+if (($anio % 400 == 0) || (($anio % 4 == 0) && ($anio % 100 != 0))) {
+    $esBisiesto = true;
+}
+
+// Mostrar resultado
+if ($esBisiesto) {
+    echo "El año $anio es bisiesto.\n";
+} else {
+    echo "El año $anio no es bisiesto.\n";
+}
+?>
+
+/////////////////
+
+10.	Dado un CAPITAL, un RÉDITO determinado y un TIEMPO de imposición, calcular el 
+INTERÉS simple  que se produce.
+
+<?php
+echo "Introduce el capital: ";
+$capital = floatval(trim(fgets(STDIN)));
+
+#https://coding-gym.org/snippets/php/ combinación para pillar los datos y luego "limpiar" los espacios en blanco.
+#https://stackoverflow.com/questions/24342026/in-php-how-to-get-float-value-from-a-mixed-string/24342050 usa "floatval" para que php traduzca lo que has metido de texto a número. En este caso permite los decimales.
+
+echo "Introduce el rédito (%): ";
+$redito = floatval(trim(fgets(STDIN)));
+
+echo "Introduce el tiempo (en años): ";
+$tiempo = floatval(trim(fgets(STDIN)));
+
+$interes = ($capital * $redito * $tiempo) / 100;
+
+echo "El interés simple es: $interes\n";
+?>
+
+
+///////////////
+#numeros del 1 al 100 mostrados con coma de por medio
+
+<?php
+
+echo "Numeros del 1 al 100\n";
+
+for ($i=1; $i<=100; $i++){
+    if ($i<100){
+        echo $i. ", ";
+    }   else {
+        echo $i. "\n";
+    }
+    
+}
+?>
+
+
+////////
+
+Del 1 al 100 solo los pares:
+
+<?php
+#numeros del 1 al 100 mostrados con coma de por medio
+
+echo "Numeros del 1 al 100\n";
+
+for ($i=1; $i<=100; $i++){
+        if ($i%2==0){
+                if ($i<100){
+                        echo $i. ", ";
+                    }   else {
+                        echo $i. "\n";
+                    }
+        }
+    
+}
+
+
+?>
+
+
+
+/////////
+Numeros del 1 al 100 usando el while:
+
+<?php
+#numeros del 1 al 100 mostrados con coma de por medio
+
+echo "Numeros del 1 al 100\n";
+
+$i = 1; // Empezamos en 1
+while($i <= 100) { // Continuamos hasta 100 (incluido)
+    echo $i;
+
+    // Si $i es menor que 100, imprimimos una coma y un espacio.
+    if ($i < 100) {
+        echo ", ";
+    } else {
+        // Si $i es 100 (el último número), imprimimos un salto de línea en lugar de la coma.
+        echo "\n";
+    }
+
+    $i++; //le vamos sumando 1 cada vez que llega hasta aquí. Y vuelve a empezar.
+}
+
+// Alternativamente, se podría usar un bucle 'for' que es más compacto para este caso:
+/*
+echo "Numeros del 1 al 100 (con for)\n";
+for ($i = 1; $i <= 100; $i++) {
+    echo $i;
+    if ($i < 100) {
+        echo ", ";
+    } else {
+        echo "\n";
+    }
+}
+*/
+?>
+
+
+
+/////////////////
+Mostrar la tabla de multiplicar:
+
+<?php
+
+echo "Introduce un número: ";
+$val_num = rtrim(fgets(STDIN));
+
+for ($i = 1; $i <= 10; $i++) {
+    $resultado = $val_num * $i;
+    
+    echo "$val_num x $i = $resultado\n";
+}
+
+?>
+
+
+/////////////////
+100 al 0 solo pares
+
+<?php
+
+echo "Numeros del 100 al 0, solo pares.\n";
+
+for ($i = 100; $i >= 0; $i-=2) {
+    echo $i;
+
+    if ($i > 0) {
+        echo ", ";
+    }
+}
+echo "\n";
+
+?>
+
+
+//////////
+Mostrar asteriscos descendiendo.
+
+* 
+* * 
+* * * 
+* * * * 
+* * * * * 
+
+
+<?php
+
+
+for ($i=1; $i<=5; $i++) { //recorrio por filas ($i). Fijamos el valor de "i"
+    for($j=1; $j<=$i; $j++) { //Recorrido por columna ($j) Usamos el valor de "i" como limite para "j". Ejemplo, cuando "i" vale 4, el bucle de "j" hace que este marque valores de jota de 1 a 4, una vez que llega al 4, el bucle de "j" se acaba y pasa al bucle de "i" y este aumenta de valor y vuelve luego al bucle de "j".
+        echo "* ";
+    }
+    echo "\n";
+}
+
+echo "\n";
+
+?>
+
+
+
+
+////////////////////////
+De los numeros 1 al 200, sumar los pares y multiplicar los impares:
+
+
+<?php
+# Hacer una página PHP que muestre por pantalla:
+# - La suma de los números pares del 1 al 200
+# - La multiplicación de los números impares del 1 al 200
+
+$suma_pares = 0;
+$multi_impares = 1;  // ¡Importante! Empezar en 1, no en 0
+
+for ($i = 1; $i <= 200; $i++) {
+    if ($i % 2 == 0) {
+        // Número par: sumar
+        $suma_pares += $i;
+    } else {
+        // Número impar: multiplicar
+        $multi_impares *= $i;
+    }
+}
+
+# Resultados
+echo "Suma de los números pares (1 al 200): $suma_pares\n";
+echo "Multiplicación de los números impares (1 al 200): $multi_impares\n";
+
+?>
+
+
+
+
+/////////////////////
+Mostrar divisores de un número.
+
+<?php
+
+echo "Introduce un número: ";
+$num = rtrim(fgets(STDIN));
+
+for ($divisor=1; $divisor<=$num; $divisor++) {
+    if ($num % $divisor == 0) {
+        echo "El número ".$divisor." es divisor del ".$num."\n";
+    }
+}
+
+?>
+
+
+
+/////////////////////////
+<?php
+# Diseñar un algoritmo para escribir en pantalla los n primeros números naturales,
+# sus cuadrados, sus cubos y la suma de todos ellos.
+
+echo "Introduce un número: ";
+$numero = intval(trim(fgets(STDIN)));
+$suma = 0;
+
+echo "\nImpresión por pantalla de los $numero primeros números naturales\n";
+echo "----------------------------------------------------------------------\n";
+
+for ($i = 1; $i <= $numero; $i++) {
+    echo $i;
+    if ($i < $numero) echo ", ";
+    $suma += $i;
+}
+echo "\n\n";
+
+echo "Impresión por pantalla de los $numero primeros números cuadrados\n";
+echo "----------------------------------------------------------------------\n";
+
+for ($i = 1; $i <= $numero; $i++) {
+    echo ($i * $i);
+    if ($i < $numero) echo ", ";
+}
+echo "\n\n";
+
+echo "Impresión por pantalla de los $numero primeros números cubo\n";
+echo "----------------------------------------------------------------------\n";
+
+for ($i = 1; $i <= $numero; $i++) {
+    echo ($i * $i * $i);
+    if ($i < $numero) echo ", ";
+}
+echo "\n\n";
+
+echo "La suma de los números naturales hasta $numero es: $suma\n";
+?>
+
+
+
+
+///////////////////////
+<?php
+#Hacer una página PHP que muestre si un número es o no primo (recuerda que un número primo es aquel que solo es divisible por él mismo y por la unidad).
+
+echo "Introduce un número: ";
+$num = rtrim(fgets(STDIN));
+$num_divisores = 0;
+
+for ($divisor=1; $divisor<=$num; $divisor++) {
+    if ($num % $divisor == 0) {
+        $num_divisores += 1;
+    }
+}
+
+if ($num==1 or $num_divisores==2) {
+    echo "El número es primo\n";
+} else {
+    echo "No es primo\n";
+}
+
+?>
+
+
+/////////////////////////
+Mostrar array:
+
+<?php
+# ksort($monedas); //Ordena el array por orden alfabético: $my_list = array (1,9,3,8,5,7);
+
+//en cada vuelta, "n" toma el valor siguiente del array
+$numeros = array (1,9,3,8,5,7);
+foreach($numeros as $n) {
+    echo $n.", \n";
+}
+
+
+?>
+
+
+
+////////////////
+<?php
+//numeros aleatoriso del 0 al 30
+//muestra 10 números aleatorios del 0 al 30
+
+
+//$numeros = array();
+$sum = 0;
+for ($i=0; $i<=9; $i++) {
+    $numeros[$i] = rand(0,30);
+    echo $numeros[$i]."\n";
+    $sum = $sum + $numeros[$i];
+}
+//print_r($numeros);
+
+//ambos muestran lo mismo
+echo "La media es ".$sum/sizeof($numeros)."\n";
+echo "La media es ".$sum/count($numeros)."\n";
+?>
+
+
+
+///////////
+Mostrar número que está en el array
+
+<?php
+/*35.	Dado el siguiente array, crear un programa que metiendo un número por teclado me diga si ese elemento está o no en el array.
+ Después ordenar los elementos del array de menor a mayor y contar el número de elementos que tiene el array.  
+$numeros = array (2,24,80,5,7,20,32,45,67);
+
+ */
+
+$numeros = array (2,24,80,5,7,20,32,45,67);
+
+//print_r($numeros);
+
+echo "Dime el número que quieres buscar: ";
+$buscar = rtrim(fgets(STDIN));
+$encontrado = 0;
+
+foreach ($numeros as $num) {
+    if($num == $buscar) {
+        $encontrado = true;
+        break;
+    }
+}
+
+if ($encontrado) {
+    echo "El numero está en el array\n";
+} else {
+    echo "El número no está en el array\n";
+}
+
+/*
+$array_ordenado = asort($numeros);
+print_r($numeros);
+echo "El array tiene ".count($numeros)." elementos\n";
+*/
+?>
+
+
+////////////////////////
+Tabla con imagenes foreach array
+
+<?php
+/*
+Galería de imágenes con array.
+Muestra una tabla de 4 filas y 2 columnas:
+ - En la primera columna: imagen del componente
+ - En la segunda columna: descripción
+El array se baraja con shuffle() para mostrar orden aleatorio.
+*/
+
+// Array asociativo: "nombre_imagen" => "descripción"
+$componentes = array(
+    "cpu-ryzen.jpg" => "CPU Ryzen",
+    "ram.jpg" => "Memoria RAM",
+    "placa.jpg" => "Placa base",
+    "gpu.jpg" => "Tarjeta gráfica"
+);
+
+// Barajar el array para mostrar orden aleatorio
+$claves = array_keys($componentes);
+shuffle($claves);
+
+echo "<table border='1' cellspacing='10' cellpadding='10' style='text-align:center;'>";
+
+foreach ($claves as $imagen) {
+    echo "<tr>";
+    // Columna 1: imagen
+    echo "<td><img src='$imagen' width='200'></td>";
+    // Columna 2: descripción
+    echo "<td>{$componentes[$imagen]}</td>";
+    echo "</tr>";
+}
+
+echo "</table>";
+?>
+
+

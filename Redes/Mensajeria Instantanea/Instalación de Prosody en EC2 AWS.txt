@@ -1,0 +1,110 @@
+---Limpieza Previa (Importante)
+Antes de empezar con el paso 1, asegúrate de que no haya restos de intentos anteriores o 
+del agente de ECS que puedan chocar con los puertos:
+
+sudo systemctl stop ecs
+sudo docker stop prosody || true
+sudo docker rm prosody || true
+
+
+
+
+
+
+
+Pasos
+# En sesión SSH sobre una instancia Ubuntu tipo t2.micro... Actualizar SO
+    1 sudo apt update && sudo apt -y upgrade
+#Instalar Prosody
+    2  sudo apt install prosody
+# Editar nombres
+    3  sudo nano /etc/hosts
+
+//
+127.0.0.1       localhost
+127.0.1.1       im07.institutodh.net im07
+::1             localhost ip6-localhost ip6-loopback
+//
+    6  sudo nano /etc/hostname
+//
+sudo hostnamectl set-hostname im07
+//
+# Configurar Prosody
+   20  sudo nano prosody.cfg.lua
+# Instalar CertBot
+   21  sudo snap install core; sudo snap refresh core
+   22  sudo apt-get remove certbot
+   23  sudo snap install --classic certbot
+   24  sudo ln -s /snap/bin/certbot /usr/bin/certbot
+# Despues de poner en Godaddy imXX.institutodh.net y conference.imXX.institutodh.net 
+# a la IP de la instacia. Generar los certificados
+
+///
+En el paso 25, cuando ejecutes sudo certbot certonly --standalone, 
+asegúrate de que nada esté usando el puerto 80 en ese momento. 
+Certbot levantará un servidor temporal para validar tu dominio im07.institutodh.net.
+sudo ss -tuln
+También tienes que abrir el puerto 80 en AWS
+///
+   25  sudo certbot certonly --standalone
+   28  sudo ls -ltra /etc/letsencrypt/live/im07.institutodh.net
+
+# Crear un script de importación para Prosody
+   30  sudo nano /etc/letsencrypt/renewal-hooks/deploy/prosody.sh
+
+///
+Para que no tengas que estar peleando con los permisos de las llaves de Let's Encrypt, el contenido de ese 
+script /etc/letsencrypt/renewal-hooks/deploy/prosody.sh debería 
+ser algo así:
+
+#!/bin/bash
+# Copiar certificados a la carpeta de Prosody y dar permisos
+prosodyctl check certs
+prosodyctl import /etc/letsencrypt/live/im07.institutodh.net/
+systemctl restart prosody
+
+Me da error y tenido que hacerlo manualmente:
+# Copiar la llave privada y renombrarla
+sudo cp /etc/letsencrypt/live/im07.institutodh.net/privkey.pem /etc/prosody/certs/im07.institutodh.net.key
+
+# Copiar el certificado completo y renombrarlo
+sudo cp /etc/letsencrypt/live/im07.institutodh.net/fullchain.pem /etc/prosody/certs/im07.institutodh.net.crt
+
+# Asegurar que el usuario 'prosody' sea el dueño de los archivos
+sudo chown prosody:prosody /etc/prosody/certs/im07.institutodh.net.*
+
+# Dar permisos de lectura correctos
+sudo chmod 640 /etc/prosody/certs/im07.institutodh.net.*
+
+# Reiniciar el servicio
+sudo systemctl restart prosody
+
+///
+   31  chmod +x /etc/letsencrypt/renewal-hooks/deploy/prosody.sh
+
+# Importarlos
+   32  sudo chmod +x /etc/letsencrypt/renewal-hooks/deploy/prosody.sh
+   35  sudo /etc/letsencrypt/renewal-hooks/deploy/prosody.sh
+
+# Reiniciar para que el servidor coja la configuración y  los certifs.
+   42  sudo systemctl restart prosody.service
+   43  sudo systemctl status prosody.service
+   44  sudo tail -f /var/log/prosody/prosody.log
+
+# Añadir usuarios
+   51  sudo prosodyctl adduser admin@im07.institutodh.net
+   pass: 12345
+   52  sudo prosodyctl adduser cristobal@im07.institutodh.net
+   pass: 12345
+   55  sudo systemctl restart prosody.service
+
+# Comprobar puertos
+   56  ss -ltnp
+
+# Verificar correcto funcionamiento. Las salas se pueden crear desde el cliente de IM
+   57  sudo sudo tail -f /var/log/prosody/prosody.log
+   
+   
+Puertos por servicio
+
+sudo lsof -i -P -n

@@ -1,0 +1,15 @@
+dn: cn=suarez,ou=usuarios,dc=SUAREZ1,dc=abad2
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/suarez
+uid: suarez
+cn: suarez
+userPassword: suarez987
+uidNumber: 10001
+gidNumber: 10000
+sn: suarez
+mail: suarez@sistemas.edu
+
+

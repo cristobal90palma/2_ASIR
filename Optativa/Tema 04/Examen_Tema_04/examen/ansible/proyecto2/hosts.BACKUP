@@ -1,0 +1,19 @@
+all:
+  children:
+    madrid:
+      children:
+        databases:
+          hosts:
+            db_primary:
+              ansible_host: node1
+        web_servers:
+          hosts:
+            node2:
+            node3:
+        development:
+          hosts:
+            node2:
+        production:
+          hosts:
+            db_primary:
+            node3:

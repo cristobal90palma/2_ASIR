@@ -1,0 +1,221 @@
+Conecta primero solamente el router OpenWRT y los servidores
+
+1) Instalar paquetería antes de nada.
+
+apt update && apt install isc-dhcp-server -y
+
+
+
+2) Ahora, hacer configuración de Adaptador de Red. Debemos poner Routing Estático hacia las redes de abajo.
+
+\\\\\\\\\\\\
+El direccionamiento de las LANs será:
+●	LAN Switch1 172.30.X*2.0/23
+●	LAN Switch2 172.30.X.192/27
+●	LAN Switch3 192.168.X.224/28
+donde X es vuestro número de lista.
+
+●	LAN Switch1 172.30.14.0/23
+●	LAN Switch2 172.30.7.192/27
+●	LAN Switch3 192.168.7.224/28
+\\\\\\\\\\\\\
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\IP ESTÁTICA: /etc/netplay/ archivo.yaml --> netplay apply
+
+
+(((DHCP-PRIM)))
+
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.1.3/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.1
+        - to: 172.30.14.0/23
+          via: 192.168.1.2
+        - to: 172.30.7.192/27
+          via: 192.168.1.2
+        - to: 192.168.7.224/28
+          via: 192.168.1.2
+      nameservers:
+        addresses:
+          - 172.16.200.1
+          - 8.8.8.8
+		  
+
+((DHCP-SECOND)))
+
+network:
+  version: 2
+  ethernets:
+    ens3:
+#      match:
+#        macaddress: 0c:3a:40:aa:00:00
+#      set-name: ens3
+#      dhcp4: false
+      addresses:
+        - 192.168.1.4/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.1
+        - to: 172.30.14.0/23
+          via: 192.168.1.2
+        - to: 172.30.7.192/27
+          via: 192.168.1.2
+        - to: 192.168.7.224/28
+          via: 192.168.1.2
+      nameservers:
+        addresses:
+          - 172.16.200.1
+          - 8.8.8.8
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+3) Ahora configuramos IP estática de router MIKROTIK para luego acceder desde GUI:
+((MIKROTIK))
+
+poner ip: /ip address add address=192.168.1.1/24 interface=ether1
+
+quitar: ip address/ remove 0 (o el numero que venga).
+
+
+
+\\\\\
+
+Pasa al .docx para configurar las IP estáticas de las otras SubNets. Aprovecha y haz la configuración de Relay y NAT.
+
+
+
+\\\\\\\\\\\\\\\\\
+EN LOS SERVIDORES DHCP
+
+Ahora modificamos el archivo: /etc/default/isc-dhcp-server
+Debemos poner el nombre de la interfaz que vamos a usar para dar el servicio de DHCP.
+
+Ahora Modificamos: /etc/dhcp/dhcpd.conf
+
+
+
+Recuerda que en esta ocasión hay que tener “descomentadas” las líneas:
+
+authoritative;
+ddns-update-style none;
+
+Después hay una configuración específica para el principal y otra para el secundario.
+
+#CONFIGURACIÓN DE ((DHCP-PRIM))
+
+failover peer "FAILOVER" {
+  primary;
+  address 192.168.1.3;
+  port 647;
+  peer address 192.168.1.4;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+  mclt 1800;
+  split 128;
+}
+
+#CONFIGURACIÓN DE ((DHCP-SECOND))
+
+failover peer "FAILOVER" {
+  secondary;
+  address 192.168.1.4;
+  port 647;
+  peer address 192.168.1.3;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+}
+
+
+
+##Configuración común
+
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+  not authoritative;
+}
+
+
+#●	LAN Switch1 172.30.14.0/23
+#●	LAN Switch2 172.30.7.192/27 ESTE NO SE CONFIGURA AQUÍ
+#●	LAN Switch3 192.168.7.224/28
+
+
+# SubNet 172.30.14.0/23
+subnet 172.30.14.0 netmask 255.255.254.0 {
+  option domain-name-servers 1.0.0.1, 7.7.5.5;
+  option domain-name "again.wego";
+  option routers 172.30.14.1;
+  pool {
+    failover peer "FAILOVER";
+    range 172.30.14.6 172.30.15.254;
+    default-lease-time 43200;
+    max-lease-time 86000;
+    host megalol-01 {
+      hardware ethernet 02:42:d2:70:03:00;
+      fixed-address 172.30.14.5;
+    }
+  }
+}
+
+# SubNet 192.168.7.224/28
+subnet 192.168.7.224 netmask 255.255.255.240 {
+  option domain-name-servers 1.0.0.1, 7.7.5.5;
+  option domain-name "again.wego";
+  option routers 192.168.7.225;
+  pool {
+    failover peer "FAILOVER";
+    range 192.168.7.231 192.168.7.238;
+    default-lease-time 43200;
+    max-lease-time 86000;
+    host megalol-02 {
+      hardware ethernet 02:42:97:2b:f7:00;
+      fixed-address 192.168.7.230;
+    }
+  }
+}
+
+
+systemctl restart isc-dhcp-server && systemctl status isc-dhcp-server
+
+systemctl restart isc-dhcp-server
+systemctl status isc-dhcp-server
+
+
+\\\\\\\\\\\\
+
+Calcular RANGO CIDR:
+
+https://www.ipaddressguide.com/cidr
+
+
+\\\\ check syntax dhcpd.conf
+
+dhcpd -t -cf /etc/dhcp/dhcpd.conf
+
+
+\\\\\\\\\\status
+
+journalctl -u isc-dhcp-server
+
+
+\\\\\\\\Comprobar "leases"
+
+/var/lib/dhcp/dhcpd.leases
+
+
+sudo grep -B 12 'binding state active' /var/lib/dhcp/dhcpd.leases

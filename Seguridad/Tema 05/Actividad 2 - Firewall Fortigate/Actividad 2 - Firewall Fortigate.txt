@@ -1,0 +1,130 @@
+●	LAN (Port2): 192.168.10.0/24 (IP FortiGate: .1). ===== ip address/add address=192.168.10.1/24 interface=ether2
+●	DMZ (Port3): 172.16.0.0/24 (IP FortiGate: .1). ===== ip address/add address=172.16.0.1/24 interface=ether3
+Para el equipo de admin del router: ===== ip address/add address=192.168.2.1/24 interface=ether4
+
+
+https://chatgpt.com/c/69677b29-f310-832e-8add-b8410c6f1db1
+
+Las que funcionan
+
+Opción 3 (RECOMENDADA): bloquear usando TLS Host / SNI
+
+Funciona bien en RouterOS 6.41+ y 7.x
+
+1️⃣ Crear regla en firewall
+/ip firewall filter
+add chain=forward protocol=tcp dst-port=443 tls-host=*.youtube.com action=drop comment="Bloquear YouTube"
+add chain=forward protocol=tcp dst-port=443 tls-host=*.googlevideo.com action=drop comment="Bloquear GoogleVideo"
+
+
+💡 googlevideo.com es el dominio real del streaming de YouTube
+
+🟢 Opción 4 (MUY EFECTIVA): usar Address-List dinámica
+
+Más limpia y escalable.
+
+1️⃣ Marcar dominios
+/ip firewall address-list
+add list=youtube address=youtube.com
+add list=youtube address=googlevideo.com
+add list=youtube address=ytimg.com
+
+2️⃣ Bloquear tráfico
+/ip firewall filter
+add chain=forward dst-address-list=youtube action=drop comment="Bloquear YouTube completo"
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+Opción 1 (NO recomendada): bloquear por IP
+
+YouTube no funciona bien por IP (usa Google CDN, IPs dinámicas).
+
+/ip firewall filter
+add chain=forward dst-address=172.217.0.0/16 action=drop comment="Bloquear YouTube"
+
+
+❌ Poco efectiva
+❌ Puede bloquear otros servicios de Google
+
+🟠 Opción 2: bloquear por dominio (Layer7) – obsoleta
+
+Layer7 no funciona bien con HTTPS (YouTube siempre va por HTTPS).
+
+/ip firewall layer7-protocol
+add name=youtube regexp="^.+(youtube|googlevideo).*$"
+
+
+❌ Obsoleta
+❌ No fiable en RouterOS modernos
+
+✅ Opción 3 (RECOMENDADA): bloquear usando TLS Host / SNI
+
+Funciona bien en RouterOS 6.41+ y 7.x
+
+1️⃣ Crear regla en firewall
+/ip firewall filter
+add chain=forward protocol=tcp dst-port=443 tls-host=*.youtube.com action=drop comment="Bloquear YouTube"
+add chain=forward protocol=tcp dst-port=443 tls-host=*.googlevideo.com action=drop comment="Bloquear GoogleVideo"
+
+
+💡 googlevideo.com es el dominio real del streaming de YouTube
+
+🟢 Opción 4 (MUY EFECTIVA): usar Address-List dinámica
+
+Más limpia y escalable.
+
+1️⃣ Marcar dominios
+/ip firewall address-list
+add list=youtube address=youtube.com
+add list=youtube address=googlevideo.com
+add list=youtube address=ytimg.com
+
+2️⃣ Bloquear tráfico
+/ip firewall filter
+add chain=forward dst-address-list=youtube action=drop comment="Bloquear YouTube completo"
+
+🔵 Opción 5 (RouterOS 7.x – la mejor): usar DNS + firewall
+
+Si usas DNS del MikroTik:
+
+1️⃣ Forzar DNS del router
+/ip firewall nat
+add chain=dstnat protocol=udp dst-port=53 action=redirect to-ports=53
+add chain=dstnat protocol=tcp dst-port=53 action=redirect to-ports=53
+
+2️⃣ Crear regla DNS
+/ip dns static
+add name=youtube.com address=0.0.0.0
+add name=googlevideo.com address=0.0.0.0
+add name=www.youtube.com address=0.0.0.0
+
+
+✔️ Muy efectivo
+✔️ Bajo consumo
+❌ No bloquea si usan DoH / VPN
+
+🟣 Bloquear solo a ciertos usuarios (ejemplo)
+/ip firewall filter
+add chain=forward src-address=192.168.1.50 tls-host=*.youtube.com action=drop
+
+🏆 Recomendación final
+RouterOS	Método
+6.41+	TLS Host
+7.x	DNS + TLS Host
+Red escolar / empresa	DNS + Firewall
+
+Si quieres, dime:
+
+📌 Versión de RouterOS
+
+📌 Si usas el MikroTik como DNS
+
+📌 Si es para toda la red o solo ciertos equipos
+
+Y te preparo las reglas exactas para tu caso 😉

@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage ("Clear Workspace") {
+            steps  {
+                sh "rm -rf ./*"
+            }
+        }
+        
+        stage ("Git Clone") {
+            steps {
+                withCredentials([usernamePassword(credentialsId:'GITHUB_CREDENTIALS', usernameVariable:'GITHUB_USER', passwordVariable:'GITHUB_PASSWORD')]) {
+                    sh "git clone https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/cristobal90palma/Biblioteca-IAW-2ASIR-Cristobal.git"
+                }
+            }
+        }
+        
+        // FIX 1: Added curly braces to properly define the stage block
+        stage("trigger job") { 
+            steps {
+                build job: 'Quinto Pipeline', 
+                parameters: [
+                    // FIX 2: Removed the extra colon (:) from the string parameter definition
+                    string(name: 'NOMBRE_PIPELINE', value: "$JOB_NAME"),
+                    string(name: 'ID_JOB', value: "$BUILD_ID")
+                ]
+            }
+        }
+    }
+}

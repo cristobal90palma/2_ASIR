@@ -1,0 +1,13 @@
+https://www.mafiree.com/readBlog/connecting-mysql-to-postgresql-using-mysql_fdw-for-cross-db-queries
+
+https://monovm.com/blog/how-to-show-users-in-mysql/
+
+https://neon.com/postgresql/postgresql-administration/postgresql-list-users
+
+https://www.howtoinstall.me/ubuntu/18-04/postgresql-10-mysql-fdw/
+
+https://www.nakala-analytics.co.ke/blog/home/11-setting-up-postgres-mysql-fdw-in-10-easy-steps-in-ubuntu.html
+
+https://gemini.google.com/app/23fee94bd3001867
+
+https://gemini.google.com/app/e7ac4a04117370c1

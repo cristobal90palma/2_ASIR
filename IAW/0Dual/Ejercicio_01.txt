@@ -1,0 +1,23 @@
+Guía paso a paso: Instalación y Configuración LAMP
+
+Para que tu informe sea impecable, te recomiendo documentar cada uno de estos bloques de comandos.
+1. Preparación del Sistema
+
+Antes de instalar nada, asegúrate de que tu lista de paquetes esté actualizada:
+Bash
+
+sudo apt update && sudo apt upgrade -y
+
+2. Instalación de los Componentes
+
+Vamos a instalar el servidor web Apache, el sistema de gestión de base de datos MariaDB (la versión estándar actual de MySQL) y PHP con sus extensiones necesarias:
+Bash
+
+Mejor todo en uno:
+
+apt install apache2 -y && apt install mysql-server -y && apt install php libapache2-mod-php php-mysql -y && apt install phpmyadmin -y
+
+RECUERDA FOTO DE ELECCIÓN DE PHPMYADMIN --> CONFIGURAR PARA APACHE2
+PHPMYADMIN --> SI QUIERE CREAR UNA BASE DE DATOS.
+
+

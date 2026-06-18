@@ -1,0 +1,25 @@
+org: GlobalLog
+#ansible_user: ansible
+ansible_user: admin_user
+ansible_password: 12345
+
+dev_team:
+  - dev1
+  - dev2
+  - dev3
+
+log_path: /tmp/ansible_exam.log
+
+
+#ansible_user: ansible
+#ansible_password: password
+#empresa: TechCorp
+
+# Ejercicio 3
+#log_path: /tmp/techcorp_audit.txt
+#audit_team:
+#  - auditor1
+#  - auditor2
+#  - auditor3
+# Password de sudo para nodos
+ansible_become_password: password

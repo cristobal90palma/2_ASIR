@@ -1,0 +1,77 @@
+
+1) Instalar BIND 9
+
+apt -y update && apt -y install bind9 && apt install dnsutils
+systemctl status bind9
+ls -l /etc/bind
+
+2) Reiniciar servicios:
+
+systemctl reload named
+systemctl reload bind9
+systemctl status named
+systemctl status bind9
+
+
+3) Comprobar logs:
+
+# Si tus logs de bind9 están en /var/log/syslog
+# Muestra las últimas líneas del archivo
+sudo tail /var/log/syslog | grep named
+
+# Para ver las últimas líneas en tiempo real
+sudo tail -f /var/log/syslog | grep named
+
+#Demasiado largo
+sudo cat /var/log/syslog | grep named
+
+#
+journalctl -u bind9 --no-pager | tail -n 20
+
+
+4) Comprueba que la zona resuelve correctamente, tanto de 
+forma inversa como directa desde el servidor. Comprueba todos
+ los registros DNS implicados.
+ 
+ 
+ 
+1.1. Registros de Autoridad (NS y SOA)
+
+Esto comprueba la información de la zona.
+
+NS (Servidor de Nombres): dig @10.2.17.5 retry07.net NS
+SOA (Autoridad): dig @10.2.17.5 retry07.net SOA
+
+
+
+1.2. Registros A (Direcciones)
+
+Comprobamos la resolución de los nombres principales a sus IPs.
+
+
+DNS (dnsIniciales01): dig @10.2.17.5 dnscsa01.retry07.net A
+Web (www)	dig @10.2.17.5 www.retry07.net A	
+Correo 1 (smtp1)	dig @10.2.17.5 smtp1.retry07.net A	
+Correo 2 (smtp2)	dig @10.2.17.5 smtp2.retry07.net A	
+Minecraft (mc)	dig @10.2.17.5 mc.retry07.net A	
+
+
+1.3. Registros CNAME (Alias)
+
+Comprobamos que los alias apuntan correctamente a sus nombres canónicos.
+
+dig mail1.retry07.net
+dig mail2.retry07.net
+dig mc.retry07.net
+dig web.retry07.net
+
+
+INVERSA:
+
+dig -x 10.2.17.5
+dig -x 172.16.111.200
+dig -x 172.16.111.201
+dig -x 172.16.111.202
+dig -x 172.16.111.203
+
+

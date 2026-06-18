@@ -1,0 +1,47 @@
+3.1.4. Diagrama de Clases (UML)
+
+El diagrama de clases UML presenta la estructura de datos simplificada del sistema FOG Project. Define las entidades principales, sus atributos críticos y las relaciones de cardinalidad que permiten la gestión orientada a objetos del parque informático.
+
+Descripción de las Clases y sus Atributos:
+
+    Clase Host (Equipo): Representa cada ordenador físico registrado en el sistema.
+
+        mac: Atributo clave y único (dirección MAC) para identificar el hardware.
+
+        name: Nombre asignado al equipo (ej: "Aula1-PC01").
+
+        ip: Dirección IP asignada (normalmente por DHCP).
+
+        imageID: Clave foránea que vincula el equipo con una imagen de sistema operativo específica.
+
+    Clase Image (Imagen de S.O.): Representa un volcado de disco comprimido y almacenado en el servidor.
+
+        name: Nombre descriptivo de la imagen (ej: "Windows10_Aulas_v2").
+
+        path: Ruta física en el servidor NFS donde se guarda el archivo de imagen.
+
+        osID: Identificador del tipo de sistema operativo (Windows, Linux, etc.).
+
+    Clase Task (Tarea): Representa una acción de gestión programada para uno o varios equipos.
+
+        type: Tipo de tarea (ej: "Capture" para subir imagen, "Deploy" para clonar).
+
+        status: Estado actual de la tarea (ej: "Queued", "In Progress", "Completed", "Failed").
+
+        startTime: Fecha y hora de inicio de la tarea.
+
+    Clase Group (Grupo): Permite la agrupación lógica de equipos para facilitar la gestión masiva.
+
+        name: Nombre del grupo (ej: "Aula 1", "Departamento de Informática").
+
+        description: Campo de texto opcional para detalles adicionales.
+
+Descripción de las Relaciones (Asociaciones):
+
+    Host - Image (1:1 o N:1): Un Host está asociado a una única Image por defecto para su despliegue, aunque una Image puede estar asignada a múltiples Hosts.
+
+    Host - Task (1:N): Un Host puede tener múltiples Tasks programadas o históricas (una captura, luego varios despliegues, etc.).
+
+    Group - Host (N:M): Un Group puede contener múltiples Hosts (ej: todos los PCs de un aula), y un Host puede pertenecer a múltiples Groups (ej: pertenecer a "Aula 1" y a "PCs con Windows 10"). Esta relación N:M se suele implementar mediante una tabla intermedia en la base de datos.
+
+Este diagrama de clases UML proporciona una visión clara de la arquitectura de datos subyacente de FOG Project, demostrando cómo el sistema organiza y relaciona la información crítica para la automatización del despliegue de sistemas operativos.

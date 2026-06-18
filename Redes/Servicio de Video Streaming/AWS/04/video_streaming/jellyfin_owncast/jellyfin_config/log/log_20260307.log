@@ -1,0 +1,894 @@
+[2026-03-07 10:51:24.143 +00:00] [INF] [1] Emby.Server.Implementations.AppBase.BaseConfigurationManager: Setting cache path: "/cache"
+[2026-03-07 10:51:26.196 +00:00] [INF] [1] Jellyfin.Server.ServerSetupApp.SetupServer: Kestrel is listening on "0.0.0.0"
+[2026-03-07 10:51:26.470 +00:00] [INF] [1] Main: Jellyfin version: "10.11.6"
+[2026-03-07 10:51:26.509 +00:00] [INF] [1] Main: Environment Variables: ["[JELLYFIN_WEB_DIR, /jellyfin/jellyfin-web]", "[JELLYFIN_CACHE_DIR, /cache]", "[JELLYFIN_CONFIG_DIR, /config/config]", "[JELLYFIN_DATA_DIR, /config]", "[JELLYFIN_LOG_DIR, /config/log]", "[JELLYFIN_FFMPEG, /usr/lib/jellyfin-ffmpeg/ffmpeg]"]
+[2026-03-07 10:51:26.526 +00:00] [INF] [1] Main: Arguments: ["/jellyfin/jellyfin.dll"]
+[2026-03-07 10:51:26.532 +00:00] [INF] [1] Main: Operating system: "Debian GNU/Linux 13 (trixie)"
+[2026-03-07 10:51:26.532 +00:00] [INF] [1] Main: Architecture: X64
+[2026-03-07 10:51:26.538 +00:00] [INF] [1] Main: 64-Bit Process: True
+[2026-03-07 10:51:26.539 +00:00] [INF] [1] Main: User Interactive: True
+[2026-03-07 10:51:26.539 +00:00] [INF] [1] Main: Processor count: 2
+[2026-03-07 10:51:26.539 +00:00] [INF] [1] Main: Program data path: "/config"
+[2026-03-07 10:51:26.542 +00:00] [INF] [1] Main: Log directory path: "/config/log"
+[2026-03-07 10:51:26.542 +00:00] [INF] [1] Main: Config directory path: "/config/config"
+[2026-03-07 10:51:26.542 +00:00] [INF] [1] Main: Cache path: "/cache"
+[2026-03-07 10:51:26.543 +00:00] [INF] [1] Main: Temp directory path: "/tmp/jellyfin"
+[2026-03-07 10:51:26.543 +00:00] [INF] [1] Main: Web resources path: "/jellyfin/jellyfin-web"
+[2026-03-07 10:51:26.543 +00:00] [INF] [1] Main: Application directory: "/jellyfin/"
+[2026-03-07 10:51:26.641 +00:00] [INF] [1] Jellyfin.Server.Startup: Storage path `"/config/data"` (Fixed) successfully checked with "20.8GiB" free which is over the minimum of "2GiB".
+[2026-03-07 10:51:26.646 +00:00] [INF] [1] Jellyfin.Server.Startup: Storage path `"/cache"` (Fixed) successfully checked with "20.8GiB" free which is over the minimum of "2GiB".
+[2026-03-07 10:51:26.649 +00:00] [INF] [1] Jellyfin.Server.Startup: Storage path `"/config"` (Fixed) successfully checked with "20.8GiB" free which is over the minimum of "2GiB".
+[2026-03-07 10:51:26.688 +00:00] [INF] [1] Emby.Server.Implementations.AppBase.BaseConfigurationManager: Setting cache path: "/cache"
+[2026-03-07 10:51:27.142 +00:00] [INF] [1] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLite connection string: "Data Source=/config/data/jellyfin.db;Cache=Default;Default Timeout=30;Pooling=True"
+[2026-03-07 10:51:27.185 +00:00] [INF] [1] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLITE connection pragma command set to: 
+"PRAGMA locking_mode=NORMAL;
+PRAGMA journal_size_limit=134217728;
+PRAGMA synchronous=1;
+PRAGMA temp_store=2;
+"
+[2026-03-07 10:51:27.197 +00:00] [INF] [1] Jellyfin.Database.Implementations.Locking.NoLockBehavior: The database locking mode has been set to: NoLock.
+[2026-03-07 10:51:27.456 +00:00] [INF] [1] Jellyfin.Server.Migrations.JellyfinMigrationService: Initialise Migration service.
+[2026-03-07 10:51:32.553 +00:00] [WRN] [7] Microsoft.Extensions.Diagnostics.HealthChecks.DefaultHealthCheckService: Health check "StartupCheck" with status Degraded completed after 22.8862ms with message '"Server is still starting up."'
+[2026-03-07 10:51:36.466 +00:00] [INF] [1] Jellyfin.Server.Migrations.JellyfinMigrationService: There are 0 migrations for stage PreInitialisation.
+[2026-03-07 10:51:36.511 +00:00] [INF] [1] Emby.Server.Implementations.AppBase.BaseConfigurationManager: Setting cache path: "/cache"
+[2026-03-07 10:51:36.596 +00:00] [INF] [1] Emby.Server.Implementations.ApplicationHost: Loading assemblies
+[2026-03-07 10:51:36.815 +00:00] [INF] [1] Jellyfin.Networking.Manager.NetworkManager: Defined LAN subnets: ["127.0.0.1/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+[2026-03-07 10:51:36.819 +00:00] [INF] [1] Jellyfin.Networking.Manager.NetworkManager: Defined LAN exclusions: []
+[2026-03-07 10:51:36.821 +00:00] [INF] [1] Jellyfin.Networking.Manager.NetworkManager: Used LAN subnets: ["127.0.0.1/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+[2026-03-07 10:51:36.831 +00:00] [INF] [1] Jellyfin.Networking.Manager.NetworkManager: Filtered interface addresses: ["127.0.0.1", "172.18.0.2"]
+[2026-03-07 10:51:36.833 +00:00] [INF] [1] Jellyfin.Networking.Manager.NetworkManager: Bind Addresses ["0.0.0.0"]
+[2026-03-07 10:51:36.836 +00:00] [INF] [1] Jellyfin.Networking.Manager.NetworkManager: Remote IP filter is "Allowlist"
+[2026-03-07 10:51:36.838 +00:00] [INF] [1] Jellyfin.Networking.Manager.NetworkManager: Filtered subnets: []
+[2026-03-07 10:51:37.832 +00:00] [INF] [1] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLite connection string: "Data Source=/config/data/jellyfin.db;Cache=Default;Default Timeout=30;Pooling=True"
+[2026-03-07 10:51:37.836 +00:00] [INF] [1] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLITE connection pragma command set to: 
+"PRAGMA locking_mode=NORMAL;
+PRAGMA journal_size_limit=134217728;
+PRAGMA synchronous=1;
+PRAGMA temp_store=2;
+"
+[2026-03-07 10:51:37.837 +00:00] [INF] [1] Jellyfin.Database.Implementations.Locking.NoLockBehavior: The database locking mode has been set to: NoLock.
+[2026-03-07 10:51:37.869 +00:00] [INF] [1] Main: Prepare system for possible migrations
+[2026-03-07 10:51:38.068 +00:00] [INF] [1] Jellyfin.Server.Migrations.JellyfinMigrationService: There are 0 migrations for stage CoreInitialisation.
+[2026-03-07 10:51:42.055 +00:00] [INF] [1] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "TMDb" "10.11.6.0"
+[2026-03-07 10:51:42.060 +00:00] [INF] [1] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "Studio Images" "10.11.6.0"
+[2026-03-07 10:51:42.065 +00:00] [INF] [1] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "OMDb" "10.11.6.0"
+[2026-03-07 10:51:42.121 +00:00] [INF] [1] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "MusicBrainz" "10.11.6.0"
+[2026-03-07 10:51:42.123 +00:00] [INF] [1] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "AudioDB" "10.11.6.0"
+[2026-03-07 10:51:42.444 +00:00] [INF] [1] Jellyfin.Server.Migrations.JellyfinMigrationService: There are 0 migrations for stage AppInitialisation.
+[2026-03-07 10:51:42.991 +00:00] [INF] [13] Main: Kestrel is listening on "0.0.0.0"
+[2026-03-07 10:51:48.161 +00:00] [WRN] [13] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The WebRootPath was not found: "/wwwroot". Static files may be unavailable.
+[2026-03-07 10:51:48.332 +00:00] [INF] [9] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 10:51:48.334 +00:00] [INF] [13] Emby.Server.Implementations.ApplicationHost: Running startup tasks
+[2026-03-07 10:51:48.345 +00:00] [INF] [9] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 10:51:48.411 +00:00] [INF] [13] Emby.Server.Implementations.ScheduledTasks.TaskManager: Daily trigger for "Generar miniaturas de línea de tiempo" set to fire at 2026-03-08 03:00:00.000 +00:00, which is 16:08:11.5887102 from now.
+[2026-03-07 10:51:48.465 +00:00] [INF] [13] Emby.Server.Implementations.ScheduledTasks.TaskManager: Daily trigger for "Extraer imágenes de los capítulos" set to fire at 2026-03-08 02:00:00.000 +00:00, which is 15:08:11.5347973 from now.
+[2026-03-07 10:51:48.874 +00:00] [INF] [13] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Found ffmpeg version "7.1.3"
+[2026-03-07 10:51:49.110 +00:00] [INF] [13] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available "decoders": ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+[2026-03-07 10:51:49.228 +00:00] [INF] [13] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available "encoders": ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+[2026-03-07 10:51:49.347 +00:00] [INF] [13] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+[2026-03-07 10:51:50.444 +00:00] [INF] [13] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan"]
+[2026-03-07 10:51:51.510 +00:00] [INF] [9] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Limpiar colecciones y listas de reproducción" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 10:51:51.662 +00:00] [INF] [9] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Limpiar las transcodificaciones" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 10:51:52.642 +00:00] [INF] [9] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Actualizar extensiones" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 10:52:02.592 +00:00] [INF] [13] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: FFmpeg: "/usr/lib/jellyfin-ffmpeg/ffmpeg"
+[2026-03-07 10:52:02.594 +00:00] [INF] [13] Emby.Server.Implementations.ApplicationHost: ServerId: "af6ac37746ec41f6bddd0c60d911a240"
+[2026-03-07 10:52:02.595 +00:00] [INF] [13] Emby.Server.Implementations.ApplicationHost: Core startup complete
+[2026-03-07 10:52:02.595 +00:00] [INF] [13] Main: Startup complete 0:00:40.7079714
+[2026-03-07 10:52:33.184 +00:00] [INF] [19] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 10:52:56.757 +00:00] [INF] [22] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/grabaciones_directos"
+[2026-03-07 10:52:56.757 +00:00] [INF] [22] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/videoconferencias"
+[2026-03-07 10:52:57.472 +00:00] [WRN] [21] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 10:52:57.477 +00:00] [WRN] [21] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 10:52:57.775 +00:00] [INF] [20] Emby.Server.Implementations.Library.LibraryManager: Validating media library
+[2026-03-07 10:52:57.800 +00:00] [WRN] [22] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 10:52:57.803 +00:00] [WRN] [22] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 10:52:57.890 +00:00] [WRN] [22] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 10:52:57.893 +00:00] [WRN] [22] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 10:52:58.485 +00:00] [INF] [22] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Escanear la biblioteca" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 10:52:58.486 +00:00] [INF] [20] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 10:52:58.526 +00:00] [INF] [20] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 10:53:14.074 +00:00] [INF] [25] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/grabaciones_directos"
+[2026-03-07 10:53:14.075 +00:00] [INF] [25] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/videoconferencias"
+[2026-03-07 10:53:14.102 +00:00] [WRN] [22] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.102 +00:00] [WRN] [22] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.104 +00:00] [WRN] [22] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.278 +00:00] [INF] [25] Emby.Server.Implementations.Library.LibraryManager: Validating media library
+[2026-03-07 10:53:14.303 +00:00] [WRN] [25] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.303 +00:00] [WRN] [25] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.306 +00:00] [WRN] [25] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.551 +00:00] [WRN] [25] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.552 +00:00] [WRN] [25] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.555 +00:00] [WRN] [25] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 10:53:14.657 +00:00] [INF] [25] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Escanear la biblioteca" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 10:53:14.658 +00:00] [INF] [21] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 10:53:14.713 +00:00] [INF] [25] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 10:53:56.020 +00:00] [INF] [23] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Parsed channel: "Directo Colegio"
+[2026-03-07 10:53:56.065 +00:00] [INF] [21] Jellyfin.LiveTv.Guide.GuideManager: Refreshing guide with 7 days of guide data
+[2026-03-07 10:53:56.148 +00:00] [INF] [21] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Refresh Guide" Completed after 0 minute(s) and 3 seconds
+[2026-03-07 10:58:20.289 +00:00] [INF] [3] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Parsed channel: "Directo Colegio"
+[2026-03-07 10:58:20.300 +00:00] [INF] [24] Jellyfin.LiveTv.Guide.GuideManager: Refreshing guide with 7 days of guide data
+[2026-03-07 10:58:20.324 +00:00] [INF] [24] Emby.Server.Implementations.Library.LibraryManager: Removing item, Type: "LiveTvChannel", Name: "Directo Colegio", Path: "", Id: 9ce163bf-7300-ef87-7fc6-7f8c452e7dab
+[2026-03-07 10:58:20.406 +00:00] [INF] [24] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Refresh Guide" Completed after 0 minute(s) and 3 seconds
+[2026-03-07 10:58:22.309 +00:00] [INF] [3] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 10:58:31.495 +00:00] [INF] [16] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 10:58:31.584 +00:00] [INF] [16] Jellyfin.LiveTv.LiveTvMediaSourceProvider: Opening channel stream from "Emby", external channel Id: "m3u_c0179a76ff51e41673a21136757ed94a9da8999d22869101ef30848a394facd2"
+[2026-03-07 10:58:31.586 +00:00] [INF] [16] Jellyfin.LiveTv.DefaultLiveTvService: Streaming Channel "m3u_c0179a76ff51e41673a21136757ed94a9da8999d22869101ef30848a394facd2"
+[2026-03-07 10:58:31.593 +00:00] [INF] [16] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Live stream opened after 0.1515ms
+[2026-03-07 10:58:31.593 +00:00] [INF] [16] Jellyfin.LiveTv.DefaultLiveTvService: Returning mediasource streamId "9da8999d22869101ef30848a394facd2", mediaSource.Id "9da8999d22869101ef30848a394facd2", mediaSource.LiveStreamId null
+[2026-03-07 10:58:31.599 +00:00] [INF] [16] Emby.Server.Implementations.Library.MediaSourceManager: Waiting 3000ms before probing the live stream
+[2026-03-07 10:58:35.091 +00:00] [INF] [31] Emby.Server.Implementations.Library.MediaSourceManager: Live tv media info probe took "3.4938247" seconds
+[2026-03-07 10:58:35.101 +00:00] [INF] [31] Emby.Server.Implementations.Library.MediaSourceManager: Live stream opened: MediaSourceInfo { Protocol: Http, Id: "9da8999d22869101ef30848a394facd2", Path: "https://live.im07.institutodh.net/hls/stream.m3u8", EncoderPath: null, EncoderProtocol: null, Type: Default, Container: "hls", Size: 127, Name: null, IsRemote: True, ETag: null, RunTimeTicks: null, ReadAtNativeFramerate: True, IgnoreDts: True, IgnoreIndex: False, GenPtsInput: False, SupportsTranscoding: True, SupportsDirectStream: False, SupportsDirectPlay: True, IsInfiniteStream: True, UseMostCompatibleTranscodingProfile: True, RequiresOpening: True, OpenToken: null, RequiresClosing: True, LiveStreamId: "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2", BufferMs: null, RequiresLooping: False, SupportsProbing: True, VideoType: null, IsoType: null, Video3DFormat: null, MediaStreams: [MediaStream { Codec: "h264", CodecTag: null, Language: null, ColorRange: "tv", ColorSpace: "bt709", ColorTransfer: "bt709", ColorPrimaries: "bt709", DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: "1/90000", CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: SDR, VideoRangeType: SDR, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: null, LocalizedForced: null, LocalizedExternal: null, LocalizedHearingImpaired: null, DisplayTitle: "720p H264 SDR", NalLengthSize: "0", IsInterlaced: False, IsAVC: null, ChannelLayout: null, BitRate: 8000000, BitDepth: 8, RefFrames: 1, PacketLength: null, Channels: null, SampleRate: null, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: 720, Width: 1272, AverageFrameRate: 24, RealFrameRate: 24, ReferenceFrameRate: 24, Profile: "High", Type: Video, AspectRatio: "16:9", Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: "yuv420p", Level: 31, IsAnamorphic: False }, MediaStream { Codec: "aac", CodecTag: null, Language: null, ColorRange: null, ColorSpace: null, ColorTransfer: null, ColorPrimaries: null, DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: "1/90000", CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: Unknown, VideoRangeType: Unknown, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: "Predeterminado", LocalizedForced: null, LocalizedExternal: "Externo", LocalizedHearingImpaired: null, DisplayTitle: "AAC - Stereo", NalLengthSize: null, IsInterlaced: False, IsAVC: False, ChannelLayout: "stereo", BitRate: 192000, BitDepth: null, RefFrames: null, PacketLength: null, Channels: 2, SampleRate: 48000, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: null, Width: null, AverageFrameRate: null, RealFrameRate: null, ReferenceFrameRate: null, Profile: "LC", Type: Audio, AspectRatio: null, Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: null, Level: 0, IsAnamorphic: null }], MediaAttachments: [], Formats: [], Bitrate: 8192000, FallbackMaxStreamingBitrate: 30000000, Timestamp: null, RequiredHttpHeaders: [("User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")], TranscodingUrl: null, TranscodingSubProtocol: http, TranscodingContainer: null, AnalyzeDurationMs: 3000, TranscodeReasons: 0, DefaultAudioIndexSource: None, DefaultAudioStreamIndex: null, DefaultSubtitleStreamIndex: null, HasSegments: False, VideoStream: MediaStream { Codec: "h264", CodecTag: null, Language: null, ColorRange: "tv", ColorSpace: "bt709", ColorTransfer: "bt709", ColorPrimaries: "bt709", DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: "1/90000", CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: SDR, VideoRangeType: SDR, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: null, LocalizedForced: null, LocalizedExternal: null, LocalizedHearingImpaired: null, DisplayTitle: "720p H264 SDR", NalLengthSize: "0", IsInterlaced: False, IsAVC: null, ChannelLayout: null, BitRate: 8000000, BitDepth: 8, RefFrames: 1, PacketLength: null, Channels: null, SampleRate: null, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: 720, Width: 1272, AverageFrameRate: 24, RealFrameRate: 24, ReferenceFrameRate: 24, Profile: "High", Type: Video, AspectRatio: "16:9", Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: "yuv420p", Level: 31, IsAnamorphic: False } }
+[2026-03-07 10:58:35.116 +00:00] [INF] [31] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 10:58:40.697 +00:00] [INF] [31] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "Directo Colegio". Stopped at "25049" ms
+[2026-03-07 10:58:40.702 +00:00] [INF] [31] Emby.Server.Implementations.Library.MediaSourceManager: Live stream "9da8999d22869101ef30848a394facd2" consumer count is now 0
+[2026-03-07 10:58:40.703 +00:00] [INF] [31] Emby.Server.Implementations.Library.MediaSourceManager: Closing live stream "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2"
+[2026-03-07 10:58:40.704 +00:00] [INF] [31] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Closing "LiveStream"
+[2026-03-07 10:58:40.704 +00:00] [INF] [31] Emby.Server.Implementations.Library.MediaSourceManager: Live stream "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2" closed successfully
+[2026-03-07 10:58:50.979 +00:00] [INF] [19] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 10:59:33.727 +00:00] [WRN] [24] Microsoft.EntityFrameworkCore.Query: Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+[2026-03-07 11:00:22.885 +00:00] [INF] [7] Emby.Server.Implementations.IO.LibraryMonitor: "grabaciones_directos" ("/data/grabaciones_directos") will be refreshed.
+[2026-03-07 11:00:22.893 +00:00] [INF] [7] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260302_105316" ("/data/grabaciones_directos/colegio_stream_20260302_105316.mp4") will be refreshed.
+[2026-03-07 11:00:22.898 +00:00] [INF] [7] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260303_104214" ("/data/grabaciones_directos/colegio_stream_20260303_104214.mp4") will be refreshed.
+[2026-03-07 11:00:22.902 +00:00] [INF] [7] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_170505" ("/data/grabaciones_directos/colegio_stream_20260305_170505.mp4") will be refreshed.
+[2026-03-07 11:00:22.906 +00:00] [INF] [7] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_212013" ("/data/grabaciones_directos/colegio_stream_20260305_212013.mp4") will be refreshed.
+[2026-03-07 11:00:22.910 +00:00] [INF] [7] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_213045" ("/data/grabaciones_directos/colegio_stream_20260305_213045.mp4") will be refreshed.
+[2026-03-07 11:00:22.910 +00:00] [INF] [16] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_213045.mp4"
+[2026-03-07 11:00:23.129 +00:00] [INF] [16] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260303_104214.mp4"
+[2026-03-07 11:00:23.198 +00:00] [INF] [16] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_212013.mp4"
+[2026-03-07 11:00:23.752 +00:00] [INF] [16] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260302_105316.mp4"
+[2026-03-07 11:00:23.817 +00:00] [INF] [16] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_170505.mp4"
+[2026-03-07 11:01:29.282 +00:00] [INF] [24] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:01:29.283 +00:00] [INF] [24] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:01:29.285 +00:00] [INF] [24] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:02:50.485 +00:00] [INF] [19] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:03:48.184 +00:00] [INF] [9] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for "zen_vaz" has succeeded.
+[2026-03-07 11:03:48.184 +00:00] [INF] [9] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "zen_vaz": 0/0
+[2026-03-07 11:03:48.186 +00:00] [INF] [9] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user 30529a3b-c510-4012-b4f0-0b194ee475d5
+[2026-03-07 11:03:48.542 +00:00] [INF] [13] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:04:44.673 +00:00] [INF] [29] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:04:44.673 +00:00] [INF] [29] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:04:44.674 +00:00] [INF] [29] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:05:15.355 +00:00] [INF] [23] Emby.Server.Implementations.Session.SessionManager: Logging out access token "e166823e3cd94d1f86dc78e74b89ebf6"
+[2026-03-07 11:05:15.455 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:05:43.940 +00:00] [INF] [23] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:05:43.940 +00:00] [INF] [23] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:05:43.940 +00:00] [INF] [23] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:06:11.886 +00:00] [INF] [22] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:06:11.887 +00:00] [ERR] [22] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request: "Invalid token". URL "GET" "/socket".
+[2026-03-07 11:06:20.809 +00:00] [INF] [25] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:06:20.810 +00:00] [ERR] [25] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request: "Invalid token". URL "GET" "/socket".
+[2026-03-07 11:06:23.606 +00:00] [INF] [23] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:06:23.873 +00:00] [INF] [25] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:06:23.874 +00:00] [INF] [25] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:06:23.874 +00:00] [INF] [25] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:11:45.597 +00:00] [INF] [20] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for "gonzalo.rubio" has succeeded.
+[2026-03-07 11:11:45.597 +00:00] [INF] [20] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "gonzalo.rubio": 0/0
+[2026-03-07 11:11:45.597 +00:00] [INF] [20] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user f405dc83-b16b-499d-92ca-e44b9c3c5aea
+[2026-03-07 11:11:45.913 +00:00] [INF] [21] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:12:43.415 +00:00] [INF] [9] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:12:44.431 +00:00] [INF] [7] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:12:44.735 +00:00] [INF] [7] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:13:29.394 +00:00] [INF] [7] Emby.Server.Implementations.Session.SessionManager: Logging out access token "518b06ab52bc4b22bece9d03c6a301e5"
+[2026-03-07 11:13:29.497 +00:00] [INF] [39] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:13:33.746 +00:00] [INF] [40] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:13:35.341 +00:00] [INF] [40] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:13:36.458 +00:00] [INF] [39] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:36.459 +00:00] [ERR] [39] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request: "Invalid token". URL "GET" "/socket".
+[2026-03-07 11:13:37.302 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:37.302 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:37.303 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:13:38.500 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:38.501 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:38.501 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:13:38.935 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:38.935 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:38.935 +00:00] [INF] [40] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:13:39.079 +00:00] [INF] [39] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:39.080 +00:00] [INF] [39] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:13:39.080 +00:00] [INF] [39] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:14:14.374 +00:00] [INF] [7] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for "mario.reig" has succeeded.
+[2026-03-07 11:14:14.374 +00:00] [INF] [7] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "mario.reig": 0/0
+[2026-03-07 11:14:14.374 +00:00] [INF] [7] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user 5a8bb433-f358-4bec-85d7-c09992e97089
+[2026-03-07 11:14:14.686 +00:00] [INF] [41] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:14:38.138 +00:00] [INF] [9] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:14:54.989 +00:00] [INF] [9] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/grabaciones_directos"
+[2026-03-07 11:14:54.990 +00:00] [INF] [9] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/videoconferencias"
+[2026-03-07 11:14:55.064 +00:00] [WRN] [39] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.064 +00:00] [WRN] [39] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.065 +00:00] [WRN] [39] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.066 +00:00] [WRN] [39] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.290 +00:00] [INF] [39] Emby.Server.Implementations.Library.LibraryManager: Validating media library
+[2026-03-07 11:14:55.324 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.325 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.325 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.327 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.645 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.645 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.646 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.647 +00:00] [WRN] [7] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 11:14:55.726 +00:00] [INF] [7] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Escanear la biblioteca" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 11:14:55.785 +00:00] [INF] [38] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 11:14:55.784 +00:00] [INF] [9] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 11:15:00.619 +00:00] [INF] [9] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:15:04.958 +00:00] [INF] [7] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:15:06.528 +00:00] [INF] [9] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:15:37.494 +00:00] [INF] [26] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:15:39.046 +00:00] [INF] [25] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:15:50.237 +00:00] [INF] [25] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:15:51.711 +00:00] [INF] [38] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:16:03.341 +00:00] [INF] [22] Emby.Server.Implementations.Session.SessionManager: Logging out access token "94b01da9b91f4ff7bc901e260666628a"
+[2026-03-07 11:16:03.432 +00:00] [INF] [22] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:16:14.202 +00:00] [INF] [22] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:16:14.202 +00:00] [ERR] [22] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request: "Invalid token". URL "GET" "/socket".
+[2026-03-07 11:16:16.617 +00:00] [INF] [38] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:16:16.814 +00:00] [INF] [22] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:16:16.814 +00:00] [INF] [22] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:16:16.815 +00:00] [INF] [22] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:16:25.509 +00:00] [INF] [30] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for "mario.reig" has succeeded.
+[2026-03-07 11:16:25.509 +00:00] [INF] [30] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "mario.reig": 0/0
+[2026-03-07 11:16:25.509 +00:00] [INF] [30] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user ae678ed5-ba95-45a4-b26c-e2198d622ee4
+[2026-03-07 11:16:25.826 +00:00] [INF] [30] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:16:30.149 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:16:31.582 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:16:53.542 +00:00] [INF] [23] Emby.Server.Implementations.Session.SessionManager: Logging out access token "868bdd10d0ca48f8a0228081f9f8ba32"
+[2026-03-07 11:16:53.635 +00:00] [INF] [38] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:17:02.101 +00:00] [INF] [38] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:17:02.102 +00:00] [ERR] [38] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request: "Invalid token". URL "GET" "/socket".
+[2026-03-07 11:17:04.197 +00:00] [INF] [29] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:17:04.400 +00:00] [INF] [23] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:17:04.400 +00:00] [INF] [23] Jellyfin.Api.Auth.CustomAuthenticationHandler: "CustomAuthentication" was not authenticated. Failure message: "Invalid token."
+[2026-03-07 11:17:04.400 +00:00] [INF] [23] Jellyfin.Api.Auth.CustomAuthenticationHandler: AuthenticationScheme: "CustomAuthentication" was challenged.
+[2026-03-07 11:17:12.091 +00:00] [INF] [29] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for "mario.reig" has succeeded.
+[2026-03-07 11:17:12.091 +00:00] [INF] [29] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "mario.reig": 0/0
+[2026-03-07 11:17:12.091 +00:00] [INF] [29] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user 8bd9fa7b-789b-4fda-bf6e-7620d49bbdd2
+[2026-03-07 11:17:12.411 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:20:14.743 +00:00] [INF] [37] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for "cristobal.suarez" has succeeded.
+[2026-03-07 11:20:14.743 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "cristobal.suarez": 0/0
+[2026-03-07 11:20:14.743 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user 49c40e69-b92e-4b46-b250-5b093bd89de8
+[2026-03-07 11:20:15.307 +00:00] [INF] [24] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:20:42.731 +00:00] [INF] [41] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "cristobal.suarez". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:21:18.208 +00:00] [INF] [16] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:21:31.735 +00:00] [INF] [37] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "cristobal.suarez". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:21:46.539 +00:00] [INF] [41] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:22:08.988 +00:00] [INF] [41] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:22:27.102 +00:00] [INF] [27] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "cristobal.suarez". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:22:27.104 +00:00] [INF] [27] Jellyfin.LiveTv.LiveTvMediaSourceProvider: Opening channel stream from "Emby", external channel Id: "m3u_c0179a76ff51e41673a21136757ed94a9da8999d22869101ef30848a394facd2"
+[2026-03-07 11:22:27.105 +00:00] [INF] [27] Jellyfin.LiveTv.DefaultLiveTvService: Streaming Channel "m3u_c0179a76ff51e41673a21136757ed94a9da8999d22869101ef30848a394facd2"
+[2026-03-07 11:22:27.107 +00:00] [INF] [27] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Live stream opened after 0.0176ms
+[2026-03-07 11:22:27.107 +00:00] [INF] [27] Jellyfin.LiveTv.DefaultLiveTvService: Returning mediasource streamId "9da8999d22869101ef30848a394facd2", mediaSource.Id "9da8999d22869101ef30848a394facd2", mediaSource.LiveStreamId null
+[2026-03-07 11:22:27.116 +00:00] [INF] [37] Emby.Server.Implementations.Library.MediaSourceManager: Live tv media info probe took "0.009302" seconds
+[2026-03-07 11:22:27.121 +00:00] [INF] [37] Emby.Server.Implementations.Library.MediaSourceManager: Live stream opened: MediaSourceInfo { Protocol: Http, Id: "9da8999d22869101ef30848a394facd2", Path: "https://live.im07.institutodh.net/hls/stream.m3u8", EncoderPath: null, EncoderProtocol: null, Type: Default, Container: "hls", Size: 127, Name: null, IsRemote: True, ETag: null, RunTimeTicks: null, ReadAtNativeFramerate: True, IgnoreDts: True, IgnoreIndex: False, GenPtsInput: False, SupportsTranscoding: True, SupportsDirectStream: False, SupportsDirectPlay: True, IsInfiniteStream: True, UseMostCompatibleTranscodingProfile: True, RequiresOpening: True, OpenToken: null, RequiresClosing: True, LiveStreamId: "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2", BufferMs: null, RequiresLooping: False, SupportsProbing: True, VideoType: null, IsoType: null, Video3DFormat: null, MediaStreams: [MediaStream { Codec: "h264", CodecTag: null, Language: null, ColorRange: "tv", ColorSpace: "bt709", ColorTransfer: "bt709", ColorPrimaries: "bt709", DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: "1/90000", CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: SDR, VideoRangeType: SDR, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: null, LocalizedForced: null, LocalizedExternal: null, LocalizedHearingImpaired: null, DisplayTitle: "720p H264 SDR", NalLengthSize: "0", IsInterlaced: False, IsAVC: null, ChannelLayout: null, BitRate: 8000000, BitDepth: 8, RefFrames: 1, PacketLength: null, Channels: null, SampleRate: null, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: 720, Width: 1272, AverageFrameRate: 24, RealFrameRate: 24, ReferenceFrameRate: 24, Profile: "High", Type: Video, AspectRatio: "16:9", Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: "yuv420p", Level: 31, IsAnamorphic: False }, MediaStream { Codec: "aac", CodecTag: null, Language: null, ColorRange: null, ColorSpace: null, ColorTransfer: null, ColorPrimaries: null, DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: "1/90000", CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: Unknown, VideoRangeType: Unknown, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: "Predeterminado", LocalizedForced: null, LocalizedExternal: "Externo", LocalizedHearingImpaired: null, DisplayTitle: "AAC - Stereo", NalLengthSize: null, IsInterlaced: False, IsAVC: False, ChannelLayout: "stereo", BitRate: 192000, BitDepth: null, RefFrames: null, PacketLength: null, Channels: 2, SampleRate: 48000, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: null, Width: null, AverageFrameRate: null, RealFrameRate: null, ReferenceFrameRate: null, Profile: "LC", Type: Audio, AspectRatio: null, Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: null, Level: 0, IsAnamorphic: null }], MediaAttachments: [], Formats: [], Bitrate: 8192000, FallbackMaxStreamingBitrate: 30000000, Timestamp: null, RequiredHttpHeaders: [("User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")], TranscodingUrl: null, TranscodingSubProtocol: http, TranscodingContainer: null, AnalyzeDurationMs: 3000, TranscodeReasons: 0, DefaultAudioIndexSource: None, DefaultAudioStreamIndex: null, DefaultSubtitleStreamIndex: null, HasSegments: False, VideoStream: MediaStream { Codec: "h264", CodecTag: null, Language: null, ColorRange: "tv", ColorSpace: "bt709", ColorTransfer: "bt709", ColorPrimaries: "bt709", DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: "1/90000", CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: SDR, VideoRangeType: SDR, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: null, LocalizedForced: null, LocalizedExternal: null, LocalizedHearingImpaired: null, DisplayTitle: "720p H264 SDR", NalLengthSize: "0", IsInterlaced: False, IsAVC: null, ChannelLayout: null, BitRate: 8000000, BitDepth: 8, RefFrames: 1, PacketLength: null, Channels: null, SampleRate: null, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: 720, Width: 1272, AverageFrameRate: 24, RealFrameRate: 24, ReferenceFrameRate: 24, Profile: "High", Type: Video, AspectRatio: "16:9", Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: "yuv420p", Level: 31, IsAnamorphic: False } }
+[2026-03-07 11:22:27.122 +00:00] [INF] [37] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "cristobal.suarez". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:22:28.943 +00:00] [INF] [16] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "cristobal.suarez". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:22:29.261 +00:00] [INF] [16] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 3000000 -probesize 1G -user_agent \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36\" -re -fflags +igndts+genpts  -i \"https://live.im07.institutodh.net/hls/stream.m3u8\" -map_metadata -1 -map_chapters -1 -threads 0 -sn -codec:v:0 copy -start_at_zero -flags -global_header -codec:a:0 copy -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type mpegts -start_number 0 -hls_base_url \"hls/983606d8160784f6b19a7d8fad869c47/\" -hls_segment_filename \"/cache/transcodes/983606d8160784f6b19a7d8fad869c47%d.ts\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8\""
+[2026-03-07 11:23:07.062 +00:00] [INF] [41] MediaBrowser.Controller.MediaEncoding.TranscodingJob: Stopping ffmpeg process with q command for "/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8"
+[2026-03-07 11:23:07.146 +00:00] [INF] [29] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 0
+[2026-03-07 11:23:07.147 +00:00] [INF] [41] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8"
+[2026-03-07 11:23:08.650 +00:00] [INF] [29] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Android" "2.6.3" playing "Directo Colegio". Stopped at "31819" ms
+[2026-03-07 11:23:08.651 +00:00] [INF] [29] Emby.Server.Implementations.Library.MediaSourceManager: Live stream "9da8999d22869101ef30848a394facd2" consumer count is now 0
+[2026-03-07 11:23:08.651 +00:00] [INF] [29] Emby.Server.Implementations.Library.MediaSourceManager: Closing live stream "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2"
+[2026-03-07 11:23:08.651 +00:00] [INF] [29] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Closing "LiveStream"
+[2026-03-07 11:23:08.651 +00:00] [INF] [29] Emby.Server.Implementations.Library.MediaSourceManager: Live stream "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2" closed successfully
+[2026-03-07 11:23:22.032 +00:00] [INF] [27] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "cristobal.suarez". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:23:34.168 +00:00] [INF] [16] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Android" "2.6.3" playing "Sesion_HOY". Stopped at "10268" ms
+[2026-03-07 11:23:46.016 +00:00] [INF] [37] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "cristobal.suarez". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:24:07.726 +00:00] [INF] [19] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Android" "2.6.3" playing "prueba01_2026-03-02-11-59-12". Stopped at "19700" ms
+[2026-03-07 11:24:09.312 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionWebSocketListener: Sending ForceKeepAlive message to 1 inactive WebSockets.
+[2026-03-07 11:24:14.746 +00:00] [INF] [37] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:24:57.313 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionWebSocketListener: Sending ForceKeepAlive message to 1 inactive WebSockets.
+[2026-03-07 11:25:45.313 +00:00] [INF] [3] Emby.Server.Implementations.Session.SessionWebSocketListener: Sending ForceKeepAlive message to 1 inactive WebSockets.
+[2026-03-07 11:26:16.240 +00:00] [WRN] [17] Emby.Server.Implementations.HttpServer.WebSocketConnection: WS "172.18.0.3" error receiving data: "The remote party closed the WebSocket connection without completing the close handshake."
+[2026-03-07 11:26:16.241 +00:00] [INF] [17] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:32:43.366 +00:00] [INF] [13] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "mario.reig": 1/0
+[2026-03-07 11:32:43.367 +00:00] [INF] [13] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user 8bd9fa7b-789b-4fda-bf6e-7620d49bbdd2
+[2026-03-07 11:32:45.941 +00:00] [INF] [13] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:35:56.300 +00:00] [INF] [17] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/grabaciones_directos"
+[2026-03-07 11:35:56.301 +00:00] [INF] [17] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/videoconferencias"
+[2026-03-07 11:35:56.301 +00:00] [INF] [17] Emby.Server.Implementations.Library.LibraryManager: Validating media library
+[2026-03-07 11:35:56.306 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.306 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.306 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.308 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.555 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.556 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.556 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.557 +00:00] [WRN] [17] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 11:35:56.584 +00:00] [INF] [17] Emby.Server.Implementations.Library.LibraryManager: Removing item, Type: "Video", Name: "colegio_stream_20260302_105316", Path: "/data/grabaciones_directos/colegio_stream_20260302_105316.mp4", Id: 87bc04bb-27d3-8a00-309c-1cef7dacae7a
+[2026-03-07 11:35:56.648 +00:00] [INF] [17] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260303_104214.mp4"
+[2026-03-07 11:35:56.711 +00:00] [INF] [17] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_170505.mp4"
+[2026-03-07 11:35:56.760 +00:00] [INF] [22] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_212013.mp4"
+[2026-03-07 11:35:56.823 +00:00] [INF] [17] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_213045.mp4"
+[2026-03-07 11:35:56.900 +00:00] [INF] [17] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260307_105620.mp4"
+[2026-03-07 11:35:57.340 +00:00] [INF] [17] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Escanear la biblioteca" Completed after 0 minute(s) and 1 seconds
+[2026-03-07 11:35:57.341 +00:00] [INF] [31] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 11:35:57.342 +00:00] [INF] [22] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 11:36:13.256 +00:00] [INF] [17] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "mario.reig". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:37:55.383 +00:00] [INF] [30] Emby.Server.Implementations.Session.SessionManager: Sending shutdown notifications
+[2026-03-07 11:37:55.477 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:37:55.478 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:37:55.478 +00:00] [INF] [17] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:37:55.479 +00:00] [INF] [17] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:37:55.483 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:37:55.484 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:38:10.261 +00:00] [INF] [1] Emby.Server.Implementations.AppBase.BaseConfigurationManager: Setting cache path: "/cache"
+[2026-03-07 11:38:10.585 +00:00] [INF] [9] Jellyfin.Server.ServerSetupApp.SetupServer: Kestrel is listening on "0.0.0.0"
+[2026-03-07 11:38:10.631 +00:00] [INF] [9] Main: Jellyfin version: "10.11.6"
+[2026-03-07 11:38:10.637 +00:00] [INF] [9] Main: Environment Variables: ["[JELLYFIN_WEB_DIR, /jellyfin/jellyfin-web]", "[JELLYFIN_FFMPEG, /usr/lib/jellyfin-ffmpeg/ffmpeg]", "[JELLYFIN_DATA_DIR, /config]", "[JELLYFIN_LOG_DIR, /config/log]", "[JELLYFIN_CONFIG_DIR, /config/config]", "[JELLYFIN_CACHE_DIR, /cache]"]
+[2026-03-07 11:38:10.641 +00:00] [INF] [9] Main: Arguments: ["/jellyfin/jellyfin.dll"]
+[2026-03-07 11:38:10.642 +00:00] [INF] [9] Main: Operating system: "Debian GNU/Linux 13 (trixie)"
+[2026-03-07 11:38:10.642 +00:00] [INF] [9] Main: Architecture: X64
+[2026-03-07 11:38:10.644 +00:00] [INF] [9] Main: 64-Bit Process: True
+[2026-03-07 11:38:10.644 +00:00] [INF] [9] Main: User Interactive: True
+[2026-03-07 11:38:10.644 +00:00] [INF] [9] Main: Processor count: 2
+[2026-03-07 11:38:10.645 +00:00] [INF] [9] Main: Program data path: "/config"
+[2026-03-07 11:38:10.645 +00:00] [INF] [9] Main: Log directory path: "/config/log"
+[2026-03-07 11:38:10.645 +00:00] [INF] [9] Main: Config directory path: "/config/config"
+[2026-03-07 11:38:10.646 +00:00] [INF] [9] Main: Cache path: "/cache"
+[2026-03-07 11:38:10.646 +00:00] [INF] [9] Main: Temp directory path: "/tmp/jellyfin"
+[2026-03-07 11:38:10.647 +00:00] [INF] [9] Main: Web resources path: "/jellyfin/jellyfin-web"
+[2026-03-07 11:38:10.647 +00:00] [INF] [9] Main: Application directory: "/jellyfin/"
+[2026-03-07 11:38:10.673 +00:00] [INF] [9] Jellyfin.Server.Startup: Storage path `"/config/data"` (Fixed) successfully checked with "20.6GiB" free which is over the minimum of "2GiB".
+[2026-03-07 11:38:10.675 +00:00] [INF] [9] Jellyfin.Server.Startup: Storage path `"/cache"` (Fixed) successfully checked with "20.6GiB" free which is over the minimum of "2GiB".
+[2026-03-07 11:38:10.676 +00:00] [INF] [9] Jellyfin.Server.Startup: Storage path `"/config"` (Fixed) successfully checked with "20.6GiB" free which is over the minimum of "2GiB".
+[2026-03-07 11:38:10.681 +00:00] [INF] [9] Emby.Server.Implementations.AppBase.BaseConfigurationManager: Setting cache path: "/cache"
+[2026-03-07 11:38:10.772 +00:00] [INF] [9] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLite connection string: "Data Source=/config/data/jellyfin.db;Cache=Default;Default Timeout=30;Pooling=True"
+[2026-03-07 11:38:10.781 +00:00] [INF] [9] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLITE connection pragma command set to: 
+"PRAGMA locking_mode=NORMAL;
+PRAGMA journal_size_limit=134217728;
+PRAGMA synchronous=1;
+PRAGMA temp_store=2;
+"
+[2026-03-07 11:38:10.784 +00:00] [INF] [9] Jellyfin.Database.Implementations.Locking.NoLockBehavior: The database locking mode has been set to: NoLock.
+[2026-03-07 11:38:10.832 +00:00] [INF] [9] Jellyfin.Server.Migrations.JellyfinMigrationService: Initialise Migration service.
+[2026-03-07 11:38:12.534 +00:00] [INF] [9] Jellyfin.Server.Migrations.JellyfinMigrationService: There are 0 migrations for stage PreInitialisation.
+[2026-03-07 11:38:12.555 +00:00] [INF] [9] Emby.Server.Implementations.AppBase.BaseConfigurationManager: Setting cache path: "/cache"
+[2026-03-07 11:38:12.580 +00:00] [INF] [9] Emby.Server.Implementations.ApplicationHost: Loading assemblies
+[2026-03-07 11:38:12.643 +00:00] [INF] [9] Jellyfin.Networking.Manager.NetworkManager: Defined LAN subnets: ["127.0.0.1/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+[2026-03-07 11:38:12.643 +00:00] [INF] [9] Jellyfin.Networking.Manager.NetworkManager: Defined LAN exclusions: []
+[2026-03-07 11:38:12.644 +00:00] [INF] [9] Jellyfin.Networking.Manager.NetworkManager: Used LAN subnets: ["127.0.0.1/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+[2026-03-07 11:38:12.647 +00:00] [INF] [9] Jellyfin.Networking.Manager.NetworkManager: Filtered interface addresses: ["127.0.0.1", "172.18.0.2"]
+[2026-03-07 11:38:12.647 +00:00] [INF] [9] Jellyfin.Networking.Manager.NetworkManager: Bind Addresses ["0.0.0.0"]
+[2026-03-07 11:38:12.648 +00:00] [INF] [9] Jellyfin.Networking.Manager.NetworkManager: Remote IP filter is "Allowlist"
+[2026-03-07 11:38:12.648 +00:00] [INF] [9] Jellyfin.Networking.Manager.NetworkManager: Filtered subnets: []
+[2026-03-07 11:38:13.467 +00:00] [INF] [9] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLite connection string: "Data Source=/config/data/jellyfin.db;Cache=Default;Default Timeout=30;Pooling=True"
+[2026-03-07 11:38:13.467 +00:00] [INF] [9] Jellyfin.Database.Providers.Sqlite.SqliteDatabaseProvider: SQLITE connection pragma command set to: 
+"PRAGMA locking_mode=NORMAL;
+PRAGMA journal_size_limit=134217728;
+PRAGMA synchronous=1;
+PRAGMA temp_store=2;
+"
+[2026-03-07 11:38:13.469 +00:00] [INF] [9] Jellyfin.Database.Implementations.Locking.NoLockBehavior: The database locking mode has been set to: NoLock.
+[2026-03-07 11:38:13.478 +00:00] [INF] [9] Main: Prepare system for possible migrations
+[2026-03-07 11:38:13.532 +00:00] [INF] [9] Jellyfin.Server.Migrations.JellyfinMigrationService: There are 0 migrations for stage CoreInitialisation.
+[2026-03-07 11:38:14.349 +00:00] [INF] [9] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "TMDb" "10.11.6.0"
+[2026-03-07 11:38:14.351 +00:00] [INF] [9] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "Studio Images" "10.11.6.0"
+[2026-03-07 11:38:14.351 +00:00] [INF] [9] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "OMDb" "10.11.6.0"
+[2026-03-07 11:38:14.364 +00:00] [INF] [9] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "MusicBrainz" "10.11.6.0"
+[2026-03-07 11:38:14.365 +00:00] [INF] [9] Emby.Server.Implementations.Plugins.PluginManager: Loaded plugin: "AudioDB" "10.11.6.0"
+[2026-03-07 11:38:14.420 +00:00] [INF] [9] Jellyfin.Server.Migrations.JellyfinMigrationService: There are 0 migrations for stage AppInitialisation.
+[2026-03-07 11:38:14.491 +00:00] [INF] [12] Main: Kestrel is listening on "0.0.0.0"
+[2026-03-07 11:38:14.512 +00:00] [WRN] [9] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: No XML encryptor configured. Key {bd24d97d-72f1-49a2-ae20-40e3bced782b} may be persisted to storage in unencrypted form.
+[2026-03-07 11:38:15.425 +00:00] [WRN] [12] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The WebRootPath was not found: "/wwwroot". Static files may be unavailable.
+[2026-03-07 11:38:15.460 +00:00] [INF] [12] Emby.Server.Implementations.ApplicationHost: Running startup tasks
+[2026-03-07 11:38:15.463 +00:00] [INF] [9] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 11:38:15.464 +00:00] [INF] [7] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 11:38:15.476 +00:00] [INF] [12] Emby.Server.Implementations.ScheduledTasks.TaskManager: Daily trigger for "Generar miniaturas de línea de tiempo" set to fire at 2026-03-08 03:00:00.000 +00:00, which is 15:21:44.5239610 from now.
+[2026-03-07 11:38:15.489 +00:00] [INF] [12] Emby.Server.Implementations.ScheduledTasks.TaskManager: Daily trigger for "Extraer imágenes de los capítulos" set to fire at 2026-03-08 02:00:00.000 +00:00, which is 14:21:44.5107205 from now.
+[2026-03-07 11:38:15.524 +00:00] [INF] [12] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Found ffmpeg version "7.1.3"
+[2026-03-07 11:38:15.566 +00:00] [INF] [12] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available "decoders": ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+[2026-03-07 11:38:15.589 +00:00] [INF] [12] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available "encoders": ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+[2026-03-07 11:38:15.613 +00:00] [INF] [12] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+[2026-03-07 11:38:15.950 +00:00] [INF] [12] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan"]
+[2026-03-07 11:38:18.244 +00:00] [INF] [9] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:38:18.525 +00:00] [INF] [7] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Limpiar las transcodificaciones" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 11:38:18.851 +00:00] [INF] [19] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Limpiar colecciones y listas de reproducción" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 11:38:18.926 +00:00] [INF] [7] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:38:19.363 +00:00] [INF] [19] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Actualizar extensiones" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 11:38:24.923 +00:00] [INF] [12] MediaBrowser.MediaEncoding.Encoder.MediaEncoder: FFmpeg: "/usr/lib/jellyfin-ffmpeg/ffmpeg"
+[2026-03-07 11:38:24.923 +00:00] [INF] [12] Emby.Server.Implementations.ApplicationHost: ServerId: "af6ac37746ec41f6bddd0c60d911a240"
+[2026-03-07 11:38:24.923 +00:00] [INF] [12] Emby.Server.Implementations.ApplicationHost: Core startup complete
+[2026-03-07 11:38:24.924 +00:00] [INF] [12] Main: Startup complete 0:00:15.1630985
+[2026-03-07 11:38:25.168 +00:00] [INF] [21] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:38:26.474 +00:00] [INF] [20] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:38:44.548 +00:00] [INF] [21] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:38:46.975 +00:00] [INF] [20] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:38:47.800 +00:00] [INF] [21] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:38:49.159 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:38:57.223 +00:00] [INF] [21] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "colegio_stream_20260307_112123". Stopped at "586866" ms
+[2026-03-07 11:39:30.371 +00:00] [INF] [23] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:48:00.188 +00:00] [INF] [41] Emby.Server.Implementations.IO.LibraryMonitor: "grabaciones_directos" ("/data/grabaciones_directos") will be refreshed.
+[2026-03-07 11:48:00.774 +00:00] [ERR] [38] MediaBrowser.Providers.Videos.VideoMetadataService: Error in "Probe Provider"
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.MediaInfo.FFProbeVideoInfo.ProbeVideo[T](T item, MetadataRefreshOptions options, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.Manager.MetadataService`2.RunCustomProvider(ICustomMetadataProvider`1 provider, TItemType item, String logName, MetadataRefreshOptions options, RefreshResult refreshResult, CancellationToken cancellationToken)
+[2026-03-07 11:48:00.815 +00:00] [INF] [38] MediaBrowser.Providers.MediaInfo.VideoImageProvider: Skipping image extraction due to missing DefaultVideoStreamIndex for "/data/grabaciones_directos/colegio_stream_20260307_114009.mp4".
+[2026-03-07 11:51:22.957 +00:00] [INF] [43] Emby.Server.Implementations.IO.LibraryMonitor: "videoconferencias" ("/data/videoconferencias") will be refreshed.
+[2026-03-07 11:51:33.897 +00:00] [WRN] [40] Emby.Server.Implementations.HttpServer.WebSocketConnection: WS "172.18.0.3" error receiving data: "The remote party closed the WebSocket connection without completing the close handshake."
+[2026-03-07 11:51:33.900 +00:00] [INF] [40] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:52:01.726 +00:00] [INF] [36] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:52:02.626 +00:00] [INF] [43] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:52:35.528 +00:00] [INF] [39] Emby.Server.Implementations.IO.LibraryMonitor: "grabaciones_directos" ("/data/grabaciones_directos") will be refreshed.
+[2026-03-07 11:52:35.548 +00:00] [INF] [39] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260303_104214" ("/data/grabaciones_directos/colegio_stream_20260303_104214.mp4") will be refreshed.
+[2026-03-07 11:52:35.560 +00:00] [INF] [39] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_170505" ("/data/grabaciones_directos/colegio_stream_20260305_170505.mp4") will be refreshed.
+[2026-03-07 11:52:35.565 +00:00] [INF] [39] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_212013" ("/data/grabaciones_directos/colegio_stream_20260305_212013.mp4") will be refreshed.
+[2026-03-07 11:52:35.570 +00:00] [INF] [39] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_213045" ("/data/grabaciones_directos/colegio_stream_20260305_213045.mp4") will be refreshed.
+[2026-03-07 11:52:35.574 +00:00] [INF] [39] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260307_105620" ("/data/grabaciones_directos/colegio_stream_20260307_105620.mp4") will be refreshed.
+[2026-03-07 11:52:35.579 +00:00] [INF] [39] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260307_112123" ("/data/grabaciones_directos/colegio_stream_20260307_112123.mp4") will be refreshed.
+[2026-03-07 11:52:36.013 +00:00] [INF] [39] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_213045.mp4"
+[2026-03-07 11:52:36.085 +00:00] [INF] [39] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260307_112123.mp4"
+[2026-03-07 11:52:36.152 +00:00] [INF] [39] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260303_104214.mp4"
+[2026-03-07 11:52:36.218 +00:00] [INF] [39] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_212013.mp4"
+[2026-03-07 11:52:36.294 +00:00] [INF] [39] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260307_105620.mp4"
+[2026-03-07 11:52:36.355 +00:00] [INF] [39] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_170505.mp4"
+[2026-03-07 11:52:55.173 +00:00] [WRN] [30] Microsoft.EntityFrameworkCore.Query: Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+[2026-03-07 11:54:24.581 +00:00] [INF] [43] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:54:30.124 +00:00] [INF] [36] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:55:05.304 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Logging out access token "818294f539d34ae2abc1c4909cb2542f"
+[2026-03-07 11:55:05.307 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Logging out access token "4a510ffda2b1428d9a8a99c5fc17fee2"
+[2026-03-07 11:55:05.356 +00:00] [INF] [35] Emby.Server.Implementations.Session.SessionManager: Logging out access token "0fd5923699d54e54a6c1569bdadeb857"
+[2026-03-07 11:55:21.580 +00:00] [INF] [34] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:55:23.349 +00:00] [INF] [36] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:56:07.204 +00:00] [INF] [29] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for "jose.javier.cepeda" has succeeded.
+[2026-03-07 11:56:07.206 +00:00] [INF] [29] Emby.Server.Implementations.Session.SessionManager: Current/Max sessions for user "jose.javier.cepeda": 0/0
+[2026-03-07 11:56:07.208 +00:00] [INF] [29] Emby.Server.Implementations.Session.SessionManager: Creating new access token for user fde0897d-bcda-4ba0-876a-7157e1811f4f
+[2026-03-07 11:56:07.569 +00:00] [INF] [37] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:56:20.689 +00:00] [INF] [37] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:56:29.099 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "colegio_stream_20260307_114801". Stopped at "159715" ms
+[2026-03-07 11:56:31.035 +00:00] [ERR] [29] MediaBrowser.Providers.Videos.VideoMetadataService: Error in "Probe Provider"
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.MediaInfo.FFProbeVideoInfo.ProbeVideo[T](T item, MetadataRefreshOptions options, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.Manager.MetadataService`2.RunCustomProvider(ICustomMetadataProvider`1 provider, TItemType item, String logName, MetadataRefreshOptions options, RefreshResult refreshResult, CancellationToken cancellationToken)
+[2026-03-07 11:56:31.039 +00:00] [INF] [29] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:56:31.985 +00:00] [INF] [27] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 11:56:31.997 +00:00] [INF] [27] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 200M -probesize 1G  -i file:\"/data/grabaciones_directos/colegio_stream_20260307_114009.mp4\" -map_metadata -1 -map_chapters -1 -threads 0 -sn   -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename \"7a45f9bf72cf003584cd9ac71f5a914e-1.mp4\" -start_number 0 -hls_base_url \"hls/7a45f9bf72cf003584cd9ac71f5a914e/\" -hls_segment_filename \"/cache/transcodes/7a45f9bf72cf003584cd9ac71f5a914e%d.mp4\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/7a45f9bf72cf003584cd9ac71f5a914e.m3u8\""
+[2026-03-07 11:56:32.023 +00:00] [ERR] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 183
+[2026-03-07 11:56:32.123 +00:00] [ERR] [37] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/a2762075-a9cd-e8c4-f04b-797c906f20bf/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 183
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 11:56:32.362 +00:00] [ERR] [37] MediaBrowser.Providers.Videos.VideoMetadataService: Error in "Probe Provider"
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.MediaInfo.FFProbeVideoInfo.ProbeVideo[T](T item, MetadataRefreshOptions options, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.Manager.MetadataService`2.RunCustomProvider(ICustomMetadataProvider`1 provider, TItemType item, String logName, MetadataRefreshOptions options, RefreshResult refreshResult, CancellationToken cancellationToken)
+[2026-03-07 11:56:32.365 +00:00] [INF] [37] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:56:32.534 +00:00] [INF] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/7a45f9bf72cf003584cd9ac71f5a914e.m3u8"
+[2026-03-07 11:56:32.746 +00:00] [INF] [29] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 11:56:32.746 +00:00] [INF] [29] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 200M -probesize 1G  -i file:\"/data/grabaciones_directos/colegio_stream_20260307_114009.mp4\" -map_metadata -1 -map_chapters -1 -threads 0 -sn   -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename \"54ac21773fcb929754e04937280f00fb-1.mp4\" -start_number 0 -hls_base_url \"hls/54ac21773fcb929754e04937280f00fb/\" -hls_segment_filename \"/cache/transcodes/54ac21773fcb929754e04937280f00fb%d.mp4\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/54ac21773fcb929754e04937280f00fb.m3u8\""
+[2026-03-07 11:56:32.769 +00:00] [ERR] [29] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 183
+[2026-03-07 11:56:32.866 +00:00] [ERR] [29] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/a2762075-a9cd-e8c4-f04b-797c906f20bf/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 183
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 11:56:33.008 +00:00] [ERR] [37] MediaBrowser.Providers.Videos.VideoMetadataService: Error in "Probe Provider"
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.MediaInfo.FFProbeVideoInfo.ProbeVideo[T](T item, MetadataRefreshOptions options, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.Manager.MetadataService`2.RunCustomProvider(ICustomMetadataProvider`1 provider, TItemType item, String logName, MetadataRefreshOptions options, RefreshResult refreshResult, CancellationToken cancellationToken)
+[2026-03-07 11:56:33.011 +00:00] [INF] [37] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:56:33.111 +00:00] [INF] [29] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/54ac21773fcb929754e04937280f00fb.m3u8"
+[2026-03-07 11:56:33.313 +00:00] [INF] [37] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 11:56:33.314 +00:00] [INF] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 200M -probesize 1G  -i file:\"/data/grabaciones_directos/colegio_stream_20260307_114009.mp4\" -map_metadata -1 -map_chapters -1 -threads 0 -sn   -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename \"124f7ea4f488b4d5d012a10f7aefd63a-1.mp4\" -start_number 0 -hls_base_url \"hls/124f7ea4f488b4d5d012a10f7aefd63a/\" -hls_segment_filename \"/cache/transcodes/124f7ea4f488b4d5d012a10f7aefd63a%d.mp4\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/124f7ea4f488b4d5d012a10f7aefd63a.m3u8\""
+[2026-03-07 11:56:33.344 +00:00] [ERR] [29] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 183
+[2026-03-07 11:56:33.440 +00:00] [ERR] [29] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/a2762075-a9cd-e8c4-f04b-797c906f20bf/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 183
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 11:56:33.543 +00:00] [INF] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/124f7ea4f488b4d5d012a10f7aefd63a.m3u8"
+[2026-03-07 11:56:35.045 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "colegio_stream_20260307_114009". Stopped at "0" ms
+[2026-03-07 11:56:35.794 +00:00] [ERR] [37] MediaBrowser.Providers.Videos.VideoMetadataService: Error in "Probe Provider"
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.MediaInfo.FFProbeVideoInfo.ProbeVideo[T](T item, MetadataRefreshOptions options, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.Manager.MetadataService`2.RunCustomProvider(ICustomMetadataProvider`1 provider, TItemType item, String logName, MetadataRefreshOptions options, RefreshResult refreshResult, CancellationToken cancellationToken)
+[2026-03-07 11:56:35.797 +00:00] [INF] [37] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:56:36.257 +00:00] [INF] [37] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 11:56:36.257 +00:00] [INF] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 200M -probesize 1G  -i file:\"/data/grabaciones_directos/colegio_stream_20260307_114009.mp4\" -map_metadata -1 -map_chapters -1 -threads 0 -sn   -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename \"be77b873e49c76c5b4c38dd383050cd2-1.mp4\" -start_number 0 -hls_base_url \"hls/be77b873e49c76c5b4c38dd383050cd2/\" -hls_segment_filename \"/cache/transcodes/be77b873e49c76c5b4c38dd383050cd2%d.mp4\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/be77b873e49c76c5b4c38dd383050cd2.m3u8\""
+[2026-03-07 11:56:36.286 +00:00] [ERR] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 183
+[2026-03-07 11:56:36.382 +00:00] [ERR] [37] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/a2762075-a9cd-e8c4-f04b-797c906f20bf/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 183
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 11:56:36.632 +00:00] [ERR] [27] MediaBrowser.Providers.Videos.VideoMetadataService: Error in "Probe Provider"
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.MediaInfo.FFProbeVideoInfo.ProbeVideo[T](T item, MetadataRefreshOptions options, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.Manager.MetadataService`2.RunCustomProvider(ICustomMetadataProvider`1 provider, TItemType item, String logName, MetadataRefreshOptions options, RefreshResult refreshResult, CancellationToken cancellationToken)
+[2026-03-07 11:56:36.634 +00:00] [INF] [27] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:56:36.734 +00:00] [INF] [27] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/be77b873e49c76c5b4c38dd383050cd2.m3u8"
+[2026-03-07 11:56:36.936 +00:00] [INF] [37] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 11:56:36.937 +00:00] [INF] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 200M -probesize 1G  -i file:\"/data/grabaciones_directos/colegio_stream_20260307_114009.mp4\" -map_metadata -1 -map_chapters -1 -threads 0 -sn   -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename \"e9a02a25b1e0d176c773bde83056c5c5-1.mp4\" -start_number 0 -hls_base_url \"hls/e9a02a25b1e0d176c773bde83056c5c5/\" -hls_segment_filename \"/cache/transcodes/e9a02a25b1e0d176c773bde83056c5c5%d.mp4\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/e9a02a25b1e0d176c773bde83056c5c5.m3u8\""
+[2026-03-07 11:56:36.960 +00:00] [ERR] [27] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 183
+[2026-03-07 11:56:37.058 +00:00] [ERR] [37] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/a2762075-a9cd-e8c4-f04b-797c906f20bf/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 183
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 11:56:37.195 +00:00] [ERR] [27] MediaBrowser.Providers.Videos.VideoMetadataService: Error in "Probe Provider"
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.MediaInfo.FFProbeVideoInfo.ProbeVideo[T](T item, MetadataRefreshOptions options, CancellationToken cancellationToken)
+   at MediaBrowser.Providers.Manager.MetadataService`2.RunCustomProvider(ICustomMetadataProvider`1 provider, TItemType item, String logName, MetadataRefreshOptions options, RefreshResult refreshResult, CancellationToken cancellationToken)
+[2026-03-07 11:56:37.197 +00:00] [INF] [27] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:56:37.296 +00:00] [INF] [37] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/e9a02a25b1e0d176c773bde83056c5c5.m3u8"
+[2026-03-07 11:56:37.564 +00:00] [INF] [27] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 11:56:37.564 +00:00] [INF] [27] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 200M -probesize 1G  -i file:\"/data/grabaciones_directos/colegio_stream_20260307_114009.mp4\" -map_metadata -1 -map_chapters -1 -threads 0 -sn   -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename \"1522d9971b78cc3e35d54037cbf1efe8-1.mp4\" -start_number 0 -hls_base_url \"hls/1522d9971b78cc3e35d54037cbf1efe8/\" -hls_segment_filename \"/cache/transcodes/1522d9971b78cc3e35d54037cbf1efe8%d.mp4\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/1522d9971b78cc3e35d54037cbf1efe8.m3u8\""
+[2026-03-07 11:56:37.606 +00:00] [ERR] [27] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 183
+[2026-03-07 11:56:37.700 +00:00] [ERR] [27] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/a2762075-a9cd-e8c4-f04b-797c906f20bf/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 183
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 11:56:37.810 +00:00] [INF] [27] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/1522d9971b78cc3e35d54037cbf1efe8.m3u8"
+[2026-03-07 11:56:39.312 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "colegio_stream_20260307_114009". Stopped at "0" ms
+[2026-03-07 11:56:43.910 +00:00] [INF] [27] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "jose.javier.cepeda". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 11:57:33.333 +00:00] [INF] [37] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "colegio_stream_20260307_112123". Stopped at "476417" ms
+[2026-03-07 11:57:34.828 +00:00] [WRN] [37] Emby.Server.Implementations.HttpServer.WebSocketConnection: WS "172.18.0.3" error receiving data: "The remote party closed the WebSocket connection without completing the close handshake."
+[2026-03-07 11:57:34.829 +00:00] [INF] [37] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:57:40.699 +00:00] [INF] [37] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:57:42.535 +00:00] [INF] [41] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:58:09.650 +00:00] [INF] [28] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:58:16.719 +00:00] [INF] [44] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 11:58:16.835 +00:00] [INF] [44] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 11:58:18.793 +00:00] [INF] [41] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 12:02:58.905 +00:00] [INF] [36] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 12:03:07.941 +00:00] [INF] [50] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 12:03:12.481 +00:00] [INF] [34] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Parsed channel: "Directo Colegio"
+[2026-03-07 12:03:12.510 +00:00] [INF] [34] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 12:03:12.526 +00:00] [INF] [34] Jellyfin.LiveTv.LiveTvMediaSourceProvider: Opening channel stream from "Emby", external channel Id: "m3u_c0179a76ff51e41673a21136757ed94a9da8999d22869101ef30848a394facd2"
+[2026-03-07 12:03:12.528 +00:00] [INF] [34] Jellyfin.LiveTv.DefaultLiveTvService: Streaming Channel "m3u_c0179a76ff51e41673a21136757ed94a9da8999d22869101ef30848a394facd2"
+[2026-03-07 12:03:12.537 +00:00] [INF] [34] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Live stream opened after 0.1107ms
+[2026-03-07 12:03:12.537 +00:00] [INF] [34] Jellyfin.LiveTv.DefaultLiveTvService: Returning mediasource streamId "9da8999d22869101ef30848a394facd2", mediaSource.Id "9da8999d22869101ef30848a394facd2", mediaSource.LiveStreamId null
+[2026-03-07 12:03:12.545 +00:00] [INF] [34] Emby.Server.Implementations.Library.MediaSourceManager: Waiting 3000ms before probing the live stream
+[2026-03-07 12:03:15.593 +00:00] [ERR] [34] Emby.Server.Implementations.Library.MediaSourceManager: Error probing live tv stream
+MediaBrowser.Common.FfmpegException: ffprobe failed - streams and format are both null.
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at MediaBrowser.MediaEncoding.Encoder.MediaEncoder.GetMediaInfoInternal(String inputPath, String primaryPath, MediaProtocol protocol, Boolean extractChapters, String probeSizeArgument, Boolean isAudio, Nullable`1 videoType, CancellationToken cancellationToken)
+   at Emby.Server.Implementations.Library.LiveStreamHelper.AddMediaInfoWithProbe(MediaSourceInfo mediaSource, Boolean isAudio, String cacheKey, Boolean addProbeDelay, CancellationToken cancellationToken)
+   at Emby.Server.Implementations.Library.MediaSourceManager.OpenLiveStreamInternal(LiveStreamRequest request, CancellationToken cancellationToken)
+[2026-03-07 12:03:15.619 +00:00] [INF] [34] Emby.Server.Implementations.Library.MediaSourceManager: Live stream opened: MediaSourceInfo { Protocol: Http, Id: "9da8999d22869101ef30848a394facd2", Path: "https://live.im07.institutodh.net/hls/stream.m3u8", EncoderPath: null, EncoderProtocol: null, Type: Default, Container: null, Size: null, Name: null, IsRemote: False, ETag: null, RunTimeTicks: null, ReadAtNativeFramerate: True, IgnoreDts: True, IgnoreIndex: False, GenPtsInput: False, SupportsTranscoding: True, SupportsDirectStream: False, SupportsDirectPlay: True, IsInfiniteStream: True, UseMostCompatibleTranscodingProfile: True, RequiresOpening: True, OpenToken: null, RequiresClosing: True, LiveStreamId: "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2", BufferMs: null, RequiresLooping: False, SupportsProbing: True, VideoType: null, IsoType: null, Video3DFormat: null, MediaStreams: [MediaStream { Codec: null, CodecTag: null, Language: null, ColorRange: null, ColorSpace: null, ColorTransfer: null, ColorPrimaries: null, DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: null, CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: SDR, VideoRangeType: SDR, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: null, LocalizedForced: null, LocalizedExternal: null, LocalizedHearingImpaired: null, DisplayTitle: "SDR", NalLengthSize: null, IsInterlaced: True, IsAVC: null, ChannelLayout: null, BitRate: 20000000, BitDepth: null, RefFrames: null, PacketLength: null, Channels: null, SampleRate: null, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: null, Width: null, AverageFrameRate: null, RealFrameRate: null, ReferenceFrameRate: null, Profile: null, Type: Video, AspectRatio: null, Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: null, Level: null, IsAnamorphic: null }, MediaStream { Codec: null, CodecTag: null, Language: null, ColorRange: null, ColorSpace: null, ColorTransfer: null, ColorPrimaries: null, DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: null, CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: Unknown, VideoRangeType: Unknown, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: null, LocalizedForced: null, LocalizedExternal: null, LocalizedHearingImpaired: null, DisplayTitle: "", NalLengthSize: null, IsInterlaced: False, IsAVC: null, ChannelLayout: null, BitRate: null, BitDepth: null, RefFrames: null, PacketLength: null, Channels: null, SampleRate: null, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: null, Width: null, AverageFrameRate: null, RealFrameRate: null, ReferenceFrameRate: null, Profile: null, Type: Audio, AspectRatio: null, Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: null, Level: null, IsAnamorphic: null }], MediaAttachments: [], Formats: [], Bitrate: 20000000, FallbackMaxStreamingBitrate: 30000000, Timestamp: null, RequiredHttpHeaders: [("User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")], TranscodingUrl: null, TranscodingSubProtocol: http, TranscodingContainer: null, AnalyzeDurationMs: 3000, TranscodeReasons: 0, DefaultAudioIndexSource: None, DefaultAudioStreamIndex: null, DefaultSubtitleStreamIndex: null, HasSegments: False, VideoStream: MediaStream { Codec: null, CodecTag: null, Language: null, ColorRange: null, ColorSpace: null, ColorTransfer: null, ColorPrimaries: null, DvVersionMajor: null, DvVersionMinor: null, DvProfile: null, DvLevel: null, RpuPresentFlag: null, ElPresentFlag: null, BlPresentFlag: null, DvBlSignalCompatibilityId: null, Rotation: null, Comment: null, TimeBase: null, CodecTimeBase: null, Title: null, Hdr10PlusPresentFlag: null, VideoRange: SDR, VideoRangeType: SDR, VideoDoViTitle: null, AudioSpatialFormat: None, LocalizedUndefined: null, LocalizedDefault: null, LocalizedForced: null, LocalizedExternal: null, LocalizedHearingImpaired: null, DisplayTitle: "SDR", NalLengthSize: null, IsInterlaced: True, IsAVC: null, ChannelLayout: null, BitRate: 20000000, BitDepth: null, RefFrames: null, PacketLength: null, Channels: null, SampleRate: null, IsDefault: False, IsForced: False, IsHearingImpaired: False, Height: null, Width: null, AverageFrameRate: null, RealFrameRate: null, ReferenceFrameRate: null, Profile: null, Type: Video, AspectRatio: null, Index: -1, Score: null, IsExternal: False, DeliveryMethod: null, DeliveryUrl: null, IsExternalUrl: null, IsTextSubtitleStream: False, IsPgsSubtitleStream: False, IsExtractableSubtitleStream: False, SupportsExternalStream: False, Path: null, PixelFormat: null, Level: null, IsAnamorphic: null } }
+[2026-03-07 12:03:15.637 +00:00] [INF] [34] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 12:03:16.213 +00:00] [INF] [33] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 12:03:16.231 +00:00] [INF] [33] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 3000000 -probesize 1G -user_agent \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36\" -re -fflags +igndts  -i \"https://live.im07.institutodh.net/hls/stream.m3u8\" -map_metadata -1 -map_chapters -1 -threads 0 -sn -codec:v:0 libx264 -preset superfast -crf 23 -maxrate 20000000 -bufsize 40000000 -profile:v:0 high -level 51 -x264opts:0 subme=0:me_range=16:rc_lookahead=10:me=hex:open_gop=0 -force_key_frames:0 \"expr:gte(t,n_forced*3)\" -sc_threshold:v:0 0 -vf \"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,yadif=0:-1:0,format=yuv420p\" -flags -global_header -codec:a:0 libfdk_aac -ab 384000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type mpegts -start_number 0 -hls_base_url \"hls/004f474447dffcb501668d5810d43ac5/\" -hls_segment_filename \"/cache/transcodes/004f474447dffcb501668d5810d43ac5%d.ts\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/004f474447dffcb501668d5810d43ac5.m3u8\""
+[2026-03-07 12:03:16.280 +00:00] [ERR] [33] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 145
+[2026-03-07 12:03:16.374 +00:00] [ERR] [33] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/4d9445b1-f415-d6e0-59d0-c0a4adde7fb4/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 145
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 12:03:16.603 +00:00] [INF] [33] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 12:03:16.740 +00:00] [INF] [33] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/004f474447dffcb501668d5810d43ac5.m3u8"
+[2026-03-07 12:03:16.957 +00:00] [INF] [48] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 12:03:16.958 +00:00] [INF] [48] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 3000000 -probesize 1G -user_agent \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36\" -re -fflags +igndts  -i \"https://live.im07.institutodh.net/hls/stream.m3u8\" -map_metadata -1 -map_chapters -1 -threads 0 -sn -codec:v:0 libx264 -preset superfast -crf 23 -maxrate 20000000 -bufsize 40000000 -profile:v:0 high -level 51 -x264opts:0 subme=0:me_range=16:rc_lookahead=10:me=hex:open_gop=0 -force_key_frames:0 \"expr:gte(t,n_forced*3)\" -sc_threshold:v:0 0 -vf \"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,yadif=0:-1:0,format=yuv420p\" -flags -global_header -codec:a:0 libfdk_aac -ab 384000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type mpegts -start_number 0 -hls_base_url \"hls/be883e6376840d2a272707f23137fda2/\" -hls_segment_filename \"/cache/transcodes/be883e6376840d2a272707f23137fda2%d.ts\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/be883e6376840d2a272707f23137fda2.m3u8\""
+[2026-03-07 12:03:16.995 +00:00] [ERR] [33] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 145
+[2026-03-07 12:03:17.087 +00:00] [ERR] [33] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/4d9445b1-f415-d6e0-59d0-c0a4adde7fb4/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 145
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 12:03:17.219 +00:00] [INF] [33] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 12:03:17.324 +00:00] [INF] [33] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/be883e6376840d2a272707f23137fda2.m3u8"
+[2026-03-07 12:03:17.540 +00:00] [INF] [33] Jellyfin.Api.Controllers.DynamicHlsController: Current HLS implementation doesn't support non-keyframe breaks but one is requested, ignoring that request
+[2026-03-07 12:03:17.542 +00:00] [INF] [33] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: "/usr/lib/jellyfin-ffmpeg/ffmpeg" "-analyzeduration 3000000 -probesize 1G -user_agent \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36\" -re -fflags +igndts  -i \"https://live.im07.institutodh.net/hls/stream.m3u8\" -map_metadata -1 -map_chapters -1 -threads 0 -sn -codec:v:0 libx264 -preset superfast -crf 23 -maxrate 20000000 -bufsize 40000000 -profile:v:0 high -level 51 -x264opts:0 subme=0:me_range=16:rc_lookahead=10:me=hex:open_gop=0 -force_key_frames:0 \"expr:gte(t,n_forced*3)\" -sc_threshold:v:0 0 -vf \"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,yadif=0:-1:0,format=yuv420p\" -flags -global_header -codec:a:0 libfdk_aac -ab 384000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type mpegts -start_number 0 -hls_base_url \"hls/10c205be736c7c4b777fe7b13dee146b/\" -hls_segment_filename \"/cache/transcodes/10c205be736c7c4b777fe7b13dee146b%d.ts\" -hls_playlist_type event -hls_list_size 0 -y \"/cache/transcodes/10c205be736c7c4b777fe7b13dee146b.m3u8\""
+[2026-03-07 12:03:17.643 +00:00] [ERR] [48] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: FFmpeg exited with code 145
+[2026-03-07 12:03:17.730 +00:00] [ERR] [33] Jellyfin.Api.Middleware.ExceptionMiddleware: Error processing request. URL "GET" "/videos/4d9445b1-f415-d6e0-59d0-c0a4adde7fb4/live.m3u8".
+MediaBrowser.Common.FfmpegException: FFmpeg exited with code 145
+   at MediaBrowser.MediaEncoding.Transcoding.TranscodeManager.StartFfMpeg(StreamState state, String outputPath, String commandLineArguments, Guid userId, TranscodingJobType transcodingJobType, CancellationTokenSource cancellationTokenSource, String workingDirectory)
+   at Jellyfin.Api.Controllers.DynamicHlsController.GetLiveHlsStream(Guid itemId, String container, Nullable`1 static, String params, String tag, String deviceProfileId, String playSessionId, String segmentContainer, Nullable`1 segmentLength, Nullable`1 minSegments, String mediaSourceId, String deviceId, String audioCodec, Nullable`1 enableAutoStreamCopy, Nullable`1 allowVideoStreamCopy, Nullable`1 allowAudioStreamCopy, Nullable`1 breakOnNonKeyFrames, Nullable`1 audioSampleRate, Nullable`1 maxAudioBitDepth, Nullable`1 audioBitRate, Nullable`1 audioChannels, Nullable`1 maxAudioChannels, String profile, String level, Nullable`1 framerate, Nullable`1 maxFramerate, Nullable`1 copyTimestamps, Nullable`1 startTimeTicks, Nullable`1 width, Nullable`1 height, Nullable`1 videoBitRate, Nullable`1 subtitleStreamIndex, Nullable`1 subtitleMethod, Nullable`1 maxRefFrames, Nullable`1 maxVideoBitDepth, Nullable`1 requireAvc, Nullable`1 deInterlace, Nullable`1 requireNonAnamorphic, Nullable`1 transcodingMaxAudioChannels, Nullable`1 cpuCoreLimit, String liveStreamId, Nullable`1 enableMpegtsM2TsMode, String videoCodec, String subtitleCodec, String transcodeReasons, Nullable`1 audioStreamIndex, Nullable`1 videoStreamIndex, Nullable`1 context, Dictionary`2 streamOptions, Nullable`1 maxWidth, Nullable`1 maxHeight, Nullable`1 enableSubtitlesInManifest, Boolean enableAudioVbrEncoding, Boolean alwaysBurnInSubtitleWhenTranscoding)
+   at lambda_method6031(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Jellyfin.Api.Middleware.ServerStartupMessageMiddleware.Invoke(HttpContext httpContext, IServerApplicationHost serverApplicationHost, ILocalizationManager localizationManager)
+   at Jellyfin.Api.Middleware.WebSocketHandlerMiddleware.Invoke(HttpContext httpContext, IWebSocketManager webSocketManager)
+   at Jellyfin.Api.Middleware.IPBasedAccessValidationMiddleware.Invoke(HttpContext httpContext, INetworkManager networkManager)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.QueryStringDecodingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Jellyfin.Api.Middleware.RobotsRedirectionMiddleware.Invoke(HttpContext httpContext)
+   at Jellyfin.Api.Middleware.LegacyEmbyRouteRewriteMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at Jellyfin.Api.Middleware.ResponseTimeMiddleware.Invoke(HttpContext context, IServerConfigurationManager serverConfigurationManager)
+   at Jellyfin.Api.Middleware.ExceptionMiddleware.Invoke(HttpContext context)
+[2026-03-07 12:03:17.847 +00:00] [INF] [48] MediaBrowser.MediaEncoding.Transcoding.TranscodeManager: Deleting partial stream file(s) "/cache/transcodes/10c205be736c7c4b777fe7b13dee146b.m3u8"
+[2026-03-07 12:03:19.348 +00:00] [INF] [48] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "Directo Colegio". Stopped at "0" ms
+[2026-03-07 12:03:19.354 +00:00] [INF] [48] Emby.Server.Implementations.Library.MediaSourceManager: Live stream "9da8999d22869101ef30848a394facd2" consumer count is now 0
+[2026-03-07 12:03:19.354 +00:00] [INF] [48] Emby.Server.Implementations.Library.MediaSourceManager: Closing live stream "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2"
+[2026-03-07 12:03:19.358 +00:00] [INF] [48] Jellyfin.LiveTv.TunerHosts.M3UTunerHost: Closing "LiveStream"
+[2026-03-07 12:03:19.360 +00:00] [INF] [48] Emby.Server.Implementations.Library.MediaSourceManager: Live stream "e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2" closed successfully
+[2026-03-07 12:04:39.263 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "grabaciones_directos" ("/data/grabaciones_directos") will be refreshed.
+[2026-03-07 12:04:39.281 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260303_104214" ("/data/grabaciones_directos/colegio_stream_20260303_104214.mp4") will be refreshed.
+[2026-03-07 12:04:39.293 +00:00] [INF] [45] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260307_114801.mp4"
+[2026-03-07 12:04:39.299 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_170505" ("/data/grabaciones_directos/colegio_stream_20260305_170505.mp4") will be refreshed.
+[2026-03-07 12:04:39.306 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_212013" ("/data/grabaciones_directos/colegio_stream_20260305_212013.mp4") will be refreshed.
+[2026-03-07 12:04:39.311 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260305_213045" ("/data/grabaciones_directos/colegio_stream_20260305_213045.mp4") will be refreshed.
+[2026-03-07 12:04:39.317 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260307_105620" ("/data/grabaciones_directos/colegio_stream_20260307_105620.mp4") will be refreshed.
+[2026-03-07 12:04:39.321 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260307_112123" ("/data/grabaciones_directos/colegio_stream_20260307_112123.mp4") will be refreshed.
+[2026-03-07 12:04:39.328 +00:00] [INF] [33] Emby.Server.Implementations.IO.LibraryMonitor: "colegio_stream_20260307_114801" ("/data/grabaciones_directos/colegio_stream_20260307_114801.mp4") will be refreshed.
+[2026-03-07 12:04:39.932 +00:00] [INF] [33] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_213045.mp4"
+[2026-03-07 12:04:39.994 +00:00] [INF] [33] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260307_112123.mp4"
+[2026-03-07 12:04:40.063 +00:00] [INF] [45] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260303_104214.mp4"
+[2026-03-07 12:04:40.138 +00:00] [INF] [45] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_212013.mp4"
+[2026-03-07 12:04:40.204 +00:00] [INF] [45] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260307_105620.mp4"
+[2026-03-07 12:04:40.270 +00:00] [INF] [45] MediaBrowser.Providers.Videos.VideoMetadataService: File changed, pruning extracted data: "/data/grabaciones_directos/colegio_stream_20260305_170505.mp4"
+[2026-03-07 12:04:47.443 +00:00] [INF] [41] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/grabaciones_directos"
+[2026-03-07 12:04:47.444 +00:00] [INF] [41] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/videoconferencias"
+[2026-03-07 12:04:47.445 +00:00] [INF] [41] Emby.Server.Implementations.Library.LibraryManager: Validating media library
+[2026-03-07 12:04:47.457 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 12:04:47.462 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 12:04:47.462 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 12:04:47.464 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 12:04:47.766 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 12:04:47.766 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 12:04:47.766 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 12:04:47.768 +00:00] [WRN] [41] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 12:04:48.136 +00:00] [INF] [33] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Escanear la biblioteca" Completed after 0 minute(s) and 0 seconds
+[2026-03-07 12:04:48.185 +00:00] [INF] [48] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 12:04:48.186 +00:00] [INF] [41] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 12:04:54.822 +00:00] [INF] [37] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 12:05:00.956 +00:00] [INF] [33] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 12:05:13.763 +00:00] [INF] [33] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "colegio_stream_20260307_120235". Stopped at "44045" ms
+[2026-03-07 12:05:13.857 +00:00] [INF] [45] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 12:05:18.188 +00:00] [INF] [34] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 12:06:35.221 +00:00] [INF] [30] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/grabaciones_directos"
+[2026-03-07 12:06:35.223 +00:00] [INF] [30] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/videoconferencias"
+[2026-03-07 12:06:35.223 +00:00] [INF] [30] Emby.Server.Implementations.Library.LibraryManager: Validating media library
+[2026-03-07 12:06:35.228 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 12:06:35.229 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 12:06:35.229 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 12:06:35.231 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 12:06:35.467 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/musica" is inaccessible or empty, skipping
+[2026-03-07 12:06:35.468 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/peliculas" is inaccessible or empty, skipping
+[2026-03-07 12:06:35.468 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/data/series" is inaccessible or empty, skipping
+[2026-03-07 12:06:35.470 +00:00] [WRN] [30] MediaBrowser.Controller.Entities.BaseItem: Library folder "/config/data/playlists" is inaccessible or empty, skipping
+[2026-03-07 12:06:36.325 +00:00] [INF] [17] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/grabaciones_directos"
+[2026-03-07 12:06:36.326 +00:00] [INF] [36] Emby.Server.Implementations.ScheduledTasks.TaskManager: "Escanear la biblioteca" Completed after 0 minute(s) and 1 seconds
+[2026-03-07 12:06:36.326 +00:00] [INF] [17] Emby.Server.Implementations.IO.LibraryMonitor: Watching directory "/data/videoconferencias"
+[2026-03-07 12:06:42.553 +00:00] [INF] [36] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 12:06:44.135 +00:00] [INF] [17] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" request
+[2026-03-07 12:06:50.164 +00:00] [INF] [30] Jellyfin.Api.Helpers.MediaInfoHelper: User policy for "root". EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+[2026-03-07 12:07:09.337 +00:00] [INF] [42] Emby.Server.Implementations.Session.SessionManager: Playback stopped reported by app "Jellyfin Web" "10.11.6" playing "colegio_stream_20260307_120609". Stopped at "17598" ms
+[2026-03-07 12:07:09.428 +00:00] [INF] [17] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 12:07:11.149 +00:00] [INF] [42] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 12:07:41.122 +00:00] [INF] [39] Emby.Server.Implementations.Session.SessionManager: Sending shutdown notifications
+[2026-03-07 12:07:41.217 +00:00] [INF] [42] Emby.Server.Implementations.HttpServer.WebSocketManager: WS "172.18.0.3" closed
+[2026-03-07 12:07:41.224 +00:00] [INF] [42] Main: Running query planner optimizations in the database... This might take a while
+[2026-03-07 12:07:41.258 +00:00] [INF] [30] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/grabaciones_directos"
+[2026-03-07 12:07:41.258 +00:00] [INF] [30] Emby.Server.Implementations.IO.LibraryMonitor: Stopping directory watching for path "/data/videoconferencias"
+[2026-03-07 12:07:41.263 +00:00] [INF] [42] Emby.Server.Implementations.ApplicationHost: Disposing "CoreAppHost"
+[2026-03-07 12:07:41.263 +00:00] [INF] [42] Emby.Server.Implementations.ApplicationHost: Disposing "MusicBrainzArtistProvider"
+[2026-03-07 12:07:41.264 +00:00] [INF] [42] Emby.Server.Implementations.ApplicationHost: Disposing "MusicBrainzAlbumProvider"
+[2026-03-07 12:07:41.264 +00:00] [INF] [42] Emby.Server.Implementations.ApplicationHost: Disposing "PluginManager"

@@ -1,0 +1,48 @@
+Started by user Administrador ASIR Examen
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/Orquestador_Master
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build & Test)
+[Pipeline] echo
+Compilando código fuente...
+[Pipeline] echo
+Tests pasados correctamente.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Aprobación de Pase a Producción)
+[Pipeline] timeout
+Timeout set to expire in 1 min 0 sec
+[Pipeline] {
+[Pipeline] input
+¿Deseas desplegar a Producción?
+Proceed or Abort
+Approved by Administrador ASIR Examen
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Llamada a Despliegue)
+[Pipeline] echo
+Autorizando con token seguro: 12345-SECURE-TOKEN
+[Pipeline] build
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+El orquestador falló. El job hijo no se ejecutó o falló en su ejecución.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: No item named Backend_Deployjasjasjjas found
+Finished: FAILURE

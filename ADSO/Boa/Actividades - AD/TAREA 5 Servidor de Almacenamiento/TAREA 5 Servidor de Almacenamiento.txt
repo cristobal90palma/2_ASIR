@@ -1,0 +1,16 @@
+TAREA 5 Servidor de Almacenamiento
+
+
+
+
+Instala y configura un servidor de archivos en nuestro controlador de dominio maestro (5 puntos), de tal forma que se cumplan las siguientes características sobre el recurso DEPARTAMENTOS:
+
+    Todos los usuarios del dominio que no pertenezcan a los grupos “Técnicos”, “Gestión” o “Dirección” no podrán acceder al recurso. (1 punto)
+
+    Todos los usuarios del grupo “Técnicos” podrán acceder al recurso, pero en modo de solo lectura. (1 punto)
+
+    Todos los usuarios del grupo “Gestión” podrán acceder al recurso, pudiendo leer y modificar su contenido. (1 punto)
+
+    Todos los usuarios del grupo “Dirección” tendrán control total sobre el recurso. (1 punto)
+
+(1 punto) --> Presentación y documentación de la tarea

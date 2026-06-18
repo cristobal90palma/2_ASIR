@@ -1,0 +1,30 @@
+mkdir -p jellyfin-server/{config,cache,media/{peliculas,series},fonts}
+
+cd jellyfin-server
+ls -R
+
+
+
+
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    # Al ser root, usamos 0:0, pero lo ideal sería un usuario no-privilegiado
+    user: 0:0 
+    ports:
+      - 8096:8096/tcp
+      - 7359:7359/udp
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - ./media/peliculas:/media/peliculas:ro
+      - ./media/series:/media/series:ro
+      - ./fonts:/usr/local/share/fonts/custom:ro
+    restart: 'unless-stopped'
+    environment:
+      - JELLYFIN_PublishedServerUrl=http://127.0.0.1
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+	  

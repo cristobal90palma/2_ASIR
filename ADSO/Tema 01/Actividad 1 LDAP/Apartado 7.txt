@@ -1,0 +1,7 @@
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 cn=ASIR1
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 '(objectClass=posixAccount)'
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 '(objectClass=posixAccount)' homeDirectory
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 uid=csa uidNumber

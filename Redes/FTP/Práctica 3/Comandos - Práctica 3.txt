@@ -1,0 +1,735 @@
+https://gemini.google.com/app/d6d0a61773286c88
+
+1) Realiza la instalación de ProFTPd y comprueba que el 
+servidor está iniciado y habilitado al arranque. 
+Comprueba que el servidor está siendo escuchado 
+en su correspondiente puerto.
+
+apt update
+
+Instala: apt -y install proftpd 
+
+journalctl -u proftpd
+systemctl status proftpd
+
+
+
+Habilitar al arranque:
+sudo systemctl enable proftpd
+
+
+Comprobar que escucha por el puerto:
+
+sudo ss -tlp | grep proftpd
+
+Resultado:
+
+root@Redes-Practica3-ProFTPd:~# sudo ss -tlp | grep proftpd
+LISTEN 0      128                *:ftp               *:*    users:(("proftpd",pid=924,fd=0))        
+
+También: sudo netstat -tlp | grep proftpd
+
+Resultado:
+root@Redes-Practica3-ProFTPd:~# sudo netstat -tlp | grep proftpd
+tcp6       0      0 [::]:ftp                [::]:*                  LISTEN      924/proftpd: (accep
+
+Si no está instalado:
+sudo apt update
+sudo apt install net-tools
+
+
+
+2) Averigua el usuario y grupo con el que corre el servicio FTP. 
+¿Con qué permisos se crearán los nuevos ficheros y directorios 
+que se creen ? (Umask)
+
+Por defecto, ProFTPd suele ejecutarse con los siguientes ajustes (en la directiva User y Group):
+
+    Usuario: proftpd (o a veces nobody)
+
+    Grupo: nogroup (o a veces proftpd)
+
+Puedes confirmar esto buscando las directivas User y Group en el archivo de configuración:
+
+grep -E "User|Group" /etc/proftpd/proftpd.conf | grep -v "^#"
+
+Resultado:
+root@Redes-Practica3-ProFTPd:~# grep -E "User|Group" /etc/proftpd/proftpd.conf | grep -v "^#"
+User proftpd
+Group nogroup
+   User ftp
+   Group nogroup
+   UserAlias anonymous ftp
+
+
+Nota: Ejecutar el servicio con un usuario y grupo con pocos privilegios
+ (proftpd/nogroup) es una medida de seguridad crucial, ya que si 
+ el servidor FTP es comprometido, el atacante tendría acceso 
+ limitado al sistema.
+ 
+
+Para ver los permisos con los que se crearán los nuevos ficheros y directorios (Umask)
+
+grep -i umask /etc/proftpd/proftpd.conf 
+o
+grep -i "Umask" /etc/proftpd/proftpd.conf | grep -v "^#"
+
+
+root@Redes-Practica3-ProFTPd:~# grep -i umask /etc/proftpd/proftpd.conf
+# Umask 022 is a good standard umask to prevent new files and dirs
+Umask 022 022
+#   #   # Umask 022 is a good standard umask to prevent new files and dirs
+#   #   Umask 022  022
+root@Redes-Practica3-ProFTPd:~# grep -i "Umask" /etc/proftpd/proftpd.conf | grep -v "^#"
+Umask 022 022
+
+
+3) Configura el sitio FTP  por defecto para que el usuario anónimo 
+(anonymous) pueda conectarse al mismo (junto con el usuario ftp).
+ ¿Se comprueba si la shell del usuario es válida antes de poder conectarse?
+ 
+ La comprobación de la shell está habilitada por defecto:
+#   RequireValidShell off
+Porque está comentada. Solo hay que descomentarla para activarla.
+ 
+La configuración del acceso anónimo se realiza dentro del archivo
+ principal de configuración de ProFTPd, generalmente ubicado 
+ en /etc/proftpd/proftpd.conf.
+ 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ <Anonymous ~ftp>
+   User ftp
+   Group nogroup
+#   # We want clients to be able to login with "anonymous" as well as "ftp"
+   UserAlias anonymous ftp
+#   # Cosmetic changes, all files belongs to ftp user
+#   DirFakeUser on ftp
+#   DirFakeGroup on ftp
+#
+   RequireValidShell off
+#
+#   # Limit the maximum number of anonymous logins
+   MaxClients 10
+#
+#   # We want 'welcome.msg' displayed at login, and '.message' displayed
+#   # in each newly chdired directory.
+#   DisplayLogin welcome.msg
+#   DisplayChdir .message
+#
+#   # Limit WRITE everywhere in the anonymous chroot
+   <Directory *>
+     <Limit WRITE>
+       DenyAll
+     </Limit>
+   </Directory>
+#
+#   # Uncomment this if you're brave.
+#   # <Directory incoming>
+#   #   # Umask 022 is a good standard umask to prevent new files and dirs
+#   #   # (second parm) from being group and world writable.
+#   #   Umask 022  022
+#   #   <Limit READ WRITE>
+#   #     DenyAll
+#   #     </Limit>
+#   #       <Limit STOR>
+#   #         AllowAll
+#   #     </Limit>
+#   # </Directory>
+#
+ </Anonymous>
+\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+4) Configura el sitio ftp por defecto para que /srv/default  
+sea el directorio de acceso para el usuario anónimo. 
+Realiza las comprobaciones usando el cliente gráfico 
+gFTP (gftp-gtk), añadiendo un marcador del sitio FTP de tu servidor.
+
+En proftpd.conf 
+
+pon "/srv/default"
+
+En  <Anonymous ~ftp>
+
+Ahora sería:  <Anonymous /srv/default>
+
+
+No se logea porque no está creado el directorio?
+
+Si, ese era el problema:
+
+mkdir /srv/default
+
+
+Y vuelve a entrar
+
+No ha hecho falta al final, pero si hubiese algún problema con anónimo y que te pida contraseña:
+
+#   AnonRequirePassword off
+
+Entramos con Filezilla: Foto de la configuración:
+IP del contenedor, "anonymous" y en la contraseña en este caso nada. 
+Puerto nada.
+
+No estoy seguro de que sea necesario, pero así lo tengo configurado:
+
+mkdir -p /srv/default
+chown -R ftp:nogroup /srv/default
+
+EN OTRO CASO DICE DE PONERSE ASÍ: PERO EN AMBOS FUNCIONA.
+
+# Asigna la propiedad al usuario y grupo root
+sudo chown root:root /srv/default
+
+# Otorga permisos de lectura y ejecución a todos (755)
+sudo chmod 755 /srv/default
+
+Resultado:
+
+drwxr-xr-x 2 root root    4096 Nov 20 13:07 default
+
+
+
+
+5) Configura el servicio para que los usuarios del sistema puedan acceder
+ a sus directorios y sólo a ellos (enjaulados). Crea el usuario real 
+ malvado y deniega el acceso al servicio FTP al mismo. Crea el usuario
+ virtual neo del grupo matrix. con home en /srv/matrix  Compruébalo todo!
+ 
+ 
+Enjaular usuarios:
+Descomentas esto en proftpd.conf
+DefaultRoot ~
+
+
+Creamos el usuario "real" llamado "malvado":
+
+adduser malvado
+
+Si lo incluimos en el siguiente archivo: /etc/ftpusers 
+pasará a estar en la famosa lista de aquellos que no pueden logearse 
+en el ftp.
+
+CREO QUE TAMBIÉN SE PUEDE HACER DE LA SIGUIENTE MANERA:
+Puedes hacerlo de forma global:
+
+# Deniega el acceso FTP al usuario malvado
+<Limit LOGIN>
+  DenyUser malvado
+</Limit>
+
+¡Claro! La configuración que solicitas implica asegurar el acceso de usuarios del sistema (chroot), denegar el acceso a un usuario específico y configurar la autenticación para usuarios virtuales utilizando la directiva ftpasswd de ProFTPd.
+
+🔒 1. Enjaular Usuarios del Sistema (chroot)
+
+Para que los usuarios del sistema solo puedan acceder a su directorio home (y no puedan navegar a otros directorios del servidor), debemos activar la directiva DefaultRoot.
+
+Edita el archivo de configuración principal de ProFTPd, /etc/proftpd/proftpd.conf, y añade o descomenta la siguiente línea fuera de cualquier bloque <VirtualHost> o <Anonymous>:
+Fragmento de código
+
+# Enjaula a los usuarios en su directorio Home.
+DefaultRoot ~
+
+Esta directiva obliga a cualquier usuario que se conecte (excepto root) a que su directorio raíz (/) sea su propio directorio home (~).
+
+🚫 2. Denegar Acceso al Usuario malvado
+
+Para denegar el acceso a un usuario específico del sistema (malvado), utilizaremos las directivas de denegación (<Limit Login> DenyUser) dentro de un bloque de configuración.
+
+A. Crear el Usuario del Sistema
+
+Primero, crea el usuario malvado. Asignarle una shell deshabilitada (/bin/false) es una buena práctica de seguridad, ya que no necesita iniciar sesión por SSH.
+Bash
+
+sudo useradd -m -s /bin/false malvado
+sudo passwd malvado
+
+B. Denegar Acceso en ProFTPd
+
+En el archivo /etc/proftpd/proftpd.conf, aplica la restricción. Puedes hacerlo de forma global:
+Fragmento de código
+
+# Deniega el acceso FTP al usuario malvado
+<Limit LOGIN>
+  DenyUser malvado
+</Limit>
+
+Reinicia el servicio para aplicar los cambios:
+sudo systemctl restart proftpd
+
+
+
+
+
+
+CREAMOS EL USUARIO VIRTUAL:
+
+Creamos el grupo "matrix":
+
+TANTO EL GRUPO COMO EL USUARIO SON VIRTUALES.
+
+el archivo de usuarios virtuales se llamará:
+
+"/etc/proftpd/ftpd.passwd"
+
+
+
+Crear directorio /srv/matrix/
+
+mkdir /srv/matrix/
+
+
+Crear grupo virtual "matrix".
+
+ftpasswd --group --file=/etc/proftpd/ftpd.group --name=matrix --gid=2500
+
+Crear el usuario virtual "neo"
+
+ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd --name=neo --uid=1999 --gid=$(getent group matrix | cut -d: -f3) --home=/srv/matrix --shell=/usr/sbin/nologin
+
+NOOO, USA ESTE MEJOR:
+
+ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd --name=neo --uid=1999 --gid=2500 --home=/srv/matrix --shell=/usr/sbin/nologin
+
+Resultado en el archivo:
+neo:$5$isgFO0sCauqoNmkB$yv/ij0woxSP/ueB2X9cOccUwzy2qX3HKUYLelmm/CU/:1999:1003::/srv/matrix:/usr/sbin/nologin
+
+Tenemos su "uid" y la "gid".
+
+
+
+Le he puesto de password: 12345
+
+Te advierte de esto:
+
+ftpasswd: /usr/sbin/nologin is not among the valid system shells.  Use of
+ftpasswd: "RequireValidShell off" may be required, and the PAM
+ftpasswd: module configuration may need to be adjusted.
+
+
+En /etc/proftpd/proftpd.conf
+
+Debemos descomentar:
+
+RequireValidShell off
+
+Y luego poner el módulo de autenticación de PAM:
+
+
+# CARGAR EL MODULO DE AUTENTICACION PARA LOS PODER USAR USUARIO VIRTUAL
+<IfModule mod_auth_file.c>
+  # AUTENTICACION POR FICHERO (USUARIO VIRTUAL) Y UNIX (USUARIOS MAQUINA)
+  AuthOrder mod_auth_file.c mod_auth_unix.c
+  # FICHERO PARA AUTENTICACION POR FICHERO
+  AuthUserFile /etc/proftpd/ftpd.passwd
+  # FICHERO PARA AUTENTICACION DE GRUPO POR FICHERO
+  AuthGroupFile /etc/proftpd/ftpd.group
+</IfModule>
+
+
+Derechos de archivo a "neo" y "matrix":
+
+Actualmente:
+drwxr-xr-x 2 root root    4096 Nov 24 15:07 matrix
+
+chown -R 1999:2500 /srv/matrix
+
+¿Debería usar este otro?
+chown -R neo:matrix /srv/matrix
+
+
+COMPROBAR: Usa filezilla. Es más rápido.
+
+
+6) Indica los archivos de logs del servicio y muestra las 20 últimas líneas de cada uno.
+
+/var/log/proftpd/proftpd.log
+/var/log/proftpd/xferlog
+
+
+tail -20 /var/log/proftpd/proftpd.log
+tail -20 /var/log/proftpd/xferlog
+
+
+
+
+7) Impide el modo activo de transferencias. Compruébalo y muestra los logs asociados.
+
+Ponemos en proftpd.conf
+
+  <Limit EPRT PORT>
+    DenyAll
+  </Limit>
+  
+  
+Si quisieramos desactivar MODO PASIVO:
+
+  <Limit EPSV PASV>
+    DenyAll
+  </Limit>
+  
+NO SE COMO COMPROBARLO:
+
+Entras con la ftp de Windows: te dejará entrar.
+
+"ftp 10.2.7.64"
+
+Metes usuario y password
+
+Una vez dentro:
+
+Ejecuta una Transferencia: Intenta listar los archivos con ls o dir.
+
+Si tu servidor ProFTPd está configurado . y tu cliente de Windows está intentando conectarse en Modo Activo (el comportamiento por defecto), la conexión de datos fallará y verás un mensaje de error del servidor como 500 Illegal PORT command o similar, y se registrará la denegación en los logs del servidor. Esto confirmará que has impedido el Modo Activo en el servidor.
+
+
+
+
+NO SE QUE "LOGS" SON.
+
+\\\\\\\\\\\\\\\
+
+Acceder desde dentro de ftp en Windows:
+
+C:\Users\Cristobal>ftp
+ftp> open 10.2.7.64
+Conectado a 10.2.7.64.
+220 ProFTPD Server (Debian) [::ffff:10.2.7.64]
+200 UTF8 set to on
+Usuario (10.2.7.64:(none)): anonymous
+331 Anonymous login ok, send your complete email address as your password
+Contraseña:
+
+230 Anonymous access granted, restrictions apply
+ftp>
+
+
+
+
+
+
+
+
+8.	El usuario dangerous  tendrá establecidas cuotas de disco (limit), 
+	de tipo:
+
+Ya habíamos creado al usuario con "adduser"
+
+i.	Límite Subida: 40MB
+ii.	Límite Descarga: 100MB
+iii.	Límite Nº Total ficheros Subidos: 5
+iv.	Límite Nº Total ficheros Descargados: 10
+ Prueba a descargar algo y comprueba los contadores (tally).
+Ayuda:
+ProFTPD: Quotas
+ftpquota: tool for ProFTPD mod_quotatab
+proftpd -vv   -> ver módulos cargados.
+proftpd -t   -> chequea sintaxis de proftpd.conf.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\\\\\\\\\CUOTAS:
+ http://proftpd.org/docs/howto/Quotas.html
+Para las cuotas: en proftpd.conf
+IMPORTANTE:Poner el directorio exacto de los archivos de quota.
+
+IMPORTANTE: el QuotaEngine on hay que ponerlo al final. O NO? Ha Diego no le ha funcionado.
+
+  <IfModule mod_quotatab.c>
+    QuotaEngine on
+    QuotaLog /var/log/proftpd/quota.log
+
+    # For more information on using files for storing the limit and tally
+    # table quota data, please see the mod_quotatab_file documentation.
+    <IfModule mod_quotatab_file.c>
+      QuotaLimitTable file:/etc/proftpd/ftpquota.limittab
+      QuotaTallyTable file:/etc/proftpd/ftpquota.tallytab
+    </IfModule>
+</IfModule>
+	
+
+# La opción -c crea el archivo si no existe.
+sudo ftpquota --create --file /etc/proftpd/ftpquota.limittab
+
+# Establecer cuotas para el usuario 'dangerous'
+sudo ftpquota --set --type user --name dangerous --table-path /etc/proftpd/ftpquota.limittab 
+
+
+ftpquota --add-record --type=limit --name=dangerous --quota-type=user --table-path /etc/proftpd/ftpquota.limittab --files-upload=5 --files-download=10 --bytes-upload=40 --bytes-download=100 --units=Mb
+
+Para leer el contenido del archivo ftpquota.limittab
+
+ftpquota --show-records --type=limit --table-path /etc/proftpd/ftpquota.limittab
+
+Crear tabla tally:
+
+ftpquota --create-table --type=tally --table-path /etc/proftpd/ftpquota.tallytab
+
+Leer tabla tally:
+
+ftpquota --show-records --type=tally --table-path /etc/proftpd/ftpquota.tallytab
+
+
+
+Para quitar a un usuario del archivo de cuota:
+
+ftpquota --delete-record --type=limit --name=bob --quota-type=user --table-path /etc/proftpd/ftpquota.limittab
+
+
+
+
+
+
+
+	
+9) Crea un sitio virtual ftp para el dominio ftp.rulez.and puerto 321 y personaliza (NO OLVIDES INDICAR LA IP POR DEFECTO 
+DEL DEFAULTSERVER CON LA DIRECTIVA DEFAULTADDRESS) :
+
+Poner varias IPs a la misma tarjeta de red:
+
+
+En Proxmox y en la vida real????
+
+
+En proftpd.conf descomentas:
+
+Include /etc/proftpd/virtuals.conf
+
+pon en la parte donde está port:
+
+# Port 21 is the standard FTP port.
+Port 21
+SocketBindTight On
+DefaultAddress 10.2.7.64
+
+\\\
+Esto aumenta la seguridad. Si el servidor tuviera múltiples interfaces de red (con diferentes IPs), 
+esta directiva asegura que solo se pueda acceder al servicio FTP a través de la interfaz 
+específica 10.2.7.64. Si no se especifica esta directiva, ProFTPD normalmente escucha 
+en todas las interfaces disponibles (0.0.0.0 o ::).
+\\\
+
+En /etc/hosts debes poner IP para el servidor y su nombre. Para que la propia máquina pueda resolverlo.
+
+Luego, en virtuals.conf descomentas la configuración básica
+
+Descomentas la configuración básica y pruebas si funciona.
+
+ServerName es solo el saludo que te da el servidor, no el nombre en sí.
+
+
+<VirtualHost ftp.rulez.and>
+ServerAdmin             ftpmaster@server.com
+ServerName              "FTP RULEZ!"
+Port                    321
+DefaultRoot             /srv/ftprulez
+ServerLog               /var/log/proftpd/ftp.rulez.and_vhost.log
+TransferLog             /var/log/proftpd/ftp.rulez.and_xfer.log
+MaxLoginAttempts        2
+MaxClients              3
+RequireValidShell       no
+DefaultRoot             /srv/ftprulez
+AllowOverwrite          yes
+<Limit LOGIN>
+  Order Allow,Deny
+  AllowUser rulez
+  DenyAll
+</Limit>
+<Directory /srv/ftprulez/private>
+        <Limit READ DIRS CWD>
+          DenyAll
+        </Limit>
+</Directory>
+
+#CONFIGURACION ANONYMOUS PARA "RULER"
+<Anonymous ~ruler>
+
+        <Limit LOGIN>
+          Order allow, deny
+          AllowUser ruler
+          DenyAll
+        </Limit>
+# Maximum clientes with message
+MaxClients      5
+
+User            ruler
+Group           ruler
+
+# We want clientes to be able to login with "anonymous" as well as "ftp"
+UserAlias       anonymous ruler
+HideUser        root
+HideGroup       !~
+
+# Limit WRITE everywhere in the anonymous chroot
+
+<Limit WRITE>
+   DenyAll
+</Limit>
+
+</Anonymous>
+</VirtualHost>
+
+
+
+
+
+
+
+
+
+
+
+
+Podemos usar un usuario real o virtual
+
+
+
+
+10.	Con el cliente de consola descarga algo del servidor virtual en modo activo y pasivo. Indica los archivos de logs del servidor virtual y muestra las 20 últimas líneas de cada uno.
+
+Server
+TransferLog /var/log/proftpd/xferlog
+SystemLog /var/log/proftpd/proftpd.log
+
+
+tail -20 /var/log/proftpd/xferlog
+tail -20 /var/log/proftpd/proftpd.log
+
+VirtualHost
+
+ServerLog               /var/log/proftpd/ftp.rulez.and_vhost.log
+TransferLog             /var/log/proftpd/ftp.rulez.and_xfer.log
+
+tail -20 /var/log/proftpd/ftp.rulez.and_vhost.log
+tail -20 /var/log/proftpd/ftp.rulez.and_xfer.log
+
+Registro logs de proftpd
+/var/log/proftpd/LOGS
+
+
+
+
+
+Conectarse usando puerto especificado inusual:
+Linux:
+ftp -P 321 ftp.rulez.and
+
+Fuerza el modo pasivo
+ftp -p -P 321 ftp.rulez.and
+
+
+https://chatgpt.com/c/69206476-9f3c-8329-ab10-9478fadf015f
+https://gemini.google.com/app/d6d0a61773286c88
+https://gemini.google.com/app/e34b0d07f3183b4c
+
+https://www.raulprietofernandez.net/blog/gnu-linux/como-configurar-virtualhosts-en-proftpd
+
+
+RECUERDA: EN CONTENEDORES PROXMOX:
+
+Parece ser que la configuración de /etc/hosts no se guarda cuando se arranca 
+de nuevo. Vuelve a ponerla y haz 
+systemctl restart proftpd.service
+
+
+11.	 (Autoaprendizaje) Establece el acceso seguro al servidor mediante el uso de TLS.
+
+
+https://www.raulprietofernandez.net/blog/gnu-linux/como-configurar-tls-en-proftpd
+https://www.makeuseof.com/install-proftpd-on-ubuntu/
+
+En proftpd.conf incluir el modulo de TLS
+
+Include /etc/proftpd/tls.conf
+
+
+
+Ahora, en tls.conf
+
+Dentro de la etiqueta del modulo debemos descomentar:
+
+TLSEngine                               on
+TLSLog                                  /var/log/proftpd/tls.log
+TLSProtocol                             SSLv23
+TLSRSACertificateFile                   /etc/ssl/certs/proftpd.crt
+TLSRSACertificateKeyFile                /etc/ssl/private/proftpd.key
+TLSRequired                             on
+
+
+
+DENTRO DEL PROPIO ARCHIVO se indica comando para generar certificado
+
+# Server SSL certificate. You can generate a self-signed certificate using
+# a command like:
+#
+ openssl req -x509 -newkey rsa:1024 \
+          -keyout /etc/ssl/private/proftpd.key -out /etc/ssl/certs/proftpd.crt \
+          -nodes -days 365
+
+Y TAMBIÉN CONFIGURACION DE PERSMISOS DE LOS ARCHIVOS DE CERTIFICADOS
+# The proftpd.key file must be readable by root only. The other file can be
+# readable by anyone.
+
+TLSRSACertificateFile                   /etc/ssl/certs/proftpd.crt
+TLSRSACertificateKeyFile                /etc/ssl/private/proftpd.key
+
+
+sudo chown root:root /etc/ssl/private/proftpd.key
+sudo chown ftp:nogroup /etc/ssl/private/proftpd.key
+sudo chmod 600 /etc/ssl/private/proftpd.key
+
+ls -l /etc/ssl/private/proftpd.key
+
+sudo chown root:root /etc/ssl/certs/proftpd.crt
+chmod 0640 /etc/ssl/certs/proftpd.crt
+ls -l /etc/ssl/certs/proftpd.crt
+
+
+nano modules.conf
+
+Descomentamos:
+
+LoadModule mod_tls.c
+
+# mira a ver si existe mod_tls.so
+ls -l /usr/lib/proftpd/mod_tls.so
+
+Si no está, 
+
+# Install proftpd-mod-crypto to use this module for TLS/SSL support.
+
+apt install -y proftpd-mod-crypto
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\
+USA ESTE COMANDO PARA GENERAR LOS CERTIFICADOS
+NO TE TIENES QUE PREOCUPAR DE PERMISOS DEL ARCHIVO.
+
+
+Diego
+
+Genera los certificados (te elos genera en la ruta que viene en el tls)
+
+proftpd-gencert
+
+
+Use the following information in your ProFTPD configuration:
+
+TLSRSACertificateFile    /etc/ssl/certs/proftpd.crt
+TLSRSACertificateKeyFile /etc/ssl/private/proftpd.key
+
+See /etc/proftpd/tls.conf for suggested TLS related configuration
+items and include that file in your /etc/proftpd/proftpd.conf file.

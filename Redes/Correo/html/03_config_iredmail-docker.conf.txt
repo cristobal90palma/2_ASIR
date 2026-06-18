@@ -1,0 +1,5 @@
+echo HOSTNAME=mail.initiald.com >> iredmail-docker.conf
+echo FIRST_MAIL_DOMAIN=initiald.com >> iredmail-docker.conf
+echo FIRST_MAIL_DOMAIN_ADMIN_PASSWORD=12345 >> iredmail-docker.conf
+echo MLMMJADMIN_API_TOKEN=$(openssl rand -base64 32) >> iredmail-docker.conf
+echo ROUNDCUBE_DES_KEY=$(openssl rand -base64 24) >> iredmail-docker.conf

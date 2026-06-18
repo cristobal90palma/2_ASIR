@@ -1,0 +1,3 @@
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/wordpress-selfsigned.key -out /etc/ssl/certs/wordpress-selfsigned.crt
+
+sudo a2enmod ssl && sudo a2ensite default-ssl && sudo systemctl reload apache2

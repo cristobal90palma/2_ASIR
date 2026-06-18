@@ -1,0 +1,13 @@
+[Unit]
+Description=MySQL Exporter
+After=network.target
+
+[Service]
+User=root
+Environment="DATA_SOURCE_NAME=exporter:12345@(localhost:3306)/"
+#ExecStart=/usr/local/bin/mysqld_exporter
+ExecStart=/usr/local/bin/mysqld_exporter --config.my-cnf=/etc/mysql/monitorización.cnf
+
+[Install]
+WantedBy=multi-user.target
+

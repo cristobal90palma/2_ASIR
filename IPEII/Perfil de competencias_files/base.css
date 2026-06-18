@@ -1,0 +1,40 @@
+/* Captcha */
+#captchaUsuarios { width:23em; margin-top:1em; display:block; } /* Captcha de Alta de nuevo ciudadano PESTANA */
+#captchaEmpresa {width:23em;margin: 1em 0 0 20%;display:block;} /* Captcha de Alta de nueva empresa PESTANA */
+#captchaLogin { width:18.5em; margin-top:1em; margin-left:-6px; display:inline-block; padding:6px 6px 0 6px} /* Captcha de Alta FRAME */
+#captchaUsuariosCCAA { border:1px solid #dfdfdf; width:23em; margin-top:1em; margin-left:-15em; display:inline-block; } /* Captcha de Alta de nuevo ciudadano PESTANA - SEDE */
+#captchaResetPass {border:1px solid #dfdfdf; width:23em; margin-top:1em; margin-left:1.5em; display:inline-block;margin-bottom:.5em}
+.registroUsuarios3_bgCampcha { padding:0 !important;}
+.icoCaptcha { display:block; width:1em; margin-top:.5em; margin-right:.3em !important; }
+.icoCaptcha img {border:none !important}
+#captchaLogin .icoCaptcha { display: inline-block !important; width:1em; margin-top:.5em; }
+#captchaLogin .icoCaptcha img {border:none !important;}
+#captchaLogin .icoCaptcha img {margin-left:0 !important; }
+#captchaLogin .icoCaptcha {margin-right:6px !important; width:20px; }
+/* Visual AYUDA */
+.ayudaCaptcha0 {float:right;position:relative;top:.5em !important;width: 29px !important;border:1px solid #c9c9c9;background-color:#F0F0F0;padding:2px;margin-right:-1px;}
+.ayudaCaptcha0 a { margin:2px !important; }
+#captchaLogin .ayudaCaptcha0 {float:left;position:relative;top:.5em !important; width:55px !important; border:1px solid #c9c9c9; background-color:#F0F0F0; padding:2px;
+margin-right:-1px}
+#captchaLogin .ayudaCaptcha0 a { margin:2px !important; }
+/* Audio AYUDA */
+.ayudaCaptcha1 { float:right; position:relative;top:0em; width:24px !important; border:1px solid #c9c9c9; background-color:#F0F0F0; padding:2px; margin-right:0}
+.ayudaCaptcha1 a { margin:2px !important;}
+#captchaLogin .ayudaCaptcha1 { float:left;;position:relative;top:.3em; width:55px !important; border:1px solid #c9c9c9; background-color:#F0F0F0; padding:2px; margin-right:0}
+#captchaLogin .ayudaCaptcha1 a { margin:2px !important;}
+#audioCaptcha {position: relative;display: none;}
+#audioCaptcha object.audio { width:18.857em; height:3.214em !important;float:left}
+#audioCaptcha label, #imageCaptcha label{ display:block; }
+#imageCaptcha {position: relative; left:-1px; clear:both; top:-.5em; }
+#imageCaptcha fieldset,#audioCaptcha fieldset {padding-bottom:0em; padding-left:0}
+.imgPrincipalCaptcha { margin-top:.5em;width:18.857em; float:left}
+div.caracteres { clear:both; }
+div.caracteres label { font-size:.8em !important; text-align:left !important }
+#captchaLogin div.caracteres { clear:both;}
+#captchaLogin div.caracteres label { font-size:1em !important; width:95%}
+#captchaLogin div.caracteres input.textfield { width:196px}
+div.login div.loginBtn { text-align:center !important}
+#captchaResetPass div.caracteres label {font-size:1em !important; text-align:left !important; width:210px; display:block}
+#captchaResetPass div.caracteres input { width:196px; margin-left:-.1em !important; margin-bottom:.2em}
+#captchaError {font-size:.8em !important; text-align:left !important; color: red; }
+#formCaptcha {border: 1px solid #dfdfdf;}

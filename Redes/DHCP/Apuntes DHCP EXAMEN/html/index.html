@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plantillas Examen DHCP</title>
+</head>
+<body>
+    <h1>Plantillas Examen DHCP</h1>
+
+	<h2>Router OpenWRT.</h2>
+	
+	<p>Lo único que debes hacer es poner el cable de Internet en el puerto Ethernet1.<br>
+	Y el que va al resto de equipos en el Ethernet0.<br>
+	El resto de puertos no los uses, pon un switch en el Ethernet0.</p>
+	
+
+	
+	<h2>Servidores DHCP Linux.</h2>
+	
+	<p>Usamos los US24.04LTS.</p>
+	<p>Contraseña: <b>ubuntu</b><br>
+	Password: <b>ubuntu</b></p>
+	
+	<p>Instalamos paquetería: <br>
+		<b>apt update && apt install isc-dhcp-server -y</b></p>
+
+	<p>Ponemos la IP Estática:<br>
+	<b>nano /etc/netplan/ARCHIVO.yaml</b></p>
+	<a href="ip_estatica.txt">IP Estática.</a>
+	<p><b>netplan apply</b></p>
+
+
+	<p>Una vez instalada la paquetería, debemos ir al archivo:<br>
+	<b>/etc/default/isc-dhcp-server</b><br>
+	Debemos poner el nombre de la interfaz que vamos a usar para dar el servicio de DHCP.<br>
+	Podemos saber cual es cuando hacemos "<b>ip a</b>".</p>
+
+	<p>Ahora debemos modificar el archivo:<br>
+	<b>/etc/dhcp/dhcpd.conf</b></p>
+
+	<p>Recuerda que en esta ocasión hay que tener “descomentadas” las líneas:<br>
+
+	<b>authoritative;</b><br>
+	<b>ddns-update-style none;</b></p>
+
+	<p>Ahora cada uno de los dos servidores tendrá una configuración distinta.</p>
+	<a href="explicacion_failover.pdf">Explicación FAILOVER.<br></a>
+	<a href="serv_primario.txt">Servidor Primario.</a><br>
+	<a href="serv_secundario.txt">Servidor Secundario.</a>
+	<p>A continuación, debemos establecer las pooles y sus configuraciones. Esto debe estar en COMÚN en ambos servidores.</p>
+		<p><b>Recuerda:</b> El tiempo de las concesiones se pone en segundos.</p>
+	<a href="serv_comun.txt">Parte en común.<br></a>
+	
+
+	<p>Guardamos y hacemos:<br>
+	<b>systemctl restart isc-dhcp-server<br>
+	systemctl status isc-dhcp-server</b></p>
+
+
+	
+	<h2>Ahora configuramos IP estática de router MIKROTIK para luego acceder desde GUI:
+((MIKROTIK))</h2>
+
+<p>Antes de encender la máquina o de conectar ningún cable:<br>
+	Ir a la sección de <b>"Configure: Network"</b> y meter más interfaces de red.</p>
+		<p>Lo encendemos:<br>
+		La contraseña es "<b>admin</b>" y no tiene "pass". Simpletemente dale a Intro.<br>
+		Te pedirá que le pongas una contraseña nueva: pon "<b>a</b>".</p>
+
+		<p>Una vez que estemos dentro, debes ponerle una IP</p>
+		<p>Ver IPs: <b>ip address/print</b></p>
+		<p>Cambiar IP: <b>ip address/add address=192.168.1.2/24 interface=ether1</b></p>
+		<p>Quitar IP:  <b>ip address/remove 4</b> (o el número que sea)</p>
+		<h3>Ahora usamos la siguiente guia para el resto de la configuración:</h3>
+		<a href="mikrotik.pdf">Guia Mikrotik</a>
+		<p><b>MUY IMPORTANTE: Cuando el Router Mikrotik actua de Relay (puede que en otras ocasiones también), debemos activar el NAT.<br>
+			Esto permitirá que cuando los Servidores DHCP hagan sus "leases", se configuren bien el tiempo de las concesiones.<br>
+			En caso contrario, solo se les asignará "30 minutos" (1800 segundos).</b></p>
+
+	<h2>Anexos</h2>
+	<p>Poner alias "busybox": <b>alias b=/gns3/bin/busybox</b></p>
+	<p>Comprobar "leases" de los servidores DHCP Linux: <b>/var/lib/dhcp/dhcpd.leases</b></p>
+	<p>sudo grep -B 12 'binding state active' /var/lib/dhcp/dhcpd.leases</p>
+	<p>Mejor aún: dhcp-lease-list</p>
+	<p><b>dhcp-lease-list --parsable</b></p>
+	<p>Recuerda poner la "b" del alias de "busybox" delante de los comandos de prueba.</p>
+	<p>Mostrar ip: ip a</p>
+	<p>Mostrar gateway: ip route</p>
+	<p>Mostrar configuración DNS: cat /etc/resolv.conf</p>
+	<p><b>Estatus de los servidores DHCP:</b><br>
+		journalctl -u isc-dhcp-server<br>
+		systemctl status isc-dhcp-server<br>
+		grep failover /var/log/syslog<br>
+		grep -i state /var/log/syslog<br>
+		tail -f /var/log/syslog | grep dhcp</p>
+
+	<p><b>check syntax dhcpd.conf</b><br>
+
+		dhcpd -t -cf /etc/dhcp/dhcpd.conf</p>
+
+	<h2>Configuración OpenWRT GUI.</h2>
+	<a href="openwrt.pdf">Guia OpenWRT GUI.</a>
+
+	<h2>Configuración del Tunel</h2>
+
+	<p>En un contenedor del Proxmox o una VM.<br>
+		Configura el SSH para que permita conectarse por ROOT si hace falta: nano /etc/ssh/sshd_config: busca "PermitRootLogin" y dale valor de "yes"<br>
+		En el mismo archivo: "GatewayPorts yes".<br>
+		systemctl restart sshd</p>
+
+	<p><pre>ssh -p 22 root@10.2.7.62 -R 10.2.7.50:1080:192.168.1.1:80 -fN
+
+ssh -p 22 "usuario"@"pc_con_acceso" -R "pc_con_acceso":1080:"pc_del_diagrama":80 -fN
+
+Comprueba en "pc_con_acceso" que está escuchando por el puerto: ss -ltnp | grep 1080
+
+Tiene que salir algo así:
+
+Si ves 0.0.0.0:1080 o 10.2.7.62:1080 = está escuchando en la interfaz pública y podrás conectarte desde otra máquina a 10.2.7.62:1080.
+
+Si aparece 127.0.0.1:1080 solo está ligado a localhost — entonces solo desde el propio 10.2.7.62 podrás usar curl http://127.0.0.1:1080.
+
+Ahora puedes poner la ip del pc_con_acceso en el navegador así:
+
+http://10.2.7.62:1080</pre>
+</p>
+	
+<h2>Calcular RANGO CIDR:</h2>
+
+<a href="https://www.ipaddressguide.com/cidr">ipaddressguide</a>
+<p>Otra de forma de calcularlo, es usar el "DHCP Setup" de Mikrotik:<br>
+Pon las IPs estáticas en el Mikrotik.<br>
+Ahora usa el DHCP Setup para "configurar" el servicio DHCP, pero no lo hagas del todo. Solo hasta la parte donde te salen las IPs disponibles para el POOL.</p>
+
+</body>
+</html>

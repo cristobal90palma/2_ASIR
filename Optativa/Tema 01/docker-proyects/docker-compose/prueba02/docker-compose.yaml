@@ -1,0 +1,29 @@
+services:
+  mysql02:
+    image: mysql:latest
+    ports:
+      - "3307:3307"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_USER: cristobal
+      MYSQL_PASSWORD: 12345
+      MYSQL_DATABASE: optativadb01
+    networks:
+      - red_bd02
+
+  postgres02:
+    image: postgres:latest
+    depends_on:
+      - mysql02
+    ports:
+      - "5433:5433"
+    environment:
+      POSTGRES_USER: cristobal
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: optativadb02
+    networks:
+      - red_bd02
+
+networks:
+  red_bd02:
+

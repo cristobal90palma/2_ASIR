@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo "Compilando aplicación..."
+                // Clona el repositorio en el workspace
+                git url: 'https://github.com/octocat/Hello-World.git'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    echo "Verificando existencia de README..."
+                    if (fileExists('README')) {
+                        echo "README encontrado. Test OK."
+                    } else {
+                        error("ERROR: No se encontró el archivo README. Falla la etapa Test.")
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Desplegando a producción..."
+            }
+        }
+    }
+}

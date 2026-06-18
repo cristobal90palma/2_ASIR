@@ -1,0 +1,38 @@
+dn: cn=abad,ou=usuarios,dc=SUAREZ1,dc=abad2
+changetype: modify
+replace: uidNumber
+uidNumber: 1100
+-
+add: description
+description: Administrador de sistemas
+
+
+\\\\\\\\\\\\
+
+ldapmodify -x -D cn=admin,dc=SUAREZ1,dc=abad2 -W -f modificar_usuario.ldif
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 uid=abad
+
+\\\\\\\\
+
+dn: cn=abad,ou=usuarios,dc=SUAREZ1,dc=abad2
+changetype: modify
+delete: description
+
+
+ldapsearch -xLLL -b dc=SUAREZ1,dc=abad2 uid=abad
+
+\\\\\\\\\\\\\
+
+dn: cn=abad,ou=usuarios,dc=SUAREZ1,dc=abad2
+changetype: modrdn
+newrdn: cn=912345678
+deleteoldrdn: 1
+
+\\\\\\\\\\
+
+dn: cn=912345678,ou=usuarios,dc=SUAREZ1,dc=abad2
+changetype: modify
+replace: userPassword
+userPassword: 123456
+

@@ -1,0 +1,13 @@
+dn: cn=miguel,ou=madrid,dc=sistemas,dc=edu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/miguel
+uid: miguel
+cn: miguel
+userPassword: Usuario.20
+uidNumber: 10002
+gidNumber: 10001
+sn: miguel
+mail: miguel@sistemas.edu

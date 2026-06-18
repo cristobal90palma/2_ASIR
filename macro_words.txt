@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+TODO ENLAZADO A LA ANTERIOR
+
+
+For Each s In ActiveDocument.Sections 
+  With s.Headers(wdHeaderFooterPrimary).PageNumbers 
+    .RestartNumberingAtSection = False 
+    .StartingNumber = 0 
+  End With 
+=======
+TODO ENLAZADO A LA ANTERIOR
+
+
+For Each s In ActiveDocument.Sections 
+  With s.Headers(wdHeaderFooterPrimary).PageNumbers 
+    .RestartNumberingAtSection = False 
+    .StartingNumber = 0 
+  End With 
+>>>>>>> ff1b64f5cdd6090db57be66adb681c6ac9dd3098
+Next s

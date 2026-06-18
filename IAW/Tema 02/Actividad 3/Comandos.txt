@@ -1,0 +1,108 @@
+0) IP Estática.
+1) Apache
+
+sudo apt
+sudo apt install apache2 -y
+
+2) MySQL
+
+sudo apt install mysql-server
+
+Nos metemos en MySQL: sudo mysql -u root -p
+Otorgamos un pass a "root" del MySQL: ALTER USER 'root'@'localhost' IDENTIFIED
+WITH mysql_native_password BY '12345';
+
+
+3) PHP
+
+apt install php libapache2-mod-php -y
+
+
+Comprueba, colocando un archivo .php en la ruta de una web de apache2
+
+/var/www/html/holamundo.php (EJEMPLO)
+
+
+<?php
+
+echo "Hello World!";
+
+?>
+
+También podríamos comprobar que el módulo de PHP para apache está instalado buscándolo en
+
+ls -l /etc/apache2/mods-enabled/
+
+
+4) PHPmyAdmin
+
+apt install phpmyadmin
+
+Marca la opción de Apache2
+
+Le decimos que NO queremos crear una base de datos propia de PHPmyAdmin, porque ya tenemos una.
+
+Una vez instalado, poner esto en la barra de URL del navegador.
+
+http://10.2.17.70/phpmyadmin/
+
+
+5) Instalar GIT y bajar código fuente de la aplicación y los ficheros configuración mediante la aplicación git
+
+OLVIDATE DE LA CARPETA /var/www/git/
+Instalamos GIT
+
+apt install git
+
+NOS POSICIONAMOS EN /var/www/html/
+
+sudo git clone https://github.com/VidaInformatico/Sistema-de-biblioteca-basico-php-8-y-mysql.git
+
+6) Renombrar carpeta y conectarse a ella mediante VSCodium (o Code).
+
+mv Sistema-de-biblioteca-basico-php-8-y-mysql/ biblioteca
+
+https://github.com/VSCodium/vscodium/releases
+https://github.com/VSCodium/vscodium/releases/download/1.105.16999/VSCodiumUserSetup-x64-1.105.16999.exe
+
+
+Instalamos la Extensión "Open SSH REMOTE"
+
+Terminal --> New Terminal
+Y nos conectamos con SSH
+Ahora nos posicionamos en la carpte "biblioteca" y ejecutamos
+
+
+git init
+
+
+LOS PUNTOS 7 Y 8 NO NECESITAN COMANDOS.
+
+9) VirtualHost de la página web
+
+Deshabilitamos el default
+
+a2dissite 000-default.conf
+
+Copiamos el default
+
+cp sites-available/000-default.conf sites-available/biblioteca.conf
+
+nano sites-available/biblioteca.conf
+
+
+10) Config.php
+
+nano /var/www/html/biblioteca/Config/Config.php
+
+11) Modulo rewrite de apache
+
+a2enmod rewrite 
+
+12) Permitir-.htaccess-VirtualHost
+
+nano apache2.conf
+
+Configurar
+
+systemctl restart apache2

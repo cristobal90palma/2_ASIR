@@ -1,0 +1,81 @@
+#
+# Proftpd sample configuration for Virtual Hosts and Virtual Roots.
+#
+# Note that FTP protocol requires IP based virtual host, not name based.
+#
+
+# 
+# A generic sample virtual host.
+#
+<VirtualHost ftp.lordoftherings.tv>
+ServerAdmin              boromir@ftp.lordoftherings.tv
+ServerName              "Por Gondor"
+TransferLog             /var/log/proftpd/lotr_trx.log
+ServerLog		/var/log/proftpd/lotr.syslog
+MaxLoginAttempts        3
+MaxClients		250
+TimeOutLogin		30
+#HideGroup		xmen
+
+
+#RequireValidShell       no
+#DefaultRoot             /srv/abismo/
+#AllowOverwrite          yes
+    <Limit LOGIN>
+        Order Allow,Deny
+        AllowUser gandalf
+	AllowUser balrog
+        DenyAll
+    </Limit>
+
+	<Directory /srv/abismo/uploads>
+            <Limit STOR>
+                AllowAll
+            </Limit>
+        </Directory>
+
+    # Configuración Anónima Balrog en el VirtualHost
+    <Anonymous /srv/abismo>
+        User balrog
+        Group nogroup
+        UserAlias anonymous balrog
+
+        <Directory /srv/abismo/mordor>
+            <Limit ALL>
+                DenyAll
+            </Limit>
+        </Directory>
+
+        <Directory /srv/abismo/uploads>
+            <Limit STOR>
+                AllowAll
+            </Limit>
+        </Directory>
+
+    </Anonymous>
+</VirtualHost>
+
+
+
+
+
+
+#
+# The vroot module is not required, but can be useful for shared
+# directories.
+#
+<IfModule mod_vroot.c>
+#VRootEngine on
+
+#DefaultRoot ~
+#VRootAlias upload /var/ftp/upload
+#
+#<VirtualHost a.b.c.d>
+#VRootEngine on
+#VRootServerRoot /etc/ftpd/a.b.c.d/
+#VRootOptions allowSymlinks
+#DefaultRoot ~
+#</VirtualHost>
+#
+</IfModule>
+

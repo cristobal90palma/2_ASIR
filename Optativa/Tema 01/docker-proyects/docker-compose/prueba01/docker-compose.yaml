@@ -1,0 +1,33 @@
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3307:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_USER: cristobal
+      MYSQL_PASSWORD: 12345
+      MYSQL_DATABASE: optativadb01
+    networks:
+      - red_bd
+
+  postgres:
+    image: postgres:latest
+    depends_on:
+      - mysql
+    ports:
+      - 5433:5432
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: cristobal
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: optativadb02
+    networks:
+      - red_bd
+
+networks:
+  red_bd:
+    driver: bridge

@@ -1,0 +1,14 @@
+#CONFIGURACIÓN DE ((DHCP-PRIM))
+
+failover peer "FAILOVER" {
+  primary;
+  address 192.168.1.3;
+  port 647;
+  peer address 192.168.1.4;
+  peer port 647;
+  max-unacked-updates 10;
+  max-response-delay 30;
+  load balance max seconds 3;
+  mclt 1800;
+  split 128;
+}

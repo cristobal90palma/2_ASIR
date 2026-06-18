@@ -1,0 +1,7 @@
+https://serverfault.com/questions/132026/listing-group-members-using-ldapsearch
+
+https://serverfault.com/questions/275813/ldap-how-to-add-a-person-to-an-existing-group.
+
+https://docs.oracle.com/en/operating-systems/oracle-linux/6/admin/ldap-addusers-group.html
+
+https://stackoverflow.com/questions/4096161/ldap-how-to-add-a-new-user-to-a-group-inside-an-ou

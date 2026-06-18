@@ -1,0 +1,48 @@
+# Script-Logger.ps1
+# Este script monitoriza y registra el estado (uso de CPU, memoria, prioridad, hilos) 
+# de los procesos identificados por $cpuPID y $ioPID cada 3 segundos.
+
+$cpuPID = 5064 # Reemplaza con el ID del Proceso de Carga de CPU
+$ioPID = 1284 # Reemplaza con el ID del Proceso de Carga de I/O
+
+$logEntries = @()
+Write-Host "Iniciando monitorización... Presiona Ctrl+C para detener y guardar."
+
+try {
+    # Bucle principal de monitorización
+    while ($true) {
+        # Obtener los objetos de proceso
+        $pCPU = Get-Process -Id $cpuPID -ErrorAction Stop
+        $pIO = Get-Process -Id $ioPID -ErrorAction Stop
+
+        # Crear el objeto con los datos del snapshot
+        $snapshot = [PSCustomObject]@{
+            Timestamp = Get-Date -Format "HH:mm:ss"
+            
+            # Datos del Proceso CPU
+            CPU_Priority  = $pCPU.PriorityClass
+            CPU_Threads   = $pCPU.Threads.Count
+            CPU_Usage_s   = $pCPU.CPU # Total acumulado de segundos de CPU
+            CPU_Memory_MB = [Math]::Round($pCPU.WS / 1MB) # Memoria de Conjunto de Trabajo (Working Set)
+
+            # Datos del Proceso IO
+            IO_Priority   = $pIO.PriorityClass
+            IO_Threads    = $pIO.Threads.Count
+            IO_Usage_s    = $pIO.CPU
+            IO_Memory_MB  = [Math]::Round($pIO.WS / 1MB)
+        }
+        
+        $logEntries += $snapshot
+        $snapshot # Muestra el snapshot en la consola para feedback inmediato
+        
+        Start-Sleep -Seconds 3 # Espera 3 segundos antes del siguiente snapshot
+    }
+}
+catch {
+    Write-Warning "El bucle terminó: Proceso no encontrado o detenido."
+}
+finally {
+    # Al presionar Ctrl+C (o al finalizar el bucle), guarda el log.
+    $logEntries | Export-Csv -Path "C:\Temp\process_monitor_log.csv" -NoTypeInformation -Encoding UTF8
+    Write-Host "Log guardado en C:\Temp\process_monitor_log.csv"
+}

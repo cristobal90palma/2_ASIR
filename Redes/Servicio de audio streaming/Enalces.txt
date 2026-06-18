@@ -1,0 +1,13 @@
+Ampache
+http://im07.institutodh.net  
+Users: diego y el resto, vuestro primer apellido (minúscula y sin tilde)
+Pass: 12345
+
+http://im07.institutodh.net
+
+AzuraCast
+https://100.24.225.67/dashboard
+Emisoras públicas
+https://100.24.225.67/public/horberlin
+https://100.24.225.67/public/mojinosescozios 
+https://100.24.225.67/public/vicecityradio

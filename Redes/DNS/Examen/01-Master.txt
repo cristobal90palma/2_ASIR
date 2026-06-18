@@ -1,0 +1,89 @@
+
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Archivo para busquedas directas
+zone "sri-dns-07.edu" {
+        type master;
+        file "bd.sri-dns-07.edu"; // Debe estar en /var/cache/bind/
+        allow-update { none; };
+};
+
+zone "7.2.10.in-addr.arpa" {
+        type master;
+        file "10.2.7.rev";
+        allow-update { none; };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+; Archivo bd.sri-dns-07.edu
+;
+; BIND data file for bd.retry.net
+;
+$TTL 1D
+@ IN SOA csa-master.sri-dns-07.edu. root.sri-dns-07.edu. (
+        2025103101 ; Serial Basado en el dia e incrementando
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+; Servidores DNS del dominio
+        IN NS   csa-master.sri-dns-07.edu.
+
+; Correo
+
+        IN MX 10 smtp1.sri-dns-07.edu.
+        IN MX 20 smtp2.sri-dns-07.edu.
+
+; Directas
+
+csa-master IN A 10.2.17.110
+www IN A 10.2.17.50
+smtp1 IN A 10.2.17.51
+smtp2 IN A 10.2.17.52
+ftp IN A 10.2.17.53
+
+; Alias o sinonimo
+ns IN CNAME csa-master
+w3 IN CNAME www
+correo01 IN CNAME smtp1
+correo02 IN CNAME smtp2
+archivos IN CNAME ftp
+
+
+
+
+
+;ARCHIVO DE ZONA INVERSA
+$TTL 1D
+@   IN  SOA 7.2.10.in-addr.arp. root.retry07.net. (
+        2025103101 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+       IN  NS  csa-master.sri-dns-07.edu.
+
+; Registros PTR
+110     	IN  PTR csa-master.sri-dns-07.edu.
+50		IN	PTR	www.sri-dns-07.edu.
+51		IN	PTR	smtp1.sri-dns-07.edu.
+52		IN	PTR	smtp2.sri-dns-07.edu.
+53		IN	PTR	ftp.sri-dns-07.edu.

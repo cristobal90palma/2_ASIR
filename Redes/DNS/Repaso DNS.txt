@@ -1,0 +1,45 @@
+Repaso DNS
+
+1) Instala (comprueba si está instalado) el Servidor DNS bind9 en tu CT Ubuntu
+ con prompt personalizado e ip fija. 
+ Su nombre de máquina debe ser dnsIniciales01 (dnsdjfr01, etc...)
+ 
+
+apt -y update && apt -y install bind9
+apt install dnsutils
+systemctl status bind9
+ls -l /etc/bind/
+
+
+2) Configura los archivos correspondientes para  dar resolución directa e
+ inversa del dominio retryXY.net en la lan de aula (XY es tu número de 
+ lista), sabiendo que:
+
+retry07.net
+
+DNS:
+Es tu máquina dnscsa01.retry07.net, 
+siendo esta la autoritaria para dicha zona.
+
+Correo
+Los servidores de correo son smtp1 y smtp2 con mayor prioridad el segundo.
+
+smtp1.retry07.net.
+smtp2.retry07.net.
+
+Directas:
+El servidor DNS (dnsNombre) es la ip de tu DNS.
+El servidor Web (www) es 172.16.111.200
+Los servidores de correo  son las IPs 172.16.111.201 y 202 (respectivamente).
+El servidor de Minecraft (mc) está en la IP 172.16.111.203.
+
+www.retry07.net
+mc.retry07.net
+
+
+Alias:
+Crea el alias dns para el servidor DNS
+Crea el alias web para el servidor web
+mail1 y mail2 para los servidores de correo.
+servidormc para el servidor Minecraft
+

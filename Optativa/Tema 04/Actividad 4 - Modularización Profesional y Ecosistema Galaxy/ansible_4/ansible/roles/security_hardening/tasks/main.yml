@@ -1,0 +1,25 @@
+---
+# tasks file for security_hardening
+---
+- name: Registrar uptime del sistema
+  command: uptime
+  register: resultado_uptime
+
+- name: Crear usuarios de auditoría
+  user:
+    name: "{{ item }}"
+    groups: sudo
+    append: yes
+  loop: "{{ audit_team }}"
+
+- name: Configurar Hardening SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+  notify: Reiniciar SSH
+
+- name: Generar informe de auditoría desde plantilla
+  template:
+    src: audit_report.j2
+    dest: "{{ log_path }}"

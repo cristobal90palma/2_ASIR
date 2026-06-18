@@ -1,0 +1,44 @@
+Crea en una carpeta aparte, un archivo sin extensión llamado "Dockerfile". Ahí debes meter la información.
+
+Construir imagen:
+
+docker build -t prueba01 .
+
+
+Crear contenedor: 
+
+docker run -d --name contenedor-db -p 22:22 -p 3307:3307 -p 5433:5433 db_dual
+
+
+Meterte en un contenedor que está activo:
+
+docker exec -it contenedor-db bash
+
+
+Entrar en postgresql:
+
+su - postgres
+psql -U $DB_USER -d $DB_NAME -h 127.0.0.1 -p 5433
+
+Entrar en MySQL:
+
+mysql -u dbadmin -p dbpass -h 127.0.0.1 -P 3307 prueba_db
+
+
+SSH:
+
+ssh user@127.0.0.1 -p 2222
+
+
+
+\\\\\\\\\\\
+
+
+docker build --build-arg SSH_USER=usuario --build-arg SSH_PASSWORD=usuario --build-arg DB_USER=usuario --build-arg DB_PASSWORD=usuario --build-arg DB_NAME=prueba_db -t p01_final4 .
+
+docker run -d --name contenedor-dbdual -p 22:22 -p 3307:3307 -p 5433:5433 p01_final4
+
+docker run -d --name contenedor-dbdual -p 22:22 -p 3307:3307 -p 5433:5433 -e SSH_USER=user -e SSH_PASSWORD=pass p01_final4
+
+ARG SSH_USER=user
+ARG SSH_PASSWORD=pass

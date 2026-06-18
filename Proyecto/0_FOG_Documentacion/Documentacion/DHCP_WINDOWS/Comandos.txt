@@ -1,0 +1,47 @@
+###########Create DHCP Vendor Class
+
+Add-DhcpServerv4Class -Name "Legacy" -Type Vendor -Data "PXEClient:Arch:00000"
+Add-DhcpServerv4Class -Name "UEFI-32-2" -Type Vendor -Data "PXEClient:Arch:00002"
+Add-DhcpServerv4Class -Name "UEFI-32-1" -Type Vendor -Data "PXEClient:Arch:00006"
+Add-DhcpServerv4Class -Name "UEFI-64-1" -Type Vendor -Data "PXEClient:Arch:00007"
+Add-DhcpServerv4Class -Name "UEFI-64-2" -Type Vendor -Data "PXEClient:Arch:00008"
+Add-DhcpServerv4Class -Name "UEFI-64-3" -Type Vendor -Data "PXEClient:Arch:00009"
+Add-DhcpServerv4Class -Name "UEFI-ARM64" -Type Vendor -Data "PXEClient:Arch:00011"
+Add-DhcpServerv4Class -Name "SURFACE-PRO-4" -Type Vendor -Data "PXEClient:Arch:00007:UNDI:003016"
+Add-DhcpServerv4Class -Name "Apple-Intel-Netboot" -Type Vendor -Data "AAPLBSDPC/i386"
+
+
+###########Create DHCP Vendor Class
+Add-DhcpServerv4Policy -Name "Legacy" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"Legacy*"
+Add-DhcpServerv4Policy -Name "UEFI-32-2" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"UEFI-32-2*"
+Add-DhcpServerv4Policy -Name "UEFI-32-1" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"UEFI-32-1*"
+Add-DhcpServerv4Policy -Name "UEFI-64-1" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"UEFI-64-1*"
+Add-DhcpServerv4Policy -Name "UEFI-64-2" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"UEFI-64-2*"
+Add-DhcpServerv4Policy -Name "UEFI-64-3" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"UEFI-64-3*"
+Add-DhcpServerv4Policy -Name "UEFI-ARM64" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"UEFI-ARM64*"
+Add-DhcpServerv4Policy -Name "SURFACE-PRO-4" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"SURFACE-PRO-4*"
+Add-DhcpServerv4Policy -Name "Apple-Intel-Netboot" -ScopeId 172.18.10.0 -Condition OR -VendorClass EQ,"Apple-Intel-Netboot*"
+
+
+########## Configure Option 66
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "Legacy" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-32-2" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-32-1" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-64-1" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-64-2" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-64-3" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-ARM64" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "SURFACE-PRO-4" -OptionId 066 -Value "10.2.7.5"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "Apple-Intel-Netboot" -OptionId 066 -Value "10.2.7.5"
+
+
+########## Configure Option 67
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "Legacy" -OptionId 067 -Value "undionly.kkpxe"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-32-2" -OptionId 067 -Value "i386-efi/snponly.efi"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-32-1" -OptionId 067 -Value "i386-efi/snponly.efi"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-64-1" -OptionId 067 -Value "snponly.efi"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-64-2" -OptionId 067 -Value "snponly.efi"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-64-3" -OptionId 067 -Value "snponly.efi"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "UEFI-ARM64" -OptionId 067 -Value "arm64-efi/snponly.efi"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "SURFACE-PRO-4" -OptionId 067 -Value "snponly.efi"
+Set-DhcpServerv4OptionValue -ScopeId 172.18.10.0 -PolicyName "Apple-Intel-Netboot" -OptionId 067 -Value "snponly.efi"

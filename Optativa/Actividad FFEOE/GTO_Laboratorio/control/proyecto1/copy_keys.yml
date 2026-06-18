@@ -1,0 +1,16 @@
+---
+- name: "Configuracion de Seguridad: Implementación de claves SSH"
+  hosts: all
+  tasks:
+    - name: Asegurar que el directorio .ssh existe con permisos correctos
+      file:
+        path: /home/ansible/.ssh
+        state: directory
+        mode: '0700'
+        owner: ansible
+
+    - name: Instalar la clave publica en los nodos gestionados
+      authorized_key:
+        user: ansible
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

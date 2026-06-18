@@ -1,0 +1,57 @@
+Cada usuario en su paginaPersonal que está en us directorio 
+de trabajo debe poner su archivo "index.html" que le aparecerá
+cuando entre en la web.
+
+http://cualquiercosa.com/~pepe/ 
+
+En vez de index.html podemos ponerlo personalizado con "DirectoryIndex"
+
+A cada modificaicón hay que hacer systemctl restart apache2
+
+
+
+
+\\\\WEBALIZER
+
+Coge los logs de apache2 y analiza
+Debemos en la configuración de la página ponerle un logo propio
+y después enlazarlo a webanalizer
+
+
+Hay que instalarlo donde está el servidor apache2
+
+apt -y install webalizer
+
+/etc/webalizer/webalizer_paginaweb.conf
+
+En este archivo se pone la dirección a los archivos log
+
+LogFile
+
+y
+
+OutputDir: Las estadisiticas deben ir a la carpeta donde está
+la web: una subcarpeta en la dirección del Documentroot
+
+/var/www/minekraft/webalizer
+
+
+Las puede hacer automáticas los analisis o hay comandos para hacerlas a mano
+
+
+
+
+http://cualquiercosa.com/webalizer
+
+
+
+https://www.zeppelinux.es/autenticacion-digest-en-apache/ 
+/////////archivo .htaccess
+
+habilita el auth_digest
+
+.htaccess = la configuración que ya vimos con antonio carlos
+se puede poner en el fichero y se ubica en la carpeta propiamente.
+
+
+httpd.apache allowoverride Busca la pagina web

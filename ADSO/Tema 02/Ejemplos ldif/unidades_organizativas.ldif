@@ -1,0 +1,3 @@
+dn: ou=madrid,dc=sistemas,dc=edu
+objectClass: organizationalUnit
+ou: madrid

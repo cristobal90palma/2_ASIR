@@ -1,0 +1,61 @@
+PASO 1: BORRAR COMPLETAMENTE GIT (DE VERDAD)
+
+Desde D:\2º_ASIR en CMD:
+
+bat
+
+rmdir /s /q .git
+
+✔️ Esto SÍ elimina el repositorio Git
+✔️ No borra tus archivos
+
+Comprueba:
+
+bat
+
+dir .git
+
+Debe decir → Archivo no encontrado
+
+
+PASO 3: CREAR .gitignore ANTES DE NADA
+
+En D:\2º_ASIR:
+
+bat
+
+notepad .gitignore
+
+Contenido (copia/pega):
+
+gitignore
+
+# Binarios e instaladores
+*.exe
+*.msi
+*.iso
+*.zip
+*.rar
+
+# Temporales Windows
+Thumbs.db
+desktop.ini
+
+Guarda y cierra.
+
+
+PASO 4: INICIALIZAR GIT DESDE CERO
+
+bat
+
+git init
+git branch -M main
+git add .
+git commit -m "Proyecto 2º ASIR"
+
+🔗 PASO 5: CONECTAR CON GITHUB (limpio)
+
+bat
+
+git remote add origin https://github.com/cristobal90palma/2_ASIR.git
+git push -u origin main --force

@@ -1,0 +1,192 @@
+https://gemini.google.com/app/bacfb253ec1a131a
+
+
+(comunes.php)
+
+
+<?php
+// comunes.php
+
+function fValidaAcceso($usuario, $password) {
+    // Array asociativo con cinco datos
+    $usuarios = [
+        "admin" => password_hash("1234", PASSWORD_DEFAULT),
+        "juan" => password_hash("pass1", PASSWORD_DEFAULT),
+        "maria" => password_hash("pass2", PASSWORD_DEFAULT),
+        "pedro" => password_hash("pass3", PASSWORD_DEFAULT),
+        "ana" => password_hash("pass4", PASSWORD_DEFAULT)
+    ];
+
+    // Obtenemos solo las claves (los nombres de usuario) en un array indexado
+    $nombresUsuarios = array_keys($usuarios);
+
+    // Comprobamos si el usuario introducido está en el array de nombres
+    if (in_array($usuario, $nombresUsuarios)) {
+        // Si existe, usamos password_verify para validar la contraseña
+        if (password_verify($password, $usuarios[$usuario])) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+function fValidaSesion() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    if (isset($_SESSION['misesion'])) {
+        return 1;
+    }
+    return 0;
+}
+?>
+
+
+\\\\\\\\\\\\\\\\\\\\\\
+
+(acceso.php)
+
+<?php
+include_once 'comunes.php';
+session_start();
+
+$error = "";
+$usuario_guardado = isset($_COOKIE['recuerda']) ? $_COOKIE['recuerda'] : "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = $_POST['usuario'] ?? '';
+    $pass = $_POST['password'] ?? '';
+    $recordar = isset($_POST['recordar']);
+
+    if (empty($user) || empty($pass)) {
+        $error = "Por favor, rellene todos los campos.";
+    } else {
+        if (fValidaAcceso($user, $pass) == 1) {
+            // Configurar Sesión
+            $_SESSION['misesion'] = session_id();
+            $_SESSION['usuario'] = $user;
+            $_SESSION['inicio'] = date("Y-m-d H:i:s");
+
+            // Configurar Cookie si se marcó el check
+            if ($recordar) {
+                setcookie("recuerda", $user, time() + (86400 * 30), "/"); // 30 días
+            } else {
+                setcookie("recuerda", "", time() - 3600, "/"); // Eliminar si no se marca
+            }
+
+            header("Location: areapersonal.php");
+            exit();
+        } else {
+            $error = "Usuario o password incorrectos.";
+        }
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head><title>Acceso</title></head>
+<body>
+    <h2>Formulario de Acceso</h2>
+    <?php if($error) echo "<p style='color:red'>$error</p>"; ?>
+    
+    <form method="POST" action="acceso.php">
+        Usuario: <input type="text" name="usuario" value="<?php echo $usuario_guardado; ?>"><br><br>
+        Password: <input type="password" name="password"><br><br>
+        Recordar usuario: <input type="checkbox" name="recordar" <?php if($usuario_guardado) echo "checked"; ?>><br><br>
+        <input type="submit" value="Validar">
+    </form>
+</body>
+</html>
+
+
+\\\\\\\\\\\\\\\\\\\
+
+(areapersonal.php)
+
+
+<?php
+include_once 'comunes.php';
+
+if (fValidaSesion() == 0) {
+    header("Location: acceso.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head><title>Área Personal</title></head>
+<body>
+    <h1>Bienvenido, <?php echo $_SESSION['usuario']; ?></h1>
+    <p>Has accedido a tu área personal de forma segura.</p>
+    <ul>
+        <li><a href="correos.php">Correos</a></li>
+        <li><a href="salir.php">Salir</a></li>
+    </ul>
+</body>
+</html>
+
+
+
+\\\\\\\\\\\\\\\\\\\\\
+
+(correos.php)
+
+<?php
+include_once 'comunes.php';
+
+if (fValidaSesion() == 0) {
+    header("Location: acceso.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head><title>Correos</title></head>
+<body>
+    <h1>Bandeja de Entrada</h1>
+    <p>Lista de correos de <?php echo $_SESSION['usuario']; ?>...</p>
+    <br>
+    <a href="areapersonal.php">Volver al Área Personal</a>
+</body>
+</html>
+
+
+
+\\\\\\\\\\\\\\\\\\\\\
+
+(salir.php)
+
+<?php
+include_once 'comunes.php';
+
+if (fValidaSesion() == 0) {
+    header("Location: acceso.php");
+    exit();
+}
+
+$inicio = $_SESSION['inicio'];
+$ahora = date("Y-m-d H:i:s");
+
+// Destruir sesión
+$_SESSION = array();
+session_destroy();
+?>
+
+<!DOCTYPE html>
+<html>
+<head><title>Sesión Cerrada</title></head>
+<body>
+    <h2>Sesión finalizada correctamente</h2>
+    <p>Fecha de inicio: <?php echo $inicio; ?></p>
+    <p>Fecha actual: <?php echo $ahora; ?></p>
+    <br>
+    <a href="acceso.php">Ir a la web de acceso</a>
+</body>
+</html>
+
+
+

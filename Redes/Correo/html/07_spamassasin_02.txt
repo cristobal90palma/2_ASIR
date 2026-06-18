@@ -1,0 +1,3 @@
+header REGLA_INICIALES Subject =~ /CSA/i
+describe REGLA_INICIALES
+score REGLA_INICIALES 20.0

@@ -1,0 +1,62 @@
+https://devdocs.prestashop-project.org/9/basics/installation/environments/docker/
+
+mkdir -p /home/usuario/docker_compose/Prestashop
+cd /home/usuario/docker_compose/Prestashop
+
+
+\\\\\\\\docker-compose.yaml
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb-prestashop
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=mitienda
+      - MARIADB_USER=pepe
+      - MARIADB_PASSWORD=pepe
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - prestashopnet
+
+  prestashop:
+    image: prestashop/prestashop:latest
+    container_name: prestashop
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - PRESTASHOP_HOST=127.0.0.1
+      - PRESTASHOP_DATABASE_HOST=mariadb
+      - PRESTASHOP_DATABASE_PORT_NUMBER=3306
+      - PRESTASHOP_DATABASE_NAME=mitienda
+      - PRESTASHOP_DATABASE_USER=pepe
+      - PRESTASHOP_DATABASE_PASSWORD=pepe
+      - PRESTASHOP_FIRST_NAME=Cristobal
+      - PRESTASHOP_LAST_NAME=Suarez
+      - PRESTASHOP_PASSWORD=admin123
+      - PRESTASHOP_EMAIL=admin@mitienda.local
+    volumes:
+      - prestashop_data:/bitnami/prestashop
+    networks:
+      - prestashopnet
+
+volumes:
+  mariadb_data:
+  prestashop_data:
+
+networks:
+  prestashopnet:
+    driver: bridge
+
+
+
+\\\\\\\\\\\
+
+NAVEGADOR: http://IPSERVIDOR.8080
+
+Ejemplo: http://10.2.17.10:8080
+

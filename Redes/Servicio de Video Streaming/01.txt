@@ -1,0 +1,181 @@
+https://gemini.google.com/app/c95f44f257b8af86
+
+services:
+  # --- JELLYFIN ---
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    volumes:
+      - ./jellyfin/config:/config
+      - ./multimedia:/data
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+
+  # --- RTMP SERVER ---
+  rtmp-server:
+    image: tiangolo/nginx-rtmp
+    container_name: rtmp-server
+    ports:
+      - "1935:1935"
+      - "8080:80"
+    restart: unless-stopped
+
+  # --- ECOSISTEMA JITSI (STABLE 9646) ---
+  prosody:
+    image: jitsi/prosody:stable-9646
+    container_name: jitsi-prosody
+    restart: unless-stopped
+
+  jicofo:
+    image: jitsi/jicofo:stable-9646
+    container_name: jitsi-jicofo
+    restart: unless-stopped
+
+  jvb:
+    image: jitsi/jvb:stable-9646
+    container_name: jitsi-jvb
+    ports:
+      - "10000:10000/udp"
+    restart: unless-stopped
+
+  jitsi-web:
+    image: jitsi/web:stable-9646
+    container_name: jitsi-meet
+    environment:
+      - PUBLIC_URL=https://meet.2asirXX.institutodh.net
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+
+  # --- PROXY MANAGER ---
+  nginx-proxy:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./proxy/data:/data
+      - ./proxy/letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
+	
+	
+\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+¡Perfecto! Si ya tienes todos los contenedores en verde (Started), el siguiente paso es abrir las puertas al mundo de forma segura. Los navegadores modernos (Chrome, Firefox, Edge) bloquean la cámara y el micrófono si no detectan una conexión HTTPS confiable.
+
+Sigue estos pasos para configurar tu Nginx Proxy Manager (NPM) y activar los certificados gratuitos de Let's Encrypt:
+1. Acceso al Panel de Control
+
+    Abre tu navegador y ve a http://tu-ip-de-aws:81.
+
+    Usuario por defecto: admin@example.com
+
+    Contraseña por defecto: changeme
+    (Te pedirá cambiar el nombre y la contraseña nada más entrar. Pon algo que recuerdes).
+
+2. Configurar el Proxy para Jitsi (Videoconferencia)
+
+Queremos que al escribir meet.2asirXX.institutodh.net, nos lleve al contenedor de Jitsi.
+
+    Ve a Hosts > Proxy Hosts > Add Proxy Host.
+
+    Domain Names: meet.2asirXX.institutodh.net
+
+    Scheme: http
+
+    Forward Hostname / IP: jitsi-meet (Docker resuelve el nombre del contenedor automáticamente).
+
+    Forward Port: 80
+
+    Activa Block Common Exploits y Websockets Support (Jitsi los necesita).
+
+3. Activar el Certificado SSL (HTTPS)
+
+En esa misma ventana de configuración, haz clic en la pestaña SSL:
+
+    En SSL Certificate, selecciona Request a new SSL Certificate.
+
+    Activa Force SSL (para que siempre use HTTPS) y HTTP/2 Support.
+
+    Acepta los términos de Let's Encrypt y dale a Save.
+
+    [!IMPORTANT]
+    Nota de red: Para que esto funcione, el puerto 80 y 443 de tu instancia de AWS deben estar abiertos al público (0.0.0.0/0), ya que Let's Encrypt necesita conectar con tu servidor para verificar que el dominio es tuyo.
+
+4. Repetir para Jellyfin y RTMP
+
+Haz lo mismo para los otros dos servicios:
+Subdominio	Forward Hostname	Port	SSL
+media.2asirXX...	jellyfin	8096	Sí
+live.2asirXX...	rtmp-server	8080	Sí
+5. Prueba de Fuego (El Laboratorio)
+
+Ahora ya puedes probarlo todo de forma real:
+
+    Entra en https://meet.2asirXX... desde tu móvil y un PC. Deberías poder verte y oírte con el candadito verde en la barra de direcciones.
+
+    En Jellyfin (https://media.2asirXX...), ya puedes configurar la biblioteca de vídeos educativos.
+
+¿Quieres que te pase el comando para verificar que los logs de Jitsi están fluyendo correctamente y no hay errores de red internos?
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\ Prob
+
+
+Solución problema reinicio jitsi prosody
+
+# --- ECOSISTEMA JITSI ---
+  prosody:
+    image: jitsi/prosody:stable-9646
+    container_name: jitsi-prosody
+    restart: unless-stopped
+    environment:
+      - AUTH_TYPE=internal
+      - JICOFO_AUTH_USER=jicofo
+      - JICOFO_AUTH_PASSWORD=mi_password_seguro_jicofo  # <--- ESTO FALTABA
+      - JVB_AUTH_USER=jvb
+      - JVB_AUTH_PASSWORD=mi_password_seguro_jvb        # <--- ESTO TAMBIÉN
+    volumes:
+      - ./jitsi/prosody-config:/config
+
+  jicofo:
+    image: jitsi/jicofo:stable-9646
+    container_name: jitsi-jicofo
+    restart: unless-stopped
+    environment:
+      - JICOFO_AUTH_USER=jicofo
+      - JICOFO_AUTH_PASSWORD=mi_password_seguro_jicofo
+      - JICOFO_COMPONENT_SECRET=secreto_componente
+    depends_on:
+      - prosody
+
+  jvb:
+    image: jitsi/jvb:stable-9646
+    container_name: jitsi-jvb
+    restart: unless-stopped
+    environment:
+      - JVB_AUTH_USER=jvb
+      - JVB_AUTH_PASSWORD=mi_password_seguro_jvb
+    ports:
+      - "10000:10000/udp"
+    depends_on:
+      - prosody
+
+  jitsi-web:
+    image: jitsi/web:stable-9646
+    container_name: jitsi-meet
+    environment:
+      - PUBLIC_URL=https://meet.2asir07.institutodh.net
+    restart: unless-stopped
+    depends_on:
+      - prosody
+	  
+	  
+	  
+¿¿¿https://gemini.google.com/app/8b2a07d1b12fba38????

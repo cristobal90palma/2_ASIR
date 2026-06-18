@@ -1,0 +1,149 @@
+P3: Operatividad del sistema (RA4,5,6)
+Requisitos de finalización
+
+En la empresa en la que estás realizando tu formación dual, analiza y 
+documenta los principales servicios que garantizan la operatividad del 
+sistema operativo en red, prestando especial atención al acceso remoto,
+ los servicios de impresión y la interoperabilidad entre distintos sistemas operativos.
+
+TAREAS:
+
+    Identifica:
+
+        Métodos de acceso remoto utilizados en la empresa.
+
+        Recursos compartidos en red (archivos, impresoras…).
+        Medidas de seguridad aplicadas al acceso a los recursos.
+        Tipo de sistema de impresión utilizado (servidor dedicado, 
+		impresoras en red, servicio externo…).
+        Protocolos y puertos empleados.
+        Acceso desde distintos sistemas operativos.
+
+    Describe:
+
+        Procedimiento básico de acceso remoto.
+        Configuración general y uso de los sistemas de impresion y 
+		de los distintos recursos compartidos.
+
+        Como podrá mejorarse la seguridad.
+        Servicios de compartición (SMB, NFS…).
+
+    Elabora:
+        una tabla de análisis de los servicios documentados.
+
+        Un una tabla en la que incluyas 3 propuestas de mejora razonables
+		en cuanto a la seguridad y la operatividad del sistema de tu empresa 
+
+        Cada propuesta debe incluir:
+
+            Servicio afectado
+
+            Problema detectado
+
+            Mejora propuesta
+
+            Beneficio esperado
+
+    Redacta:
+
+        Un informe técnico de los sevicios operativos de tu empresa, 
+		explicando el funcionamiento real y las mejoras que propones.
+		El contenido minimo (aunque puedes proponer otros análisis):
+
+            Acceso y administración remota
+
+            Sistema de impresión
+
+            Interoperabilidad entre sistemas
+
+            Medidas de seguridad aplicadas
+
+            Relación entre los servicios
+
+
+
+
+
+Criterios de calificación
+Rúbrica
+Acceso y administración remota	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Servicio de impresion	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Integración de sistemas (interoperatividad)	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Mapa de servicios	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Matriz de operatividad 	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Informe técnico	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Propuestas de mejora razonables y viables	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+Contextualización en la empresa	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos
+muestra visión global de la operatividad del sistema y con utilidad	
+No alcanzado
+0 puntos
+	
+Adecuado
+1 puntos
+	
+Destacado
+2 puntos

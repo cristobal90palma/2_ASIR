@@ -1,0 +1,36 @@
+<html>
+<body>
+<h2>Formulario subida de archivos</h2>
+<form action="<?php $_SERVER["PHP_SELF"]; ?>" method="POST" enctype="multipart/form-data">
+    <input type="file" name="ficherotxt" />
+    <input type="submit" name="submit" />
+</form>
+
+<?php
+$directorioSubida = "ficheros/";
+if(isset($_POST["submit"]) && isset($_FILES["ficherotxt"])){
+/*
+echo "<pre>";
+print_r($_FILES);
+echo "</pre>";
+*/
+
+$nombreArchivo = $_FILES['ficherotxt']['name'];
+$filesize = $_FILES['ficherotxt']['size'];
+$directorioTemp = $_FILES['ficherotxt']['tmp_name'];
+$tipoArchivo = $_FILES['ficherotxt']['type'];
+
+$arrayArchivo = pathinfo($nombreArchivo);
+//print_r($arrayArchivo);
+$extension = $arrayArchivo['extension'];
+
+$nombreArchivo = $arrayArchivo['filename'];
+$nombreCompleto = $directorioSubida.$nombreArchivo.".".$extension;
+//echo $nombreCompleto;
+move_uploaded_file($directorioTemp, $nombreCompleto);
+
+print "El archivo se ha subido correctamente";
+}
+?>
+</body>
+</html>

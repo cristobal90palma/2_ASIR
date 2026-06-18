@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de personas</title>
+</head>
+<body>
+    <form method="post" action="nuevo.php">
+        <fieldset>
+            <legend>Datos de la persona</legend>
+            <label for="nombre">Nombre: </label>
+            <br/>
+            <input type="text" name="nombre" placeholder="Escriba aquí tu nombre" size="50" />
+            <br/>
+            <br/>
+            <label for="apellidos">Apellidos: </label>
+            <br/>
+            <input type="text" name="apellidos" placeholder="Escriba aquí tus apellidos" size="50" />
+            <br/>
+            <br/>
+            <label for="sexo">Sexo: </label>
+            <br/>
+            <select name="sexo" >
+                <option value="">Seleccione</option>
+                <option value="H">Hombre</option>
+                <option value="M">Mujer</option>
+            </select>
+            <br/>
+            <br/>
+            <input type="submit" value="Guardar"/>
+            <br/>
+            <br/>
+            <a href="listado.php">Ver listado de usuarios</a>
+        </fieldset>
+    </form>
+</body>
+</html>

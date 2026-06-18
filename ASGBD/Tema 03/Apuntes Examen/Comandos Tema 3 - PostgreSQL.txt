@@ -1,0 +1,195 @@
+########ENTRAR EN PostgreSQL
+
+Para entrar en postgres, debes cambiarte al usuario creado y luego ejecutar “psql”. O todo a la vez.
+sudo -i -u postgres psql
+
+-Podemos acceder directamente con un usuario a una tabla especificada:
+psql -U usuario -d "base_datos" -h localhost
+
+RECUERDA: al usuario postgres le has puesto como contraseña 12345
+
+
+Mostrar todas las bases de datos:
+\l
+
+Mostrar todas las tablas de una base de datos.
+First, choose ( \c ) the database to work with, then display ( \d ) all its tables ( \t )
+CASI QUE MEJOR USAR  \dt
+
+Mostrar todos los usuarios
+\du
+\du+
+\du nombre_usuario
+
+Mostrar privilegios globales o de una tabla:
+\dp *.*
+\dp nombre_tabla
+
+Permisos en los esquemas:
+\dn+
+
+##########USUARIOS:
+https://www.postgresql.org/docs/current/sql-createuser.html
+
+CREATE USER name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | REPLICATION | NOREPLICATION
+    | BYPASSRLS | NOBYPASSRLS
+    | CONNECTION LIMIT connlimit
+    | [ ENCRYPTED ] PASSWORD 'password' | PASSWORD NULL
+    | VALID UNTIL 'timestamp'
+    | IN ROLE role_name [, ...]
+    | IN GROUP role_name [, ...]
+    | ROLE role_name [, ...]
+    | ADMIN role_name [, ...]
+    | USER role_name [, ...]
+    | SYSID uid
+
+CREATE USER donald WITH PASSWORD 'buildawall';
+CREATE USER pedro WITH PASSWORD 'perro';
+CREATE USER paco WITH PASSWORD 'generalisimo';
+
+CREATE USER admin_ventas
+WITH PASSWORD 'Audit$2025'
+     CREATEDB
+     CREATEROLE
+     INHERIT
+     VALID UNTIL '2026-12-31';
+
+ 
+
+ALTER USER postgres WITH password '12345';
+
+Dentro podemos comprobar con que usuario estamos usando:
+SELECT current_user;
+
+####### ROLES
+
+CREATE ROLE segurisimo WITH LOGIN PASSWORD '12345' SUPERUSER CREATEDB CREATEROLE REPLICATION BYPASSRLS;
+https://www.postgresql.org/docs/current/sql-createrole.html
+
+CREATE ROLE name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | REPLICATION | NOREPLICATION
+    | BYPASSRLS | NOBYPASSRLS
+    | CONNECTION LIMIT connlimit
+    | [ ENCRYPTED ] PASSWORD 'password' | PASSWORD NULL
+    | VALID UNTIL 'timestamp'
+    | IN ROLE role_name [, ...]
+    | ROLE role_name [, ...]
+    | ADMIN role_name [, ...]
+    | SYSID uid
+	
+	
+CREATE ROLE ventas_grupo
+WITH NOLOGIN
+     INHERIT
+     NOCREATEDB
+     NOCREATEROLE
+     NOREPLICATION
+     NOSUPERUSER
+     NOBYPASSRLS;
+
+
+
+######CAMBIAR CONTRASEÑA USUARIO YA EXISTENTE:
+
+Podemos otorgar contraseñas a los usuarios:
+ALTER USER ______ WITH PASSWORD '______';
+
+
+
+########BASES DE DATOS:
+
+CREATE DATABASE conexion_fdw;
+
+(Actividad 3 DataSolutions S.A.)
+CREATE DATABASE CIA OWNER segurisimo ENCODING 'UTF8' LC_COLLATE 'es_ES.UTF-8' LC_CTYPE 'es_ES.UTF-8' TEMPLATE template0;
+
+CREATE DATABASE CNI OWNER segurisimo;
+CREATE DATABASE PÚBLICO OWNER segurisimo;
+
+Posicionarte en base de datos:
+\connect ventas_db;
+\c ventas_db;
+
+CREATE TABLE clientes (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    dni VARCHAR(15) UNIQUE,
+    telefono VARCHAR(20),
+    email VARCHAR(100),
+    saldo NUMERIC(10, 2) DEFAULT 0.00
+);
+
+
+
+
+#######VER CONTENIDO TABLAS:
+
+SELECT * FROM productos;
+
+
+
+
+
+########VISTAS
+
+https://www.postgresql.org/docs/current/sql-createview.html
+
+CREATE VIEW vista_admin_ventas AS
+SELECT
+    c.id AS cliente_id,
+    c.nombre,
+    c.dni,
+    c.telefono,
+    c.email,
+    c.saldo,
+    COUNT(p.id) AS numero_pedidos,
+    COALESCE(SUM(p.total), 0) AS total_gastado
+FROM
+    clientes c
+LEFT JOIN
+    pedidos p ON c.id = p.id_cliente
+GROUP BY
+    c.id, c.nombre, c.dni, c.telefono, c.email, c.saldo;
+
+
+CREATE VIEW vista_empleado_ventas AS
+SELECT
+    id,
+    nombre,
+    telefono,
+    saldo
+FROM
+    clientes;
+
+
+
+###### Meter datos en tablas:
+
+INSERT INTO clientes (nombre, dni, telefono, email, saldo) VALUES
+('Perro Sanchez', '12345678A', '600111222', 'perrete@psoe.com', -9999999.00),
+('Donaldo Trumpino', '98765432B', '600333444', 'trump@usa.com', 5000000.00),
+('Vladimiro Putinino', '11223344C', '600555666', 'ervladi@ruski.com', 1.00);
+
+
+INSERT INTO pedidos (id_cliente, total, estado) VALUES
+(1, 150.00, 'Entregado'),
+(1, 350.50, 'En Proceso'),
+(2, 75.25, 'Pendiente'),
+(3, 1200.00, 'Entregado');

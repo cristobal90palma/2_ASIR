@@ -1,0 +1,6 @@
+---
+- name: Despliegue de Servidor Web con Rol de Galaxy
+  hosts: webservers
+  become: yes
+  roles:
+    - geerlingguy.nginx

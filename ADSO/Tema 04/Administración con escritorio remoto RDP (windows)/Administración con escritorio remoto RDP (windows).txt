@@ -1,0 +1,16 @@
+https://chatgpt.com/c/6968cd3e-857c-8326-9b7b-80dbeb3f78dd
+https://gemini.google.com/app/c1ead4cf37b65bb3 
+
+
+WIN-Q9RNRM3S3QT.empresa.local
+
+
+Para confiar en ese servidor específico, ejecuta:
+PowerShell
+
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "WIN-Q9RNRM3S3QT.empresa.local"
+
+Enter-PSSession -ComputerName NOMBRE_EQUIPO
+
+Enter-PSSession -ComputerName WIN-Q9RNRM3S3QT.empresa.local
+Enter-PSSession -ComputerName 10.2.7.66 -Credential (Get-Credential)

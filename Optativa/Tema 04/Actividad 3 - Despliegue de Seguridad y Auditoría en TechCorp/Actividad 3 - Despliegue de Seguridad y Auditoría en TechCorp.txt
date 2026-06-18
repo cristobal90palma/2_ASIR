@@ -1,0 +1,102 @@
+https://gemini.google.com/app/9806e0926c4f72d9
+
+
+https://gemini.google.com/app/d9cb1b521874d028
+
+Este comando se utiliza para copiar archivos o carpetas entre tu máquina local y 
+un contenedor de Docker que está en ejecución.
+
+docker cp ./ansible_portable/proyecto2 ansible-control:/ansible
+
+ansible-control: Es el nombre del contenedor Docker que debe estar corriendo
+:/ansible: Es la ruta dentro del contenedor donde se pegarán los archivos.
+
+
+Copiar de dentro del docker a el host
+docker cp ansible-control:/ansible ./ansible_actividad_3_files/
+
+
+docker cp ./actividad_3_ansible\ansible_actividad_3_files\ansible\proyecto2 ansible-control:ansible\proyecto2 
+
+
+
+Modificamos el archivo host_vars/db_master.yml
+
+#ansible_user: root
+ansible_user: ansible
+# Esto en teoria solucionaba el problema de SSH, pero creo que no hace nada. Tampoco lo empeora.
+ansible_password: password
+db_port: 5432
+
+
+Esto evita problemas al conectar con SSH y que nos dé error con el uptime.
+
+
+
+
+
+1. Preparación de Variables
+
+Primero, debemos añadir las nuevas variables necesarias. Siguiendo tu estructura de "desacople de variables", editaremos el archivo de variables globales.
+
+Archivo: group_vars/all.yml Añade estas líneas al archivo existente:
+YAML
+
+log_path: /tmp/techcorp_audit.txt
+audit_team:
+  - auditor1
+  - auditor2
+  - auditor3
+
+
+
+docker exec -u 0 ansible-node1 apt-get update && docker exec -u 0 ansible-node1 apt-get install -y sudo
+docker exec -u 0 ansible-node2 apt-get update && docker exec -u 0 ansible-node2 apt-get install -y sudo
+docker exec -u 0 ansible-node3 apt-get update && docker exec -u 0 ansible-node3 apt-get install -y sudo
+
+
+docker exec -u 0 ansible-node1 sh -c "echo 'ansible ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+docker exec -u 0 ansible-node2 sh -c "echo 'ansible ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+docker exec -u 0 ansible-node3 sh -c "echo 'ansible ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+
+docker exec -u 0 ansible-node1 sh -c "echo 'admin_user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+docker exec -u 0 ansible-node2 sh -c "echo 'admin_user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+docker exec -u 0 ansible-node3 sh -c "echo 'admin_user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+
+
+Para que no pregunte por contraseña
+group_vars/all.yml y añade esta línea:
+YAML
+
+ansible_become_password: password
+
+
+
+Comprobaciones:
+
+ansible all -a "tail -n 3 /etc/passwd"
+
+Verificar el Log de Auditoría
+ansible all -a "cat /tmp/techcorp_audit.txt"
+
+
+Verificar Seguridad (Fail2ban)
+ansible prod -m shell -a "systemctl status fail2ban" (((ESTE COMANDO NO RESPONDE BIEN)
+
+
+Verificar si el binario está instalado
+
+Si solo necesitas demostrar que la tarea de instalación de Ansible funcionó:
+Bash
+
+ansible prod -a "which fail2ban-server"
+
+
+
+
+Ejecución del PlayBook
+
+ansible-playbook security_hardening.yml
+
+
+

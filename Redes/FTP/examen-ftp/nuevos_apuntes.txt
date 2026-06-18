@@ -1,0 +1,384 @@
+-	Consideraciones para el caso del examen:
+Como lo haremos en un contenedor de Proxmox (LXC), vamos a configurar el acceso remoto para ROOT.
+nano /etc/ssh/sshd_config
+Descomentamos y ponemos:
+PermitRootLogin yes
+Guardamos y hacemos:
+systemctl restart sshd
+systemctl status sshd
+
+
+
+\\\\\\\Instalar proFTPd: 
+
+apt update && apt install proftpd -y
+
+Comprobar status:
+systemctl status proftpd
+journalctl -u proftpd
+
+
+\\\\\\\\\\\\Crear usuario sin login: 
+
+sudo useradd -m -s /usr/sbin/nologin suarez
+sudo passwd suarez
+
+La comprobación de la shell está habilitada por defecto en /etc/proftpd/proftpd.conf:
+#   RequireValidShell off
+Descomentala para poder usar este usuario
+
+\\\\\\\\Crea el usuario virtual lobezno que pertenezca al grupo virtual xmen.
+
+ftpasswd --group --name=xmen --file=/etc/proftpd/ftpd.group --gid=2001
+
+\\\\\ crea la carpeta y dale los permisos
+mkdir -p /srv/xmen
+chown 2001:2001 /srv/xmen
+chmod 770 /srv/xmen
+
+
+ftpasswd --passwd --name=lobezno --uid=2001 --gid=2001 --home=/srv/xmen --shell=/bin/false --file=/etc/proftpd/ftpd.passwd
+
+Nos saldrá este mensaje:
+
+ftpasswd: /bin/false is not among the valid system shells.  Use of
+ftpasswd: "RequireValidShell off" may be required, and the PAM
+ftpasswd: module configuration may need to be adjusted.
+
+
+
+Y luego poner el módulo de autenticación de PAM en proftpd.conf:
+# CARGAR EL MODULO DE AUTENTICACION PARA LOS PODER USAR USUARIO VIRTUAL
+<IfModule mod_auth_file.c>
+  # AUTENTICACION POR FICHERO (USUARIO VIRTUAL) Y UNIX (USUARIOS MAQUINA)
+  AuthOrder mod_auth_file.c mod_auth_unix.c
+  # FICHERO PARA AUTENTICACION POR FICHERO
+  AuthUserFile /etc/proftpd/ftpd.passwd
+  # FICHERO PARA AUTENTICACION DE GRUPO POR FICHERO
+  AuthGroupFile /etc/proftpd/ftpd.group
+</IfModule>
+
+
+/////////////////
+Haz que los usuarios estén enjaulados por defecto. 
+
+Descomenta: 
+# Use this to jail all users in their homes
+DefaultRoot ~
+
+////
+Los usuarios del grupo xmen irán a la carpeta /srv/xmen .
+
+DefaultRoot /srv/xmen xmen
+
+
+
+///////////
+Impide el acceso al usuario magneto y mistica; y a los
+usuarios del grupo villanos.
+
+en el archivo proftpd.conf
+
+<Limit LOGIN>
+    DenyUser magneto
+    DenyUser mistica
+    DenyGroup villanos
+</Limit>
+
+
+
+///////////////
+Impide el modo activo y personaliza los logs.
+
+
+Para impedir el modo activo, edita el proftpd.conf y añade
+
+<Limit EPRT PORT>
+    DenyAll
+</Limit>
+PassivePorts            49152 49200
+
+TransferLog             /var/log/proftpd/transferftpdlog
+SystemLog               /var/log/proftpd/proprapruftpd.log
+
+
+
+/////////////
+Habilita el acceso anónimo asociado al usuario profesorx,
+sirviendo la carpeta /srv/px. Oculta la carpeta secrets. Los archivos de
+root deben quedar ocultos.
+
+---añde el usuario y crea la carpeta
+useradd -d /srv/px -s /bin/false profesorx
+mkdir -p /srv/px/secrets
+
+--- dale los permisos a tal usuario.
+
+chown -R profesorx:profesorx /srv/px
+
+
+
+Ahora en proftpd.conf
+
+<Anonymous /srv/px>
+    User                profesorx
+    Group               nogroup
+    UserAlias           anonymous profesorx
+    HideUser            root
+	RequireValidShell	off
+
+-- añade la siguiente directiva dentro de anonymous para que nadie pueda acceder a ella.
+
+
+    <Directory secrets>
+        HideFiles       .*
+        <Limit ALL>
+            DenyAll
+        </Limit>
+    </Directory>
+</Anonymous>
+
+
+
+
+
+
+
+////////////////
+El usuario real tormenta tendrá establecidas cuotas de
+disco, de tipo: Límite Subida: 50GB, Límite Descarga: 1000GB, Límite
+Nº Total ficheros Subidos: 50, Límite Nº Total ficheros Descargados:
+1000 Prueba a descargar algo y comprueba los contadores.
+
+---crear tormenta
+
+adduser tormenta
+
+----crear tablas
+
+ftpquota --create-table --type=limit --table-path=/etc/proftpd/ftpquota.limittab
+ftpquota --create-table --type=tally --table-path=/etc/proftpd/ftpquota.tallytab
+
+-- asignar reglas al usuario
+
+ftpquota --add-record --type=limit --name=tormenta --quota-type=user --bytes-upload=53687091200 --bytes-download=1073741824000 --files-upload=50 --files-download=1000 --table-path=/etc/proftpd/ftpquota.limittab
+
+--- en la proftpd.conf, habilita el módulo de quota
+
+<IfModule mod_quotatab.c>
+    QuotaEngine on
+    QuotaLog /var/log/proftpd/quota.log
+    QuotaLimitTable file:/etc/proftpd/ftpquota.limittab
+    QuotaTallyTable file:/etc/proftpd/ftpquota.tallytab
+</IfModule>
+
+
+
+
+
+-	Para leer el contenido del archivo ftpquota.limittab
+ftpquota --show-records --type=limit --table-path /etc/proftpd/ftpquota.limittab
+-	Leer tabla tally:
+ftpquota --show-records --type=tally --table-path /etc/proftpd/ftpquota.tallytab
+-	Para quitar a un usuario del archivo de cuota:
+ftpquota --delete-record --type=limit --name=bob --quota-type=user --table-path /etc/proftpd/ftpquota.limittab
+
+
+
+
+
+
+
+///////////Configurar acceso seguro TLS habilitado y obligatorio.
+
+---generar el certificado
+
+proftpd-gencert
+
+---descomenta la siguiente linea en proftpd.conf
+
+Include /etc/proftpd/tls.conf
+
+--- en tls.conf, descomenta (o copia) lo siguiente
+
+TLSEngine                               on
+TLSLog                                  /var/log/proftpd/tls.log
+TLSProtocol                             SSLv23
+TLSRequired                             on
+TLSRSACertificateFile                   /etc/ssl/certs/proftpd.crt
+TLSRSACertificateKeyFile                /etc/ssl/private/proftpd.key
+
+
+--para indicarle el certificado.,en modules.conf quita eso
+
+LoadModule mod_tls.c
+
+--- Después cuando intentes entrar con Filezilla, te pedirá que aceptes el certificado
+
+-- Es probable que tengas que instalar esto
+
+apt install proftpd-mod-crypto -y
+
+
+
+
+\\\\\\\\\\\\\\\\\
+Compruébalo todo lo anterior desde clientes de consola.
+Descarga algo. Muestra los logs de las transferencias.
+
+--ver log
+
+cat /var/log/proftpd/transferftpdlog
+
+
+
+--- descargar algo (desde otro cliente Linux)
+apt install lftp -y
+lftp -u tormenta 10.2.7.221
+set ssl:verify-certificate no
+get actualizar.php
+get -e actualizar.php
+
+put nombre_del_archivo_local.php
+put -e nombre_del_archivo_local.php
+
+
+Acción	Comando
+Descargar y sobrescribir	get -e archivo
+Subir un archivo	put archivo
+Subir y sobrescribir	put -e archivo
+Descargar varios	mget *.php
+Subir varios	mput *.php
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\ SERVIDOR VIRTUAL
+
+
+////////
+Crea un sitio virtual ftp para el dominio ftp.lordoftherings.tv ,
+asociado a la ip .222, (0.5 ptos.) personaliza y comprueba:
+
+
+Apaga el contenedor y ponle otro tarjeta de red
+
+En tu equipo, añade su nueva ip al archivo de "hosts" junto con su ip
+
+
+--- Descomenta en /etc/proftpd/proftpd.conf 
+
+Include /etc/proftpd/virtuals.conf
+
+-- Luego:
+
+# Port 21 is the standard FTP port.
+Port 21
+SocketBindTight On
+DefaultAddress 10.2.7.221 (Es la IP principal del servidor, para el VirtualHost usaremos la segunda).
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Sólo acceso anónimo asociado a usuario balrog
+permitido, carpeta de acceso de anónimo /srv/abismo.
+
+--Ahora  en /etc/proftpd/virtuals.conf 
+
+    <Anonymous /srv/abismo>
+        User balrog
+        Group nogroup
+        UserAlias anonymous balrog
+
+        <Directory /srv/abismo/mordor>
+            <Limit ALL>
+                DenyAll
+            </Limit>
+        </Directory>
+
+        <Directory /srv/abismo/uploads>
+            <Limit STOR>
+                AllowAll
+            </Limit>
+        </Directory>
+
+    </Anonymous>
+
+
+
+
+---Impide el acceso al servicio FTP a TODOS los usuarios de
+la máquina salvo a gandalf. Oculta los archivos del grupo xmen
+
+
+	
+<Directory />
+    HideGroup xmen
+</Directory>
+    
+	((Esto va fuera de anonymous)
+	<Limit LOGIN>
+        Order Allow,Deny
+        AllowUser gandalf
+        AllowUser balrog
+        DenyAll
+    </Limit>
+
+---  (0.5 ptos.) Impide el acceso al directorio mordor y a su contenido.
+
+Creas el directorio
+mkdir -p /srv/abismo/mordor
+
+¿Dentro o fuera de anonymous? Si es fuera, necesita ruta completa
+        <Directory mordor>
+            <Limit ALL>
+                DenyAll
+            </Limit>
+        </Directory>
+
+---Nombre del servidor y Logs de transferencias y servidor
+virtual personalizados.
+
+<VirtualHost ftp.lordoftherings.tv>
+ServerAdmin              boromir@ftp.lordoftherings.tv
+ServerName              "Por Gondor"
+TransferLog             /var/log/proftpd/lotr_trx.log
+ServerLog               /var/log/proftpd/lotr.syslog
+
+
+--- Máximos intentos de login a 3 y se permiten 250 clientes
+conectados a la vez como máximo. Tiempo máximo de login 30
+segundos.
+
+
+MaxLoginAttempts        3
+MaxClients	            250
+TimeOutLogin            30
+
+
+--- Carpeta para subida de archivos a /srv/abismo/uploads
+
+mkdir -p /srv/abismo/uploads
+¿¿Dentro o fuera de anonymous?
+        <Directory /srv/abismo/uploads>
+            <Limit STOR>
+                AllowAll
+            </Limit>
+        </Directory>
+		
+		
+-- crear carpetas /srv/abismo y /srv/abismo/uploads /srv/abismo/mordor
+
+mkdir /srv/abismo
+
+chown balrog:nogroup /srv/abismo/uploads
+
+--- Crear los usuarios balrog y gandalf.
+
+Usamos adduser
+
+
+NOTA: debes incluir ftp.lordoftherings.tv en el archivo /etc/hosts del contenedor
+

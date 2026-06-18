@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # Capa de Interfaz
+  frontend:
+    image: nginx:alpine
+    container_name: frontend-service
+    ports:
+      - "8080:80"
+    networks:
+      - back-tier
+    depends_on:
+      - backend
+
+  # Capa de Aplicación
+  backend:
+    image: katacoda/docker-http-server
+    container_name: backend-service
+    networks:
+      - back-tier
+    depends_on:
+      - db
+
+  # Capa de Datos
+  db:
+    image: redis:alpine
+    container_name: redis-db
+    networks:
+      - back-tier
+
+networks:
+  back-tier:
+    driver: bridge

@@ -1,0 +1,233 @@
+openssql s_client -connect smtp.gmail.com:465 -nocommands -crfl -ALGOMÁS
+
+
+
+
+kewl.lu/articles/pop3
+
+
+
+https://www.wpoven.com/tools/free-smtp-server-for-testing
+
+
+
+
+
+
+Outlook en Thunderbird
+
+https://uit.stanford.edu/service/microsoft365/configure/thunderbird-oauth2
+
+
+
+
+Docker container iredmail
+
+administrador es postmaster@initiald.com
+
+echo HOSTNAME=mail.initiald.com >> iredmail-docker.conf
+echo FIRST_MAIL_DOMAIN=initiald.com >> iredmail-docker.conf
+echo FIRST_MAIL_DOMAIN_ADMIN_PASSWORD=12345 >> iredmail-docker.conf
+echo MLMMJADMIN_API_TOKEN=$(openssl rand -base64 32) >> iredmail-docker.conf
+echo ROUNDCUBE_DES_KEY=$(openssl rand -base64 24) >> iredmail-docker.conf
+
+
+Creamos una serie de ficheros para el contenedor.
+
+mkdir -p data/{backup-mysql,clamav,custom,imapsieve_copy,mailboxes,mlmmj,mlmmj-archive,mysql,sa_rules,ssl,postfix_queue}
+
+
+Contenedor, la opción -rm hace que cuando se apague se autoborre (excepto su volumen)
+
+ACUERDATE DE PONER BIEN TU DOMINIO_SERVIDOR_EMAIL:     --hostname mail.initiald.com \
+Usamos la versión nightly. Está al final
+
+docker run \
+    --rm \
+      -d \
+    --name iredmail \
+    --env-file iredmail-docker.conf \
+    --hostname mail.initiald.com \
+    -p 80:80 \
+    -p 443:443 \
+    -p 110:110 \
+    -p 995:995 \
+    -p 143:143 \
+    -p 993:993 \
+    -p 25:25 \
+    -p 465:465 \
+    -p 587:587 \
+    -v /iredmail/data/backup-mysql:/var/vmail/backup/mysql \
+    -v /iredmail/data/mailboxes:/var/vmail/vmail1 \
+    -v /iredmail/data/mlmmj:/var/vmail/mlmmj \
+    -v /iredmail/data/mlmmj-archive:/var/vmail/mlmmj-archive \
+    -v /iredmail/data/imapsieve_copy:/var/vmail/imapsieve_copy \
+    -v /iredmail/data/custom:/opt/iredmail/custom \
+    -v /iredmail/data/ssl:/opt/iredmail/ssl \
+    -v /iredmail/data/mysql:/var/lib/mysql \
+    -v /iredmail/data/clamav:/var/lib/clamav \
+    -v /iredmail/data/sa_rules:/var/lib/spamassassin \
+    -v /iredmail/data/postfix_queue:/var/spool/postfix \
+    iredmail/mariadb:stable
+
+
+Lo lanzamos: sh iredmail.sh
+hazlo como ROOT
+
+Para entrar en el contenedor
+docker exec -ti iredmail /bin/bash
+
+ClamAV puede petarte el disco
+root@mail:/# clamd -V
+ClamAV 0.103.8
+
+Dentro del contenedor:
+
+apt update
+apt -y install clamav
+
+apt search clamav
+
+apt -y install clamav-freshclam
+
+
+Para esta ocasión usamos la 1 y 1 (Instalar la package maitainer version)
+
+
+root@mail:/# ps -ef | grep clamd
+root        6285    3628  0 12:44 pts/0    00:00:00 grep --color=auto clamd
+
+
+/etc/clamav/clamd.conf
+Busca configuración para que no pete el disco.
+Diego se ha hecho un lio por esta parte.
+
+FOTO EN EL MOVIL DE LA CONFIGURACIÓN
+
+/etc/init.d/clamav-freshclam stop
+/etc/init.d/clamavd-daemo stop
+
+TE SIGUE PETANDO EL DISCO.
+
+
+\\\\\SEGUIMOS CON EL Contenedor
+Desde fuera
+ss -lntp
+
+En navegador web de cliente:
+
+10.2.7.25
+
+
+
+Otro:
+Panel de administración:
+https://10.2.7.25/iredadmin
+
+Podemos añadir dominios, servidores y añadir más cuentas de correo.
+
+crontab -l
+crontab -e
+Comenta o eliminar el autoupdate de fresclam
+
+Renombra el clam: /usr/sbin/clamd
+Le pones cualquier NOMBRE Y YA ESTÁ. usa mv.
+
+
+
+Ver logs
+Dentro del contenedor:
+tail -f /var/log/maillog
+
+
+Dentro del contenerdor
+
+cat /etc/postfix/main.cf | grep mydestination
+
+Tiene que salir esto:
+
+mydestination = $myhostname, localhost, localhost.localdomain
+
+
+cat /etc/postfix/main.cf | grep hostname
+
+myhostname = mail.initiald.com
+mydestination = $myhostname, localhost, localhost.localdomain
+
+
+amavis 
+
+LISTAS BLANCAS
+/opt/iredapd/tools/wblist_admin.py
+
+BUSCA EN LOS APUNTES DE IREAPD:
+greylistin: lo deshabilitas y te va más rápido
+
+
+diego pide hacer lo de lista Negra
+
+
+
+SpamASSASIN
+
+/iredmail/data/sa_rules
+/iredmail/data/sa_rules/3.004004/updates_spamassassin_org
+
+Crea un filtro según por palabra
+
+body
+describe
+
+usa local.cf para hacer tus propias reglas. (Lo copiamos y generamos otros).
+
+score: me ayuda a puntuar una determinada varuables. Si le doy 5 o superior, se califica como SPAM si o si.
+
+
+
+Como recargamos los cambios.
+Desde fuera, paramos el contenedor y lo encendemos de nuevo (ejecuta de nuevo el script).
+
+
+
+
+# --- Configuración para bloquear 'CSA' en el Asunto ---
+
+# 1. Definición de la Regla (Pattern Match):
+# Busca 'CSA' (insensible a mayúsculas/minúsculas) en el campo Subject.
+header      SUBJECT_HAS_MY_INITIALS       Subject =~ /CSA/i
+
+# 2. Descripción:
+describe    SUBJECT_HAS_MY_INITIALS       Asunto contiene mis iniciales (CSA)
+
+# 3. Puntuación (Score):
+# Una puntuación de 10.0 es suficiente para marcar el correo como spam
+score       SUBJECT_HAS_MY_INITIALS       10.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+APARTADO 5 DEL BOLETIN
+
+5.	MUA + EMAIL Server. Configura el cliente de correo 
+Thunderbird para usar una cuenta de correo en tu servidor
+ iRedMail de manera cifrada 

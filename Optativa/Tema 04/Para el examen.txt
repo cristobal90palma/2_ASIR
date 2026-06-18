@@ -1,0 +1,14 @@
+scp usuario1@10.2.0.118:/var/www/html/php/ut5_02_ejemplo_basico_html usuario2@10.2.7.55:/var/www/html/php
+
+
+
+
+
+Examen Optativa
+
+Creación inventario
+Archivo configuración
+Creación Variables en distintos ficheros
+PlayBooks
+Modularización y errores
+Algunos comandos

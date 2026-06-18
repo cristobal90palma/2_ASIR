@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de Inputs HTML</title>
+</head>
+<body>
+
+    <form action="/submit-form" method="post">
+        
+        <h3>1. Botones y Controles</h3>
+        <p>
+            <input type="button" value="Haz Clic Aquí" onclick="alert('Botón Clickeado')">
+            <label>(type="button")</label>
+        </p>
+
+        <p>
+            <input type="checkbox" id="aceptaTerminos" name="terminos" checked>
+            <label for="aceptaTerminos">Acepto los términos y condiciones (type="checkbox")</label>
+        </p>
+
+        <p>
+            <input type="radio" id="opcion1" name="grupoOpciones" value="A">
+            <label for="opcion1">Opción A (type="radio")</label>
+            <input type="radio" id="opcion2" name="grupoOpciones" value="B" checked>
+            <label for="opcion2">Opción B (type="radio")</label>
+        </p>
+
+        <p>
+            <label for="volumen">Volumen (0 a 100):</label>
+            <input type="range" id="volumen" name="volumen" min="0" max="100" value="50">
+            <label>(type="range")</label>
+        </p>
+
+        <p>
+            <input type="reset" value="Restablecer Formulario">
+            <label>(type="reset")</label>
+        </p>
+
+        <p>
+            <input type="submit" value="Enviar Datos">
+            <label>(type="submit")</label>
+        </p>
+
+        ---
+
+        <h3>2. Campos de Texto y Datos Específicos</h3>
+        
+        <p>
+            <label for="nombre">Nombre Completo:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre">
+            <label>(type="text")</label>
+        </p>
+
+        <p>
+            <label for="clave">Contraseña:</label>
+            <input type="password" id="clave" name="clave" minlength="8" required>
+            <label>(type="password")</label>
+        </p>
+
+        <p>
+            <label for="busqueda">Buscar en el sitio:</label>
+            <input type="search" id="busqueda" name="busqueda" placeholder="Término de búsqueda">
+            <label>(type="search")</label>
+        </p>
+        
+        <p>
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" min="18" max="99" step="1" value="30">
+            <label>(type="number")</label>
+        </p>
+
+        <p>
+            <label for="correo">Email:</label>
+            <input type="email" id="correo" name="correo" placeholder="ejemplo@dominio.com">
+            <label>(type="email")</label>
+        </p>
+
+        <p>
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+            <label>(type="tel") - Formato: 123-456-7890</label>
+        </p>
+
+        <p>
+            <label for="sitioweb">Sitio Web:</label>
+            <input type="url" id="sitioweb" name="sitioweb" placeholder="https://www.ejemplo.com">
+            <label>(type="url")</label>
+        </p>
+
+        ---
+
+        <h3>3. Fechas y Tiempo</h3>
+        
+        <p>
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" name="fechaNacimiento" value="2000-01-01">
+            <label>(type="date")</label>
+        </p>
+
+        <p>
+            <label for="cita">Fecha y Hora de Cita:</label>
+            <input type="datetime-local" id="cita" name="cita" value="2025-12-01T19:00">
+            <label>(type="datetime-local")</label>
+        </p>
+
+        <p>
+            <label for="mesInicio">Mes de Inicio:</label>
+            <input type="month" id="mesInicio" name="mesInicio" value="2025-12">
+            <label>(type="month")</label>
+        </p>
+
+        <p>
+            <label for="horaAlarma">Hora de Alarma:</label>
+            <input type="time" id="horaAlarma" name="horaAlarma" value="07:30">
+            <label>(type="time")</label>
+        </p>
+
+        <p>
+            <label for="semanaVacaciones">Semana de Vacaciones:</label>
+            <input type="week" id="semanaVacaciones" name="semanaVacaciones" value="2025-W48">
+            <label>(type="week")</label>
+        </p>
+
+        ---
+
+        <h3>4. Otros Tipos</h3>
+
+        <p>
+            <label for="colorPreferido">Color Preferido:</label>
+            <input type="color" id="colorPreferido" name="colorPreferido" value="#ff0000">
+            <label>(type="color")</label>
+        </p>
+
+        <p>
+            <label for="archivoAdjunto">Subir Archivo:</label>
+            <input type="file" id="archivoAdjunto" name="archivoAdjunto" accept=".pdf, .jpg, .png">
+            <label>(type="file")</label>
+        </p>
+        
+        <p>
+            <input type="image" src="https://via.placeholder.com/100x50?text=Clic+Me" alt="Botón Imagen" width="100" height="50">
+            <label>(type="image") - Funciona como botón de envío</label>
+        </p>
+
+        <p>
+            <input type="hidden" id="token" name="token_seguridad" value="xyz123abc">
+            <label>(type="hidden") - No visible para el usuario</label>
+        </p>
+
+                        <label for="estado_civil">
+                    Estado Civil
+                </label>
+                <!-- 
+                  Select: Define un menú desplegable.
+                  - name="estado_civil": Nombre usado en PHP ($_POST['estado_civil']).
+                  - required: Campo obligatorio.
+                -->
+                <select name="estado_civil" id="estado_civil" required>
+                    <!-- Opción deshabilitada y seleccionada por defecto como placeholder -->
+                    <option value="" disabled selected>Selecciona tu estado</option>
+                    <option value="soltero">Soltero/a</option>
+                    <option value="casado">Casado/a</option>
+                    <option value="otro">Otro (Divorciado/a, Viudo/a, etc.)</option>
+                </select>
+
+    </form>
+</body>
+</html>

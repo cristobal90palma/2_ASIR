@@ -1,0 +1,12 @@
+[webservers]
+node1
+
+[dbservers]
+node2
+
+[testing]
+node3
+
+[produccion:children]
+webservers
+dbservers

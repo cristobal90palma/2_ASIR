@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------
+  # MAESTRO (IP FIJA: 172.28.0.2)
+  # -------------------------------------------------------
+  redis-master:
+    image: redis:7-alpine
+    container_name: redis-master
+    ports:
+      - "6379:6379"
+    networks:
+      redis-net:
+        ipv4_address: 172.28.0.2
+    command: redis-server --appendonly yes
+
+  # -------------------------------------------------------
+  # ESCLAVO (Se conecta a la IP 172.28.0.2)
+  # -------------------------------------------------------
+  redis-replica:
+    image: redis:7-alpine
+    container_name: redis-replica
+    ports:
+      - "6380:6379"
+    networks:
+      redis-net:
+        ipv4_address: 172.28.0.3
+    depends_on:
+      - redis-master
+    # Aquí usamos la IP directamente
+    command: redis-server --replicaof 172.28.0.2 6379
+
+  # -------------------------------------------------------
+  # ESCLAVO EN CADENA (Se conecta al esclavo .3)
+  # -------------------------------------------------------
+  redis-replica-chained:
+    image: redis:7-alpine
+    container_name: redis-replica-chained
+    ports:
+      - "6381:6379"
+    networks:
+      redis-net:
+        ipv4_address: 172.28.0.4
+    depends_on:
+      - redis-replica
+    command: redis-server --replicaof 172.28.0.3 6379
+
+  # -------------------------------------------------------
+  # CENTINELAS (Monitorean la IP 172.28.0.2)
+  # -------------------------------------------------------
+  sentinel-1:
+    image: redis:7-alpine
+    container_name: redis-sentinel-1
+    networks:
+      redis-net:
+        ipv4_address: 172.28.0.11
+    depends_on:
+      - redis-master
+    restart: on-failure
+    entrypoint: >
+      sh -c "echo 'sentinel monitor mymaster 172.28.0.2 6379 2' > /tmp/sentinel.conf &&
+             echo 'sentinel down-after-milliseconds mymaster 5000' >> /tmp/sentinel.conf &&
+             echo 'sentinel failover-timeout mymaster 10000' >> /tmp/sentinel.conf &&
+             echo 'sentinel resolve-hostnames no' >> /tmp/sentinel.conf &&
+             redis-sentinel /tmp/sentinel.conf"
+
+  sentinel-2:
+    image: redis:7-alpine
+    container_name: redis-sentinel-2
+    networks:
+      redis-net:
+        ipv4_address: 172.28.0.12
+    depends_on:
+      - redis-master
+    restart: on-failure
+    entrypoint: >
+      sh -c "echo 'sentinel monitor mymaster 172.28.0.2 6379 2' > /tmp/sentinel.conf &&
+             echo 'sentinel down-after-milliseconds mymaster 5000' >> /tmp/sentinel.conf &&
+             echo 'sentinel failover-timeout mymaster 10000' >> /tmp/sentinel.conf &&
+             echo 'sentinel resolve-hostnames no' >> /tmp/sentinel.conf &&
+             redis-sentinel /tmp/sentinel.conf"
+
+  sentinel-3:
+    image: redis:7-alpine
+    container_name: redis-sentinel-3
+    networks:
+      redis-net:
+        ipv4_address: 172.28.0.13
+    depends_on:
+      - redis-master
+    restart: on-failure
+    entrypoint: >
+      sh -c "echo 'sentinel monitor mymaster 172.28.0.2 6379 2' > /tmp/sentinel.conf &&
+             echo 'sentinel down-after-milliseconds mymaster 5000' >> /tmp/sentinel.conf &&
+             echo 'sentinel failover-timeout mymaster 10000' >> /tmp/sentinel.conf &&
+             echo 'sentinel resolve-hostnames no' >> /tmp/sentinel.conf &&
+             redis-sentinel /tmp/sentinel.conf"
+
+# Definición de la red con IPs estáticas
+networks:
+  redis-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

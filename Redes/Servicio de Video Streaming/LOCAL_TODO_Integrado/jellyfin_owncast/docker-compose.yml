@@ -1,0 +1,49 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    volumes:
+      - ./jellyfin_config:/config
+      # Mapeo detallado por tipo de contenido
+      - ./biblioteca/Peliculas:/data/peliculas
+      - ./biblioteca/Series:/data/series
+      - ./biblioteca/Musica:/data/musica
+      - ./biblioteca/Libros:/data/libros
+      - ./biblioteca/Fotos_y_Videos:/data/videos_caseros
+      - ./biblioteca/Videos_Musicales:/data/videos_musicales
+      # El grabador escribirá aquí, y Jellyfin lo leerá como parte de la biblioteca
+      - ./biblioteca/Grabaciones_Vivas:/data/grabaciones_directos
+      # Directorio para los archivo .m3u
+      - ./biblioteca/live_files:/data/live_files
+      # Directorio para las videoconferencias
+      - ./biblioteca/videoconferencias:/data/videoconferencias
+    ports:
+      - "8096:8096"
+    restart: unless-stopped
+
+  owncast:
+    image: gabekangas/owncast:latest
+    container_name: owncast
+    ports:
+      - "1935:1935"
+      - "8081:8080" # Cambiamos puerto externo a 8081 para no pisar al contenedor VB (Jitsi Videobridge)
+    volumes:
+      - ./owncast_data:/app/data
+    networks:
+      - cole_net
+
+  recorder:
+    build: ./recorder
+    container_name: owncast_recorder
+    depends_on:
+      - owncast
+    volumes:
+      # El grabador guarda los archivos directamente donde Jellyfin los busca
+      - ./biblioteca/Grabaciones_Vivas:/recordings
+    networks:
+      - cole_net
+    restart: always
+
+networks:
+  cole_net:
+    driver: bridge

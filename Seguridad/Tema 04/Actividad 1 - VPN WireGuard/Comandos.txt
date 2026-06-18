@@ -1,0 +1,113 @@
+Private key:
+eBuXARj+KzrYmqq9LD1MdbZ6/p/Cyh82YpOJl0tkkUA=
+
+Public key:
+HguDn7fQKaXvUge8Vvtsgql+iLka5SFHWJvYtbmWdyE=
+
+
+
+
+[Interface]
+Address = 10.8.0.1/24
+SaveConfig = true
+PrivateKey = eBuXARj+KzrYmqq9LD1MdbZ6/p/Cyh82YpOJl0tkkUA=    # Server-Private-Key
+PostUp = ufw route allow in on wg0 out on ens18
+PostUp = iptables -t nat -I POSTROUTING -o ens18 -j MASQUERADE
+PreDown = ufw route delete allow in on wg0 out on ens18
+PreDown = iptables -t nat -D POSTROUTING -o ens18 -j MASQUERADE
+ListenPort = 51820
+
+
+
+
+cliente1 private key:
+
+4G0d8t1cl3uZQgfBRShg7pDx0RjYB2rgoYeKM4yKjWc=
+
+public:
+
+20ZjNZIasi7V6jS279wH2f1Q7FuI/KdR7HJVtiZp4ys=
+
+
+
+
+[Interface]
+PrivateKey = 4G0d8t1cl3uZQgfBRShg7pDx0RjYB2rgoYeKM4yKjWc=    # Client-Private-Key
+Address = 10.8.0.2/24
+DNS = 8.8.8.8
+
+[Peer]
+PublicKey = 20ZjNZIasi7V6jS279wH2f1Q7FuI/KdR7HJVtiZp4ys=    # Server-Public-Key
+AllowedIPs = 0.0.0.0/0
+Endpoint = 10.2.7.45:51820
+PersistentKeepalive = 15
+
+
+\\\\\\\
+
+[Peer]
+PublicKey = 20ZjNZIasi7V6jS279wH2f1Q7FuI/KdR7HJVtiZp4ys=
+AllowedIPs = 10.8.0.2/32
+
+
+
+sudo iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o ens18 -j MASQUERADE
+
+
+
+
+\\\\\\\\\
+
+scp cristobal@10.2.7.45:client1.conf .
+
+WireGuard:
+
+Private key:
+eBuXARj+KzrYmqq9LD1MdbZ6/p/Cyh82YpOJl0tkkUA=
+
+Public key:
+HguDn7fQKaXvUge8Vvtsgql+iLka5SFHWJvYtbmWdyE=
+
+
+cliente1 private key:
+
+4G0d8t1cl3uZQgfBRShg7pDx0RjYB2rgoYeKM4yKjWc=
+
+public:
+
+20ZjNZIasi7V6jS279wH2f1Q7FuI/KdR7HJVtiZp4ys=
+
+
+cristobal@ubuntumysqlsuarez:~$ sudo cat /etc/wireguard/wg0.conf
+[Interface]
+Address = 10.8.0.1/24
+SaveConfig = true
+PostUp = ufw route allow in on wg0 out on ens18
+PostUp = iptables -t nat -I POSTROUTING -o ens18 -j MASQUERADE
+PreDown = ufw route delete allow in on wg0 out on ens18
+PreDown = iptables -t nat -D POSTROUTING -o ens18 -j MASQUERADE
+ListenPort = 51820
+PrivateKey = eBuXARj+KzrYmqq9LD1MdbZ6/p/Cyh82YpOJl0tkkUA=
+
+[Peer]
+PublicKey = 20ZjNZIasi7V6jS279wH2f1Q7FuI/KdR7HJVtiZp4ys=
+AllowedIPs = 10.8.0.2/32
+
+
+
+
+
+
+
+
+cristobal@ubuntumysqlsuarez:~$ sudo cat /etc/wireguard/client1.conf
+[Interface]
+PrivateKey = 4G0d8t1cl3uZQgfBRShg7pDx0RjYB2rgoYeKM4yKjWc=    # Client-Private-Key
+Address = 10.8.0.2/24
+DNS = 8.8.8.8
+
+[Peer]
+PublicKey = HguDn7fQKaXvUge8Vvtsgql+iLka5SFHWJvYtbmWdyE=    # Server-Public-Key
+AllowedIPs = 0.0.0.0/0
+Endpoint = 10.2.7.45:51820
+PersistentKeepalive = 15

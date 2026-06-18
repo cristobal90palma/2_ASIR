@@ -1,0 +1,403 @@
+
+Para VM Linux
+curl --proto "https" -o "/tmp/ecs-anywhere-install.sh" "https://amazon-ecs-agent.s3.amazonaws.com/ecs-anywhere-install-latest.sh" && bash /tmp/ecs-anywhere-install.sh --region "us-east-1" --cluster "ECS-csaV3" --activation-id "897b2fd2-04ad-4360-b828-3c3b4af07172" --activation-code "mvTw+i5V8FCocsePebnG"
+
+
+
+
+Para VM Windows
+Invoke-RestMethod -URI "https://amazon-ecs-agent.s3.amazonaws.com/ecs-anywhere-install.ps1" -OutFile "ecs-anywhere-install.ps1"; .\ecs-anywhere-install.ps1 -Region "us-east-1" -Cluster "ECS-csaV3" -ActivationID "897b2fd2-04ad-4360-b828-3c3b4af07172" -ActivationCode "mvTw+i5V8FCocsePebnG"
+
+
+
+
+Contenedor ejabberd
+
+https://docs.ejabberd.im/CONTAINER/#register-admin-account
+
+
+
+Grupo de seguridad en AWS es lo mismo que FIREWALL
+
+Hay que permitir los puertos del contenedor en el FIREWALL
+
+
+
+
+
+Para entrar desde el navegador web
+http://im07.institutodh.net/5280/admin 
+
+Con certbot
+http://im07.institutodh.net/5443/admin 
+
+
+Certificados, mapea directorios en el contenedor y colocalos ahí. Se generan en la máquina, no en el contenedor.
+
+
+
+
+
+
+Prosody
+
+https://prosody.im/doc/docker
+
+https://blog.prosody.im/prosody-13.0.0-released/
+
+Puertos:
+https://prosody.im/doc/ports
+
+https://rokibulroni.com/blog/prosody-xmpp/
+
+
+https://chatgpt.com/c/69411834-dac4-8328-a3d9-e61e894fb36c
+https://gemini.google.com/app/3b8296b229c4b2a3
+
+
+
+EN AWS ==> ECS (Amazon Elastic Container Service) ==> Task Definitions ==> Create new task definition with JSON 
+
+En AWS --> Registrar una instancia
+
+
+
+
+
+
+
+Esto es de la ECS
+Registrar instancias externas:
+
+curl --proto "https" -o "/tmp/ecs-anywhere-install.sh" "https://amazon-ecs-agent.s3.amazonaws.com/ecs-anywhere-install-latest.sh" && bash /tmp/ecs-anywhere-install.sh --region "us-east-1" --cluster "ECS-csaV3" --activation-id "1ae02d82-022d-4d14-bcd9-9a94dbd8bf7f" --activation-code "ZhmLOgKseBRBe9PIOmix"
+
+
+http://im07.institutodh.net:5443/admin
+
+
+Conectamos a el EC2
+
+ssh -i .\labuser.pem ubuntu@im07.institutodh.net
+
+El comando curl anterior se debe ejecutar una vez que se entra en el contenedor
+
+Te hace root (sudo su) y ejecutamos el comando.
+
+Si tienes problemas de ejecución en Windows:
+
+Method 2: The Manual Fix (GUI)
+
+If you prefer using the Windows interface, follow these steps:
+
+    Right-click labuser.pem and select Properties.
+
+    Go to the Security tab and click Advanced.
+
+    Click Disable inheritance and choose "Remove all inherited permissions from this object."
+
+    Click Add -> Select a principal.
+
+    Type your Windows username, click Check Names, and hit OK.
+
+    Check the box for Full control and click OK on all windows.
+	
+	
+/////////////////
+
+
+Una vez terminado, verás que el cluster  de ECS, tiene una instancia asociada.
+Comprueba que el servicio de "ecs" que se instala con el comando anterior está "enabled" para no tener que 
+levantarlo cada vez que inicies.
+
+
+En esta instancia asociada ya podemos definir tareas.
+
+Creamos una nueva tarea con JSON
+
+Cada vez que toqueteas algo, creas una nueva revisión.
+
+En el archivo Json, recuerda bajar memoria a 1600
+
+
+Certbot_ Instructios: other y linux (snap). En la instancia abrir temporalmente el puerto 80 y una vez terminado cerrarlo.
+
+yes, my web server is not running in this machine.
+
+
+
+Las reglas del firewall se aplican a la instancia ==> Security groups ==> Grupo de seguridad ==> Reglas
+
+
+Contenedor en modo depuración.
+
+
+
+
+En EC2 en Inbound Rules:
+
+Puerto,Protocolo,Descripción Sugerida
+5222,TCP,Clientes XMPP (Chat)
+5269,TCP,Conexión entre servidores (S2S)
+5280,TCP,Administración / BOSH (HTTP)
+5281,TCP,Administración segura (HTTPS)
+5000,TCP,Transferencia de archivos (Proxy)
+
+
+
+sudo echo "ECS_CLUSTER=NombreDeTuCluster" >> /etc/ecs/ecs.config
+
+sudo echo "ECS_CLUSTER=csa-2asir" >> /etc/ecs/ecs.config
+sudo systemctl restart ecs
+
+root@ip-172-31-75-85:/home/ubuntu# cat /etc/ecs/ecs.config
+ECS_CLUSTER=ECS-csaV3
+
+
+
+
+
+
+
+
+
+
+Imágenes en los chats
+Primero comprueba que donde están los “plugins/modules”. En el archivo de configuración se indica que está en:
+"/usr/local/lib/prosody/modules"
+Mientras que en la página oficial  se indica que está en:
+“/usr/lib/prosody/modules/”
+
+https://prosody.im/doc/plugins_directory
+
+
+De ambas maneras funcionan.
+Ahora habría que instalar añadir el módulo “mod_http_file_share”  y seguir las instrucciones. Pero 
+https://prosody.im/doc/installing_modules
+https://prosody.im/doc/modules/mod_http_file_share
+
+
+https://superuser.com/questions/1730179/show-embedded-images-in-google-chat-in-pidgin
+
+https://stackoverflow.com/questions/42158997/cant-insert-image
+
+
+https://comfy.guide/server/prosody/
+
+https://prosody.im/doc/ports
+
+
+
+
+Buscar formas de:
+
+banear
+
+detectar lenguaje malsonante
+
+Permitir pasar imagenes y mejores formas de pasar archivos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Instalación de modulos:
+https://gemini.google.com/app/f87f80e099d9196d
+
+
+# Descargar el archivo principal del módulo
+sudo wget "https://github.com/guilhem/prosody-modules/blob/master/mod_admin_web/admin_web/mod_admin_web.lua" -O /usr/lib/prosody/modules/mod_admin_web.lua
+
+
+
+# Descargar el archivo de interfaz necesario
+sudo wget "https://hg.prosody.im/prosody-modules/raw-file/tip/mod_admin_web/admin_res/index.html" -O /usr/lib/prosody/modules/mod_admin_web/admin_res/index.html
+
+
+ESPERA ¿mejor bajarlo de aquí: https://modules.prosody.im/rocks/?
+
+sudo prosodyctl install --server=https://modules.prosody.im/rocks/ mod_admin_web
+
+Habria que instalar luarocks: Ya lo he instalado.
+Ahora hay que configurar: https://prosody.im/doc/plugin_installer
+
+
+Otros:
+https://voxelmanip.se/2025/06/25/setting-up-an-xmpp-server-with-prosody/
+https://modules.prosody.im/
+https://prosody.im/doc/plugin_installer
+https://modules.prosody.im/mod_admin_web
+
+
+Instalar LuaRocks:
+
+sudo apt install luarocks
+
+sudo apt install liblua5.2-dev
+
+sudo prosodyctl install mod_example_module https://modules.prosody.im/rocks/mod_bob-3-1.src.rock
+
+sudo prosodyctl install --server=https://modules.prosody.im/rocks/ mod_admin_web
+
+sudo prosodyctl install mod_admin_web https://modules.prosody.im/rocks/mod_admin_web-86-1.src.rock
+
+
+# 1. Instalar dependencias de compilación
+sudo apt update
+sudo apt install liblua5.2-dev build-essential
+
+# 2. Crear la carpeta de plugins y dar permisos a Prosody
+sudo mkdir -p /var/lib/prosody/custom_plugins
+sudo chown -R prosody:prosody /var/lib/prosody/
+
+
+https://gemini.google.com/app/a30e171fccaf1135
+https://chatgpt.com/c/6968e1e7-7f1c-832a-8c22-1144dacfd962
+
+
+
+
+Comprobar qué versión de Lua usa Prosody
+prosodyctl about
+
+
+Verás algo como:
+
+Lua 5.4
+
+
+Porque NO está instalado:
+
+/usr/include/lua5.4/lua.h
+
+sudo apt update
+sudo apt install -y liblua5.4-dev build-essential
+
+Verificación rápida
+
+Comprueba que ahora existen los headers:
+
+ls /usr/include/lua5.4/lua.h
+
+sudo prosodyctl install --server=https://modules.prosody.im/rocks/ mod_admin_web
+
+
+
+Listing
+
+To list all installed modules, use:
+
+sudo prosodyctl list
+
+Modules that can be updated can be listed using:
+
+sudo prosodyctl list --outdated
+
+To update them, simply run the same install command again.
+Uninstalling
+
+Installed modules can be removed by running:
+
+sudo prosodyctl remove mod_example_module
+
+
+
+
+
+
+
+
+admins = { "admin@im07.institutodh.net" }
+plugin_paths = {"/usr/lib/prosody/modules"}
+plugin_server = "https://modules.prosody.im/rocks/"
+installer_plugin_path = "/var/lib/prosody/custom_plugins"
+
+
+ls -lR /var/lib/prosody/custom_plugins | grep "get_deps.sh"
+
+
+
+
+http://example.com:5280/admin, or 
+
+https://im07.institutodh.net:5281/admin
+
+
+https://example.com:5281/admin.
+
+
+Guías: 
+https://www.linuxbabe.com/ubuntu/install-configure-prosody-xmpp-server-ubuntu-20-04
+https://comfy.guide/server/prosody/
+https://samirparikh.neocities.org/blog/create-xmpp-server-with-prosody
+
+
+
+
+sudo prosodyctl adduser prueba01@im07.institutodh.net
+
+sudo prosodyctl deluser prueba01@im07.institutodh.net
+
+
+
+
+musho_betis@conference.im07.institutodh.net
+
+
+
+
+sudo prosodyctl adduser cepeda@im07.institutodh.net
+sudo prosodyctl adduser pablo@im07.institutodh.net
+sudo prosodyctl adduser andres@im07.institutodh.net
+sudo prosodyctl adduser armando@im07.institutodh.net
+sudo prosodyctl adduser mario@im07.institutodh.net
+sudo prosodyctl adduser gonzalo@im07.institutodh.net
+sudo prosodyctl adduser sergio@im07.institutodh.net
+
+
+sudo prosodyctl passwd  admin@im07.institutodh.net
+sudo prosodyctl passwd  cristobal@im07.institutodh.net
+
+sudo prosodyctl deluser probando01@im07.institutodh.net
+sudo prosodyctl deluser movil@im07.institutodh.net
+
+
+SSH Pem Windows Error:
+https://gemini.google.com/app/2d869771289790f4
+
+Solution for Command Prompt (CMD)
+
+Run these two commands exactly as shown:
+
+    Remove inheritance (This clears the "Authenticated Users" that is causing the error):
+    DOS
+
+    icacls .\labuser.pem /c /t /inheritance:d
+
+    Grant yourself full access (Replacing the variable with your actual username):
+    DOS
+
+    icacls .\labuser.pem /grant cristobal:F
+
+    Remove any remaining generic permissions:
+    DOS
+
+    icacls .\labuser.pem /remove "Authenticated Users"
+    icacls .\labuser.pem /remove "Users"
+	
+Quitar Permisos Heredados y ponerte solo a ti
+
+
+
+half-life_3@conference.im07.institutodh.net
+sala_cerrada@conference.im07.institutodh.net 

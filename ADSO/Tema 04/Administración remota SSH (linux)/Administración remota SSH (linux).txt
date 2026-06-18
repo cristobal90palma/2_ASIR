@@ -1,0 +1,34 @@
+https://chatgpt.com/c/69678f6b-6714-832e-abc5-0786d67ec986 
+
+
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2026-01-14 15:43:16 UTC; 6s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 129308 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 129309 (sshd)
+      Tasks: 9 (limit: 3426)
+     Memory: 12.6M
+        CPU: 65ms
+     CGroup: /system.slice/ssh.service
+             ├─129257 "sshd: usuario [priv]"
+             ├─129259 "sshd: usuario@pts/0" ""
+             ├─129260 -bash
+             ├─129269 "sshd: usuario [priv]"
+             ├─129271 "sshd: usuario@pts/1" ""
+             ├─129272 -bash
+             ├─129283 sudo su
+             ├─129284 sudo su
+             └─129309 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+ene 14 15:43:16 server2asir systemd[1]: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+ene 14 15:43:16 server2asir systemd[1]: ssh.service: Found left-over process 129272 (bash) in control group while starting unit. Ignoring.
+ene 14 15:43:16 server2asir systemd[1]: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+ene 14 15:43:16 server2asir systemd[1]: ssh.service: Found left-over process 129283 (sudo) in control group while starting unit. Ignoring.
+ene 14 15:43:16 server2asir systemd[1]: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+ene 14 15:43:16 server2asir systemd[1]: ssh.service: Found left-over process 129284 (sudo) in control group while starting unit. Ignoring.
+ene 14 15:43:16 server2asir systemd[1]: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+ene 14 15:43:16 server2asir sshd[129309]: Server listening on 0.0.0.0 port 2222.
+ene 14 15:43:16 server2asir sshd[129309]: Server listening on :: port 2222.
+ene 14 15:43:16 server2asir systemd[1]: Started OpenBSD Secure Shell server.

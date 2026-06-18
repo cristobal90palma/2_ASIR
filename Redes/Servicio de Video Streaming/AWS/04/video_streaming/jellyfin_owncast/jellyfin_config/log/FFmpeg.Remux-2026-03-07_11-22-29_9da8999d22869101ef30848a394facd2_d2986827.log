@@ -1,0 +1,261 @@
+{"Protocol":1,"Id":"9da8999d22869101ef30848a394facd2","Path":"https://live.im07.institutodh.net/hls/stream.m3u8","EncoderPath":null,"EncoderProtocol":null,"Type":0,"Container":"hls","Size":127,"Name":null,"IsRemote":true,"ETag":null,"RunTimeTicks":null,"ReadAtNativeFramerate":true,"IgnoreDts":true,"IgnoreIndex":false,"GenPtsInput":false,"SupportsTranscoding":true,"SupportsDirectStream":false,"SupportsDirectPlay":true,"IsInfiniteStream":true,"UseMostCompatibleTranscodingProfile":true,"RequiresOpening":true,"OpenToken":null,"RequiresClosing":true,"LiveStreamId":"e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_9da8999d22869101ef30848a394facd2","BufferMs":null,"RequiresLooping":false,"SupportsProbing":true,"VideoType":null,"IsoType":null,"Video3DFormat":null,"MediaStreams":[{"Codec":"h264","CodecTag":null,"Language":null,"ColorRange":"tv","ColorSpace":"bt709","ColorTransfer":"bt709","ColorPrimaries":"bt709","DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":"1/90000","CodecTimeBase":null,"Title":null,"Hdr10PlusPresentFlag":null,"VideoRange":1,"VideoRangeType":1,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":null,"LocalizedForced":null,"LocalizedExternal":null,"LocalizedHearingImpaired":null,"DisplayTitle":"720p H264 SDR","NalLengthSize":"0","IsInterlaced":false,"IsAVC":null,"ChannelLayout":null,"BitRate":8000000,"BitDepth":8,"RefFrames":1,"PacketLength":null,"Channels":null,"SampleRate":null,"IsDefault":false,"IsForced":false,"IsHearingImpaired":false,"Height":720,"Width":1272,"AverageFrameRate":24,"RealFrameRate":24,"ReferenceFrameRate":24,"Profile":"High","Type":1,"AspectRatio":"16:9","Index":-1,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":"yuv420p","Level":31,"IsAnamorphic":false},{"Codec":"aac","CodecTag":null,"Language":null,"ColorRange":null,"ColorSpace":null,"ColorTransfer":null,"ColorPrimaries":null,"DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":"1/90000","CodecTimeBase":null,"Title":null,"Hdr10PlusPresentFlag":null,"VideoRange":0,"VideoRangeType":0,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":"Predeterminado","LocalizedForced":null,"LocalizedExternal":"Externo","LocalizedHearingImpaired":null,"DisplayTitle":"AAC - Stereo","NalLengthSize":null,"IsInterlaced":false,"IsAVC":false,"ChannelLayout":"stereo","BitRate":192000,"BitDepth":null,"RefFrames":null,"PacketLength":null,"Channels":2,"SampleRate":48000,"IsDefault":false,"IsForced":false,"IsHearingImpaired":false,"Height":null,"Width":null,"AverageFrameRate":null,"RealFrameRate":null,"ReferenceFrameRate":null,"Profile":"LC","Type":0,"AspectRatio":null,"Index":-1,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":null,"Level":0,"IsAnamorphic":null}],"MediaAttachments":[],"Formats":[],"Bitrate":8192000,"FallbackMaxStreamingBitrate":30000000,"Timestamp":null,"RequiredHttpHeaders":{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"},"TranscodingUrl":null,"TranscodingSubProtocol":0,"TranscodingContainer":null,"AnalyzeDurationMs":3000,"DefaultAudioStreamIndex":null,"DefaultSubtitleStreamIndex":null,"HasSegments":false}
+
+/usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 3000000 -probesize 1G -user_agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" -re -fflags +igndts+genpts  -i "https://live.im07.institutodh.net/hls/stream.m3u8" -map_metadata -1 -map_chapters -1 -threads 0 -sn -codec:v:0 copy -start_at_zero -flags -global_header -codec:a:0 copy -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type mpegts -start_number 0 -hls_base_url "hls/983606d8160784f6b19a7d8fad869c47/" -hls_segment_filename "/cache/transcodes/983606d8160784f6b19a7d8fad869c47%d.ts" -hls_playlist_type event -hls_list_size 0 -y "/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8"
+
+
+ffmpeg version 7.1.3-Jellyfin Copyright (c) 2000-2025 the FFmpeg developers
+  built with gcc 14 (Debian 14.2.0-19)
+  configuration: --prefix=/usr/lib/jellyfin-ffmpeg --target-os=linux --extra-version=Jellyfin --disable-doc --disable-ffplay --disable-static --disable-libxcb --disable-sdl2 --disable-xlib --enable-lto=auto --enable-gpl --enable-version3 --enable-shared --enable-gmp --enable-gnutls --enable-chromaprint --enable-opencl --enable-libdrm --enable-libxml2 --enable-libass --enable-libfreetype --enable-libfribidi --enable-libfontconfig --enable-libharfbuzz --enable-libbluray --enable-libmp3lame --enable-libopus --enable-libtheora --enable-libvorbis --enable-libopenmpt --enable-libdav1d --enable-libsvtav1 --enable-libwebp --enable-libvpx --enable-libx264 --enable-libx265 --enable-libzvbi --enable-libzimg --enable-libfdk-aac --arch=amd64 --enable-libshaderc --enable-libplacebo --enable-vulkan --enable-vaapi --enable-amf --enable-libvpl --enable-ffnvcodec --enable-cuda --enable-cuda-llvm --enable-cuvid --enable-nvdec --enable-nvenc
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+mime type is not rfc8216 compliant
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:21:58.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:01.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:04.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:07.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:10.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:13.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:16.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:19.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:22.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:25.006+0000')
+[hls @ 0x718de2ab4000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-35.ts' for reading
+[hls @ 0x718de2ab4000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-36.ts' for reading
+Input #0, hls, from 'https://live.im07.institutodh.net/hls/stream.m3u8':
+  Duration: N/A, start: 106.400000, bitrate: N/A
+  Program 0 
+    Metadata:
+      variant_bitrate : 1289024
+  Stream #0:0: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p(tv, bt709), 1272x720 [SAR 1:1 DAR 53:30], 24 fps, 24 tbr, 90k tbn
+      Metadata:
+        variant_bitrate : 1289024
+  Stream #0:1: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+      Metadata:
+        variant_bitrate : 1289024
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, hls, to '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p(tv, bt709), 1272x720 [SAR 1:1 DAR 53:30], q=2-31, 24 fps, 24 tbr, 90k tbn
+  Stream #0:1: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+Press [q] to stop, [?] for help
+frame=   24 fps=0.0 q=-1.0 size=N/A time=00:00:00.00 bitrate=N/A speed=   0x    
+frame=   36 fps= 36 q=-1.0 size=N/A time=00:00:00.72 bitrate=N/A speed=0.724x    
+frame=   49 fps= 33 q=-1.0 size=N/A time=00:00:01.08 bitrate=N/A speed=0.725x    
+frame=   59 fps= 29 q=-1.0 size=N/A time=00:00:01.73 bitrate=N/A speed=0.865x    
+[https @ 0x718de2523000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-37.ts' for reading
+frame=   72 fps= 29 q=-1.0 size=N/A time=00:00:02.27 bitrate=N/A speed=0.908x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c470.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=   85 fps= 28 q=-1.0 size=N/A time=00:00:02.64 bitrate=N/A speed=0.881x    
+frame=   97 fps= 28 q=-1.0 size=N/A time=00:00:03.28 bitrate=N/A speed=0.938x    
+frame=  109 fps= 27 q=-1.0 size=N/A time=00:00:03.73 bitrate=N/A speed=0.933x    
+frame=  121 fps= 27 q=-1.0 size=N/A time=00:00:04.09 bitrate=N/A speed=0.91x    
+frame=  132 fps= 26 q=-1.0 size=N/A time=00:00:04.77 bitrate=N/A speed=0.954x    
+[https @ 0x718de2b06000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:04.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:07.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:10.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:13.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:16.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:19.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:22.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:25.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:28.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:31.006+0000')
+[https @ 0x718de2246000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-38.ts' for reading
+frame=  142 fps= 26 q=-1.0 size=N/A time=00:00:05.18 bitrate=N/A speed=0.943x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c471.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  157 fps= 26 q=-1.0 size=N/A time=00:00:05.65 bitrate=N/A speed=0.942x    
+frame=  169 fps= 26 q=-1.0 size=N/A time=00:00:06.29 bitrate=N/A speed=0.968x    
+frame=  181 fps= 26 q=-1.0 size=N/A time=00:00:06.74 bitrate=N/A speed=0.963x    
+frame=  193 fps= 26 q=-1.0 size=N/A time=00:00:07.10 bitrate=N/A speed=0.947x    
+frame=  204 fps= 25 q=-1.0 size=N/A time=00:00:07.77 bitrate=N/A speed=0.971x    
+[https @ 0x718de2523000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-39.ts' for reading
+frame=  217 fps= 26 q=-1.0 size=N/A time=00:00:08.27 bitrate=N/A speed=0.973x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c472.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  229 fps= 25 q=-1.0 size=N/A time=00:00:08.64 bitrate=N/A speed=0.96x    
+frame=  241 fps= 25 q=-1.0 size=N/A time=00:00:09.28 bitrate=N/A speed=0.976x    
+frame=  253 fps= 25 q=-1.0 size=N/A time=00:00:09.72 bitrate=N/A speed=0.972x    
+frame=  265 fps= 25 q=-1.0 size=N/A time=00:00:10.09 bitrate=N/A speed=0.961x    
+frame=  276 fps= 25 q=-1.0 size=N/A time=00:00:10.77 bitrate=N/A speed=0.979x    
+[https @ 0x718de2b06000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:10.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:13.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:16.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:19.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:22.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:25.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:28.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:31.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:34.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:37.006+0000')
+[https @ 0x718de2246000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-40.ts' for reading
+frame=  289 fps= 25 q=-1.0 size=N/A time=00:00:11.28 bitrate=N/A speed=0.981x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c473.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  301 fps= 25 q=-1.0 size=N/A time=00:00:11.64 bitrate=N/A speed=0.97x    
+frame=  313 fps= 25 q=-1.0 size=N/A time=00:00:12.28 bitrate=N/A speed=0.983x    
+frame=  325 fps= 25 q=-1.0 size=N/A time=00:00:12.73 bitrate=N/A speed=0.979x    
+frame=  337 fps= 25 q=-1.0 size=N/A time=00:00:13.09 bitrate=N/A speed=0.97x    
+frame=  348 fps= 25 q=-1.0 size=N/A time=00:00:13.77 bitrate=N/A speed=0.983x    
+[https @ 0x718de2b06000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:13.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:16.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:19.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:22.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:25.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:28.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:31.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:34.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:37.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:40.006+0000')
+[https @ 0x718de2523000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-41.ts' for reading
+frame=  361 fps= 25 q=-1.0 size=N/A time=00:00:14.29 bitrate=N/A speed=0.985x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c474.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  373 fps= 25 q=-1.0 size=N/A time=00:00:14.65 bitrate=N/A speed=0.977x    
+frame=  385 fps= 25 q=-1.0 size=N/A time=00:00:15.29 bitrate=N/A speed=0.986x    
+frame=  397 fps= 25 q=-1.0 size=N/A time=00:00:15.74 bitrate=N/A speed=0.984x    
+frame=  409 fps= 25 q=-1.0 size=N/A time=00:00:16.10 bitrate=N/A speed=0.976x    
+frame=  420 fps= 25 q=-1.0 size=N/A time=00:00:16.77 bitrate=N/A speed=0.986x    
+[https @ 0x718de2246000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-42.ts' for reading
+frame=  433 fps= 25 q=-1.0 size=N/A time=00:00:17.28 bitrate=N/A speed=0.987x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c475.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  445 fps= 25 q=-1.0 size=N/A time=00:00:17.64 bitrate=N/A speed=0.98x    
+frame=  457 fps= 25 q=-1.0 size=N/A time=00:00:18.28 bitrate=N/A speed=0.988x    
+frame=  469 fps= 25 q=-1.0 size=N/A time=00:00:18.73 bitrate=N/A speed=0.985x    
+frame=  481 fps= 25 q=-1.0 size=N/A time=00:00:19.09 bitrate=N/A speed=0.979x    
+frame=  492 fps= 25 q=-1.0 size=N/A time=00:00:19.77 bitrate=N/A speed=0.988x    
+[https @ 0x718de2b06000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:19.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:22.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:25.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:28.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:31.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:34.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:37.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:40.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:43.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:46.006+0000')
+[https @ 0x718de2523000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-43.ts' for reading
+frame=  505 fps= 25 q=-1.0 size=N/A time=00:00:20.28 bitrate=N/A speed=0.989x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c476.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  517 fps= 25 q=-1.0 size=N/A time=00:00:20.65 bitrate=N/A speed=0.983x    
+frame=  529 fps= 25 q=-1.0 size=N/A time=00:00:21.29 bitrate=N/A speed=0.99x    
+frame=  541 fps= 25 q=-1.0 size=N/A time=00:00:21.73 bitrate=N/A speed=0.988x    
+frame=  553 fps= 25 q=-1.0 size=N/A time=00:00:22.10 bitrate=N/A speed=0.982x    
+frame=  564 fps= 25 q=-1.0 size=N/A time=00:00:22.77 bitrate=N/A speed=0.99x    
+[https @ 0x718de2246000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-44.ts' for reading
+frame=  577 fps= 25 q=-1.0 size=N/A time=00:00:23.27 bitrate=N/A speed=0.99x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c477.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  589 fps= 25 q=-1.0 size=N/A time=00:00:23.63 bitrate=N/A speed=0.984x    
+frame=  601 fps= 25 q=-1.0 size=N/A time=00:00:24.29 bitrate=N/A speed=0.991x    
+frame=  613 fps= 25 q=-1.0 size=N/A time=00:00:24.72 bitrate=N/A speed=0.989x    
+frame=  625 fps= 24 q=-1.0 size=N/A time=00:00:25.08 bitrate=N/A speed=0.983x    
+frame=  635 fps= 24 q=-1.0 size=N/A time=00:00:25.73 bitrate=N/A speed=0.989x    
+[https @ 0x718de2b06000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:25.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:28.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:31.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:34.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:37.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:40.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:43.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:46.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:49.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:52.006+0000')
+[https @ 0x718de2523000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-45.ts' for reading
+frame=  649 fps= 24 q=-1.0 size=N/A time=00:00:26.28 bitrate=N/A speed=0.991x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c478.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  661 fps= 24 q=-1.0 size=N/A time=00:00:26.64 bitrate=N/A speed=0.986x    
+frame=  673 fps= 24 q=-1.0 size=N/A time=00:00:27.30 bitrate=N/A speed=0.993x    
+frame=  685 fps= 24 q=-1.0 size=N/A time=00:00:27.73 bitrate=N/A speed=0.99x    
+frame=  697 fps= 24 q=-1.0 size=N/A time=00:00:28.09 bitrate=N/A speed=0.985x    
+frame=  708 fps= 24 q=-1.0 size=N/A time=00:00:28.77 bitrate=N/A speed=0.992x    
+[https @ 0x718de2b06000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:28.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:31.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:34.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:37.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:40.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:43.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:46.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:49.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:52.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:55.006+0000')
+[https @ 0x718de2246000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-46.ts' for reading
+frame=  721 fps= 24 q=-1.0 size=N/A time=00:00:29.29 bitrate=N/A speed=0.992x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c479.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  733 fps= 24 q=-1.0 size=N/A time=00:00:29.65 bitrate=N/A speed=0.988x    
+frame=  745 fps= 24 q=-1.0 size=N/A time=00:00:30.29 bitrate=N/A speed=0.993x    
+frame=  757 fps= 24 q=-1.0 size=N/A time=00:00:30.74 bitrate=N/A speed=0.991x    
+frame=  769 fps= 24 q=-1.0 size=N/A time=00:00:31.10 bitrate=N/A speed=0.987x    
+frame=  780 fps= 24 q=-1.0 size=N/A time=00:00:31.77 bitrate=N/A speed=0.992x    
+[https @ 0x718de2523000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-47.ts' for reading
+frame=  793 fps= 24 q=-1.0 size=N/A time=00:00:32.27 bitrate=N/A speed=0.993x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c4710.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  805 fps= 24 q=-1.0 size=N/A time=00:00:32.64 bitrate=N/A speed=0.989x    
+frame=  817 fps= 24 q=-1.0 size=N/A time=00:00:33.30 bitrate=N/A speed=0.994x    
+frame=  829 fps= 24 q=-1.0 size=N/A time=00:00:33.72 bitrate=N/A speed=0.992x    
+frame=  841 fps= 24 q=-1.0 size=N/A time=00:00:34.09 bitrate=N/A speed=0.988x    
+frame=  852 fps= 24 q=-1.0 size=N/A time=00:00:34.77 bitrate=N/A speed=0.993x    
+[https @ 0x718de2b06000] Opening 'https://live.im07.institutodh.net/hls/0/stream.m3u8' for reading
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:34.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:37.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:40.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:43.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:46.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:49.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:52.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:55.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:22:58.006+0000')
+[hls @ 0x718de2ab4000] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-03-07T11:23:01.006+0000')
+[https @ 0x718de2246000] Opening 'https://live.im07.institutodh.net/hls/0/stream-OnpP84KDR-48.ts' for reading
+frame=  865 fps= 24 q=-1.0 size=N/A time=00:00:35.28 bitrate=N/A speed=0.994x    
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c4711.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+frame=  877 fps= 24 q=-1.0 size=N/A time=00:00:35.64 bitrate=N/A speed=0.99x    
+frame=  889 fps= 24 q=-1.0 size=N/A time=00:00:36.30 bitrate=N/A speed=0.994x    
+frame=  901 fps= 24 q=-1.0 size=N/A time=00:00:36.73 bitrate=N/A speed=0.992x    
+
+[q] command received. Exiting.
+
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c4712.ts' for writing
+[hls @ 0x718de1920500] Opening '/cache/transcodes/983606d8160784f6b19a7d8fad869c47.m3u8.tmp' for writing
+[out#0/hls @ 0x718de1d7f780] video:4034KiB audio:23KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame=  913 fps= 24 q=-1.0 Lsize=N/A time=00:00:37.09 bitrate=N/A speed=0.988x    

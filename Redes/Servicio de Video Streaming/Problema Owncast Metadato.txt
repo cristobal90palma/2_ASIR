@@ -1,0 +1,26 @@
+1. ¿Por qué ocurre la diferencia?
+
+    En /Grabaciones_Vivas/: Tu contenedor recorder (el que construiste con el Dockerfile) tiene un proceso activo que está constantemente analizando o interactuando con los archivos de esa carpeta. Cuando levantas el contenedor, el script owncast_stream_recorder.sh se ejecuta, y es muy probable que una instrucción de ls, ffmpeg o simplemente el montaje del volumen haga que el sistema de archivos de Docker "refresque" el mtime (fecha de modificación) al momento del inicio.
+
+    En /videoconferencias/: Esta carpeta es, probablemente, solo un punto de montaje pasivo. Si ninguna aplicación dentro del contenedor jellyfin está escribiendo, escaneando o modificando activamente esa carpeta al arrancar, el sistema de archivos conserva la fecha original de creación.
+	
+	
+	2. El factor "Docker Mount"
+
+Cuando montas un volumen en Docker (- ./biblioteca:/data), el contenedor a veces cambia la propiedad o los timestamps de los archivos para asegurar que el usuario dentro del contenedor (que suele ser distinto al root de tu máquina) pueda leerlos. Esto se llama "Metadata sync".
+3. ¿Deberías preocuparte?
+
+Técnicamente, no.
+
+    ls -l te muestra la fecha de modificación (mtime). Aunque diga "Mar 5", si haces stat colegio_stream_20260302_105316.mp4, verás que el ctime (tiempo de cambio de estado del nodo) o el nombre del archivo (que incluye la fecha real 20260302) siguen siendo correctos.
+
+    Jellyfin no se guía solo por la fecha de modificación del archivo para saber si es nuevo; Jellyfin usa un escáner de biblioteca que lee los metadatos internos del archivo y el nombre del fichero.
+	
+	
+	
+	
+	Resumen para tu memoria técnica
+
+Si alguien te pregunta por esto, la respuesta profesional es:
+
+    "La diferencia en las fechas de modificación observada se debe al comportamiento del driver de almacenamiento de Docker durante el montaje de volúmenes, donde la actividad de los procesos de I/O de los contenedores (como el script de grabación de FFMPEG) actualiza el timestamp de modificación al iniciar el servicio, aunque la fecha de creación original del archivo permanece intacta en el inodo y en la nomenclatura del fichero."

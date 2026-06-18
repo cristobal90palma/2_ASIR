@@ -1,0 +1,1 @@
+{"StartTimeUtc":"2026-03-02T11:38:09.1517356Z","EndTimeUtc":"2026-03-02T11:38:09.1573146Z","Status":"Completed","Name":"Limpiar registro de actividad","Key":"CleanActivityLog","Id":"b461ef918ab28520928183e794350e3c"}

@@ -1,0 +1,18 @@
+services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - '80:80'   # Tráfico HTTP (para redirección y Let's Encrypt)
+      - '443:443' # Tráfico HTTPS (Tu entrada principal)
+      - '81:81'   # Panel de administración (puedes cerrarlo en AWS después)
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    external: true

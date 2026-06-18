@@ -1,0 +1,21 @@
+; nano /var/cache/bind/192.168.100.rev
+
+;ARCHIVO DE ZONA INVERSA
+$TTL 1D
+@   IN  SOA 100.168.192.in-addr.arp. root.sz.retry07.net. (
+        2025102501 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Default TTL
+
+       IN  NS  dnscsa03.sz.retry07.net.
+
+; Registros PTR
+10	           IN  PTR www.sz.retry07.net.
+11             IN  PTR mx64.sz.retry07.net.
+12             IN  PTR mx360.sz.retry07.net.
+13             IN  PTR carmack.sz.retry07.net.
+14             IN  PTR romero.sz.retry07.net.
+
+;named-checkzone 100.168.192.in-addr.arp. /var/cache/bind/192.168.100.rev

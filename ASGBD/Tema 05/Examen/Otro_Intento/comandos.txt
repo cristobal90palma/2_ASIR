@@ -1,0 +1,195 @@
+Creamos tabla de Clientes:
+
+CREATE TABLE clientes (
+	id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(100) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL
+);
+
+Creamos una tabla por clientes, con un ID que usa INT y que se auto-incrementa
+nombre,
+email un varchar de 100, único, para que no existan conflictos
+
+
+\\\\\\\\\\\\\\
+
+CREATE TABLE categorias (
+	id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+	nombre_categoria VARCHAR(100) NOT NULL
+);
+
+las categorías eran redundante y se repetía todo el rato, mejor creamos un tabla a parte y
+que se referencie, con un INT auto_increment y un varchar de 100
+
+
+\\\\\\\\\\\\\\\
+
+CREATE TABLE productos (
+	id_producto INT AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(150) NOT NULL,
+	precio_unitario DECIMAL(10, 2) NOT NULL,
+	id_categoria INT,
+	FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+);
+
+tabla para cada producto, un id int con auto incrementación,
+nombre un varchar de 150, suficiente para los productos.
+precio unitario: un decimal de lo que cuesta cada uno,
+id_Categoria: hace referencia a la tabla categoría.
+
+
+\\\\\\\\\\\\\\\\
+
+CREATE TABLE reviews (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	id_producto INT,
+	id_cliente INT,
+	comentario TEXT,
+	FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+	FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
+
+Tabla reviews para los comentarios que hacen los clientes. tiene un id autoincremental para
+cada review, un id producto referenciando a la tabla productos para conocer cada producto,
+y un id_cliente para conocer qué cliente hace la review, que evidentemente será un int
+haciendo referencia a la tabla clientes.
+Y por último, comentario, campo texto, para almacenar el comentario del cliente.
+
+
+\\\\\\\\\\\\\\
+
+CREATE TABLE paises (
+    codigo_pais CHAR(2) PRIMARY KEY, -- CHAR(2) es ideal para ISO codes
+    nombre_pais VARCHAR(50)
+);
+
+tabla para los países, ya que estaba siendo redundante en todos los pedidos
+
+
+\\\\\\\\\\\\\\\\\
+
+CREATE TABLE pedidos (
+	id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+	id_cliente INT,
+	fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+	codigo_pais CHAR(2),
+	FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+	FOREIGN KEY (codigo_pais) REFERENCES paises(codigo_pais)
+);
+
+La tabla para los pedidos, con un id que identifica cada pedido, usando int nuevamente y
+autocrimental, id_cliente, FK para conocer el cliente que realiza el pedido.
+fecha: un campo DATE, que optimiza la búsqueda vs el varchar que teníamos antes y que
+era muy ineficiente.
+
+
+
+\\\\\\\\\\\\\\\\
+
+
+CREATE TABLE detalles_Pedido (
+	id_detalle INT AUTO_INCREMENT PRIMARY KEY,
+	id_pedido INT,
+	id_producto INT,
+	cantidad INT NOT NULL,
+	FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+	FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
+
+Creamos una tabla para los detalles de cada pedido, con los productos pedidos y su
+cantidad, y haciendo las correspondientes referencias.
+
+
+
+
+1. Búsqueda de pedidos por cliente
+
+Original: SELECT * FROM pedidos_brutos WHERE cliente_email = 'juan.perez@email.com';
+
+Nueva consulta optimizada:
+
+
+EXPLAIN ANALYZE FORMAT=TREE
+SELECT p.id_pedido, p.fecha, p.codigo_pais
+FROM pedidos p
+JOIN clientes c ON p.id_cliente = c.id_cliente
+WHERE c.email = 'user2774@express.com';
+
+Mejora: Ya no escaneamos un millón de registros de texto; 
+ahora MySQL usa el índice UNIQUE de la tabla clientes para
+ encontrar el ID y luego accede directamente a sus pedidos.
+
+
+
+2. Filtrado por categoría y rango de precios
+
+Original: SELECT producto_nombre, precio_unitario FROM pedidos_brutos 
+WHERE producto_categoria = 'Laptops' AND precio_unitario > 1000 ORDER BY precio_unitario DESC;
+
+
+EXPLAIN ANALYZE FORMAT=TREE
+SELECT pr.nombre, pr.precio_unitario
+FROM productos pr
+JOIN categorias cat ON pr.id_categoria = cat.id_categoria
+WHERE cat.nombre_categoria = 'Tecnología' 
+  AND pr.precio_unitario > 100
+ORDER BY pr.precio_unitario DESC;
+
+Mejora: El filtro de precio ahora se realiza sobre un tipo de dato DECIMAL,
+ que es numéricamente eficiente, en lugar de un VARCHAR.
+
+
+
+3. Búsqueda de palabras clave en la descripción
+Original: SELECT producto_nombre FROM pedidos_brutos WHERE producto_descripcion LIKE '%potente%';
+
+EXPLAIN ANALYZE FORMAT=TREE
+SELECT DISTINCT pr.nombre
+FROM productos pr
+JOIN reviews r ON pr.id_producto = r.id_producto
+WHERE r.comentario LIKE '%Excelente%';
+
+Mejora: Al estar los comentarios en una tabla aparte (reviews), la tabla de
+ productos se mantiene ligera y las búsquedas no bloquean el resto de la base de datos.
+
+
+
+4. Reporte de ventas totales por país
+
+Original: SELECT pais_codigo, SUM(precio_unitario * cantidad) FROM pedidos_brutos GROUP BY pais_codigo;
+
+EXPLAIN ANALYZE FORMAT=TREE
+SELECT p.codigo_pais, SUM(dp.cantidad * pr.precio_unitario) AS ventas_totales
+FROM pedidos p
+JOIN detalles_Pedido dp ON p.id_pedido = dp.id_pedido
+JOIN productos pr ON dp.id_producto = pr.id_producto
+GROUP BY p.codigo_pais;
+
+Mejora: Este era el proceso que bloqueaba el sistema. Ahora, al usar tipos INT y DECIMAL, 
+el cálculo matemático es directo y consume muchísima menos CPU y disco.
+
+
+
+
+
+
+-- CONSULTA 1: Búsqueda por Cliente
+-- El email ya tiene índice por ser UNIQUE, pero indexamos la FK en pedidos
+CREATE INDEX idx_pedidos_cliente ON pedidos(id_cliente);
+
+-- CONSULTA 2: Filtrado por Categoría y Precio
+-- Indexamos el nombre de la categoría para el JOIN y el precio para el filtro/ordenación
+CREATE INDEX idx_categorias_nombre ON categorias(nombre_categoria);
+CREATE INDEX idx_productos_precio ON productos(precio_unitario);
+
+-- CONSULTA 3: Palabras clave (Reviews)
+-- IMPORTANTE: Para optimizar LIKE '%Excelente%' lo ideal es un índice FULLTEXT
+-- Esto permite búsquedas de texto potentes sin bloquear la tabla
+ALTER TABLE reviews ADD FULLTEXT idx_reviews_comentario(comentario);
+
+-- CONSULTA 4: Ventas por País (Reportes)
+-- Indexamos las FKs de las tablas de unión para que el cálculo sea instantáneo
+CREATE INDEX idx_detalles_pedido ON detalles_Pedido(id_pedido);
+CREATE INDEX idx_detalles_producto ON detalles_Pedido(id_producto);

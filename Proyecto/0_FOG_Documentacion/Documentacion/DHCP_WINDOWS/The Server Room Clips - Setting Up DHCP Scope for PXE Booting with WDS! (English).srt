@@ -1,0 +1,450 @@
+1
+00:00:00,400 --> 00:00:04,800
+I gonna go to
+start, I'm going to type in ISE and let's
+
+2
+00:00:04,800 --> 00:00:07,800
+right click and I'm going to run it
+as an administrator.
+
+3
+00:00:07,800 --> 00:00:11,633
+I love PowerShell
+and I will provide the commands for
+
+4
+00:00:11,633 --> 00:00:16,433
+you guys if you need to configure this
+within your environment,
+
+5
+00:00:16,500 --> 00:00:20,066
+bam, hopefully
+you guys are able to hear me and see me.
+
+6
+00:00:20,066 --> 00:00:23,066
+So same command, right?
+
+7
+00:00:23,200 --> 00:00:27,300
+We're using the PowerShell
+commandlet Add DHCP
+
+8
+00:00:27,333 --> 00:00:31,700
+server V4 class v four is IPv4.
+
+9
+00:00:31,800 --> 00:00:35,800
+We're using the parameter of name,
+We're giving it this name
+
+10
+00:00:35,900 --> 00:00:39,566
+as you see on line one, three and five.
+
+11
+00:00:39,566 --> 00:00:41,966
+We're using the same command,
+same parameters.
+
+12
+00:00:41,966 --> 00:00:44,600
+The name is going to change.
+
+13
+00:00:44,600 --> 00:00:47,800
+We're going to use
+another parameter of type.
+
+14
+00:00:47,866 --> 00:00:50,700
+All three of them are going to use vendor.
+
+15
+00:00:50,700 --> 00:00:54,466
+We're going to use another parameter of
+or switch,
+
+16
+00:00:54,533 --> 00:00:59,166
+whichever one you want to call it, switch
+or parameter of data
+
+17
+00:00:59,233 --> 00:01:03,700
+and data open and close quotations
+are going to be this now for 64 bit.
+
+18
+00:01:03,700 --> 00:01:08,833
+It's going to be arch 00007 for 86 bit.
+
+19
+00:01:08,933 --> 00:01:13,266
+The arch number would be 00006
+
+20
+00:01:13,333 --> 00:01:18,566
+and then for bios 86 bit or 32 bit 64
+
+21
+00:01:18,633 --> 00:01:22,700
+it will be off 00000 5 times.
+
+22
+00:01:22,800 --> 00:01:27,066
+I'm going to highlight all three of them
+and I'm just going to run it and
+
+23
+00:01:27,133 --> 00:01:28,800
+you're done, right.
+
+24
+00:01:28,800 --> 00:01:31,166
+So let's go over
+what we're going to be doing right now.
+
+25
+00:01:31,166 --> 00:01:34,166
+So right now
+we're going to be creating the policies
+
+26
+00:01:34,366 --> 00:01:36,100
+for our DHCP server.
+
+27
+00:01:36,100 --> 00:01:38,366
+So we're going to be using all three
+
+28
+00:01:38,366 --> 00:01:41,666
+commands, one, three
+and five is basically the same thing.
+
+29
+00:01:41,700 --> 00:01:45,666
+The only thing that's going to change
+is the name
+
+30
+00:01:45,733 --> 00:01:48,733
+and the condition.
+
+31
+00:01:48,733 --> 00:01:52,300
+So for the first command
+we're going to use the command of ADD
+
+32
+00:01:52,300 --> 00:01:57,000
+DHCP server V4 policy
+with a switch of name.
+
+33
+00:01:57,233 --> 00:01:59,466
+We're going to give it this name.
+
+34
+00:01:59,466 --> 00:02:01,666
+The same thing with ah three and five.
+
+35
+00:02:01,666 --> 00:02:03,400
+These are the names for the scope.
+
+36
+00:02:03,400 --> 00:02:05,233
+I'm hitting the same scope.
+
+37
+00:02:05,233 --> 00:02:10,633
+132.0 The condition is going to be a
+OR for all three.
+
+38
+00:02:10,733 --> 00:02:13,733
+The vendor class is going to equal again.
+
+39
+00:02:13,800 --> 00:02:15,300
+It's going to change up a little bit.
+
+40
+00:02:15,300 --> 00:02:18,533
+It's going to be PXE client UEFI
+
+41
+00:02:18,733 --> 00:02:22,900
+64 with the asterisk at the end,
+
+42
+00:02:22,966 --> 00:02:26,733
+the second one is going to be 86
+and the last one is going to be BIOS
+
+43
+00:02:26,766 --> 00:02:30,766
+x86 and x 64 control A
+
+44
+00:02:30,866 --> 00:02:36,100
+and then let's run it done.
+
+45
+00:02:36,200 --> 00:02:39,100
+Okay, so these are the commands.
+
+46
+00:02:39,200 --> 00:02:41,666
+Let's go over them before we run it.
+
+47
+00:02:41,666 --> 00:02:44,000
+And for all
+three of them, one, three and five,
+
+48
+00:02:44,000 --> 00:02:49,000
+we're going to use the command of set DHCP
+server
+
+49
+00:02:49,066 --> 00:02:52,333
+V4 option value for all three of them.
+
+50
+00:02:52,333 --> 00:02:54,500
+We're going to be using
+the switch of scope ID.
+
+51
+00:02:54,500 --> 00:02:57,500
+The scope ID is basically your scope.
+
+52
+00:02:57,500 --> 00:03:00,166
+One 32.0 is what I'm going to do.
+
+53
+00:03:00,166 --> 00:03:03,133
+The policy name,
+whatever name you provide it,
+
+54
+00:03:03,133 --> 00:03:06,300
+make sure you change it
+if you just want to be super lazy.
+
+55
+00:03:06,466 --> 00:03:08,866
+PowerShell script that I give you.
+
+56
+00:03:08,866 --> 00:03:10,900
+Hey, you could just use what I've used.
+
+57
+00:03:10,900 --> 00:03:14,833
+Just make sure you changed the scope ID,
+make life easy for you, but
+
+58
+00:03:14,833 --> 00:03:20,566
+we're going to be using a switch of option
+ID and it's going to be zero 66.
+
+59
+00:03:20,566 --> 00:03:23,066
+You have Don't be slick and do 66.
+
+60
+00:03:23,066 --> 00:03:27,200
+Make sure you say 066
+
+61
+00:03:27,300 --> 00:03:31,133
+switch of value and the IP address, done.
+
+62
+00:03:31,133 --> 00:03:35,400
+That’s it, right so let's zoom out of here
+
+63
+00:03:35,466 --> 00:03:38,300
+we're going to do a control
+A to select all of them.
+
+64
+00:03:38,300 --> 00:03:41,566
+We're going to run and done
+
+65
+00:03:41,666 --> 00:03:45,966
+so for this one again,
+we are going to use the same command
+
+66
+00:03:46,033 --> 00:03:49,200
+that we use for setting up option 66
+
+67
+00:03:49,200 --> 00:03:51,900
+and you are able to do options
+60 the same way.
+
+68
+00:03:51,900 --> 00:03:57,533
+And I'm going to show you how to do option
+60 if you guys need to do that.
+
+69
+00:03:57,600 --> 00:04:02,500
+So we're going to use the same command
+which is set DHCP server,
+
+70
+00:04:02,566 --> 00:04:05,800
+V4 option value.
+
+71
+00:04:05,866 --> 00:04:09,100
+All three of them are going to be using
+the same switch.
+
+72
+00:04:09,166 --> 00:04:10,766
+You're able to change your scope.
+
+73
+00:04:10,766 --> 00:04:14,033
+For me, I'm using one 32.0
+
+74
+00:04:14,100 --> 00:04:17,100
+same command,
+I mean same switch policy name.
+
+75
+00:04:17,200 --> 00:04:20,733
+Got to make sure whatever policy name
+you provide it in your end
+
+76
+00:04:20,733 --> 00:04:23,900
+because you probably don't
+want to use what I'm using,
+
+77
+00:04:24,000 --> 00:04:27,000
+but I think this is pretty standard.
+
+78
+00:04:27,066 --> 00:04:30,900
+Make sure you type it here
+within the open and close quotations.
+
+79
+00:04:30,900 --> 00:04:33,266
+We're using the option ID switch.
+
+80
+00:04:33,266 --> 00:04:38,600
+Make sure you put zero
+67, don't put 67 zero 67.
+
+81
+00:04:38,700 --> 00:04:41,700
+We're going to use a switch of value
+for all three of them.
+
+82
+00:04:41,866 --> 00:04:45,800
+And then this is where it's
+going to change for all three of them.
+
+83
+00:04:45,900 --> 00:04:48,800
+Highlight everything. I like to like
+
+84
+00:04:48,800 --> 00:04:52,833
+type everything up and make sure
+everything is written properly.
+
+85
+00:04:52,900 --> 00:04:58,266
+And let's run this done.
+
+86
+00:04:58,333 --> 00:05:01,866
+Zoom in real quick
+boom, option ID is going to change.
+
+87
+00:05:01,933 --> 00:05:04,933
+It's going to change to 60, right?
+
+88
+00:05:05,033 --> 00:05:08,100
+And this is not going to work for me
+because I don't have option
+
+89
+00:05:08,100 --> 00:05:12,500
+60 to set up, but
+this is how you will configure it, boom.
+
+90
+00:05:12,600 --> 00:05:15,766
+So you did option ID for the switch 060.
+
+91
+00:05:15,900 --> 00:05:21,200
+Make sure you keep that zero, Don't
+get slick and put 60 Now for the value.
+
+92
+00:05:21,300 --> 00:05:22,133
+The value.
+
+93
+00:05:22,133 --> 00:05:24,833
+let’s erase this.
+
+94
+00:05:24,833 --> 00:05:26,100
+The value. Oops.
+
+95
+00:05:26,100 --> 00:05:28,533
+The value is going to be PXE all caps.
+
+96
+00:05:28,533 --> 00:05:32,233
+What a capital C client done.
+
+97
+00:05:32,333 --> 00:05:33,466
+Let's copy this.
+
+98
+00:05:33,466 --> 00:05:38,600
+Let’s highlight this
+
+99
+00:05:38,700 --> 00:05:42,500
+delete paste
+
+100
+00:05:42,600 --> 00:05:46,366
+and delete paste.
+
+101
+00:05:46,433 --> 00:05:47,200
+That’s it, done.
+
